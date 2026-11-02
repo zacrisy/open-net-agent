@@ -5,6 +5,7 @@ from collections import defaultdict
 from aiohttp import web, WSMsgType
 import db, db_async
 from skills import SKILLS, SKILL_META
+from starter_corpus import DOCS as STARTER_DOCS
 
 JOIN_HTML = """<!doctype html><html lang=zh><meta charset=utf-8>
 <title>加入 OpenNetAgent</title>
@@ -120,6 +121,10 @@ async def metrics(req):
                               "ok": ok, "fail": fail, "avg_conf": score / max(1, ok)})
 
 
+async def starter(req):
+    return web.json_response(STARTER_DOCS)
+
+
 async def health(req):
     return web.json_response({"ok": True, "nodes": sum(1 for n in NODES.values() if active(n)), "tasks": len(TASKS)})
 
@@ -136,7 +141,7 @@ async def join_page(req):
 
 async def static_file(req):
     name = req.match_info["name"]
-    allow = {"install.sh", "node.py", "corpus.py", "skills.py"}
+    allow = {"install.sh", "node.py", "corpus.py", "skills.py", "provision.py"}
     if name not in allow:
         return web.Response(status=404)
     import os
@@ -167,9 +172,10 @@ def app():
     a.router.add_get("/audit", audit)
     a.router.add_get("/metrics", metrics)
     a.router.add_get("/health", health)
+    a.router.add_get("/starter_corpus.json", starter)
     a.router.add_get("/", index)
     a.router.add_get("/join", join_page)
-    a.router.add_get("/{name:install\.sh|node\.py|corpus\.py|skills\.py}", static_file)
+    a.router.add_get("/{name:install\.sh|node\.py|corpus\.py|skills\.py|provision\.py}", static_file)
     return a
 
 

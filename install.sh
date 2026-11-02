@@ -52,7 +52,7 @@ if [[ "$LOCAL" == "1" ]]; then
   cp "$(cd "$(dirname "$0")" && pwd)/skills.py" "$DIR/skills.py"
 else
   BASE="${COORD%/}"
-  for f in node.py corpus.py skills.py; do
+  for f in node.py corpus.py skills.py provision.py; do
     curl -fsSL "$BASE/$f" -o "$DIR/$f" || curl -fsSL "$REPO_RAW/$f" -o "$DIR/$f"
   done
 fi
@@ -65,10 +65,12 @@ EOF
 cat > "$DIR/run.sh" <<EOF
 #!/usr/bin/env bash
 cd "$DIR"
-exec nice -n 19 python3 "$DIR/node.py" --coordinator "$COORD" --node-id "$NODE_ID" --index $INDEX --total $TOTAL --token "$TOKEN" --skill "$SKILL" --pause-file "$DIR/pause"
+exec nice -n 19 python3 "$DIR/node.py" --coordinator "$COORD" --node-id "$NODE_ID" --index $INDEX --total $TOTAL --token "$TOKEN" --skill "$SKILL" --docs-dir "$DIR/data" --pause-file "$DIR/pause"
 EOF
 chmod +x "$DIR/run.sh"
 
+python3 "$DIR/provision.py" --coordinator "$COORD" --dir "$DIR" --profile auto > "$DIR/provision.log" 2>&1 || true
+cat "$DIR/provision.log"
 echo "installed to $DIR (node $NODE_ID)"
 
 if [[ "$NO_SERVICE" == "1" ]]; then

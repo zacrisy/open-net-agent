@@ -24,15 +24,15 @@ ul{color:var(--muted)}li{margin:4px 0}
   <p class="lead">把每台电脑变成一个节点，用 WebSocket 组成一个可加入、可退出、低打扰、可验证的网络智能体。</p>
 
   <div class="row">
-    <a class="btn" href="https://d63290df5a6b6f.lhr.life/">在线体验</a>
+    <a class="btn" href="https://7f0d2ca7bbc474.lhr.life/">在线体验</a>
     <a class="btn ghost" href="https://github.com/zacrisy/open-net-agent">GitHub</a>
     <a class="btn ghost" href="https://github.com/zacrisy/open-net-agent/issues">参与贡献</a>
   </div>
 
   <div class="card">
     <h3>一键加入</h3>
-    <pre>curl -fsSL https://d63290df5a6b6f.lhr.life/install.sh | bash -s -- \
-  --coordinator https://d63290df5a6b6f.lhr.life --token &lt;YOUR_TOKEN&gt;</pre>
+    <pre>curl -fsSL https://7f0d2ca7bbc474.lhr.life/install.sh | bash -s -- \
+  --coordinator https://7f0d2ca7bbc474.lhr.life --token &lt;YOUR_TOKEN&gt;</pre>
     <p>出站连接、<code>nice 19</code>、可 <code>--pause</code> / <code>--resume</code> / <code>--uninstall</code>，不开放入站端口。</p>
   </div>
 
@@ -43,6 +43,16 @@ ul{color:var(--muted)}li{margin:4px 0}
       <li>节点：WebSocket 长连接，本地执行 echo / retrieval / NLI</li>
       <li>不是“巨大的神经网络”，而是“图上的专家网络”</li>
       <li>50 节点本机试点：100 查询 100%，p50 0.023s</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>自动配置</h3>
+    <ul>
+      <li>检测内存/磁盘，默认 <code>lite</code>：不需要本地模型，只开 retrieval/echo</li>
+      <li>自动拉取 15 条 starter 记忆到 <code>~/.netagent/data</code></li>
+      <li>有 transformers/torch 且内存足够时自动加 <code>nli</code></li>
+      <li>可选 <code>--data-dir</code> 接入自己的文档</li>
     </ul>
   </div>
 

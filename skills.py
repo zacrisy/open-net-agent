@@ -11,11 +11,20 @@ def _tokens(s):
     return set(words + zh + bigrams)
 
 def retrieval(query, ctx):
+    import math
     docs = ctx.get("docs", [])
     q = _tokens(query)
+    if not docs or not q:
+        return {"answer": None, "score": 0.0, "evidence": []}
+    dtoks = [_tokens(d) for d in docs]
+    df = {t: sum(1 for dt in dtoks if t in dt) for t in q}
+    idf = {t: math.log((len(docs) + 1) / (df[t] + 1)) + 1 for t in q}
+    denom = sum(idf.values()) + 1e-9
     best, bs = None, 0.0
-    for d in docs:
-        s = len(q & _tokens(d)) / (len(q) + 1e-9)
+    for d, dt in zip(docs, dtoks):
+        s = sum(idf[t] for t in q if t in dt) / denom
+        if query.strip() and query.strip() in d:
+            s += 0.2
         if s > bs: best, bs = d, s
     return {"answer": best, "score": bs, "evidence": [best] if best else []}
 

@@ -5,8 +5,16 @@ import aiohttp
 from skills import SKILLS
 from corpus import shard
 
-async def run(url, nid, token, skill, index, total, latency_ms=0, drop=0, insecure=False):
-    docs = shard(index, total)
+def load_docs(docs_dir, index, total):
+    if docs_dir:
+        p = os.path.join(docs_dir, "docs.json")
+        if os.path.isfile(p):
+            try: return json.load(open(p, encoding="utf-8"))
+            except Exception: pass
+    return shard(index, total)
+
+async def run(url, nid, token, skill, index, total, latency_ms=0, drop=0, insecure=False, docs_dir=None):
+    docs = load_docs(docs_dir, index, total)
     while True:
         try:
             async with aiohttp.ClientSession() as s:
@@ -31,5 +39,6 @@ if __name__ == "__main__":
     ap.add_argument("--index", type=int, default=0); ap.add_argument("--total", type=int, default=1)
     ap.add_argument("--latency-ms", type=float, default=0); ap.add_argument("--drop", type=float, default=0)
     ap.add_argument("--insecure", action="store_true")
+    ap.add_argument("--docs-dir", default=None)
     a = ap.parse_args()
-    asyncio.run(run(a.url, a.node_id, a.token, a.skill, a.index, a.total, a.latency_ms, a.drop, a.insecure))
+    asyncio.run(run(a.url, a.node_id, a.token, a.skill, a.index, a.total, a.latency_ms, a.drop, a.insecure, a.docs_dir))

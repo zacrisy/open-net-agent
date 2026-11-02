@@ -3,6 +3,14 @@
 import argparse, json, os, random, time
 import urllib.request
 from corpus import shard
+
+def load_docs(docs_dir, index, total):
+    if docs_dir:
+        p = os.path.join(docs_dir, "docs.json")
+        if os.path.isfile(p):
+            try: return json.load(open(p, encoding="utf-8"))
+            except Exception: pass
+    return shard(index, total)
 from skills import SKILLS
 
 
@@ -13,9 +21,9 @@ def _req(url, obj=None, token="", timeout=5):
 
 
 class Node:
-    def __init__(self, coord, node_id, index, total, token="", skill="retrieval", pause_file=None, poll=0.8, max_tasks=None, init_ok=0, init_fail=0, latency_ms=0.0, drop_rate=0.0):
+    def __init__(self, coord, node_id, index, total, token="", skill="retrieval", pause_file=None, poll=0.8, max_tasks=None, init_ok=0, init_fail=0, latency_ms=0.0, drop_rate=0.0, docs_dir=None):
         self.coord = coord.rstrip("/"); self.node_id = node_id; self.token = token
-        self.skill = skill; self.docs = shard(index, total); self.pause_file = pause_file
+        self.skill = skill; self.docs = load_docs(docs_dir, index, total); self.pause_file = pause_file
         self.poll = poll; self.max_tasks = max_tasks; self.running = True; self.done = 0
         self.init_ok = init_ok; self.init_fail = init_fail
         self.latency = max(0.0, latency_ms) / 1000.0; self.drop = max(0.0, min(1.0, drop_rate))
@@ -77,6 +85,7 @@ if __name__ == "__main__":
     ap.add_argument("--fail", type=int, default=0)
     ap.add_argument("--latency-ms", type=float, default=0)
     ap.add_argument("--drop-rate", type=float, default=0)
+    ap.add_argument("--docs-dir", default=None)
     a = ap.parse_args()
     Node(a.coordinator, a.node_id or f"node-{os.getpid()}", a.index, a.total,
-         a.token, a.skill, a.pause_file, a.poll, a.max_tasks, a.ok, a.fail, a.latency_ms, a.drop_rate).run()
+         a.token, a.skill, a.pause_file, a.poll, a.max_tasks, a.ok, a.fail, a.latency_ms, a.drop_rate, a.docs_dir).run()
