@@ -3,6 +3,7 @@
 > 把互联网上的电脑组织成一个**可加入、可退出、低打扰、可验证**的网络智能体。
 > 不是“把一台电脑变大”，而是“让很多台电脑像专家网络一样互相路由、聚合、验证”。
 
+[![CI](https://github.com/zacrisy/open-net-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/zacrisy/open-net-agent/actions)
 [![Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://zacrisy.github.io/open-net-agent/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
