@@ -31,7 +31,7 @@ It's a prototype, not AGI: a graph of experts, not a giant neural net. Looking f
 people to run nodes, add skills, and harden it.
 
 Demo: <https://76ee4c4f2339b6.lhr.life/> (temporary tunnel)
-Repo: <https://github.com/your-org/netagent>
+Repo: <https://github.com/zacrisy/open-net-agent>
 
 ---
 
@@ -84,7 +84,7 @@ Skills: echo / retrieval / NLI. 50-node local pilot: 100 queries 100%, p50 0.023
 4/ It's a prototype: a graph of experts, not a giant neural net. Next: WSS, Postgres,
 plugin sandbox, real LAN/WAN pilot.
 
-5/ Want to run a node or add a skill? Repo: <https://github.com/your-org/netagent>
+5/ Want to run a node or add a skill? Repo: <https://github.com/zacrisy/open-net-agent>
 Demo: <https://76ee4c4f2339b6.lhr.life/>
 
 ---
@@ -108,14 +108,14 @@ Demo: <https://76ee4c4f2339b6.lhr.life/>
 隧道是临时的，插件还没沙箱。欢迎来跑节点、写技能、做 LAN/WAN 测试。
 
 Demo：<https://76ee4c4f2339b6.lhr.life/>
-Repo：<https://github.com/your-org/netagent>
+Repo：<https://github.com/zacrisy/open-net-agent>
 
 ---
 
 ## 发布 checklist
 
 - [ ] GitHub 仓库公开（`gh repo create` 或网页导入）
-- [ ] 替换 README/promo 里的 `your-org` 和 demo URL
+- [ ] 替换 README/promo 里的 `zacrisy` 和 demo URL
 - [ ] 打 tag `v0.5.0`，发 Release
 - [ ] 开 3 个 issue：`good first issue`（Go 客户端、Prometheus、插件沙箱）
 - [ ] HN / Reddit / X / 知乎 / V2EX 发帖
