@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.1
+
+- auto provisioning: lite/auto/full by RAM, starter memory pack, `--data-dir`
+- retrieval IDF weighting + phrase bonus
+- CI workflow + badge; GitHub Pages; Discussions
+- public demo tunnel
+
 ## 0.6.0
 
 - WSS end-to-end (`test_wss.py`)
