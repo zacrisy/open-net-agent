@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.0
+
+- WSS end-to-end (`test_wss.py`)
+- plugin sandbox: subprocess + 2s timeout + 256MB limit (`test_sandbox.py`)
+- node TTL cleanup; GitHub Pages; join page; public tunnel
+- v0.5.0 release + issues #1–#4
+
+
 ## 0.5.0
 
 - WebSocket async coordinator (`coordinator_async.py`) + WS node (`node_async.py`)

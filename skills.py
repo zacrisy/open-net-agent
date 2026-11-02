@@ -61,7 +61,13 @@ def load_plugins(base=None):
         mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
         fn = getattr(mod, m.get("func", "handle"), None)
         if fn:
-            SKILLS[m["name"]] = fn
+            if os.environ.get("SANDBOX") == "1":
+                from sandbox import run_in_sandbox
+                def wrapped(q, ctx, _hp=hp, _fn=m.get("func", "handle")):
+                    return run_in_sandbox(_hp, _fn, q, ctx)
+                SKILLS[m["name"]] = wrapped
+            else:
+                SKILLS[m["name"]] = fn
             SKILL_META[m["name"]] = {"version": m.get("version", "?"), "sha256": h[:12]}
     return SKILLS
 
