@@ -17,10 +17,11 @@ async def run(url, nid, token, skill, index, total, latency_ms=0, drop=0):
                         if d.get("type") != "task": continue
                         if drop and random.random() < drop: continue
                         if latency_ms: await asyncio.sleep(latency_ms / 1000)
-                        out = SKILLS[skill](d["query"], {"docs": docs})
+                        out = await asyncio.to_thread(SKILLS[skill], d["query"], {"docs": docs})
                         await ws.send_json({"type": "result", "task_id": d["task_id"], "node_id": nid,
                                             "answer": out.get("answer"), "score": out.get("score", 0)})
-        except Exception:
+        except Exception as e:
+            print(f"node {nid} error: {e}", flush=True)
             await asyncio.sleep(1)
 
 if __name__ == "__main__":

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OpenNetAgent · 网络智能体</title>
+<style>
+:root{--bg:#0e1116;--card:#171c24;--line:#2a3240;--txt:#e6edf3;--muted:#8b98a9;--accent:#4c8dff;--ok:#2ea56b;--warn:#d9a441}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:22px 28px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+h1{font-size:18px;margin:0}h1 span{color:var(--accent)}
+.badge{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:2px 8px;border-radius:20px}
+main{max-width:1080px;margin:0 auto;padding:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:16px}
+label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}
+input,textarea,select{width:100%;background:#0b0f14;color:var(--txt);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit}
+textarea{min-height:72px;resize:vertical}
+.row{display:flex;gap:12px;flex-wrap:wrap}.row>div{flex:1;min-width:180px}
+button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px 16px;font:inherit;cursor:pointer}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+button:disabled{opacity:.5;cursor:default}
+pre{background:#0b0f14;border:1px solid var(--line);border-radius:8px;padding:14px;white-space:pre-wrap;word-break:break-word;min-height:60px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat{background:#0b0f14;border:1px solid var(--line);border-radius:10px;padding:12px}
+.stat b{display:block;font-size:20px}.stat span{color:var(--muted);font-size:12px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);font-size:13px}
+th{color:var(--muted);font-weight:500}.ok{color:var(--ok)}.warn{color:var(--warn)}
+</style>
+</head>
+<body>
+<header><h1>Open<span>Net</span>Agent</h1><span class="badge">网络智能体 · WebSocket</span><span class="badge" id="clock"></span></header>
+<main>
+  <div class="card">
+    <div class="row">
+      <div><label>访问 token</label><input id="token" value="secret"></div>
+      <div><label>技能</label><select id="skill"><option>retrieval</option><option>echo</option><option>nli</option></select></div>
+    </div>
+    <label style="margin-top:10px">问题（nli 技能用 "premise || hypothesis"）</label>
+    <textarea id="q">多台电脑如何组成一个智能体？</textarea>
+    <div style="margin-top:12px;display:flex;gap:10px">
+      <button id="ask">提问</button>
+      <button id="refresh" class="ghost">刷新状态</button>
+      <button id="audit" class="ghost">最近审计</button>
+    </div>
+    <pre id="out">准备就绪。</pre>
+  </div>
+
+  <div class="card">
+    <div class="grid" id="stats"></div>
+  </div>
+
+  <div class="card">
+    <table><thead><tr><th>节点</th><th>技能</th><th>ok</th><th>fail</th><th>θ</th><th>pulls</th></tr></thead><tbody id="nodes"></tbody></table>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const token = () => $('token').value.trim();
+async function api(path, opts={}){
+  opts.headers = Object.assign({'Content-Type':'application/json','X-Auth-Token':token()}, opts.headers||{});
+  const r = await fetch(path, opts);
+  const t = await r.text();
+  try { return JSON.parse(t); } catch(e){ return {raw:t, status:r.status}; }
+}
+async function refresh(){
+  try{
+    const s = await api('/status');
+    const nodes = s.nodes || {};
+    $('nodes').innerHTML = Object.keys(nodes).map(k=>{
+      const n=nodes[k];
+      return `<tr><td>${k}</td><td>${(n.skills||[]).join(',')}</td><td class="ok">${n.ok}</td><td class="warn">${n.fail}</td><td>${n.theta ?? '-'}</td><td>${n.pulls ?? '-'}</td></tr>`;
+    }).join('') || '<tr><td colspan="6">暂无节点</td></tr>';
+    const m = await api('/metrics');
+    $('stats').innerHTML = `
+      <div class="stat"><b>${m.nodes ?? 0}</b><span>在线节点</span></div>
+      <div class="stat"><b>${m.tasks ?? 0}</b><span>任务总数</span></div>
+      <div class="stat"><b>${m.ok ?? 0}</b><span>成功结果</span></div>
+      <div class="stat"><b>${(m.avg_conf ?? 0).toFixed(3)}</b><span>平均置信度</span></div>`;
+  }catch(e){ $('out').textContent = '状态获取失败：'+e; }
+}
+async function ask(){
+  $('ask').disabled = true; $('out').textContent = '推理中…';
+  try{
+    const body = {query:$('q').value, skill:$('skill').value, timeout:10, quorum:1};
+    const r = await api('/query',{method:'POST',body:JSON.stringify(body)});
+    $('out').textContent = JSON.stringify(r,null,2);
+    refresh();
+  }catch(e){ $('out').textContent = '请求失败：'+e; }
+  $('ask').disabled = false;
+}
+async function audit(){
+  const r = await api('/audit');
+  $('out').textContent = JSON.stringify(r,null,2);
+}
+$('ask').onclick = ask; $('refresh').onclick = refresh; $('audit').onclick = audit;
+setInterval(()=>$('clock').textContent = new Date().toLocaleTimeString(), 1000);
+refresh(); setInterval(refresh, 3000);
+</script>
+</body></html>

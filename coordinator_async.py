@@ -90,6 +90,23 @@ async def audit(req):
     db_async.flush(); return web.json_response(db.audit(req.query.get("task_id")))
 
 
+async def metrics(req):
+    ok = sum(n["ok"] for n in NODES.values()); fail = sum(n["fail"] for n in NODES.values())
+    score = sum(max(0.0, n["score_sum"]) for n in NODES.values())
+    return web.json_response({"nodes": len(NODES), "tasks": len(TASKS), "ok": ok, "fail": fail,
+                              "avg_conf": score / max(1, ok)})
+
+
+async def health(req):
+    return web.json_response({"ok": True, "nodes": len(NODES), "tasks": len(TASKS)})
+
+
+async def index(req):
+    import os
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dashboard.html")
+    return web.Response(text=open(p, encoding="utf-8").read(), content_type="text/html")
+
+
 def app():
     a = web.Application()
     a.router.add_post("/register", register)
@@ -98,6 +115,9 @@ def app():
     a.router.add_get("/status", status)
     a.router.add_get("/skills", skills)
     a.router.add_get("/audit", audit)
+    a.router.add_get("/metrics", metrics)
+    a.router.add_get("/health", health)
+    a.router.add_get("/", index)
     return a
 
 
