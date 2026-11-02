@@ -22,4 +22,21 @@ def retrieval(query, ctx):
 def echo(query, ctx):
     return {"answer": query, "score": 1.0, "evidence": []}
 
-SKILLS = {"retrieval": retrieval, "echo": echo}
+_NLI = None
+
+def nli(query, ctx):
+    """query 形如 'premise || hypothesis'；没有 || 时用 docs[0] 作 premise。"""
+    global _NLI
+    if _NLI is None:
+        from transformers import pipeline
+        _NLI = pipeline("text-classification", model="typeform/distilbert-base-uncased-mnli", device=-1)
+    if "||" in query:
+        prem, hyp = query.split("||", 1)
+    else:
+        prem = (ctx.get("docs") or [""])[0]; hyp = query
+    r = _NLI({"text": prem.strip()[:800], "text_pair": hyp.strip()[:300]})
+    lab = r["label"].upper(); sc = float(r["score"])
+    score = sc if lab == "ENTAILMENT" else (-sc if lab == "CONTRADICTION" else 0.0)
+    return {"answer": lab, "score": score, "evidence": [prem.strip()[:200]]}
+
+SKILLS = {"retrieval": retrieval, "echo": echo, "nli": nli}

@@ -218,3 +218,54 @@ normal results: 2
 after one node down, results: 1
 ALL TESTS PASSED
 ```
+
+---
+
+## 14. v3 更新（TLS / token 轮换 / 信誉路由 / NLI 技能 / 负载）
+
+### 14.1 可选 TLS
+
+```bash
+python3 coordinator.py 8773 "token1,token2" cert.pem key.pem
+```
+
+- 带证书：HTTPS；不带：HTTP（建议反代）。
+- 测试：`curl -k -H "X-Auth-Token: token1" https://127.0.0.1:8773/status`。
+
+### 14.2 token 轮换
+
+`--token` 支持逗号分隔多个 token，旧 token 可短期共存后下线。
+
+### 14.3 信誉路由
+
+- `/status` 返回每节点 `ok/fail/rep`；
+- 协调者按 `rep` 选 `preferred` 节点，preferred 有 0.4s 宽限先拿任务；
+- 测试：`python3 test_reputation.py`（A 信誉 20、B 信誉 0 → A 先拿）。
+
+### 14.4 NLI 技能
+
+`skills.py` 新增 `nli`：
+
+```python
+nli("Metformin reduces glucose. || Metformin does not reduce glucose.", {})
+# {'answer': 'CONTRADICTION', 'score': -0.999}
+```
+
+节点 `--skill nli` 即可声明；协调者按技能路由。
+
+### 14.5 20 节点负载
+
+```bash
+python3 load_test.py
+# nodes 20 queries 50 success 1.0
+# p50 0.418 p95 0.503 avg 0.429
+```
+
+### 14.6 Docker + Caddy
+
+```bash
+TOKEN=secret docker compose up -d
+```
+
+- coordinator 内部 8765；
+- Caddy 自动 HTTPS（域名改 `deploy/Caddyfile`）。

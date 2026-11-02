@@ -13,10 +13,11 @@ def _req(url, obj=None, token="", timeout=5):
 
 
 class Node:
-    def __init__(self, coord, node_id, index, total, token="", skill="retrieval", pause_file=None, poll=0.8, max_tasks=None):
+    def __init__(self, coord, node_id, index, total, token="", skill="retrieval", pause_file=None, poll=0.8, max_tasks=None, init_ok=0, init_fail=0):
         self.coord = coord.rstrip("/"); self.node_id = node_id; self.token = token
         self.skill = skill; self.docs = shard(index, total); self.pause_file = pause_file
         self.poll = poll; self.max_tasks = max_tasks; self.running = True; self.done = 0
+        self.init_ok = init_ok; self.init_fail = init_fail
 
     def run(self):
         try: os.nice(10)
@@ -24,6 +25,7 @@ class Node:
         for _ in range(3):
             try:
                 _req(self.coord + "/register", {"node_id": self.node_id, "skills": [self.skill],
+                                                "ok": self.init_ok, "fail": self.init_fail,
                                                 "capacity": {"docs": len(self.docs)}}, self.token)
                 break
             except urllib.error.HTTPError as e:
@@ -67,6 +69,8 @@ if __name__ == "__main__":
     ap.add_argument("--pause-file", default=None)
     ap.add_argument("--poll", type=float, default=0.8)
     ap.add_argument("--max-tasks", type=int, default=None)
+    ap.add_argument("--ok", type=int, default=0)
+    ap.add_argument("--fail", type=int, default=0)
     a = ap.parse_args()
     Node(a.coordinator, a.node_id or f"node-{os.getpid()}", a.index, a.total,
-         a.token, a.skill, a.pause_file, a.poll, a.max_tasks).run()
+         a.token, a.skill, a.pause_file, a.poll, a.max_tasks, a.ok, a.fail).run()

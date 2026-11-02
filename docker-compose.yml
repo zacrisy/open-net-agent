@@ -1,0 +1,25 @@
+services:
+  coordinator:
+    build:
+      context: .
+      dockerfile: deploy/Dockerfile
+    environment:
+      - TOKEN=${TOKEN:-change-me}
+    expose:
+      - "8765"
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    depends_on:
+      - coordinator
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+    restart: unless-stopped
+
+volumes:
+  caddy_data:

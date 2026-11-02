@@ -1,0 +1,4 @@
+coord.example.com {
+    reverse_proxy coordinator:8765
+    encode gzip
+}
