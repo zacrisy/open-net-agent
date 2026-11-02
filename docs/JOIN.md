@@ -1,8 +1,8 @@
 # Join a node
 
 ```bash
-curl -fsSL https://7f0d2ca7bbc474.lhr.life/install.sh | bash -s -- \
-  --coordinator https://7f0d2ca7bbc474.lhr.life --token <YOUR_TOKEN>
+curl -fsSL https://32459916fb7690.lhr.life/install.sh | bash -s -- \
+  --coordinator https://32459916fb7690.lhr.life --token <YOUR_TOKEN>
 ```
 
 ## What it does

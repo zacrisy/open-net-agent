@@ -28,11 +28,11 @@ th{color:var(--muted);font-weight:500}.ok{color:var(--ok)}.warn{color:var(--warn
 </style>
 </head>
 <body>
-<header><h1>Open<span>Net</span>Agent</h1><span class="badge">网络智能体 · WebSocket</span><span class="badge" id="clock"></span><a class="badge" href="/join" style="color:#4c8dff;text-decoration:none">加入节点</a></header>
+<header><h1>Open<span>Net</span>Agent</h1><span class="badge">网络智能体 · WebSocket</span><span class="badge" id="mode">公共演示</span><span class="badge" id="clock"></span><a class="badge" href="/join" style="color:#4c8dff;text-decoration:none">加入节点</a></header>
 <main>
   <div class="card">
     <div class="row">
-      <div><label>访问 token</label><input id="token" value="secret"></div>
+      <div><label>管理员 token（可选）</label><input id="token" placeholder="留空 = 公共演示（retrieval/echo）"></div>
       <div><label>技能</label><select id="skill"><option>retrieval</option><option>echo</option><option>nli</option></select></div>
     </div>
     <label style="margin-top:10px">问题（nli 技能用 "premise || hypothesis"）</label>
@@ -57,10 +57,15 @@ th{color:var(--muted);font-weight:500}.ok{color:var(--ok)}.warn{color:var(--warn
 const $ = id => document.getElementById(id);
 const token = () => $('token').value.trim();
 async function api(path, opts={}){
-  opts.headers = Object.assign({'Content-Type':'application/json','X-Auth-Token':token()}, opts.headers||{});
+  const t = token();
+  if(!t && path === '/status') path = '/public/status';
+  if(!t && path === '/query') path = '/public/query';
+  const h = {'Content-Type':'application/json'};
+  if(t) h['X-Auth-Token'] = t;
+  opts.headers = Object.assign(h, opts.headers||{});
   const r = await fetch(path, opts);
-  const t = await r.text();
-  try { return JSON.parse(t); } catch(e){ return {raw:t, status:r.status}; }
+  const txt = await r.text();
+  try { return JSON.parse(txt); } catch(e){ return {raw:txt, status:r.status}; }
 }
 async function refresh(){
   try{
@@ -70,12 +75,12 @@ async function refresh(){
       const n=nodes[k];
       return `<tr><td>${k}</td><td>${(n.skills||[]).join(',')}</td><td class="ok">${n.ok}</td><td class="warn">${n.fail}</td><td>${n.theta ?? '-'}</td><td>${n.pulls ?? '-'}</td></tr>`;
     }).join('') || '<tr><td colspan="6">暂无节点</td></tr>';
-    const m = await api('/metrics');
     $('stats').innerHTML = `
-      <div class="stat"><b>${m.nodes ?? 0}</b><span>在线节点</span></div>
-      <div class="stat"><b>${m.tasks ?? 0}</b><span>任务总数</span></div>
-      <div class="stat"><b>${m.ok ?? 0}</b><span>成功结果</span></div>
-      <div class="stat"><b>${(m.avg_conf ?? 0).toFixed(3)}</b><span>平均置信度</span></div>`;
+      <div class="stat"><b>${Object.keys(nodes).length}</b><span>在线节点</span></div>
+      <div class="stat"><b>${s.tasks ?? 0}</b><span>任务总数</span></div>
+      <div class="stat"><b>${s.ok ?? 0}</b><span>成功结果</span></div>
+      <div class="stat"><b>${(s.avg_conf ?? 0).toFixed(3)}</b><span>平均置信度</span></div>`;
+    $('mode').textContent = token() ? '管理员模式' : '公共演示 · retrieval/echo';
   }catch(e){ $('out').textContent = '状态获取失败：'+e; }
 }
 async function ask(){
@@ -89,9 +94,12 @@ async function ask(){
   $('ask').disabled = false;
 }
 async function audit(){
+  if(!token()){ $('out').textContent = '审计需要管理员 token。'; return; }
   const r = await api('/audit');
   $('out').textContent = JSON.stringify(r,null,2);
 }
+$('token').value = localStorage.getItem('netagent_token')||'';
+$('token').addEventListener('change',()=>localStorage.setItem('netagent_token',$('token').value.trim()));
 $('ask').onclick = ask; $('refresh').onclick = refresh; $('audit').onclick = audit;
 setInterval(()=>$('clock').textContent = new Date().toLocaleTimeString(), 1000);
 refresh(); setInterval(refresh, 3000);

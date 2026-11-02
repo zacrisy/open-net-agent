@@ -12,12 +12,12 @@
 
 - **项目主页**：<https://zacrisy.github.io/open-net-agent/>
 - **GitHub**：<https://github.com/zacrisy/open-net-agent>
-- **在线体验**：<https://7f0d2ca7bbc474.lhr.life/>（演示 token 见 `ONLINE.md`；隧道是临时的）
+- **在线体验**（打开即用，留空 token 为公共演示 retrieval/echo）：<https://32459916fb7690.lhr.life/>（演示 token 见 `ONLINE.md`；隧道是临时的）
 - **一键加入**（把一台电脑变成节点）：
 
 ```bash
-curl -fsSL https://7f0d2ca7bbc474.lhr.life/install.sh | bash -s -- \
-  --coordinator https://7f0d2ca7bbc474.lhr.life --token <YOUR_TOKEN>
+curl -fsSL https://32459916fb7690.lhr.life/install.sh | bash -s -- \
+  --coordinator https://32459916fb7690.lhr.life --token <YOUR_TOKEN>
 ```
 
 - 出站连接、`nice 19`、可 `--pause` / `--resume` / `--uninstall`；

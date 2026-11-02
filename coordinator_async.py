@@ -25,6 +25,7 @@ NODES, TASKS = {}, {}
 PREFERRED_K = 3
 NODE_TTL = 20
 HITS = defaultdict(list)
+PUBLIC_HITS = defaultdict(list)
 db.init()
 
 
@@ -51,9 +52,8 @@ async def register(req):
     return web.json_response({"ok": True, "nodes": len(NODES)})
 
 
-async def query(req):
-    if not auth(req): return web.json_response({"error": "unauthorized"}, status=401)
-    d = await req.json(); skill = d.get("skill", "retrieval"); tid = uuid.uuid4().hex[:12]
+async def _run_query(d):
+    skill = d.get("skill", "retrieval"); tid = uuid.uuid4().hex[:12]
     capable = [nid for nid, n in NODES.items() if skill in n["skills"] and n["ws"] and not n["ws"].closed]
     capable.sort(key=lambda nid: theta(NODES[nid]), reverse=True)
     preferred = capable[:int(d.get("preferred_k", PREFERRED_K))]
@@ -70,7 +70,33 @@ async def query(req):
     while time.time() < deadline and len(t["results"]) < need:
         await asyncio.sleep(0.02)
     out = aggregate(t["results"]); out.update({"task_id": tid, "preferred": sorted(preferred), "nodes": len(NODES)})
-    return web.json_response(out)
+    return out
+
+
+async def query(req):
+    if not auth(req): return web.json_response({"error": "unauthorized"}, status=401)
+    return web.json_response(await _run_query(await req.json()))
+
+
+def public_limited(req):
+    ip = req.headers.get("X-Forwarded-For", req.remote or "?").split(",")[0].strip()
+    now = time.time(); PUBLIC_HITS[ip] = [t for t in PUBLIC_HITS[ip] if now - t < 60]
+    if len(PUBLIC_HITS[ip]) >= 20: return True
+    PUBLIC_HITS[ip].append(now); return False
+
+
+async def public_query(req):
+    if public_limited(req): return web.json_response({"error": "rate limit"}, status=429)
+    d = await req.json()
+    if d.get("skill", "retrieval") not in ("retrieval", "echo"):
+        return web.json_response({"error": "public demo only supports retrieval/echo"}, status=403)
+    if len(d.get("query", "")) > 200:
+        return web.json_response({"error": "query too long"}, status=400)
+    return web.json_response(await _run_query(d))
+
+
+async def public_status(req):
+    return web.json_response(_status_payload())
 
 
 async def ws_handler(req):
@@ -93,17 +119,22 @@ async def ws_handler(req):
     return ws
 
 
+def _status_payload():
+    now = time.time()
+    nodes = {k: {"skills": v["skills"], "ok": v["ok"], "fail": v["fail"], "theta": round(theta(v), 3),
+                 "pulls": v["pulls"], "online": v.get("ws") is not None}
+             for k, v in NODES.items() if active(v)}
+    ok = sum(n["ok"] for n in nodes.values()); score = sum(max(0.0, n["score_sum"]) for n in NODES.values())
+    return {"nodes": nodes, "tasks": len(TASKS), "ok": ok, "avg_conf": score / max(1, ok)}
+
+
 def active(n):
     return n.get("ws") is not None or time.time() - n.get("last_seen", 0) < NODE_TTL
 
 
 async def status(req):
     if not auth(req): return web.json_response({"error": "unauthorized"}, status=401)
-    now = time.time()
-    return web.json_response({"nodes": {k: {"skills": v["skills"], "ok": v["ok"], "fail": v["fail"],
-                                            "theta": round(theta(v), 3), "pulls": v["pulls"],
-                                            "online": v.get("ws") is not None}
-                                       for k, v in NODES.items() if active(v)}, "tasks": len(TASKS)})
+    return web.json_response(_status_payload())
 
 
 async def skills(req):
@@ -166,6 +197,8 @@ def app():
     a = web.Application(middlewares=[rate_limit])
     a.router.add_post("/register", register)
     a.router.add_post("/query", query)
+    a.router.add_post("/public/query", public_query)
+    a.router.add_get("/public/status", public_status)
     a.router.add_get("/ws", ws_handler)
     a.router.add_get("/status", status)
     a.router.add_get("/skills", skills)
