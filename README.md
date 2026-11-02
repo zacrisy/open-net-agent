@@ -168,3 +168,53 @@ def handle(self, query):
 ## 12. 许可证
 
 MIT。见 `LICENSE`。
+
+---
+
+## 13. v2 更新（鉴权 / 技能 / 容错 / 信誉）
+
+### 13.1 token 鉴权
+
+协调者带 token 启动：
+
+```bash
+python3 coordinator.py 8765 secret
+```
+
+节点/客户端需带 `X-Auth-Token: secret`；错 token 返回 401，节点不会注册。
+
+### 13.2 技能插件
+
+`skills.py` 提供：
+
+- `retrieval`：本地分片关键词检索；
+- `echo`：连通性测试。
+
+节点用 `--skill retrieval` 声明；协调者按 skill 路由，只把任务分给会该技能的节点。
+
+### 13.3 quorum 与故障容错
+
+- 查询可指定 `quorum`（默认 3）；
+- 节点掉线/超时：协调者记录 `fail`，按剩余节点降级；
+- 测试：`python3 test_system.py`（错 token、节点掉线、quorum 降级）。
+
+### 13.4 信誉与指标
+
+`GET /metrics`：
+
+```json
+{"nodes":2,"tasks":2,"results":3,"ok":3,"fail":0,"avg_score":0.42}
+```
+
+`/status` 返回每节点 `skills/ok/fail`，用于后续路由学习。
+
+### 13.5 测试结果
+
+```bash
+$ python3 test_system.py
+nodes after bad-token attempt: ['good-1', 'good-0']
+wrong token query -> 401
+normal results: 2
+after one node down, results: 1
+ALL TESTS PASSED
+```

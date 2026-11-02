@@ -6,7 +6,7 @@
 # 本地测试：bash install.sh --local --coordinator http://127.0.0.1:8765 --dir /tmp/netagent --no-service
 set -euo pipefail
 
-COORD=""; TOKEN=""; DIR="$HOME/.netagent"; INDEX=0; TOTAL=1; MODE="install"; LOCAL=0; NO_SERVICE=0
+COORD=""; TOKEN=""; DIR="$HOME/.netagent"; INDEX=0; TOTAL=1; MODE="install"; LOCAL=0; NO_SERVICE=0; SKILL="retrieval"
 REPO_RAW="${REPO_RAW:-https://raw.githubusercontent.com/your-org/netagent/main}"
 
 while [[ $# -gt 0 ]]; do
@@ -16,6 +16,7 @@ while [[ $# -gt 0 ]]; do
     --dir) DIR="$2"; shift 2;;
     --index) INDEX="$2"; shift 2;;
     --total) TOTAL="$2"; shift 2;;
+    --skill) SKILL="$2"; shift 2;;
     --local) LOCAL=1; shift;;
     --no-service) NO_SERVICE=1; shift;;
     --uninstall) MODE="uninstall"; shift;;
@@ -55,13 +56,13 @@ fi
 
 NODE_ID="$(hostname)-$(date +%s)"
 cat > "$DIR/config.json" <<EOF
-{"coordinator":"$COORD","node_id":"$NODE_ID","index":$INDEX,"total":$TOTAL,"token":"$TOKEN"}
+{"coordinator":"$COORD","node_id":"$NODE_ID","index":$INDEX,"total":$TOTAL,"token":"$TOKEN","skill":"$SKILL"}
 EOF
 
 cat > "$DIR/run.sh" <<EOF
 #!/usr/bin/env bash
 cd "$DIR"
-exec nice -n 19 python3 "$DIR/node.py" --coordinator "$COORD" --node-id "$NODE_ID" --index $INDEX --total $TOTAL --pause-file "$DIR/pause"
+exec nice -n 19 python3 "$DIR/node.py" --coordinator "$COORD" --node-id "$NODE_ID" --index $INDEX --total $TOTAL --token "$TOKEN" --skill "$SKILL" --pause-file "$DIR/pause"
 EOF
 chmod +x "$DIR/run.sh"
 
