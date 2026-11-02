@@ -193,8 +193,24 @@ async def rate_limit(request, handler):
     return await handler(request)
 
 
+@web.middleware
+async def cors(request, handler):
+    if request.method == "OPTIONS":
+        return web.Response(status=204, headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "Content-Type,X-Auth-Token",
+            "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+            "Access-Control-Max-Age": "600",
+        })
+    resp = await handler(request)
+    resp.headers["Access-Control-Allow-Origin"] = "*"
+    resp.headers["Access-Control-Allow-Headers"] = "Content-Type,X-Auth-Token"
+    resp.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
+    return resp
+
+
 def app():
-    a = web.Application(middlewares=[rate_limit])
+    a = web.Application(middlewares=[cors, rate_limit])
     a.router.add_post("/register", register)
     a.router.add_post("/query", query)
     a.router.add_post("/public/query", public_query)

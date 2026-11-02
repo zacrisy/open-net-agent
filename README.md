@@ -12,7 +12,8 @@
 
 - **项目主页**：<https://zacrisy.github.io/open-net-agent/>
 - **GitHub**：<https://github.com/zacrisy/open-net-agent>
-- **稳定在线体验**（serveo 固定域名，打开即用，留空 token 为公共演示）：<https://opennetagent.serveousercontent.com/>（演示 token 见 `ONLINE.md`；隧道是临时的）
+- **在线控制台（推荐）**：<https://zacrisy.github.io/open-net-agent/console.html>（GitHub Pages，稳定、无隧道警告；后端走 serveo）
+- **后端直连**：<https://opennetagent.serveousercontent.com/>（serveo 固定域名；浏览器首次会看到 Serveo 警告页）
 - **一键加入**（把一台电脑变成节点）：
 
 ```bash
