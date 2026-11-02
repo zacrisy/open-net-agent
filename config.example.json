@@ -1,0 +1,11 @@
+{
+  "coordinator": "https://coord.example.com",
+  "node_id": "my-laptop-001",
+  "index": 0,
+  "total": 1,
+  "token": "change-me",
+  "max_cpu_percent": 20,
+  "max_mem_mb": 512,
+  "poll_interval_s": 0.8,
+  "pause_file": "~/.netagent/pause"
+}
