@@ -269,3 +269,45 @@ TOKEN=secret docker compose up -d
 
 - coordinator 内部 8765；
 - Caddy 自动 HTTPS（域名改 `deploy/Caddyfile`）。
+
+---
+
+## 15. v4 更新（长轮询 / UCB / 审计 / 插件市场 / WAN 模拟）
+
+### 15.1 长轮询
+
+`GET /task?node_id=...&wait=3`：没有任务时挂起最多 3s，有任务立即返回。
+20 节点负载从 p50 0.418s 降到 **0.243s**。
+
+### 15.2 UCB 信誉路由
+
+`/status` 返回每节点 `rep/ucb/pulls`；`preferred` 按 UCB 选，兼顾利用与探索。
+
+### 15.3 SQLite 审计
+
+`db.py` 写 `nodes/tasks/results`；`GET /audit?task_id=...` 返回任务与结果。
+
+### 15.4 技能插件市场
+
+`plugins/<name>/manifest.json + handler.py`，启动时自动加载；`GET /skills` 列出。
+
+当前：`echo`、`retrieval`、`nli`。
+
+### 15.5 WAN 模拟
+
+节点支持 `--latency-ms 30 --drop-rate 0.05`。
+5 节点、30ms、5% 丢包、20 次查询：**success 1.0，p50 0.24s**。
+
+### 15.6 测试
+
+```bash
+python3 test_system.py      # 鉴权/掉线/quorum
+python3 test_reputation.py  # 信誉路由
+python3 test_audit.py       # 审计 + 技能市场
+python3 test_wan.py         # WAN 延迟/丢包
+python3 load_test.py        # 20 节点负载
+```
+
+### 15.7 Docker
+
+`docker compose config` 通过；本机 Docker daemon 未运行，镜像未构建。

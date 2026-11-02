@@ -13,11 +13,12 @@ def _req(url, obj=None, token="", timeout=5):
 
 
 class Node:
-    def __init__(self, coord, node_id, index, total, token="", skill="retrieval", pause_file=None, poll=0.8, max_tasks=None, init_ok=0, init_fail=0):
+    def __init__(self, coord, node_id, index, total, token="", skill="retrieval", pause_file=None, poll=0.8, max_tasks=None, init_ok=0, init_fail=0, latency_ms=0.0, drop_rate=0.0):
         self.coord = coord.rstrip("/"); self.node_id = node_id; self.token = token
         self.skill = skill; self.docs = shard(index, total); self.pause_file = pause_file
         self.poll = poll; self.max_tasks = max_tasks; self.running = True; self.done = 0
         self.init_ok = init_ok; self.init_fail = init_fail
+        self.latency = max(0.0, latency_ms) / 1000.0; self.drop = max(0.0, min(1.0, drop_rate))
 
     def run(self):
         try: os.nice(10)
@@ -41,8 +42,11 @@ class Node:
                 try: _req(self.coord + "/heartbeat", {"node_id": self.node_id}, self.token)
                 except Exception: pass
                 last_hb = now
+            got = False
             try:
-                t = _req(f"{self.coord}/task?node_id={self.node_id}", token=self.token)
+                if self.drop and random.random() < self.drop: time.sleep(self.poll); continue
+                if self.latency: time.sleep(self.latency)
+                t = _req(f"{self.coord}/task?node_id={self.node_id}&wait=3", token=self.token, timeout=6)
                 if t and t.get("task_id"):
                     fn = SKILLS.get(t.get("skill", self.skill))
                     if fn:
@@ -50,10 +54,10 @@ class Node:
                         _req(self.coord + "/result", {"task_id": t["task_id"], "node_id": self.node_id,
                                                       "answer": out.get("answer"), "score": out.get("score", 0.0),
                                                       "evidence": out.get("evidence", []), "latency": 0.01}, self.token)
-                        self.done += 1
+                        self.done += 1; got = True
             except Exception:
                 pass
-            time.sleep(self.poll + random.random() * 0.3)
+            if not got: time.sleep(self.poll + random.random() * 0.3)
 
     def stop(self): self.running = False
 
@@ -71,6 +75,8 @@ if __name__ == "__main__":
     ap.add_argument("--max-tasks", type=int, default=None)
     ap.add_argument("--ok", type=int, default=0)
     ap.add_argument("--fail", type=int, default=0)
+    ap.add_argument("--latency-ms", type=float, default=0)
+    ap.add_argument("--drop-rate", type=float, default=0)
     a = ap.parse_args()
     Node(a.coordinator, a.node_id or f"node-{os.getpid()}", a.index, a.total,
-         a.token, a.skill, a.pause_file, a.poll, a.max_tasks, a.ok, a.fail).run()
+         a.token, a.skill, a.pause_file, a.poll, a.max_tasks, a.ok, a.fail, a.latency_ms, a.drop_rate).run()

@@ -40,3 +40,22 @@ def nli(query, ctx):
     return {"answer": lab, "score": score, "evidence": [prem.strip()[:200]]}
 
 SKILLS = {"retrieval": retrieval, "echo": echo, "nli": nli}
+
+
+def load_plugins(base=None):
+    import importlib.util, json, os
+    base = base or os.path.join(os.path.dirname(os.path.abspath(__file__)), "plugins")
+    if not os.path.isdir(base): return SKILLS
+    for name in os.listdir(base):
+        d = os.path.join(base, name)
+        mf = os.path.join(d, "manifest.json")
+        if not os.path.isfile(mf): continue
+        m = json.load(open(mf))
+        spec = importlib.util.spec_from_file_location(f"plugin_{name}", os.path.join(d, m.get("entry", "handler.py")))
+        mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+        fn = getattr(mod, m.get("func", "handle"), None)
+        if fn: SKILLS[m["name"]] = fn
+    return SKILLS
+
+
+load_plugins()
