@@ -2,6 +2,9 @@
 
 ## 公网访问（已开通）
 
+- **控制台（推荐，无隧道警告）**：<https://zacrisy.github.io/open-net-agent/console.html>
+- **后端 / 一键加入**：<https://opennetagent.serveousercontent.com/>（serveo 固定域名；浏览器直连会看到 Serveo 警告页）
+
 - **公网 URL**：<https://opennetagent.serveousercontent.com/>
 - **Token**：`918b9416a631d0ff91c83ac46a1fc4f8`
 - 本机：<http://127.0.0.1:8080/>
