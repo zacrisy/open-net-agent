@@ -14,7 +14,7 @@
 
 - **项目主页**：<https://zacrisy.github.io/open-net-agent/>
 - **GitHub**：<https://github.com/zacrisy/open-net-agent>
-- **在线控制台（推荐）**：<https://zacrisy.github.io/open-net-agent/console.html>（GitHub Pages，稳定、无隧道警告；后端走 serveo）
+- **在线控制台（推荐）**：<https://zacrisy.github.io/open-net-agent/console.html?v=3>（GitHub Pages，稳定、无隧道警告；后端走 serveo）
 - **后端直连**：<https://opennetagent.serveousercontent.com/>（serveo 固定域名；浏览器首次会看到 Serveo 警告页）
 - **一键加入**（把一台电脑变成节点）：
 
