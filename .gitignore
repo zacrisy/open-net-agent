@@ -3,3 +3,4 @@ __pycache__/
 node.log
 pause
 netagent.db*
+dist/
