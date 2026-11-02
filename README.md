@@ -29,6 +29,16 @@ curl -fsSL https://opennetagent.serveousercontent.com/install.sh | bash -s -- \
 
 > 公网隧道是临时演示；生产部署见 `deploy/PUBLIC.md`。
 
+## 它能做什么（不是 FAQ 检索器）
+
+- **Research**：PubMed / arXiv / Hacker News / Stack Overflow / OpenAlex / Crossref 真实来源，输出中文证据摘要 + `[n]` 引用；
+- **Docs**：粘贴报告/代码，按片段回答并标注 `[Dn]`；
+- **Compute**：AST 安全计算，不执行任意代码；
+- **Verify**：NLI 节点判断支持 / 反驳；
+- **Evolution**：赞/踩 → SQLite 经验 → 蒸馏知识包 → 新节点记忆，后续回答引用 `network memory`。
+
+当前网络环境 Wikipedia / DuckDuckGo 不可达，研究能力最强在**医学 / 学术 / 技术 / 代码**；它不是通用闲聊大模型，而是“有来源的工作助手”。
+
 ## 1. 思想
 
 单机模型受内存/算力限制；生物智能不是“一个超大神经元”，而是**大量单元 + 连接 + 活动**。

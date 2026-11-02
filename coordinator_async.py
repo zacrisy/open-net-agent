@@ -131,7 +131,8 @@ async def _ask_core(d):
     elif mode == "docs":
         res = await asyncio.to_thread(agent_core.doc_answer, query, doc)
     else:
-        res = await asyncio.to_thread(agent_core.research, query, mode)
+        memory = db.search_experience(query, 3)
+        res = await asyncio.to_thread(agent_core.research, query, mode, memory)
     res["id"] = uuid.uuid4().hex[:12]
     res["mode"] = mode
     res["query"] = query

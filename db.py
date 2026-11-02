@@ -77,3 +77,10 @@ def top_experience_docs(limit=30):
     for q, a, src in rows:
         out.append(f"用户问题：{q}\n网络回答：{a}")
     return out
+
+
+def search_experience(query, limit=3):
+    like = "%" + (query or "")[:40] + "%"
+    with LOCK:
+        rows = conn.execute("SELECT query, answer FROM experience WHERE vote='up' AND (query LIKE ? OR answer LIKE ?) ORDER BY ts DESC LIMIT ?", (like, like, limit)).fetchall()
+    return [{"query": q, "answer": a} for q, a in rows]

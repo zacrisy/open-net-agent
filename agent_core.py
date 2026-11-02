@@ -307,13 +307,18 @@ def compose(query, sources, picks):
     return "结论：\n" + rows[0] + "\n\n关键证据：\n" + "\n".join(rows[1:] or rows[:1])
 
 
-def research(query, mode="auto"):
+def research(query, mode="auto", memory=None):
     t0 = time.time()
     search_q = expand(query)
     sources, used = collect(search_q, mode)
+    if memory:
+        for m in memory[:3]:
+            sources.insert(0, {"title": "Network memory: " + (m.get("query") or "")[:60],
+                               "snippet": (m.get("answer") or "")[:600], "url": "", "source": "network memory", "year": ""})
     sources = rank_sources(sources, search_q)[:6]
     picks = best_sentences(sources, search_q, 4)
     trace = [{"step": "expand", "detail": search_q[:80]},
+             {"step": "memory", "detail": f"{len(memory or [])} learned"},
              {"step": "route", "detail": " + ".join(used) if used else "none"},
              {"step": "retrieve", "detail": f"{len(sources)} sources"}]
     if not sources:
