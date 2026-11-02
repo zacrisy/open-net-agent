@@ -344,5 +344,13 @@ If `github.com` is blocked or DNS returns an unreachable IP:
 bash scripts/fix_github.sh
 ```
 
-It starts a local CONNECT proxy (`127.0.0.1:8899`, multi-IP probe + failover),
-configures git to use it for `github.com`, and forces HTTP/1.1.
+It prefers **SSH over 443** (`ssh.github.com`, deploy key) and falls back to a
+local CONNECT proxy (`127.0.0.1:8899`, multi-IP probe + failover) with HTTP/1.1.
+
+Why: in some networks `github.com:443` is reset while `api.github.com` and
+`ssh.github.com:443` still work. The deploy key is added via the API:
+
+```bash
+gh api -X POST repos/zacrisy/open-net-agent/keys \
+  -f title=opennetagent-deploy -f key="$(cat ~/.ssh/github_deploy.pub)" -F read_only=false
+```
