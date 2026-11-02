@@ -49,9 +49,12 @@ mkdir -p "$DIR"
 if [[ "$LOCAL" == "1" ]]; then
   cp "$(cd "$(dirname "$0")" && pwd)/node.py" "$DIR/node.py"
   cp "$(cd "$(dirname "$0")" && pwd)/corpus.py" "$DIR/corpus.py"
+  cp "$(cd "$(dirname "$0")" && pwd)/skills.py" "$DIR/skills.py"
 else
-  curl -fsSL "$REPO_RAW/node.py" -o "$DIR/node.py"
-  curl -fsSL "$REPO_RAW/corpus.py" -o "$DIR/corpus.py"
+  BASE="${COORD%/}"
+  for f in node.py corpus.py skills.py; do
+    curl -fsSL "$BASE/$f" -o "$DIR/$f" || curl -fsSL "$REPO_RAW/$f" -o "$DIR/$f"
+  done
 fi
 
 NODE_ID="$(hostname)-$(date +%s)"

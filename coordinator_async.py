@@ -6,9 +6,23 @@ from aiohttp import web, WSMsgType
 import db, db_async
 from skills import SKILLS, SKILL_META
 
+JOIN_HTML = """<!doctype html><html lang=zh><meta charset=utf-8>
+<title>加入 OpenNetAgent</title>
+<style>body{background:#0e1116;color:#e6edf3;font:14px/1.7 -apple-system,sans-serif;max-width:760px;margin:6vh auto;padding:0 20px}
+code,pre{background:#171c24;border:1px solid #2a3240;border-radius:8px}code{padding:2px 6px}pre{padding:14px;overflow:auto}
+a{color:#4c8dff}h1{font-size:22px}</style>
+<h1>加入 OpenNetAgent</h1>
+<p>把你的电脑变成一个节点：出站连接、nice 19、可暂停/卸载，不影响正常工作。</p>
+<pre>curl -fsSL __BASE__/install.sh | bash -s -- \
+  --coordinator __BASE__ --token &lt;YOUR_TOKEN&gt;</pre>
+<p>需要 token：向协调者申请，或使用演示 token（仅限试用）。</p>
+<p>暂停：<code>bash install.sh --pause</code>；恢复：<code>--resume</code>；卸载：<code>--uninstall</code>。</p>
+<p>查看状态：<a href="/">仪表盘</a></p>"""
+
 TOKENS = set()
 NODES, TASKS = {}, {}
 PREFERRED_K = 3
+NODE_TTL = 20
 HITS = defaultdict(list)
 db.init()
 
@@ -74,14 +88,21 @@ async def ws_handler(req):
                 t["results"].append({"node_id": nid, "answer": d.get("answer"), "score": float(d.get("score", 0))})
                 n["ok"] += 1; n["score_sum"] += float(d.get("score", 0))
                 db_async.log_result(d.get("task_id"), nid, d.get("answer"), d.get("score", 0))
-    n["ws"] = None
+    n["ws"] = None; n["last_seen"] = time.time()
     return ws
+
+
+def active(n):
+    return n.get("ws") is not None or time.time() - n.get("last_seen", 0) < NODE_TTL
 
 
 async def status(req):
     if not auth(req): return web.json_response({"error": "unauthorized"}, status=401)
+    now = time.time()
     return web.json_response({"nodes": {k: {"skills": v["skills"], "ok": v["ok"], "fail": v["fail"],
-                                            "theta": round(theta(v), 3), "pulls": v["pulls"]} for k, v in NODES.items()}, "tasks": len(TASKS)})
+                                            "theta": round(theta(v), 3), "pulls": v["pulls"],
+                                            "online": v.get("ws") is not None}
+                                       for k, v in NODES.items() if active(v)}, "tasks": len(TASKS)})
 
 
 async def skills(req):
@@ -95,18 +116,35 @@ async def audit(req):
 async def metrics(req):
     ok = sum(n["ok"] for n in NODES.values()); fail = sum(n["fail"] for n in NODES.values())
     score = sum(max(0.0, n["score_sum"]) for n in NODES.values())
-    return web.json_response({"nodes": len(NODES), "tasks": len(TASKS), "ok": ok, "fail": fail,
-                              "avg_conf": score / max(1, ok)})
+    return web.json_response({"nodes": sum(1 for n in NODES.values() if active(n)), "tasks": len(TASKS),
+                              "ok": ok, "fail": fail, "avg_conf": score / max(1, ok)})
 
 
 async def health(req):
-    return web.json_response({"ok": True, "nodes": len(NODES), "tasks": len(TASKS)})
+    return web.json_response({"ok": True, "nodes": sum(1 for n in NODES.values() if active(n)), "tasks": len(TASKS)})
 
 
 async def index(req):
     import os
     p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dashboard.html")
     return web.Response(text=open(p, encoding="utf-8").read(), content_type="text/html")
+
+
+async def join_page(req):
+    return web.Response(text=JOIN_HTML, content_type="text/html")
+
+
+async def static_file(req):
+    name = req.match_info["name"]
+    allow = {"install.sh", "node.py", "corpus.py", "skills.py"}
+    if name not in allow:
+        return web.Response(status=404)
+    import os
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), name)
+    if not os.path.isfile(p):
+        return web.Response(status=404)
+    ct = "text/x-shellscript" if name.endswith(".sh") else "text/x-python"
+    return web.Response(text=open(p, encoding="utf-8").read(), content_type=ct)
 
 
 @web.middleware
@@ -130,6 +168,8 @@ def app():
     a.router.add_get("/metrics", metrics)
     a.router.add_get("/health", health)
     a.router.add_get("/", index)
+    a.router.add_get("/join", join_page)
+    a.router.add_get("/{name:install\.sh|node\.py|corpus\.py|skills\.py}", static_file)
     return a
 
 

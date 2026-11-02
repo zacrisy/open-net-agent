@@ -1,0 +1,17 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install aiohttp
+      - run: python -m py_compile coordinator.py coordinator_async.py node.py node_async.py skills.py db.py db_async.py
+      - run: python test_plugin_integrity.py
+      - run: python test_bandit.py
+      - run: python test_system.py

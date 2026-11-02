@@ -3,6 +3,25 @@
 > 把互联网上的电脑组织成一个**可加入、可退出、低打扰、可验证**的网络智能体。
 > 不是“把一台电脑变大”，而是“让很多台电脑像专家网络一样互相路由、聚合、验证”。
 
+[![CI](https://github.com/your-org/netagent/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/netagent/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
+
+## Live Demo / 一键加入
+
+- **在线体验**：<https://76ee4c4f2339b6.lhr.life/>（演示 token 见 `ONLINE.md`；隧道是临时的）
+- **一键加入**（把一台电脑变成节点）：
+
+```bash
+curl -fsSL https://76ee4c4f2339b6.lhr.life/install.sh | bash -s -- \
+  --coordinator https://76ee4c4f2339b6.lhr.life --token <YOUR_TOKEN>
+```
+
+- 出站连接、`nice 19`、可 `--pause` / `--resume` / `--uninstall`；
+- 不开放入站端口，不跑任意代码。
+
+> 公网隧道是临时演示；生产部署见 `deploy/PUBLIC.md`。
+
 ## 1. 思想
 
 单机模型受内存/算力限制；生物智能不是“一个超大神经元”，而是**大量单元 + 连接 + 活动**。

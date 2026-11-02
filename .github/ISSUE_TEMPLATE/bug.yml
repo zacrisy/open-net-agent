@@ -1,0 +1,14 @@
+name: Bug report
+description: Something broke
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes: {label: What happened}
+    validations: {required: true}
+  - type: textarea
+    id: logs
+    attributes: {label: Logs, description: "tail -50 /tmp/netagent_online.log"}
+  - type: input
+    id: version
+    attributes: {label: Version/commit}

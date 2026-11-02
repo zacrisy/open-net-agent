@@ -1,0 +1,28 @@
+# Changelog
+
+## 0.5.0
+
+- WebSocket async coordinator (`coordinator_async.py`) + WS node (`node_async.py`)
+- public demo via localhost.run SSH tunnel
+- dashboard, `/join`, installer served by coordinator
+- token auth, rotation, per-IP rate limit
+- UCB/Thompson routing, SQLite audit + async writer
+- plugin manifest sha256/version, integrity check
+- transport-level WAN proxy + quorum tuning
+- 50-node local pilot: 100 queries 100%, p50 0.0226s
+
+## 0.4.0
+
+- long-poll, UCB, SQLite audit, plugin marketplace, WAN simulation
+
+## 0.3.0
+
+- TLS, token rotation, reputation routing, NLI skill, 20-node load
+
+## 0.2.0
+
+- token auth, skill routing, quorum/fault tolerance, metrics
+
+## 0.1.0
+
+- coordinator + node + one-click installer + demo
