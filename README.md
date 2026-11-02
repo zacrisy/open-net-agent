@@ -334,3 +334,15 @@ python3 load_test.py        # 20 节点负载
 ### 15.7 Docker
 
 `docker compose config` 通过；本机 Docker daemon 未运行，镜像未构建。
+
+
+## GitHub connectivity in restricted networks
+
+If `github.com` is blocked or DNS returns an unreachable IP:
+
+```bash
+bash scripts/fix_github.sh
+```
+
+It starts a local CONNECT proxy (`127.0.0.1:8899`, multi-IP probe + failover),
+configures git to use it for `github.com`, and forces HTTP/1.1.
