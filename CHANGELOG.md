@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.7.0
+
+- Evidence-first workbench: `/public/ask` with research / docs / compute / verify
+- Real sources: PubMed, arXiv, Hacker News, Stack Overflow, OpenAlex, Crossref
+- Chinese evidence summary with `[n]` citations; zh→en query expansion + translation
+- Feedback → SQLite experience → knowledge pack → network memory injection
+- Pages control deck (no Serveo warning), CORS backend
+- 16-doc learned pack; new nodes auto-provision it
+
+
 ## 0.6.1
 
 - auto provisioning: lite/auto/full by RAM, starter memory pack, `--data-dir`
