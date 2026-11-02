@@ -1,123 +1,176 @@
-# Launch kit / 发布宣传材料
+# OpenNetAgent Launch Kit (v0.7)
+
+## 链接
+
+- **控制台（推荐）**：https://zacrisy.github.io/open-net-agent/console.html?v=3
+- **短链**：https://tinyurl.com/2bfybazp
+- **仓库**：https://github.com/zacrisy/open-net-agent
+- **Release**：https://github.com/zacrisy/open-net-agent/releases/tag/v0.7.0
+- **Discussion**：https://github.com/zacrisy/open-net-agent/discussions/6
+- **加入节点**：https://github.com/zacrisy/open-net-agent/issues/4
+- **Awesome PR**：https://github.com/e2b-dev/awesome-ai-agents/pull/1914
 
 ## 一句话
 
-**OpenNetAgent**：把每台闲置电脑变成一个节点，用 WebSocket 组成一个可加入、可退出、低打扰、可验证的网络智能体。
+**OpenNetAgent**：把每台电脑变成节点，组成一个**会给真实来源、带引用、能核查、会从反馈中积累记忆**的网络智能体。
 
-- 出站连接，不开放入站端口
-- `nice 19`，可暂停/卸载
-- 协调者做路由、聚合、验证
-- 50 节点本机试点：100 查询 100%，p50 0.023s
+不是“更大的模型”，而是“专家网络 + 证据优先”。
 
 ---
 
 ## Show HN
 
-**Title:** Show HN: OpenNetAgent – turn idle computers into a network agent
+**Title:** Show HN: OpenNetAgent – a network agent that cites real sources
+
+**URL:** https://zacrisy.github.io/open-net-agent/console.html?v=3
 
 **Body:**
 
-Most "AI agents" are one process on one machine. We tried the opposite: treat each
-computer as a node in a graph, connect them over WebSocket, and let a coordinator
-route tasks, aggregate answers, and verify them.
+Most agents are one model on one machine. OpenNetAgent treats each computer as a
+node: a coordinator routes tasks over WebSocket, nodes keep local memory/skills,
+and the coordinator aggregates and verifies.
 
-- one-line join: `curl -fsSL <url>/install.sh | bash -s -- --coordinator <url> --token <token>`
-- outbound-only, `nice 19`, pause/uninstall
-- skills: echo / retrieval / NLI
-- quorum, reputation/UCB/Thompson routing, SQLite audit
-- 50-node local pilot: 100 queries 100%, p50 0.0226s
+What actually works today:
 
-It's a prototype, not AGI: a graph of experts, not a giant neural net. Looking for
-people to run nodes, add skills, and harden it.
+- **Research** with real sources: PubMed, arXiv, Hacker News, Stack Overflow,
+  OpenAlex, Crossref; Chinese evidence summary with `[n]` citations.
+- **Docs**: paste a report/code, get chunk-level answers `[Dn]`.
+- **Compute**: AST-safe math (no arbitrary eval).
+- **Verify**: NLI node checks claim vs evidence.
+- **Evolution**: upvoted answers → experience → knowledge pack; later answers cite
+  `network memory`.
 
-Demo: <https://zacrisy.github.io/open-net-agent/console.html?v=3> (temporary tunnel)
-Repo: <https://github.com/zacrisy/open-net-agent>
+Example: “GLP-1 mechanism” returns 4 real papers in ~11s; an asyncio error returns
+a Stack Overflow accepted answer.
+
+Honest limits: Wikipedia/DuckDuckGo are unreachable in this network; research runs
+coordinator-side; nodes currently provide retrieval/echo/NLI. Looking for node
+runners (LAN/WAN latency + failure reports) and contributors for distributed
+research skills.
+
+Join: https://github.com/zacrisy/open-net-agent/issues/4
 
 ---
 
 ## Reddit r/LocalLLaMA
 
-**Title:** I built a network-native agent: each computer is a node, WebSocket + quorum
+**Title:** I stopped letting a small local model invent facts — OpenNetAgent cites sources instead
 
-We keep scaling one box; I wanted to scale *across* boxes. OpenNetAgent treats each
-machine as a node with local memory/skills; a coordinator pushes tasks over
-WebSocket, nodes answer, coordinator aggregates/verifies.
+**Body:**
 
-What's in the prototype:
-- one-line installer (launchd/systemd/nohup), outbound-only, `nice 19`, pause/uninstall
-- echo / retrieval / NLI skills; plugin manifest with sha256
-- quorum + fault injection; UCB/Thompson routing; SQLite audit
-- 50-node local pilot 100%, p50 0.023s
+I tried qwen2.5 0.5B/1.5B for a research agent. It confidently invented “GLP-1
+increases orexin release”, which is not in any source. So I changed the design:
 
-Honest limits: demo corpus is tiny; tunnel is temporary; plugins are not sandboxed yet.
-Would love feedback on routing, sandboxing, and real LAN/WAN tests.
+- retrieve from PubMed / arXiv / HN / Stack Overflow / OpenAlex / Crossref;
+- rank sources, extract mechanism sentences, translate to Chinese, cite `[n]`;
+- local model is optional and never trusted for facts;
+- docs Q&A with `[Dn]`; safe compute; NLI verification.
+
+Feedback (upvote) becomes experience → knowledge pack → new nodes pull it → later
+answers cite `network memory`.
+
+Control deck: https://tinyurl.com/2bfybazp
+Repo: https://github.com/zacrisy/open-net-agent
+
+Would love feedback on source ranking, translation quality, and how to distribute
+research skills across nodes.
 
 ---
 
 ## Reddit r/selfhosted
 
-**Title:** OpenNetAgent – join a network agent with one command (outbound-only, low impact)
+**Title:** OpenNetAgent – add an idle box as a node with one command (outbound-only, low impact)
 
-If you have an idle box, you can add it as a node:
-`curl -fsSL <url>/install.sh | bash -s -- --coordinator <url> --token <token>`
+**Body:**
 
-- no inbound ports, outbound WebSocket
-- `nice 19`, pause file, one-command uninstall
-- coordinator can route by skill; audit log
+If you have an idle machine, you can add it as a node:
 
-Looking for self-hosters to test 3–5 machine LAN setups and report latency/failure modes.
+```bash
+COORD=https://opennetagent.serveousercontent.com
+curl -fsSL $COORD/install.sh | bash -s -- \
+  --coordinator $COORD --token <YOUR_TOKEN>
+```
+
+- outbound WebSocket only, no inbound ports;
+- `nice 19`, pause/uninstall;
+- auto-provision: lite mode needs no model, pulls starter + learned memory;
+- coordinator routes research / docs / compute / NLI tasks.
+
+I’m looking for 3–5 machine LAN tests and WAN latency reports. Control deck:
+https://tinyurl.com/2bfybazp
 
 ---
 
 ## X / Twitter thread
 
-1/ Most agents are one process on one machine. We tried the opposite: every computer
-is a node, connected as a graph. Meet OpenNetAgent.
+1/ Most agents are one model on one machine. OpenNetAgent treats each computer as
+a node, connected as a graph. The network is the agent.
 
-2/ One command turns a box into a node:
-`curl -fsSL <url>/install.sh | bash -s -- --coordinator <url> --token <token>`
-Outbound-only, `nice 19`, pause/uninstall.
+2/ It answers with **real sources**: PubMed, arXiv, Hacker News, Stack Overflow,
+OpenAlex, Crossref — with `[n]` citations. GLP-1 mechanism: 4 papers, ~11s.
 
-3/ Coordinator routes tasks over WebSocket, aggregates answers, verifies with quorum.
-Skills: echo / retrieval / NLI. 50-node local pilot: 100 queries 100%, p50 0.023s.
+3/ Also: document Q&A `[Dn]`, AST-safe compute, NLI claim verification.
 
-4/ It's a prototype: a graph of experts, not a giant neural net. Next: WSS, Postgres,
-plugin sandbox, real LAN/WAN pilot.
+4/ A 0.5B model invented facts, so facts come from retrieval; the model is optional.
+Evidence first, not vibes.
 
-5/ Want to run a node or add a skill? Repo: <https://github.com/zacrisy/open-net-agent>
-Demo: <https://zacrisy.github.io/open-net-agent/console.html?v=3>
+5/ Upvote an answer → experience → knowledge pack → new nodes pull it → later
+answers cite `network memory`.
+
+6/ Try it: https://tinyurl.com/2bfybazp
+Repo: https://github.com/zacrisy/open-net-agent
+Looking for node runners + contributors.
 
 ---
 
 ## 中文：知乎 / V2EX / 即刻
 
-**标题**：把每台闲置电脑变成神经元：一个可加入的网络智能体
+**标题**：把每台电脑变成节点：一个会给出来源的网络智能体
 
-我们习惯把模型越做越大，但一台机器的内存/算力总有上限。OpenNetAgent 换个思路：
-把每台电脑当成图上的一个节点，节点各自持有本地记忆/技能，协调者通过 WebSocket
-分发任务、聚合答案、做验证。
+我们习惯把模型越做越大，但一台机器总有上限。OpenNetAgent 换个思路：每台电脑是
+图上的节点，协调者通过 WebSocket 分发任务，节点保留本地记忆与技能。
 
-特点：
-- 一条命令加入，出站连接，不开放入站端口；
-- `nice 19`，可暂停/卸载，不影响正常工作；
-- 技能插件：echo / retrieval / NLI；
-- quorum、UCB/Thompson 路由、SQLite 审计；
-- 50 节点本机试点：100 次查询 100%，p50 0.023s。
+它现在能做什么：
 
-诚实说明：这是原型，不是 AGI；是“专家网络”，不是字面意义的大神经网络。演示语料很小，
-隧道是临时的，插件还没沙箱。欢迎来跑节点、写技能、做 LAN/WAN 测试。
+- **Research**：PubMed / arXiv / Hacker News / Stack Overflow / OpenAlex /
+  Crossref，中文证据摘要 + `[n]` 引用；
+- **Docs**：粘贴报告/代码，按片段回答 `[Dn]`；
+- **Compute**：AST 安全计算；
+- **Verify**：NLI 判断支持/反驳；
+- **Evolution**：赞/踩 → 经验 → 知识包 → 新节点记忆。
 
-Demo：<https://zacrisy.github.io/open-net-agent/console.html?v=3>
-Repo：<https://github.com/zacrisy/open-net-agent>
+实测：GLP-1 机制返回 4 篇真实论文，约 11 秒；asyncio 报错返回 Stack Overflow
+高票答案。
+
+体验：https://tinyurl.com/2bfybazp
+仓库：https://github.com/zacrisy/open-net-agent
+加入节点：https://github.com/zacrisy/open-net-agent/issues/4
+
+诚实说明：当前网络 Wikipedia/DDG 不可达，强在医学/学术/技术/代码；研究编排还在
+协调者侧，节点主要承担 retrieval/echo/NLI；自我进化是经验蒸馏，不是自动改代码。
 
 ---
 
-## 发布 checklist
+## 一键发帖入口
 
-- [ ] GitHub 仓库公开（`gh repo create` 或网页导入）
-- [ ] 替换 README/promo 里的 `zacrisy` 和 demo URL
-- [ ] 打 tag `v0.5.0`，发 Release
-- [ ] 开 3 个 issue：`good first issue`（Go 客户端、Prometheus、插件沙箱）
-- [ ] HN / Reddit / X / 知乎 / V2EX 发帖
-- [ ] 在 demo 页放“申请 token / 加入”说明
-- [ ] 观察 `/metrics` 与节点留存，按反馈迭代
+- Hacker News：https://news.ycombinator.com/submit
+- Reddit：https://www.reddit.com/submit
+- X：https://x.com/intent/post?text=OpenNetAgent%20%E2%80%94%20a%20network%20agent%20that%20cites%20real%20sources&url=https%3A%2F%2Ftinyurl.com%2F2bfybazp
+- V2EX：https://www.v2ex.com/new
+- 知乎：https://zhuanlan.zhihu.com/write
+
+## 发布顺序建议
+
+1. GitHub Release + Discussion（已完成）
+2. awesome-ai-agents PR（已完成，#1914）
+3. Hacker News（Show HN）
+4. Reddit r/LocalLLaMA → r/selfhosted
+5. X thread
+6. V2EX / 知乎 / 即刻
+7. 回复评论，收集节点延迟/失败数据，更新 issue #4
+
+## 不夸大
+
+- 不是 AGI，不是通用闲聊模型；
+- 研究能力有明确数据源边界；
+- 节点网络还在早期，欢迎真实测试而不是只看 star。
