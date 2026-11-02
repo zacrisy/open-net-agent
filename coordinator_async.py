@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """异步协调者：aiohttp + WebSocket 推送 + Thompson 采样。"""
 import asyncio, json, random, time, uuid
+from collections import defaultdict
 from aiohttp import web, WSMsgType
 import db, db_async
 from skills import SKILLS, SKILL_META
@@ -8,6 +9,7 @@ from skills import SKILLS, SKILL_META
 TOKENS = set()
 NODES, TASKS = {}, {}
 PREFERRED_K = 3
+HITS = defaultdict(list)
 db.init()
 
 
@@ -107,8 +109,18 @@ async def index(req):
     return web.Response(text=open(p, encoding="utf-8").read(), content_type="text/html")
 
 
+@web.middleware
+async def rate_limit(request, handler):
+    ip = request.headers.get("X-Forwarded-For", request.remote or "?").split(",")[0].strip()
+    now = time.time(); HITS[ip] = [t for t in HITS[ip] if now - t < 60]
+    if len(HITS[ip]) >= 120:
+        return web.json_response({"error": "rate limit"}, status=429)
+    HITS[ip].append(now)
+    return await handler(request)
+
+
 def app():
-    a = web.Application()
+    a = web.Application(middlewares=[rate_limit])
     a.router.add_post("/register", register)
     a.router.add_post("/query", query)
     a.router.add_get("/ws", ws_handler)
