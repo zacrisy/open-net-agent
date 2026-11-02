@@ -2,7 +2,7 @@
 
 ## 公网访问（已开通）
 
-- **公网 URL**：<https://76ee4c4f2339b6.lhr.life/>
+- **公网 URL**：<https://d63290df5a6b6f.lhr.life/>
 - **Token**：`918b9416a631d0ff91c83ac46a1fc4f8`
 - 本机：<http://127.0.0.1:8080/>
 - 局域网：<http://10.162.241.50:8080/>
@@ -42,7 +42,7 @@ coordinator_async.py（aiohttp）
 
 ```bash
 TOKEN=918b9416a631d0ff91c83ac46a1fc4f8
-BASE=https://76ee4c4f2339b6.lhr.life
+BASE=https://d63290df5a6b6f.lhr.life
 
 # 健康
 curl -H "X-Auth-Token: $TOKEN" $BASE/health

@@ -30,7 +30,7 @@ route tasks, aggregate answers, and verify them.
 It's a prototype, not AGI: a graph of experts, not a giant neural net. Looking for
 people to run nodes, add skills, and harden it.
 
-Demo: <https://76ee4c4f2339b6.lhr.life/> (temporary tunnel)
+Demo: <https://d63290df5a6b6f.lhr.life/> (temporary tunnel)
 Repo: <https://github.com/zacrisy/open-net-agent>
 
 ---
@@ -85,7 +85,7 @@ Skills: echo / retrieval / NLI. 50-node local pilot: 100 queries 100%, p50 0.023
 plugin sandbox, real LAN/WAN pilot.
 
 5/ Want to run a node or add a skill? Repo: <https://github.com/zacrisy/open-net-agent>
-Demo: <https://76ee4c4f2339b6.lhr.life/>
+Demo: <https://d63290df5a6b6f.lhr.life/>
 
 ---
 
@@ -107,7 +107,7 @@ Demo: <https://76ee4c4f2339b6.lhr.life/>
 诚实说明：这是原型，不是 AGI；是“专家网络”，不是字面意义的大神经网络。演示语料很小，
 隧道是临时的，插件还没沙箱。欢迎来跑节点、写技能、做 LAN/WAN 测试。
 
-Demo：<https://76ee4c4f2339b6.lhr.life/>
+Demo：<https://d63290df5a6b6f.lhr.life/>
 Repo：<https://github.com/zacrisy/open-net-agent>
 
 ---
