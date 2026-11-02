@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """节点自动配置：检测硬件、拉取 starter 记忆、选择 skills、写配置。"""
-import argparse, json, os, platform, shutil, subprocess, sys, urllib.request
+import argparse, json, os, platform, shutil, subprocess, sys, time, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -32,15 +32,17 @@ def can_nli():
 
 
 def fetch_starter(coord):
-    try:
-        with urllib.request.urlopen(coord.rstrip("/") + "/starter_corpus.json", timeout=8) as r:
-            return json.loads(r.read().decode())
-    except Exception:
+    for _ in range(4):
         try:
-            from corpus import DOCS
-            return DOCS
+            with urllib.request.urlopen(coord.rstrip("/") + "/starter_corpus.json", timeout=10) as r:
+                return json.loads(r.read().decode())
         except Exception:
-            return []
+            time.sleep(1)
+    try:
+        from corpus import DOCS
+        return DOCS
+    except Exception:
+        return []
 
 
 def main():

@@ -53,7 +53,7 @@ if [[ "$LOCAL" == "1" ]]; then
 else
   BASE="${COORD%/}"
   for f in node.py corpus.py skills.py provision.py; do
-    curl -fsSL "$BASE/$f" -o "$DIR/$f" || curl -fsSL "$REPO_RAW/$f" -o "$DIR/$f"
+    curl -fsSL --retry 4 --retry-delay 1 --retry-connrefused "$BASE/$f" -o "$DIR/$f" || curl -fsSL --retry 4 --retry-delay 1 --retry-connrefused "$REPO_RAW/$f" -o "$DIR/$f"
   done
 fi
 
