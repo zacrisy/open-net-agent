@@ -10,6 +10,8 @@
 
 ## Live Demo / 一键加入
 
+![OpenNetAgent control deck](docs/preview.png)
+
 - **项目主页**：<https://zacrisy.github.io/open-net-agent/>
 - **GitHub**：<https://github.com/zacrisy/open-net-agent>
 - **在线控制台（推荐）**：<https://zacrisy.github.io/open-net-agent/console.html>（GitHub Pages，稳定、无隧道警告；后端走 serveo）
