@@ -175,6 +175,24 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--cyan
 @media(max-width:980px){.hero{grid-template-columns:1fr;min-height:auto}.hero-visual{height:340px}.console{grid-template-columns:1fr}.strip{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.shell{padding:20px 16px 60px}.topbar{padding:12px 16px}.top-status .pill:nth-child(3){display:none}.answer-grid{grid-template-columns:1fr}.confidence{justify-content:flex-start}.hero h2{font-size:40px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}
+
+.extra{margin:8px 0}
+.extra label{display:block;color:var(--muted);font:9px/1.4 var(--mono);letter-spacing:.14em;margin:0 0 5px}
+.extra input{width:100%;background:rgba(4,9,15,.85);border:1px solid var(--line);color:var(--text);padding:9px;font:12px/1.5 var(--mono);margin-bottom:7px;outline:none}
+.extra input:focus{border-color:var(--cyan)}
+.evo{display:flex;gap:14px;flex-wrap:wrap}
+.evo div{flex:1;min-width:80px}
+.evo b{display:block;font:600 20px/1.2 var(--mono);color:var(--cyan)}
+.evo span{font:8px/1.4 var(--mono);letter-spacing:.12em;color:var(--muted)}
+.sources{display:flex;flex-direction:column;gap:6px}
+.source{display:flex;gap:8px;align-items:baseline;padding:6px 0;border-bottom:1px dashed rgba(94,242,255,.08);color:var(--muted);text-decoration:none;font:10px/1.5 var(--mono)}
+.source b{color:var(--cyan);font-weight:500}.source span{color:var(--text);flex:1}.source em{color:var(--dim);font-style:normal;font-size:9px}
+.trace{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0;font:9px/1.5 var(--mono);color:var(--dim)}
+.trace span{border:1px solid rgba(94,242,255,.1);padding:3px 6px}
+.feedback{display:flex;gap:8px;align-items:center;margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+.feedback button{background:transparent;border:1px solid var(--line);color:var(--muted);font:9px/1 var(--mono);letter-spacing:.12em;padding:6px 9px;cursor:pointer}
+.feedback button:hover{color:var(--cyan);border-color:var(--cyan)}
+.feedback span{font:9px/1 var(--mono);color:var(--green)}
 </style>
 </head>
 <body>
@@ -224,20 +242,31 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--cyan
 
   <section class="console" id="console">
     <div class="panel query-panel">
-      <div class="panel-head"><span class="tag">01 / QUERY CONSOLE</span><span class="hint">PUBLIC DEMO · RETRIEVAL / ECHO</span></div>
-      <div class="skill-row" id="skills">
-        <button data-skill="retrieval" class="active">RETRIEVAL<small>本地记忆检索</small></button>
-        <button data-skill="echo">ECHO<small>连通性 / 回显</small></button>
-        <button data-skill="nli">NLI<small>证据支持 / 反驳 · 需 token</small></button>
+      <div class="panel-head"><span class="tag">01 / WORKBENCH</span><span class="hint" id="hint">LIVE RESEARCH MESH · PUBLIC</span></div>
+      <div class="skill-row" id="modes">
+        <button data-mode="research" class="active">RESEARCH<small>PubMed · arXiv · HN · SO</small></button>
+        <button data-mode="docs">DOCS<small>文档问答</small></button>
+        <button data-mode="compute">COMPUTE<small>安全计算</small></button>
+        <button data-mode="verify">VERIFY<small>NLI 核查</small></button>
       </div>
       <div class="query-box">
-        <textarea id="q" rows="2" placeholder="向网络提问：如何加入节点？多台电脑如何组成智能体？"></textarea>
+        <textarea id="q" rows="2" placeholder="问一个真实问题：GLP-1 的作用机制？AI 最近有什么值得关注？"></textarea>
         <button id="ask" class="send">TRANSMIT <span>↵</span></button>
       </div>
+      <div id="docWrap" class="extra" style="display:none">
+        <label>文档内容（粘贴文章 / 报告 / 代码）</label>
+        <textarea id="doc" rows="4" placeholder="把要分析的文档粘贴到这里…"></textarea>
+      </div>
+      <div id="verifyWrap" class="extra" style="display:none">
+        <input id="claim" placeholder="Claim：待核查的说法，例如 Metformin reduces blood glucose.">
+        <input id="evidence" placeholder="Evidence：证据，例如 Metformin does not reduce blood glucose.">
+      </div>
       <div class="chips" id="samples">
-        <button data-q="如何加入节点？">如何加入节点？</button>
-        <button data-q="多台电脑如何组成智能体？">多台电脑如何组成智能体？</button>
-        <button data-q="节点会不会影响正常工作？">会影响正常工作吗？</button>
+        <button data-q="GLP-1 减肥药的作用机制是什么？">GLP-1 机制</button>
+        <button data-q="最近 AI 领域有什么值得关注的事？">AI 新闻</button>
+        <button data-q="Python asyncio RuntimeError event loop is closed 怎么解决？">代码报错</button>
+        <button data-mode="compute" data-q="计算 (12345*6789)/7">计算</button>
+        <button data-mode="docs" data-doc="OpenNetAgent 把每台电脑当成节点。节点只建立出站连接，不开放入站端口。默认 lite 模式不需要本地大模型，任何 Python3 电脑都能加入。节点可以暂停和卸载。" data-q="这份文档的核心结论是什么？">文档总结</button>
       </div>
       <div class="response" id="response">
         <div class="response-empty"><div class="radar"></div><p>等待信号。选择一个示例，或直接提问。</p></div>
@@ -248,10 +277,10 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--cyan
       <div class="panel">
         <div class="panel-head"><span class="tag">02 / CAPABILITIES</span></div>
         <div class="cap-list">
-          <div class="cap"><i>◈</i><div><b>DISTRIBUTED RETRIEVAL</b><p>节点各自索引本地记忆，只回传答案与证据。</p></div></div>
-          <div class="cap"><i>◇</i><div><b>VERIFIER / NLI</b><p>对 claim 与证据做支持 / 反驳判断。</p></div></div>
-          <div class="cap"><i>⌁</i><div><b>QUORUM ROUTING</b><p>按技能路由，丢包时自动降级。</p></div></div>
-          <div class="cap"><i>⟡</i><div><b>LOCAL MEMORY</b><p>自动配置 starter 记忆，也可接入自己的文档。</p></div></div>
+          <div class="cap"><i>◈</i><div><b>RESEARCH MESH</b><p>PubMed / arXiv / HN / Stack Overflow，真实来源 + 引用。</p></div></div>
+          <div class="cap"><i>◇</i><div><b>DOCUMENT ANALYSIS</b><p>粘贴报告/代码，按片段回答并标注 [Dn]。</p></div></div>
+          <div class="cap"><i>⌁</i><div><b>SAFE COMPUTE</b><p>AST 安全计算，不执行任意代码。</p></div></div>
+          <div class="cap"><i>⟡</i><div><b>NLI VERIFY</b><p>判断 claim 与 evidence：支持 / 反驳 / 中立。</p></div></div>
         </div>
       </div>
 
@@ -260,8 +289,13 @@ footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--cyan
         <div id="nodeList" class="node-list"><div class="node">等待链路…</div></div>
       </div>
 
+      <div class="panel">
+        <div class="panel-head"><span class="tag">04 / NETWORK MEMORY</span></div>
+        <div class="evo" id="evoStats">--</div>
+      </div>
+
       <div class="panel" id="join">
-        <div class="panel-head"><span class="tag">04 / JOIN THE NETWORK</span></div>
+        <div class="panel-head"><span class="tag">05 / JOIN THE NETWORK</span></div>
         <p class="join-copy">把一台闲置电脑变成节点。出站连接、nice 19、可暂停 / 卸载，不影响正常工作。需要 token：向协调者申请。</p>
         <pre id="joinCmd">curl -fsSL ...</pre>
         <button id="copyJoin" class="copy">COPY COMMAND</button>
@@ -295,14 +329,14 @@ const REMOTE = 'https://opennetagent.serveousercontent.com';
 const QS = new URLSearchParams(location.search);
 const BACKEND = QS.get('backend') || (location.hostname.endsWith('github.io') ? REMOTE : location.origin);
 const BASE = BACKEND;
-const state = { skill: 'retrieval', nodes: {}, tasks: 0, ok: 0, conf: 0 };
+const state = { mode: 'research', nodes: {}, tasks: 0, ok: 0, conf: 0, last: null };
 const token = () => $('token').value.trim();
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 async function api(path, opts = {}) {
   const t = token();
   if (!t && path === '/status') path = '/public/status';
-  if (!t && path === '/query') path = '/public/query';
+  if (!t && path === '/ask') path = '/public/ask';
   const h = {'Content-Type': 'application/json'};
   if (t) h['X-Auth-Token'] = t;
   opts.headers = Object.assign(h, opts.headers || {});
@@ -314,6 +348,10 @@ async function api(path, opts = {}) {
 function modeText() {
   $('mode').textContent = token() ? 'ADMIN LINK' : 'PUBLIC DEMO';
   $('mode').style.color = token() ? 'var(--green)' : 'var(--muted)';
+}
+
+function modeHint() {
+  return { research: 'LIVE RESEARCH MESH · PUBLIC', docs: 'DOCUMENT WORKBENCH', compute: 'SAFE COMPUTE', verify: 'NLI VERIFICATION' }[state.mode] || '';
 }
 
 function renderNodes(nodes) {
@@ -332,44 +370,55 @@ function renderNodes(nodes) {
 async function refresh() {
   try {
     const s = await api('/status');
-    state.nodes = s.nodes || {};
-    state.tasks = s.tasks || 0;
-    state.ok = s.ok || 0;
-    state.conf = s.avg_conf || 0;
+    state.nodes = s.nodes || {}; state.tasks = s.tasks || 0; state.ok = s.ok || 0; state.conf = s.avg_conf || 0;
     renderNodes(state.nodes);
     $('statTasks').textContent = state.tasks;
     $('statConf').textContent = Number(state.conf).toFixed(2);
+    $('hint').textContent = modeHint();
     modeText();
   } catch (e) {
-    $('linkState').textContent = 'OFFLINE';
-    $('dot').classList.add('off');
+    $('linkState').textContent = 'OFFLINE'; $('dot').classList.add('off');
   }
 }
 
-function setSkill(skill) {
-  state.skill = skill;
-  document.querySelectorAll('#skills button').forEach(b => b.classList.toggle('active', b.dataset.skill === skill));
-  if (skill === 'nli' && !token()) {
-    $('response').innerHTML = '<div class="response-empty"><div class="radar"></div><p>NLI 需要管理员 token。点击右上角 ⚙ 连接。</p></div>';
-  }
+async function refreshEvo() {
+  try {
+    const e = await api('/evolution/stats');
+    $('evoStats').innerHTML = `<div><b>${e.total || 0}</b><span>EXPERIENCES</span></div>
+      <div><b>${e.up || 0}</b><span>LEARNED</span></div>
+      <div><b>${(e.avg_conf || 0).toFixed(2)}</b><span>AVG CONF</span></div>`;
+  } catch (e) { $('evoStats').textContent = '--'; }
+}
+
+function setMode(mode) {
+  state.mode = mode;
+  document.querySelectorAll('#modes button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+  $('docWrap').style.display = mode === 'docs' ? 'block' : 'none';
+  $('verifyWrap').style.display = mode === 'verify' ? 'block' : 'none';
+  $('hint').textContent = modeHint();
 }
 
 function loading() {
-  $('response').innerHTML = `<div class="loading"><div class="scanbar"></div><p>ROUTING THROUGH THE MESH…</p><div class="pulse-row"><i></i><i></i><i></i><i></i></div></div>`;
+  const msg = { research: 'SEARCHING PUBMED / ARXIV / HN / STACK OVERFLOW…', docs: 'READING DOCUMENT…', compute: 'COMPUTING…', verify: 'CALLING NLI NODE…' }[state.mode] || 'WORKING…';
+  $('response').innerHTML = `<div class="loading"><div class="scanbar"></div><p>${msg}</p><div class="pulse-row"><i></i><i></i><i></i><i></i></div></div>`;
 }
 
 function renderAnswer(d) {
   if (!d || d.error || d.answer == null) {
-    const msg = d && (d.error || d.detail) ? (d.error || d.detail) : '没有节点返回结果。请稍后重试，或确认有对应技能的节点在线。';
-    $('response').innerHTML = `<div class="answer-head"><span class="tag">RESPONSE</span><span class="task">${esc(d && d.task_id || '')}</span></div><div class="err">${esc(msg)}</div>`;
+    const msg = d && (d.error || d.detail) ? (d.error || d.detail) : '没有返回结果，请稍后再试。';
+    $('response').innerHTML = `<div class="answer-head"><span class="tag">RESPONSE</span><span class="task">${esc(d && d.id || '')}</span></div><div class="err">${esc(msg)}</div>`;
     return;
   }
-  const raw = Number(d.score) || 0;
-  const conf = Math.max(0, Math.min(1, Math.abs(raw)));
+  const conf = Math.max(0, Math.min(1, Number(d.confidence ?? d.score ?? 0)));
   const circ = 2 * Math.PI * 46;
-  const results = (d.results || []).map(r => `<div class="ev"><b>${esc(r.node_id)}</b><span>${Number(r.score).toFixed(2)}</span><p>${esc(r.answer || '')}</p></div>`).join('');
+  const srcs = (d.sources || []).map((s, i) => {
+    const inner = `<b>${i + 1}</b><span>${esc(s.title || '')}</span><em>${esc(s.source || '')} ${esc(s.year || '')}</em>`;
+    return s.url ? `<a class="source" href="${esc(s.url)}" target="_blank" rel="noopener">${inner}</a>` : `<div class="source">${inner}</div>`;
+  }).join('');
+  const trace = (d.trace || []).map(t => `<span>${esc(t.step)}: ${esc(t.detail)}</span>`).join('');
+  const meta = [String(d.mode || '').toUpperCase(), d.engine || '', `${d.elapsed ?? '-'}s`].filter(Boolean).join(' · ');
   $('response').innerHTML = `
-    <div class="answer-head"><span class="tag">RESPONSE</span><span class="task">TASK ${esc(d.task_id || '')} · ${(d.preferred || []).length} NODES</span></div>
+    <div class="answer-head"><span class="tag">RESPONSE</span><span class="task">${esc(meta)}</span></div>
     <div class="answer-grid">
       <div class="answer-text">${esc(d.answer)}</div>
       <div class="confidence">
@@ -377,23 +426,41 @@ function renderAnswer(d) {
           <circle class="ring-bg" cx="54" cy="54" r="46"></circle>
           <circle class="ring-fg" cx="54" cy="54" r="46" stroke-dasharray="${circ}" stroke-dashoffset="${circ * (1 - conf)}"></circle>
         </svg>
-        <div class="num">${raw.toFixed(2)}<small>SCORE</small></div>
+        <div class="num">${conf.toFixed(2)}<small>CONF</small></div>
       </div>
     </div>
-    <div class="evidence"><h4>EVIDENCE / NODE RESPONSES</h4>${results || '<div class="ev"><p>单节点结果</p></div>'}</div>`;
+    <div class="trace">${trace}</div>
+    <div class="evidence"><h4>SOURCES / EVIDENCE</h4><div class="sources">${srcs || '<div class="source"><span>无外部来源</span></div>'}</div></div>
+    <div class="feedback">
+      <button data-vote="up" data-id="${esc(d.id || '')}">HELPFUL ↑</button>
+      <button data-vote="down" data-id="${esc(d.id || '')}">NOT QUITE ↓</button>
+      <span id="fbMsg"></span>
+    </div>`;
+  document.querySelectorAll('.feedback button').forEach(b => b.onclick = () => vote(b.dataset.id, b.dataset.vote));
+}
+
+async function vote(id, v) {
+  if (!id) return;
+  const r = await api('/feedback', { method: 'POST', body: JSON.stringify({ id, vote: v }) });
+  if (r.ok) { $('fbMsg').textContent = 'FEEDBACK SAVED ✓'; refreshEvo(); }
 }
 
 async function ask() {
+  const mode = state.mode;
   const q = $('q').value.trim();
-  if (!q) { $('q').focus(); return; }
-  if (state.skill === 'nli' && !token()) { setSkill('nli'); return; }
+  const doc = $('doc').value.trim();
+  const claim = $('claim').value.trim();
+  const evidence = $('evidence').value.trim();
+  if (mode === 'docs' && !doc) { $('response').innerHTML = '<div class="err">请先在 DOCS 里粘贴文档。</div>'; return; }
+  if (mode === 'verify' && (!claim || !evidence)) { $('response').innerHTML = '<div class="err">VERIFY 需要 Claim 和 Evidence。</div>'; return; }
+  if (!q && mode !== 'verify') { $('q').focus(); return; }
   $('ask').disabled = true;
   loading();
   try {
-    const body = { query: q, skill: state.skill, timeout: 15, quorum: 1 };
-    const d = await api('/query', { method: 'POST', body: JSON.stringify(body) });
+    const body = { query: q || claim, mode, doc, claim, evidence };
+    const d = await api('/ask', { method: 'POST', body: JSON.stringify(body) });
     renderAnswer(d);
-    refresh();
+    refresh(); refreshEvo();
   } catch (e) {
     renderAnswer({ error: String(e) });
   }
@@ -402,8 +469,13 @@ async function ask() {
 
 $('ask').onclick = ask;
 $('refresh').onclick = refresh;
-document.querySelectorAll('#skills button').forEach(b => b.onclick = () => setSkill(b.dataset.skill));
-document.querySelectorAll('#samples button').forEach(b => b.onclick = () => { $('q').value = b.dataset.q; ask(); });
+document.querySelectorAll('#modes button').forEach(b => b.onclick = () => setMode(b.dataset.mode));
+document.querySelectorAll('#samples button').forEach(b => b.onclick = () => {
+  if (b.dataset.mode) setMode(b.dataset.mode);
+  if (b.dataset.doc) $('doc').value = b.dataset.doc;
+  $('q').value = b.dataset.q;
+  ask();
+});
 $('q').addEventListener('keydown', e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) ask(); });
 
 $('settingsBtn').onclick = () => $('settings').classList.add('open');
@@ -418,7 +490,8 @@ $('copyJoin').onclick = async () => {
 
 $('joinCmd').textContent = `COORD=${BASE}\ncurl -fsSL $COORD/install.sh | bash -s -- \\\n  --coordinator $COORD --token <YOUR_TOKEN>`;
 setInterval(() => { $('footerClock').textContent = new Date().toLocaleTimeString(); }, 1000);
-refresh(); setInterval(refresh, 4000);
+setMode('research'); refresh(); refreshEvo();
+setInterval(refresh, 6000); setInterval(refreshEvo, 15000);
 
 /* ---------- starfield ---------- */
 (() => {

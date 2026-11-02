@@ -24,3 +24,6 @@ def log_node(*a): Q.put((db.log_node, a))
 def log_task(*a): Q.put((db.log_task, a))
 def log_result(*a): Q.put((db.log_result, a))
 def flush(): Q.join()
+
+def log_experience(*a): Q.put((db.log_experience, a))
+def vote_experience(*a): Q.put((db.vote_experience, a))

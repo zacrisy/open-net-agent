@@ -34,8 +34,13 @@ def can_nli():
 def fetch_starter(coord):
     for _ in range(4):
         try:
-            with urllib.request.urlopen(coord.rstrip("/") + "/starter_corpus.json", timeout=10) as r:
-                return json.loads(r.read().decode())
+            for path in ("/knowledge_pack.json", "/starter_corpus.json"):
+                try:
+                    with urllib.request.urlopen(coord.rstrip("/") + path, timeout=10) as r:
+                        data = json.loads(r.read().decode())
+                        if data: return data
+                except Exception:
+                    continue
         except Exception:
             time.sleep(1)
     try:

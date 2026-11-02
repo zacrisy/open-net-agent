@@ -4,6 +4,7 @@ import asyncio, json, random, time, uuid
 from collections import defaultdict
 from aiohttp import web, WSMsgType
 import db, db_async
+import agent_core
 from skills import SKILLS, SKILL_META
 from starter_corpus import DOCS as STARTER_DOCS
 
@@ -26,6 +27,7 @@ PREFERRED_K = 3
 NODE_TTL = 20
 HITS = defaultdict(list)
 PUBLIC_HITS = defaultdict(list)
+ASK_HITS = defaultdict(list)
 db.init()
 
 
@@ -99,6 +101,71 @@ async def public_status(req):
     return web.json_response(_status_payload())
 
 
+def ask_limited(req):
+    ip = req.headers.get("X-Forwarded-For", req.remote or "?").split(",")[0].strip()
+    now = time.time(); ASK_HITS[ip] = [t for t in ASK_HITS[ip] if now - t < 60]
+    if len(ASK_HITS[ip]) >= 12: return True
+    ASK_HITS[ip].append(now); return False
+
+
+def _knowledge_pack():
+    return STARTER_DOCS + db.top_experience_docs(30)
+
+
+async def _ask_core(d):
+    mode = d.get("mode", "research")
+    query = str(d.get("query", ""))[:500].strip()
+    doc = str(d.get("doc", ""))[:8000]
+    claim = str(d.get("claim", ""))[:400].strip()
+    evidence = str(d.get("evidence", ""))[:1200].strip()
+    if mode == "verify":
+        if not claim or not evidence:
+            return {"error": "verify 需要 claim 和 evidence"}
+        v = await _run_query({"skill": "nli", "query": claim + " || " + evidence, "timeout": 20, "quorum": 1})
+        label = v.get("answer") or "UNKNOWN"; score = float(v.get("score", 0) or 0)
+        res = {"answer": label, "sources": [{"title": "NLI node", "snippet": claim + " || " + evidence, "source": "NLI", "url": "", "year": ""}],
+               "trace": [{"step": "route", "detail": "nli"}, {"step": "verify", "detail": label}],
+               "confidence": round(min(1.0, abs(score)), 2), "engine": "nli"}
+    elif mode == "compute":
+        res = await asyncio.to_thread(agent_core.compute, query)
+    elif mode == "docs":
+        res = await asyncio.to_thread(agent_core.doc_answer, query, doc)
+    else:
+        res = await asyncio.to_thread(agent_core.research, query, mode)
+    res["id"] = uuid.uuid4().hex[:12]
+    res["mode"] = mode
+    res["query"] = query
+    db_async.log_experience(res["id"], mode, query, res.get("answer", ""), res.get("sources", []),
+                            res.get("confidence", 0), res.get("elapsed", 0))
+    return res
+
+
+async def ask(req):
+    if not auth(req): return web.json_response({"error": "unauthorized"}, status=401)
+    return web.json_response(await _ask_core(await req.json()))
+
+
+async def public_ask(req):
+    if ask_limited(req): return web.json_response({"error": "rate limit"}, status=429)
+    return web.json_response(await _ask_core(await req.json()))
+
+
+async def feedback(req):
+    d = await req.json(); eid = str(d.get("id", "")); vote = d.get("vote")
+    if vote not in ("up", "down") or not eid:
+        return web.json_response({"error": "bad vote"}, status=400)
+    db_async.vote_experience(eid, vote)
+    return web.json_response({"ok": True, "id": eid, "vote": vote})
+
+
+async def evolution_stats(req):
+    return web.json_response(db.evolution_stats())
+
+
+async def knowledge_pack(req):
+    return web.json_response(_knowledge_pack())
+
+
 async def ws_handler(req):
     if not auth(req): return web.Response(status=401)
     nid = req.query.get("node_id", ""); ws = web.WebSocketResponse(); await ws.prepare(req)
@@ -153,7 +220,7 @@ async def metrics(req):
 
 
 async def starter(req):
-    return web.json_response(STARTER_DOCS)
+    return web.json_response(_knowledge_pack())
 
 
 async def health(req):
@@ -214,6 +281,11 @@ def app():
     a.router.add_post("/register", register)
     a.router.add_post("/query", query)
     a.router.add_post("/public/query", public_query)
+    a.router.add_post("/ask", ask)
+    a.router.add_post("/public/ask", public_ask)
+    a.router.add_post("/feedback", feedback)
+    a.router.add_get("/evolution/stats", evolution_stats)
+    a.router.add_get("/knowledge_pack.json", knowledge_pack)
     a.router.add_get("/public/status", public_status)
     a.router.add_get("/ws", ws_handler)
     a.router.add_get("/status", status)
