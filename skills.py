@@ -40,6 +40,7 @@ def nli(query, ctx):
     return {"answer": lab, "score": score, "evidence": [prem.strip()[:200]]}
 
 SKILLS = {"retrieval": retrieval, "echo": echo, "nli": nli}
+SKILL_META = {}
 
 
 def load_plugins(base=None):
@@ -51,10 +52,17 @@ def load_plugins(base=None):
         mf = os.path.join(d, "manifest.json")
         if not os.path.isfile(mf): continue
         m = json.load(open(mf))
-        spec = importlib.util.spec_from_file_location(f"plugin_{name}", os.path.join(d, m.get("entry", "handler.py")))
+        hp = os.path.join(d, m.get("entry", "handler.py"))
+        import hashlib
+        h = hashlib.sha256(open(hp, "rb").read()).hexdigest()
+        if m.get("sha256") and h != m["sha256"]:
+            print(f"skip plugin {name}: sha256 mismatch", flush=True); continue
+        spec = importlib.util.spec_from_file_location(f"plugin_{name}", hp)
         mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
         fn = getattr(mod, m.get("func", "handle"), None)
-        if fn: SKILLS[m["name"]] = fn
+        if fn:
+            SKILLS[m["name"]] = fn
+            SKILL_META[m["name"]] = {"version": m.get("version", "?"), "sha256": h[:12]}
     return SKILLS
 
 

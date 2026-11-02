@@ -1,1 +1,8 @@
-{"name":"echo","version":"1.0","entry":"handler.py","func":"handle","desc":"连通性测试"}
+{
+ "name": "echo",
+ "version": "1.0.0",
+ "entry": "handler.py",
+ "func": "handle",
+ "desc": "连通性测试",
+ "sha256": "b21bed1d01bb4eb7eb8b04d469d6cb867bb093d6434dc411de20bbac5b84863d"
+}

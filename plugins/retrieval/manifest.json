@@ -1,1 +1,8 @@
-{"name":"retrieval","version":"1.0","entry":"handler.py","func":"handle","desc":"本地分片检索"}
+{
+ "name": "retrieval",
+ "version": "1.0.0",
+ "entry": "handler.py",
+ "func": "handle",
+ "desc": "本地分片检索",
+ "sha256": "7b5f4849faee0f56db19e0f9e39bd0bb493574b35eac3b7e18529b0478f06471"
+}

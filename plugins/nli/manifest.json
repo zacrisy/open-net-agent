@@ -1,1 +1,8 @@
-{"name":"nli","version":"1.0","entry":"handler.py","func":"handle","desc":"NLI 支持/反驳"}
+{
+ "name": "nli",
+ "version": "1.0.0",
+ "entry": "handler.py",
+ "func": "handle",
+ "desc": "NLI 支持/反驳",
+ "sha256": "2ce34cbc6ba1f66c21bbda9c4cff540a9ea8f14fcb4475f811f24470c6305c67"
+}
