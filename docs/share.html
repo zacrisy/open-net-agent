@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Share OpenNetAgent</title>
+<meta property="og:title" content="OpenNetAgent — the network is the agent">
+<meta property="og:description" content="Evidence-first network agent: research with real sources, document Q&A, compute, NLI, self-evolving memory.">
+<meta property="og:image" content="https://zacrisy.github.io/open-net-agent/preview.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zacrisy.github.io/open-net-agent/share.html">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+:root{--bg:#04070c;--card:#0a121c;--line:rgba(94,242,255,.16);--txt:#d9e8f4;--muted:#6f879b;--cyan:#5ef2ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.7 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif}
+main{max-width:960px;margin:0 auto;padding:7vh 22px}
+h1{font-size:34px;margin:0 0 6px}h1 span{color:var(--cyan)}
+.lead{color:var(--muted);margin-bottom:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin:14px 0}
+h2{font:11px/1 ui-monospace,monospace;letter-spacing:.2em;color:var(--cyan);margin:0 0 10px}
+pre{background:#04090f;border:1px solid var(--line);padding:12px;white-space:pre-wrap;color:var(--muted);font:12px/1.7 ui-monospace,monospace;margin:0 0 10px}
+a{color:var(--cyan)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+button{background:rgba(94,242,255,.1);border:1px solid var(--cyan);color:var(--cyan);padding:8px 12px;font:10px/1 ui-monospace,monospace;letter-spacing:.12em;cursor:pointer}
+button:hover{background:rgba(94,242,255,.2)}
+.ghost{background:transparent;border-color:var(--line);color:var(--txt)}
+img{width:100%;border:1px solid var(--line);border-radius:10px;margin:8px 0 14px}
+.link{font:12px/1.6 ui-monospace,monospace;color:var(--txt);word-break:break-all}
+</style>
+</head>
+<body>
+<main>
+  <h1>SHARE THE <span>NETWORK</span></h1>
+  <p class="lead">复制文案，发到 HN / Reddit / X / V2EX / 知乎。链接已准备好。</p>
+
+  <div class="card">
+    <img src="preview.png" alt="OpenNetAgent control deck">
+    <div class="link">https://tinyurl.com/2bfybazp</div>
+    <div class="row" style="margin-top:10px">
+      <button data-copy="short">COPY SHORT LINK</button>
+      <a href="https://tinyurl.com/2bfybazp" target="_blank" rel="noopener"><button class="ghost">OPEN CONTROL DECK</button></a>
+      <a href="https://github.com/zacrisy/open-net-agent" target="_blank" rel="noopener"><button class="ghost">GITHUB</button></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>SHOW HN</h2>
+    <pre id="hn">Show HN: OpenNetAgent – a network agent that cites real sources
+
+Most agents are one model on one machine. OpenNetAgent treats each computer as a node: a coordinator routes tasks over WebSocket, nodes keep local memory/skills, and the coordinator aggregates and verifies.
+
+What works: research with real sources (PubMed, arXiv, Hacker News, Stack Overflow, OpenAlex, Crossref) and [n] citations; document Q&A [Dn]; AST-safe compute; NLI claim verification. Upvoted answers become a knowledge pack that new nodes pull.
+
+Example: GLP-1 mechanism returns 4 real papers in ~11s. Honest limits: Wikipedia/DDG unreachable here; research runs coordinator-side; nodes currently retrieval/echo/NLI.
+
+Control deck: https://tinyurl.com/2bfybazp
+Repo: https://github.com/zacrisy/open-net-agent
+Join a node: https://github.com/zacrisy/open-net-agent/issues/4</pre>
+    <div class="row">
+      <button data-copy="hn">COPY POST</button>
+      <a href="https://news.ycombinator.com/submit" target="_blank" rel="noopener"><button class="ghost">OPEN HN SUBMIT</button></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>REDDIT / r/LocalLLaMA</h2>
+    <pre id="reddit">I stopped letting a small local model invent facts — OpenNetAgent cites sources instead
+
+I tried qwen2.5 0.5B/1.5B for a research agent. It confidently invented “GLP-1 increases orexin release”, which is not in any source. So I changed the design: retrieve from PubMed/arXiv/HN/Stack Overflow/OpenAlex/Crossref, rank sources, extract mechanism sentences, translate, and cite [n]. The local model is optional and never trusted for facts.
+
+Also: document Q&A [Dn], AST-safe compute, NLI verification. Upvoted answers become a knowledge pack; new nodes pull it; later answers cite “network memory”.
+
+Control deck: https://tinyurl.com/2bfybazp
+Repo: https://github.com/zacrisy/open-net-agent
+
+Would love feedback on source ranking, translation quality, and distributing research skills across nodes.</pre>
+    <div class="row">
+      <button data-copy="reddit">COPY POST</button>
+      <a href="https://www.reddit.com/submit" target="_blank" rel="noopener"><button class="ghost">OPEN REDDIT SUBMIT</button></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>X / TWITTER THREAD</h2>
+    <pre id="x">1/ Most agents are one model on one machine. OpenNetAgent treats each computer as a node, connected as a graph. The network is the agent.
+
+2/ It answers with real sources: PubMed, arXiv, Hacker News, Stack Overflow, OpenAlex, Crossref — with [n] citations. GLP-1 mechanism: 4 papers, ~11s.
+
+3/ Also: document Q&A [Dn], AST-safe compute, NLI claim verification. Not a chatbot; a workbench.
+
+4/ A 0.5B local model invented facts, so facts come from retrieval; the model is optional. Evidence first, not vibes.
+
+5/ Upvote an answer → experience → knowledge pack → new nodes pull it → later answers cite “network memory”.
+
+6/ Try it: https://tinyurl.com/2bfybazp
+Repo: https://github.com/zacrisy/open-net-agent
+Looking for node runners + contributors.</pre>
+    <div class="row">
+      <button data-copy="x">COPY THREAD</button>
+      <a href="https://x.com/intent/post?text=OpenNetAgent%20%E2%80%94%20a%20network%20agent%20that%20cites%20real%20sources&url=https%3A%2F%2Ftinyurl.com%2F2bfybazp" target="_blank" rel="noopener"><button class="ghost">OPEN X COMPOSER</button></a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>中文 / V2EX / 知乎</h2>
+    <pre id="zh">把每台电脑变成节点：一个会给出来源的网络智能体
+
+我们习惯把模型越做越大，但一台机器总有上限。OpenNetAgent 换个思路：每台电脑是图上的节点，协调者通过 WebSocket 分发任务，节点保留本地记忆与技能。
+
+它现在能做什么：
+- Research：PubMed / arXiv / Hacker News / Stack Overflow / OpenAlex / Crossref，中文证据摘要 + [n] 引用；
+- Docs：粘贴报告/代码，按片段回答 [Dn]；
+- Compute：AST 安全计算；
+- Verify：NLI 判断支持/反驳；
+- Evolution：赞/踩 → 经验 → 知识包 → 新节点记忆。
+
+实测：GLP-1 机制返回 4 篇真实论文，约 11 秒；asyncio 报错返回 Stack Overflow 高票答案。
+
+体验：https://tinyurl.com/2bfybazp
+仓库：https://github.com/zacrisy/open-net-agent
+加入节点：https://github.com/zacrisy/open-net-agent/issues/4
+
+诚实说明：当前网络 Wikipedia/DDG 不可达，强在医学/学术/技术/代码；研究编排还在协调者侧，节点主要承担 retrieval/echo/NLI；自我进化是经验蒸馏，不是自动改代码。</pre>
+    <div class="row">
+      <button data-copy="zh">COPY 中文</button>
+      <a href="https://www.v2ex.com/new" target="_blank" rel="noopener"><button class="ghost">V2EX</button></a>
+      <a href="https://zhuanlan.zhihu.com/write" target="_blank" rel="noopener"><button class="ghost">知乎</button></a>
+    </div>
+  </div>
+
+  <p class="lead">没有账号？先看 <a href="https://github.com/zacrisy/open-net-agent/blob/main/promo/ACCOUNTS.md">账号与一键发布</a>。HN/Reddit/X 必须由真人登录。</p>
+</main>
+<script>
+const T = {
+  short: 'https://tinyurl.com/2bfybazp',
+  hn: document.getElementById('hn').textContent,
+  reddit: document.getElementById('reddit').textContent,
+  x: document.getElementById('x').textContent,
+  zh: document.getElementById('zh').textContent,
+};
+document.querySelectorAll('[data-copy]').forEach(b => b.onclick = async () => {
+  await navigator.clipboard.writeText(T[b.dataset.copy] || '');
+  const old = b.textContent; b.textContent = 'COPIED ✓';
+  setTimeout(() => b.textContent = old, 1400);
+});
+</script>
+</body>
+</html>

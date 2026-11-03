@@ -1,6 +1,16 @@
 name: Announce
 on:
   workflow_dispatch:
+    inputs:
+      platform:
+        description: "Where to post"
+        type: choice
+        default: all
+        options: [all, bluesky, devto]
+      dry_run:
+        description: "Preview only (no post)"
+        type: boolean
+        default: false
 jobs:
   announce:
     runs-on: ubuntu-latest
@@ -10,11 +20,13 @@ jobs:
         with:
           python-version: "3.11"
       - name: Bluesky
+        if: ${{ inputs.platform == 'all' || inputs.platform == 'bluesky' }}
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
-        run: python scripts/announce_bluesky.py
+        run: python scripts/announce_bluesky.py ${{ inputs.dry_run && '--dry-run' || '' }}
       - name: Dev.to
+        if: ${{ inputs.platform == 'all' || inputs.platform == 'devto' }}
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
-        run: python scripts/announce_devto.py
+        run: python scripts/announce_devto.py ${{ inputs.dry_run && '--dry-run' || '' }}
