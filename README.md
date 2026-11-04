@@ -40,6 +40,17 @@ curl -fsSL https://opennetagent.serveousercontent.com/install.sh | bash -s -- \
 
 当前网络环境 Wikipedia / DuckDuckGo 不可达，研究能力最强在**医学 / 学术 / 技术 / 代码**；它不是通用闲聊大模型，而是“有来源的工作助手”。
 
+## NBPW preliminary experiments
+
+We tested the network-brain design on a synthetic 30-node testbed:
+
+- NBPW top-3 workspace: success **0.947** vs UCB **0.805**, p99 **0.057s** vs **1.0s**, at **2.7×** bandwidth.
+- k=2 is the budget sweet spot; k=3 for tail reliability.
+- Predictive coding: θ=1.8 gives **22.9×** fewer bytes but MSE 0.112; it is a budget knob.
+- **Correlated errors cap the workspace**: with corr=0.2, k=5 (0.825) < k=3 (0.830). Diversity > quantity.
+
+Code: [`nbpw/`](nbpw/) · Design: [`nbpw/DESIGN.md`](nbpw/DESIGN.md) · Report: [`nbpw/REPORT.md`](nbpw/REPORT.md)
+
 ## 1. 思想
 
 单机模型受内存/算力限制；生物智能不是“一个超大神经元”，而是**大量单元 + 连接 + 活动**。
