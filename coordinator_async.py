@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """异步协调者：aiohttp + WebSocket 推送 + Thompson 采样。"""
-import asyncio, json, random, time, uuid
+import asyncio, json, random, re, time, uuid
 from collections import defaultdict
 from aiohttp import web, WSMsgType
 import db, db_async
@@ -115,6 +115,22 @@ def _knowledge_pack():
     return STARTER_DOCS + db.top_experience_docs(30)
 
 
+def _lexical_nli(claim, evidence):
+    cw = set(re.findall(r"[a-zA-Z]{3,}", (claim or "").lower()))
+    ew = set(re.findall(r"[a-zA-Z]{3,}", (evidence or "").lower()))
+    if not cw or not ew:
+        return "UNCERTAIN", 0.25, "no lexical overlap"
+    overlap = len(cw & ew) / max(1, len(cw))
+    neg = {"not", "no", "never", "without", "cannot", "isn't", "doesn't", "不", "无", "未", "没有", "不能"}
+    cn = any(x in (claim or "").lower() for x in neg)
+    en = any(x in (evidence or "").lower() for x in neg)
+    if overlap >= 0.22:
+        if cn != en:
+            return "REFUTES", 0.68, f"overlap={overlap:.2f}, negation differs"
+        return "SUPPORTS", 0.66, f"overlap={overlap:.2f}, no negation mismatch"
+    return "UNCERTAIN", 0.35, f"overlap={overlap:.2f}"
+
+
 def _self_intro():
     s = brain.status(); m = s.get("metrics", {}); a = s.get("auto", {})
     answer = (f"我是 OpenNetBrain，一个持续学习的网络大脑。\n\n"
@@ -141,11 +157,10 @@ async def _ask_core(d):
     elif mode == "verify":
         if not claim or not evidence:
             return {"error": "verify 需要 claim 和 evidence"}
-        v = await _run_query({"skill": "nli", "query": claim + " || " + evidence, "timeout": 20, "quorum": 1})
-        label = v.get("answer") or "UNKNOWN"; score = float(v.get("score", 0) or 0)
-        res = {"answer": label, "sources": [{"title": "NLI node", "snippet": claim + " || " + evidence, "source": "NLI", "url": "", "year": ""}],
-               "trace": [{"step": "route", "detail": "nli"}, {"step": "verify", "detail": label}],
-               "confidence": round(min(1.0, abs(score)), 2), "engine": "nli"}
+        label, score, detail = _lexical_nli(claim, evidence)
+        res = {"answer": label, "sources": [{"title": "Lexical/NLI check", "snippet": claim + " || " + evidence, "source": "NLI", "url": "", "year": ""}],
+               "trace": [{"step": "verify", "detail": label}, {"step": "method", "detail": detail}],
+               "confidence": round(min(1.0, abs(score)), 2), "engine": "lexical-nli"}
     elif mode == "compute":
         res = await asyncio.to_thread(agent_core.compute, query)
     elif mode == "docs":

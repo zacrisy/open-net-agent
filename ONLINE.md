@@ -2,7 +2,7 @@
 
 ## 公网访问（已开通）
 
-- **控制台（推荐，无隧道警告）**：<https://zacrisy.github.io/open-net-agent/brain.html?v=8>
+- **控制台（推荐，无隧道警告）**：<https://zacrisy.github.io/open-net-agent/brain.html?v=9>
 - **后端 / 一键加入**：<https://opennetagent2.serveousercontent.com/>（serveo 固定域名；浏览器直连会看到 Serveo 警告页）
 
 - **公网 URL**：<https://opennetagent2.serveousercontent.com/>
@@ -26,7 +26,7 @@
 
 - Browser API（primary）：`https://meal-mature-blah-shepherd.trycloudflare.com`（Cloudflare Quick Tunnel，随机地址，重启会变）
 - CLI / fallback：`https://opennetagent2.serveousercontent.com`（serveo 固定子域名）
-- UI：<https://zacrisy.github.io/open-net-agent/brain.html?v=8>
+- UI：<https://zacrisy.github.io/open-net-agent/brain.html?v=9>
 
 ## 架构
 
