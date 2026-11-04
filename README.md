@@ -5,7 +5,7 @@
 > 一个持续学习的网络大脑：从真实来源抽取知识卡，建立信念图，检测冲突，自动学习/进化，并根据使用者意见改进。
 
 [![CI](https://github.com/zacrisy/open-net-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/zacrisy/open-net-agent/actions)
-[![Pages](https://img.shields.io/badge/live-GitHub%20Pages-blue)](https://zacrisy.github.io/open-net-agent/brain.html?v=13)
+[![Pages](https://img.shields.io/badge/live-GitHub%20Pages-blue)](https://zacrisy.github.io/open-net-agent/brain.html?v=14)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 
@@ -13,8 +13,8 @@
 
 ## Live
 
-- **Brain console**: <https://zacrisy.github.io/open-net-agent/brain.html?v=13>
-- **Feedback window**: 控制台右上角 **✎ 提意见**，或 <https://zacrisy.github.io/open-net-agent/brain.html?v=13&feedback=1>
+- **Brain console**: <https://zacrisy.github.io/open-net-agent/brain.html?v=14>
+- **Feedback window**: 控制台右上角 **✎ 提意见**，或 <https://zacrisy.github.io/open-net-agent/brain.html?v=14&feedback=1>
 - **Landing**: <https://zacrisy.github.io/open-net-agent/>
 - **GitHub**: <https://github.com/zacrisy/open-net-agent>
 - **Release v0.3.1**: <https://github.com/zacrisy/open-net-agent/releases/tag/v0.3.1>
