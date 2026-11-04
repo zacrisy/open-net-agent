@@ -14,7 +14,7 @@
 | 测试 | Flat | PPR |
 |---|---:|---:|
 | Masked top-1 | 1.00 | **1.00** |
-| Multi-hop cover@3 | 1.00 | **1.00** |
+| Multi-hop cover@3 | 1.00 | **0.95** |
 | Association top-3 | 0.20 | **0.20** |
 
 说明：
