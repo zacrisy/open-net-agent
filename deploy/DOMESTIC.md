@@ -7,7 +7,7 @@
 在云控制台点“远程连接/登录”，以 root 粘贴：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/zacrisy/open-net-agent/main/deploy/vps_bootstrap.sh | bash
+curl -fsSL https://zacrisy.github.io/open-net-agent/vps_bootstrap.sh | bash
 ```
 
 脚本会自动安装 Docker、拉代码、构建、启动完整 API、配置 HTTPS（`IP-dashes.sslip.io`），并打印访问地址和 token。安全组需放行 80/443。
