@@ -58,6 +58,11 @@ textarea,input{background:rgba(3,9,15,.85);border:1px solid var(--line);color:va
 .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.node{display:flex;justify-content:space-between;gap:8px;font:8px/1.5 var(--mono);border-bottom:1px solid rgba(94,242,255,.08);padding:4px 0;color:var(--muted)}.node b{color:var(--text);font-weight:500}
 pre{background:rgba(3,9,15,.9);border:1px solid var(--line);padding:9px;color:var(--cyan);font:8.5px/1.7 var(--mono);white-space:pre-wrap;word-break:normal;overflow-wrap:break-word;margin:0 0 7px}.copy{width:100%;border:1px solid var(--green);background:rgba(77,255,184,.08);color:var(--green);font:8px/1 var(--mono);letter-spacing:.12em;padding:7px;cursor:pointer}
 .modal{position:fixed;inset:0;z-index:300;display:none;place-items:center;background:rgba(2,5,9,.85);backdrop-filter:blur(10px)}.modal.open{display:grid}.modal-card{width:min(420px,92vw);background:#08111b;border:1px solid var(--green);padding:20px}.modal-card h3{font:10px/1 var(--mono);letter-spacing:.2em;color:var(--green);margin:0 0 8px}.modal-card p{color:var(--muted);font-size:11px;margin:0 0 12px}.modal-actions{display:flex;gap:7px;margin-top:10px}.modal-actions button{flex:1;padding:8px;font:8px/1 var(--mono);letter-spacing:.12em;cursor:pointer;border:1px solid var(--green);background:var(--green);color:#021016}.modal-actions .ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.activity{display:flex;flex-direction:column;gap:4px;max-height:150px;overflow:auto;margin-top:4px}
+.act{display:flex;gap:6px;align-items:baseline;border-bottom:1px solid rgba(94,242,255,.07);padding:3px 0;font:9px/1.5 var(--mono);color:var(--muted)}
+.act b{font-weight:500;color:var(--green)}.act b.evo{color:var(--amber)}.act span{flex:1;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.act em{font-style:normal;color:var(--dim);font-size:8px}
+.card-modal{position:fixed;inset:0;z-index:320;display:none;place-items:center;background:rgba(2,5,9,.82);backdrop-filter:blur(8px);padding:20px}.card-modal.open{display:grid}
+.card-box{position:relative;width:min(640px,94vw);max-height:80vh;overflow:auto;background:#08111b;border:1px solid var(--green);padding:20px;box-shadow:0 0 50px rgba(77,255,184,.12)}.card-box h3{font:600 17px/1.5 var(--sans);margin:8px 0 10px;color:var(--text)}.card-box p{color:var(--muted);font-size:12px;margin:0 0 10px}.card-box .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.card-box a{color:var(--cyan);text-decoration:none;font:9px/1.5 var(--mono)}.card-close{position:absolute;right:10px;top:8px;background:transparent;border:0;color:var(--muted);font-size:20px;cursor:pointer}.card-close:hover{color:var(--green)}
 .graph-detail{margin-top:8px;border:1px solid rgba(94,242,255,.12);padding:8px 10px;font:9px/1.6 var(--mono);color:var(--muted);min-height:38px;background:rgba(3,9,15,.35)}
 .graph-detail b{color:var(--cyan)}.graph-detail a{color:var(--green)}
 .mix{display:flex;flex-direction:column;gap:7px}
@@ -127,6 +132,8 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
         <div class="progress"><i id="progress"></i></div>
         <div class="hint" id="learnMsg">输入主题，或直接启动默认主题。学习在真实网络来源上进行。</div>
         <div class="cycles" id="cycles"></div>
+        <div class="hint" style="margin-top:8px">ACTIVITY</div>
+        <div class="activity" id="activity"></div>
       </div>
       <div>
         <div class="head"><span class="tag">LIVE FEED</span><span class="hint">RECENT CARDS</span></div>
@@ -196,6 +203,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
 
 <footer><div>OPENNETBRAIN // NBCL · <span id="clock">--:--:--</span></div><div><a href="https://github.com/zacrisy/open-net-agent">GITHUB</a> · <a href="https://zacrisy.github.io/open-net-agent/">DOCS</a></div></footer>
 
+<div class="card-modal" id="cardModal"><div class="card-box"><button class="card-close" id="closeCard">×</button><div id="cardBody"></div></div></div>
 <div class="modal" id="settings"><div class="modal-card"><h3>ADMIN LINK</h3><p>可选：管理员 token 用于审计/NLI。公共学习与工作台无需 token。</p><input id="token" placeholder="admin token"><div class="modal-actions"><button id="saveToken">SAVE</button><button id="closeSettings" class="ghost">CANCEL</button></div></div></div>
 
 <script>
@@ -259,6 +267,7 @@ async function refreshBrain() {
     $('learnMsg').textContent = s.learning?.stage === 'complete' ? `完成：${s.learning.topic} · ${s.learning.elapsed}s` : (s.learning?.stage ? `当前阶段：${s.learning.stage} · ${s.learning.elapsed}s` : '等待开始学习。');
     $('feed').innerHTML = (s.feed || []).length ? s.feed.map(c => `<div class="feed-item"><b>${esc(c.source_type)}</b><span>${(c.confidence||0).toFixed(2)}</span><p>${esc(c.claim)}</p></div>`).join('') : '<div class="feed-item"><p>等待学习周期…</p></div>';
     $('cycles').innerHTML = (s.cycles || []).slice(0,5).map(c => `<div class="cycle"><b>${esc(c.topic)}</b><span>${c.cards||0} cards · ${c.sources||0} src · ${c.status}</span></div>`).join('');
+    $('activity').innerHTML = (s.cycles || []).slice(0,8).map(c => { const evo=c.topic==='EVOLUTION'; return `<div class="act"><b class="${evo?'evo':'learn'}">${evo?'EVOLVE':'LEARN'}</b><span>${esc(c.topic)}</span><em>${timeAgo(c.finished||c.started)}</em></div>`; }).join('');
     await loadGraph();
   } catch (e) { $('linkState').textContent = 'OFFLINE'; $('dot').classList.add('off'); }
 }
@@ -283,6 +292,15 @@ async function evolve() {
   setTimeout(() => $('evolve').disabled = false, 2500);
 }
 
+function timeAgo(ts){ if(!ts) return '--'; const s=Math.max(0,Math.round(Date.now()/1000-ts)); if(s<60) return s+'s ago'; if(s<3600) return Math.round(s/60)+'m ago'; return Math.round(s/3600)+'h ago'; }
+function openCard(n){
+  if(!n) return;
+  const link = n.source_url ? `<a href="${esc(n.source_url)}" target="_blank" rel="noopener">OPEN SOURCE ↗</a>` : '';
+  $('cardBody').innerHTML = `<div class="tag">${esc(n.source_type||'KNOWLEDGE CARD')} · ${esc(n.status||'active')} · CONF ${Number(n.confidence||0).toFixed(2)}</div><h3>${esc(n.claim||n.label||'')}</h3><p>TOPIC · ${esc(n.topic||'')}</p><div class="meta">${link}</div><div class="hint">This card is part of the network brain's belief graph.</div>`;
+  $('cardModal').classList.add('open');
+}
+function closeCard(){ $('cardModal').classList.remove('open'); }
+
 function drawGraph() {
   const c = $('graphCanvas'); if (!c) return; const r = c.getBoundingClientRect(); const dpr = devicePixelRatio || 1;
   c.width = r.width * dpr; c.height = r.height * dpr; const x = c.getContext('2d'); x.scale(dpr,dpr);
@@ -303,6 +321,7 @@ function drawGraph() {
       const link = best.source_url ? ` · <a href="${esc(best.source_url)}" target="_blank" rel="noopener">source</a>` : '';
       $('graphDetail').innerHTML = `<b>${esc(best.source_type||'')}</b> · ${esc(best.status)} · conf ${Number(best.confidence||0).toFixed(2)}${link} <br>${esc(best.claim||best.label)}`;
       $('nodeDetail').textContent = `${best.source_type} · ${best.status} · ${best.label}`;
+      openCard(best);
     } else {
       $('graphDetail').textContent = '点击节点查看知识卡';
       $('nodeDetail').textContent = '点击脑图节点查看知识卡';
@@ -315,8 +334,8 @@ function drawBrain() {
   const W=r.width,H=r.height; let t=performance.now()/1000; x.clearRect(0,0,W,H);
   const cx=W*.5, cy=H*.5, R=Math.min(W,H)*.3;
   x.strokeStyle='rgba(77,255,184,.12)'; [0.55,.8,1].forEach(k=>{x.beginPath();x.arc(cx,cy,R*k,0,7);x.stroke();});
-  const nodes=state.graph.nodes||[]; const n=Math.max(nodes.length,3);
-  for(let i=0;i<n;i++){const a=t*.15+i*Math.PI*2/n, rr=R*(.72+(i%3)*.08); const px=cx+Math.cos(a)*rr, py=cy+Math.sin(a)*rr; x.beginPath();x.moveTo(cx,cy);x.lineTo(px,py);x.strokeStyle='rgba(77,255,184,.08)';x.stroke(); x.beginPath();x.arc(px,py,3,0,7);x.fillStyle=nodes[i]?.status==='disputed'?'#ffc857':'#4dffb8';x.shadowColor=x.fillStyle;x.shadowBlur=12;x.fill();x.shadowBlur=0;}
+  const nodes=state.graph.nodes||[]; const n=Math.max(nodes.length,3); window.__brainPos={}; window.__brainNodes=nodes;
+  for(let i=0;i<n;i++){const a=t*.15+i*Math.PI*2/n, rr=R*(.72+(i%3)*.08); const px=cx+Math.cos(a)*rr, py=cy+Math.sin(a)*rr; if(nodes[i]) window.__brainPos[nodes[i].id]={x:px,y:py}; x.beginPath();x.moveTo(cx,cy);x.lineTo(px,py);x.strokeStyle='rgba(77,255,184,.08)';x.stroke(); x.beginPath();x.arc(px,py,3,0,7);x.fillStyle=nodes[i]?.status==='disputed'?'#ffc857':'#4dffb8';x.shadowColor=x.fillStyle;x.shadowBlur=12;x.fill();x.shadowBlur=0;}
   x.beginPath();x.arc(cx,cy,14,0,7);x.fillStyle='rgba(77,255,184,.2)';x.fill();x.beginPath();x.arc(cx,cy,5,0,7);x.fillStyle='#d9fff4';x.shadowColor='#4dffb8';x.shadowBlur=22;x.fill();x.shadowBlur=0;
   requestAnimationFrame(drawBrain);
 }
@@ -362,7 +381,9 @@ async function ask(){
 }
 async function vote(id,v){ if(!id)return; const r=await api('/feedback',{method:'POST',body:JSON.stringify({id,vote:v})}); if(r.ok){$('fbMsg').textContent='SAVED ✓';} }
 
-$('train').onclick=startLearn; $('evolve').onclick=evolve; $('heroTrain').onclick=()=>{document.querySelector('.panel').scrollIntoView({behavior:'smooth'});startLearn();};
+$('train').onclick=startLearn; $('evolve').onclick=evolve;
+$('closeCard').onclick=closeCard; $('cardModal').onclick=e=>{if(e.target.id==='cardModal')closeCard();}; document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCard();});
+$('brainCanvas').onclick=ev=>{const c=$('brainCanvas'),r=c.getBoundingClientRect(),mx=ev.clientX-r.left,my=ev.clientY-r.top;let best=null,bd=1e9;(window.__brainNodes||[]).forEach(n=>{const p=(window.__brainPos||{})[n.id];if(!p)return;const d=Math.hypot(p.x-mx,p.y-my);if(d<bd){bd=d;best=n;}});if(best&&bd<18){$('nodeDetail').textContent=`${best.source_type} · ${best.status} · ${best.label}`;openCard(best);}}; $('heroTrain').onclick=()=>{document.querySelector('.panel').scrollIntoView({behavior:'smooth'});startLearn();};
 $('ask').onclick=ask;
 document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 document.querySelectorAll('#samples button').forEach(b=>b.onclick=()=>{setMode('research');$('q').value=b.dataset.q;ask();});

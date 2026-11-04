@@ -11,6 +11,7 @@ DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brain.db")
 LOCK = threading.Lock()
 CURRENT = {"cycle_id": None, "topic": None, "stage": "idle", "started": None, "elapsed": 0}
 AUTO = {"enabled": False, "interval": 600, "next": None, "last": None, "last_kind": None}
+AUTO_STARTED = False
 DEFAULT_TOPIC = "GLP-1 weight loss mechanism"
 
 
@@ -223,32 +224,29 @@ AUTO_TOPICS = ["GLP-1 weight loss mechanism", "AI agent evaluation", "Python asy
 
 
 def auto_start(interval=90):
+    global AUTO_STARTED
     with LOCK:
+        if AUTO_STARTED:
+            return
+        AUTO_STARTED = True
         AUTO.update({"enabled": True, "interval": interval, "next": time.time() + 4})
     def loop():
         time.sleep(4)
-        try:
-            with LOCK:
-                busy = CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating")
-            if not busy:
-                start(random.choice(AUTO_TOPICS))
-            while True:
-                with LOCK:
-                    AUTO["next"] = time.time() + interval
-                time.sleep(interval)
+        while True:
+            try:
                 with LOCK:
                     busy = CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating")
-                if busy:
-                    continue
-                if AUTO.get("last_kind") == "learn":
-                    consolidate()
-                else:
-                    start(random.choice(AUTO_TOPICS))
-        except Exception as e:
-            print("AUTO LOOP ERROR:", e, flush=True)
-            time.sleep(10)
+                if not busy:
+                    if AUTO.get("last_kind") == "learn":
+                        consolidate()
+                    else:
+                        start(random.choice(AUTO_TOPICS))
+            except Exception as e:
+                print("AUTO LOOP ERROR:", e, flush=True)
+            with LOCK:
+                AUTO["next"] = time.time() + interval
+            time.sleep(interval)
     threading.Thread(target=loop, daemon=True).start()
-
 
 def maybe_bootstrap():
     c = _conn(); n = c.execute("SELECT COUNT(*) FROM cards").fetchone()[0]; c.close()

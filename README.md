@@ -15,7 +15,7 @@
 - **项目主页**：<https://zacrisy.github.io/open-net-agent/>
 - **GitHub**：<https://github.com/zacrisy/open-net-agent>
 - **分享素材 / 发布文案**：<https://github.com/zacrisy/open-net-agent/blob/main/promo/LAUNCH.md>
-- **在线控制台（推荐）**：<https://zacrisy.github.io/open-net-agent/brain.html?v=9>（GitHub Pages，稳定、无隧道警告；后端走 serveo）
+- **在线控制台（推荐）**：<https://zacrisy.github.io/open-net-agent/brain.html?v=10>（GitHub Pages，稳定、无隧道警告；后端走 serveo）
 - **后端直连**：<https://opennetagent2.serveousercontent.com/>（serveo 固定域名；浏览器首次会看到 Serveo 警告页）
 - **一键加入**（把一台电脑变成节点）：
 
@@ -53,7 +53,7 @@ Code: [`nbpw/`](nbpw/) · Design: [`nbpw/DESIGN.md`](nbpw/DESIGN.md) · Report: 
 
 ## Public hosting（重要）
 
-- **UI**：GitHub Pages，公开可访问（`brain.html?v=9`）。
+- **UI**：GitHub Pages，公开可访问（`brain.html?v=10`）。
 - **API**：Cloudflare Quick Tunnel（当前）+ serveo fallback，运行在维护者本机。
 - **不是 24/7 云服务**：Mac 休眠、网络断开或隧道重启会导致 API 不可用；UI 仍能打开，但工作台会显示错误。
 - 生产部署见 `deploy/PUBLIC.md`（VPS + Docker/Caddy 或命名 Cloudflare Tunnel）。
