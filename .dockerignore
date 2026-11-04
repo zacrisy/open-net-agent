@@ -1,0 +1,7 @@
+.git
+__pycache__/
+*.pyc
+*.db-wal
+*.db-shm
+brain.db*
+node_modules/

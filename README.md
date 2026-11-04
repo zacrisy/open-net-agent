@@ -133,6 +133,22 @@ brain.html ── CORS ──> coordinator_async.py
 - **不是 24/7 云服务**：机器休眠/断网/隧道重启会暂停问答与 AUTO；
 - 生产部署见 [`deploy/PUBLIC.md`](deploy/PUBLIC.md)。
 
+## Deploy full API 24/7 (Hugging Face Space)
+
+GitHub Actions runs learning, but cannot serve a persistent HTTP API. For a 24/7 full API:
+
+1. Create a free Hugging Face account and a **write** token: <https://huggingface.co/settings/tokens>
+2. Run:
+
+```bash
+cd network_agent
+HF_TOKEN=hf_xxx SPACE=YOUR_USERNAME/open-net-brain bash deploy/hf_space.sh
+```
+
+The Space builds the root `Dockerfile`, serves the full API + `brain.html`, and runs `BRAIN_AUTO=1` inside the container.
+
+See [`deploy/HF_SPACE.md`](deploy/HF_SPACE.md).
+
 ## Limitations (honest)
 
 - Verify 是词面/否定启发式，不是完整 NLI；
