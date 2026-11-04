@@ -20,6 +20,8 @@
 - **Release v0.3.1**: <https://github.com/zacrisy/open-net-agent/releases/tag/v0.3.1>
 - **Roadmap discussion**: <https://github.com/zacrisy/open-net-agent/discussions/9>
 - **Feedback issue**: <https://github.com/zacrisy/open-net-agent/issues/8>
+- **Cloud mode**: GitHub Actions runs learning/evolution every 5 minutes and publishes `docs/cloud_brain.json`; Pages automatically uses this snapshot when the local API is offline, with browser-side OpenAlex/Crossref research.
+- **Cloud feedback**: feedback opened as a GitHub issue labeled `feedback` is imported by `cloud_feedback.yml` into the cloud brain DB.
 
 ## What it does
 
@@ -33,7 +35,8 @@ RETRIEVE → EXTRACT → VERIFY → CONSOLIDATE → EVOLVE
 - 每轮抽取**知识卡**：claim、evidence、source、confidence、status；
 - 建立**信念图**：supports / contradicts / disputed；
 - 去重、重建图、更新边；
-- AUTO 每 **20 秒**在 LEARN / EVOLVE 之间切换（依赖协调者进程常驻）。
+- **本地模式**：AUTO 每 **20 秒**在 LEARN / EVOLVE 之间切换（依赖协调者进程常驻）。
+- **云端模式**：GitHub Actions 每 **5 分钟**跑最多 **10 轮**学习/进化，结果发布为 Pages 快照。
 
 > 这里的“学习”是知识卡、信念图和课程层的学习，不是全局权重反向传播。物理限制与实验见 [`nbpw/DESIGN.md`](nbpw/DESIGN.md)。
 
@@ -125,7 +128,8 @@ brain.html ── CORS ──> coordinator_async.py
 ## Public hosting caveat
 
 - UI 托管在 GitHub Pages，公开可访问；
-- API 当前通过 **Cloudflare Quick Tunnel + serveo fallback** 跑在维护者机器上；
+- **云端学习**不依赖本机：GitHub Actions 每 5 分钟运行，Pages 读取 `cloud_brain.json`；
+- **完整问答/20 秒节奏**仍通过 **Cloudflare Quick Tunnel + serveo fallback** 跑在维护者机器上；
 - **不是 24/7 云服务**：机器休眠/断网/隧道重启会暂停问答与 AUTO；
 - 生产部署见 [`deploy/PUBLIC.md`](deploy/PUBLIC.md)。
 

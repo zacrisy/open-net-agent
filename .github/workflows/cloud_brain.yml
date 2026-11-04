@@ -19,7 +19,7 @@ jobs:
           python-version: "3.11"
       - name: Learn on GitHub runner
         env:
-          CLOUD_CYCLES: "5"
+          CLOUD_CYCLES: "10"
         run: python cloud_learn.py
       - name: Publish snapshot
         run: |
