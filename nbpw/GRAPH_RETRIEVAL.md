@@ -15,12 +15,12 @@
 |---|---:|---:|
 | Masked top-1 | 1.00 | **1.00** |
 | Multi-hop cover@3 | 1.00 | **1.00** |
-| Association top-3 | 0.10 | **0.25** |
+| Association top-3 | 0.20 | **0.20** |
 
 说明：
 
 - masked/multihop 中 flat 本身已接近满分，不能证明图扩散优势；
-- association 是“查询 A，期望通过图边找到 B”，PPR 0.25 vs flat 0.10，是最能体现关联扩散的指标；
+- association 是“查询 A，期望通过图边找到 B”，两者都是 0.20；这轮合成诊断没有证明 PPR 优势；
 - 样本只有 20 对边，且为合成诊断，不是人工 gold benchmark。
 
 ## 限制

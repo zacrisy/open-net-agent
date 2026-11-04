@@ -45,7 +45,9 @@ RETRIEVE → EXTRACT → VERIFY → CONSOLIDATE → EVOLVE
 
 - 首屏大脑图和下方 Knowledge Graph 都可点击；
 - 点击节点打开知识卡弹窗：来源、置信度、完整 claim、源链接；
-- `disputed` 卡用琥珀色标记。
+- `disputed` 卡用琥珀色标记；
+- **Typed graph + PPR**：IDF 种子 → Personalized PageRank → 一跳扩展；research 会追加“关联知识卡（图谱扩散）”；
+- 评估诊断：[`nbpw/GRAPH_RETRIEVAL.md`](nbpw/GRAPH_RETRIEVAL.md)（合成小样本，尚无显著优势）。
 
 ### 3. Workbench
 

@@ -8,6 +8,8 @@
 
 ---
 
+> **v0.6 实现更新（2026-11-04）**：已加入 typed graph + PPR 关联扩散检索（`graph_retrieval.py`、`/api/brain/retrieve`、research 结果追加图激活卡）。57 卡合成诊断：masked 1.0、multihop 0.95、association 0.20 vs flat 0.20；图扩散已进入生产路径，但尚未在更大 gold benchmark 上证明优势。
+
 ## 0. 执行摘要
 
 ### 0.1 一句话判断
