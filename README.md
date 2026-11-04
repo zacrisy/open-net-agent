@@ -134,6 +134,13 @@ brain.html ── CORS ──> coordinator_async.py
 - **不是 24/7 云服务**：机器休眠/断网/隧道重启会暂停问答与 AUTO；
 - 生产部署见 [`deploy/PUBLIC.md`](deploy/PUBLIC.md)。
 
+## Research review
+
+Full evaluation of the project against the original NBPW/NBCL thesis, literature review (2024–2026), maturity scorecard, and a 90-day roadmap:
+
+- [`docs/RESEARCH_REVIEW.md`](docs/RESEARCH_REVIEW.md)
+- Local source: `../网络大脑项目全面评估与改进研究.md`
+
 ## Deploy full API 24/7 (domestic VPS recommended)
 
 Hugging Face is not reliably reachable from mainland China. For a domestic 24/7 API, use an Aliyun/Tencent/Huawei lightweight Ubuntu server (requires your real-name account):
