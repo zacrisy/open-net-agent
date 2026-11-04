@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """NBCL brain service: live learning cycles, knowledge cards, belief graph."""
-import json, os, random, sqlite3, threading, time, uuid
+import json, os, random, re, sqlite3, threading, time, uuid
 import agent_core
 try:
     from continual import extract_cards, dedup, build_belief
@@ -27,6 +27,8 @@ def init():
         c.execute("CREATE TABLE IF NOT EXISTS cycles (id TEXT PRIMARY KEY, topic TEXT, started REAL, finished REAL, stage TEXT, sources INTEGER, cards INTEGER, new_cards INTEGER, conflicts INTEGER, status TEXT)")
         c.execute("CREATE TABLE IF NOT EXISTS cards (id TEXT PRIMARY KEY, topic TEXT, claim TEXT, evidence TEXT, source_json TEXT, source_type TEXT, confidence REAL, status TEXT, support INTEGER, cycle_id TEXT, ts REAL)")
         c.execute("CREATE TABLE IF NOT EXISTS edges (src TEXT, dst TEXT, kind TEXT)")
+        c.execute("CREATE TABLE IF NOT EXISTS feedback (id TEXT PRIMARY KEY, kind TEXT, text TEXT, contact TEXT, topic TEXT, status TEXT, created REAL, updated REAL)")
+        c.execute("CREATE TABLE IF NOT EXISTS improvements (id TEXT PRIMARY KEY, feedback_id TEXT, kind TEXT, title TEXT, detail TEXT, status TEXT, created REAL, updated REAL)")
     c.close()
 
 
@@ -83,6 +85,7 @@ def _run(cid, topic):
         build_belief(cards)
         _set(cid, "consolidating", cards=len(cards))
         new, conflicts = upsert(cards, cid)
+        mark_feedback_learned(topic)
         _set(cid, "complete", cards=len(cards), new_cards=new, conflicts=conflicts, status="complete")
     except Exception as e:
         with LOCK: CURRENT["stage"] = "error"; CURRENT["error"] = str(e)[:200]
@@ -154,6 +157,9 @@ def status():
         except Exception: pass
     srcs.discard("")
     mix = c.execute("SELECT source_type, COUNT(*) FROM cards GROUP BY source_type ORDER BY COUNT(*) DESC").fetchall()
+    fb_count = c.execute("SELECT COUNT(*) FROM feedback").fetchone()[0]
+    fb_open = c.execute("SELECT COUNT(*) FROM feedback WHERE status != 'learned'").fetchone()[0]
+    imp_count = c.execute("SELECT COUNT(*) FROM improvements").fetchone()[0]
     c.close()
     with LOCK:
         cur = dict(CURRENT)
@@ -164,7 +170,8 @@ def status():
             "metrics": {"cards": cards, "active": active, "disputed": disputed, "cycles": cycles,
                         "topics": [{"topic": t, "count": n} for t, n in topics],
                         "avg_confidence": round(sum(x[4] for x in feed) / max(1, len(feed)), 2),
-                        "sources": len(srcs), "source_mix": [{"type": t, "count": n} for t, n in mix]},
+                        "sources": len(srcs), "source_mix": [{"type": t, "count": n} for t, n in mix],
+                        "feedback": fb_count, "feedback_open": fb_open, "improvements": imp_count},
             "cycles": [{"id": r[0], "topic": r[1], "started": r[2], "finished": r[3], "stage": r[4],
                         "sources": r[5], "cards": r[6], "new_cards": r[7], "conflicts": r[8], "status": r[9]} for r in rows],
             "feed": [{"id": r[0], "topic": r[1], "claim": r[2][:260], "source_type": r[3], "confidence": r[4], "status": r[5]} for r in feed]}
@@ -240,13 +247,99 @@ def auto_start(interval=90):
                     if AUTO.get("last_kind") == "learn":
                         consolidate()
                     else:
-                        start(random.choice(AUTO_TOPICS))
+                        fb = next_feedback_topic()
+                        if fb:
+                            r = start(fb["topic"])
+                            if r.get("status") in ("started", "already_running"):
+                                mark_feedback_learning(fb["id"])
+                        else:
+                            start(random.choice(AUTO_TOPICS))
             except Exception as e:
                 print("AUTO LOOP ERROR:", e, flush=True)
             with LOCK:
                 AUTO["next"] = time.time() + interval
             time.sleep(interval)
     threading.Thread(target=loop, daemon=True).start()
+
+
+def _classify(text):
+    low = (text or "").lower()
+    if any(x in low for x in ("bug", "报错", "错误", "失效", "不能", "崩溃", "failed", "error", "卡住")):
+        return "bug"
+    if any(x in low for x in ("学习", "知识", "了解", "研究", "learn", "topic", "资料", "主题")):
+        return "knowledge"
+    if any(x in low for x in ("回答", "引用", "风格", "中文", "太长", "太短", "答案", "语气")):
+        return "style"
+    if any(x in low for x in ("功能", "增加", "支持", "feature", "add", "希望")):
+        return "feature"
+    return "other"
+
+
+def _topic_from(text):
+    m = re.search(r"(?:学习|了解|研究|learn|about|topic)\s*[:：]?\s*(.+)", text or "", re.I)
+    topic = (m.group(1) if m else (text or "")).strip()
+    topic = re.split(r"[。！？.!?\n]", topic)[0].strip()
+    return (topic or "user suggested topic")[:90]
+
+
+def submit_feedback(text, kind=None, contact=""):
+    text = (text or "").strip()[:1200]
+    if len(text) < 4:
+        return {"error": "please write at least 4 characters"}
+    kind = (kind or "").strip().lower()
+    if kind not in ("bug", "feature", "knowledge", "style", "other"):
+        kind = _classify(text)
+    fid = "fb-" + uuid.uuid4().hex[:10]
+    now = time.time()
+    topic = _topic_from(text) if kind in ("knowledge", "feature") else ""
+    status = "queued" if kind == "knowledge" else "open"
+    c = _conn()
+    with c:
+        c.execute("INSERT INTO feedback VALUES (?,?,?,?,?,?,?,?)", (fid, kind, text, (contact or "")[:120], topic, status, now, now))
+        title = (("Learn: " + topic) if kind == "knowledge" else ("Feature: " if kind == "feature" else ("Bug: " if kind == "bug" else ("Answer quality: " if kind == "style" else "Review: "))) + text[:80])
+        c.execute("INSERT INTO improvements VALUES (?,?,?,?,?,?,?,?)",
+                  ("imp-" + uuid.uuid4().hex[:10], fid, kind, title, text[:600], ("queued" if kind == "knowledge" else "open"), now, now))
+    c.close()
+    return {"id": fid, "kind": kind, "topic": topic, "status": status}
+
+
+def feedback_list(limit=20):
+    c = _conn()
+    rows = c.execute("SELECT id,kind,text,contact,topic,status,created FROM feedback ORDER BY created DESC LIMIT ?", (limit,)).fetchall()
+    c.close()
+    return [{"id": r[0], "kind": r[1], "text": r[2][:500], "topic": r[4], "status": r[5], "created": r[6]} for r in rows]
+
+
+def improvement_list(limit=20):
+    c = _conn()
+    rows = c.execute("SELECT id,feedback_id,kind,title,status,created FROM improvements ORDER BY created DESC LIMIT ?", (limit,)).fetchall()
+    c.close()
+    return [{"id": r[0], "feedback_id": r[1], "kind": r[2], "title": r[3], "status": r[4], "created": r[5]} for r in rows]
+
+
+def next_feedback_topic():
+    c = _conn()
+    r = c.execute("SELECT id,topic FROM feedback WHERE status='queued' AND kind='knowledge' ORDER BY created LIMIT 1").fetchone()
+    c.close()
+    return {"id": r[0], "topic": r[1]} if r else None
+
+
+def mark_feedback_learning(fid):
+    c = _conn()
+    with c:
+        c.execute("UPDATE feedback SET status='learning', updated=? WHERE id=?", (time.time(), fid))
+        c.execute("UPDATE improvements SET status='in_progress', updated=? WHERE feedback_id=?", (time.time(), fid))
+    c.close()
+
+
+def mark_feedback_learned(topic):
+    c = _conn()
+    with c:
+        rows = c.execute("SELECT id FROM feedback WHERE status IN ('queued','learning') AND topic=?", (topic,)).fetchall()
+        for (fid,) in rows:
+            c.execute("UPDATE feedback SET status='learned', updated=? WHERE id=?", (time.time(), fid))
+            c.execute("UPDATE improvements SET status='applied', updated=? WHERE feedback_id=?", (time.time(), fid))
+    c.close()
 
 def maybe_bootstrap():
     c = _conn(); n = c.execute("SELECT COUNT(*) FROM cards").fetchone()[0]; c.close()

@@ -1,388 +1,142 @@
-# OpenNetAgent（织网）
+# OpenNetBrain（网络大脑）
 
-> 把互联网上的电脑组织成一个**可加入、可退出、低打扰、可验证**的网络智能体。
-> 不是“把一台电脑变大”，而是“让很多台电脑像专家网络一样互相路由、聚合、验证”。
+> A network-native continual learner. It learns from real sources, builds knowledge cards and a belief graph, verifies evidence, and improves from community feedback.
+>
+> 一个持续学习的网络大脑：从真实来源抽取知识卡，建立信念图，检测冲突，自动学习/进化，并根据使用者意见改进。
 
 [![CI](https://github.com/zacrisy/open-net-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/zacrisy/open-net-agent/actions)
-[![Pages](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://zacrisy.github.io/open-net-agent/)
+[![Pages](https://img.shields.io/badge/live-GitHub%20Pages-blue)](https://zacrisy.github.io/open-net-agent/brain.html?v=11)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 
-## Live Demo / 一键加入
+![OpenNetBrain](docs/preview.png)
 
-![OpenNetAgent control deck](docs/preview.png)
+## Live
 
-- **项目主页**：<https://zacrisy.github.io/open-net-agent/>
-- **GitHub**：<https://github.com/zacrisy/open-net-agent>
-- **分享素材 / 发布文案**：<https://github.com/zacrisy/open-net-agent/blob/main/promo/LAUNCH.md>
-- **在线控制台（推荐）**：<https://zacrisy.github.io/open-net-agent/brain.html?v=10>（GitHub Pages，稳定、无隧道警告；后端走 serveo）
-- **后端直连**：<https://opennetagent2.serveousercontent.com/>（serveo 固定域名；浏览器首次会看到 Serveo 警告页）
-- **一键加入**（把一台电脑变成节点）：
+- **Brain console**: <https://zacrisy.github.io/open-net-agent/brain.html?v=11>
+- **Feedback window**: 控制台右上角 **✎ 提意见**，或 <https://zacrisy.github.io/open-net-agent/brain.html?v=11&feedback=1>
+- **Landing**: <https://zacrisy.github.io/open-net-agent/>
+- **GitHub**: <https://github.com/zacrisy/open-net-agent>
 
-```bash
-curl -fsSL https://opennetagent2.serveousercontent.com/install.sh | bash -s -- \
-  --coordinator https://opennetagent2.serveousercontent.com --token <YOUR_TOKEN>
+## What it does
+
+### 1. Continual learning loop
+
+```
+RETRIEVE → EXTRACT → VERIFY → CONSOLIDATE → EVOLVE
 ```
 
-- 出站连接、`nice 19`、可 `--pause` / `--resume` / `--uninstall`；
-- **自动配置**：安装时检测内存/磁盘，默认 `lite`（零模型依赖，只开 retrieval/echo），自动拉取 15 条 starter 记忆；有 transformers/torch 且内存足够时自动加 `nli`；
-- 不开放入站端口，不跑任意代码。
+- 真实来源：PubMed / arXiv / Hacker News / Stack Overflow / OpenAlex / Crossref；
+- 每轮抽取**知识卡**：claim、evidence、source、confidence、status；
+- 建立**信念图**：supports / contradicts / disputed；
+- 去重、重建图、更新边；
+- AUTO 每 **90 秒**在 LEARN / EVOLVE 之间切换（依赖协调者进程常驻）。
 
-> 公网隧道是临时演示；生产部署见 `deploy/PUBLIC.md`。
+> 这里的“学习”是知识卡、信念图和课程层的学习，不是全局权重反向传播。物理限制与实验见 [`nbpw/DESIGN.md`](nbpw/DESIGN.md)。
 
-## 它能做什么（不是 FAQ 检索器）
+### 2. Interactive knowledge graph
 
-- **Research**：PubMed / arXiv / Hacker News / Stack Overflow / OpenAlex / Crossref 真实来源，输出中文证据摘要 + `[n]` 引用；
-- **Docs**：粘贴报告/代码，按片段回答并标注 `[Dn]`；
-- **Compute**：AST 安全计算，不执行任意代码；
-- **Verify**：NLI 节点判断支持 / 反驳；
-- **Evolution**：赞/踩 → SQLite 经验 → 蒸馏知识包 → 新节点记忆，后续回答引用 `network memory`。
+- 首屏大脑图和下方 Knowledge Graph 都可点击；
+- 点击节点打开知识卡弹窗：来源、置信度、完整 claim、源链接；
+- `disputed` 卡用琥珀色标记。
 
-当前网络环境 Wikipedia / DuckDuckGo 不可达，研究能力最强在**医学 / 学术 / 技术 / 代码**；它不是通用闲聊大模型，而是“有来源的工作助手”。
+### 3. Workbench
 
-## NBPW preliminary experiments
-
-We tested the network-brain design on a synthetic 30-node testbed:
-
-- NBPW top-3 workspace: success **0.947** vs UCB **0.805**, p99 **0.057s** vs **1.0s**, at **2.7×** bandwidth.
-- k=2 is the budget sweet spot; k=3 for tail reliability.
-- Predictive coding: θ=1.8 gives **22.9×** fewer bytes but MSE 0.112; it is a budget knob.
-- **Correlated errors cap the workspace**: with corr=0.2, k=5 (0.825) < k=3 (0.830). Diversity > quantity.
-
-Code: [`nbpw/`](nbpw/) · Design: [`nbpw/DESIGN.md`](nbpw/DESIGN.md) · Report: [`nbpw/REPORT.md`](nbpw/REPORT.md) · Continual: [`nbpw/REPORT_CONTINUAL.md`](nbpw/REPORT_CONTINUAL.md)
-
-## Public hosting（重要）
-
-- **UI**：GitHub Pages，公开可访问（`brain.html?v=10`）。
-- **API**：Cloudflare Quick Tunnel（当前）+ serveo fallback，运行在维护者本机。
-- **不是 24/7 云服务**：Mac 休眠、网络断开或隧道重启会导致 API 不可用；UI 仍能打开，但工作台会显示错误。
-- 生产部署见 `deploy/PUBLIC.md`（VPS + Docker/Caddy 或命名 Cloudflare Tunnel）。
-
-## 1. 思想
-
-单机模型受内存/算力限制；生物智能不是“一个超大神经元”，而是**大量单元 + 连接 + 活动**。
-
-我们把每台电脑看成一个**节点（Node）**：
-
-- 有自己的本地记忆/模型/工具；
-- 通过**出站连接**加入网络；
-- 收到任务后本地计算，只返回结果/证据/分数；
-- 协调者做**路由、聚合、验证**；
-- 节点可随时暂停、退出、卸载。
-
-**关键抽象**：不是字面意义的“大神经网络”，而是**图上的智能体网络**（节点=能力单元，边=消息，聚合=注意力，验证=裁判）。
-
-## 2. 目标
-
-| 目标 | 说明 |
+| Tool | Function |
 |---|---|
-| 开放 | 任何人可加入、可退出、可审计 |
-| 一键 | 一条命令安装为后台服务 |
-| 低打扰 | 出站轮询、nice 19、限并发、可暂停 |
-| 隐私 | 不共享原始文件，只回任务所需片段 |
-| 可扩展 | 技能插件：检索、NLI、问答、工具 |
-| 可验证 | 结果带证据与置信度，协调者复核 |
+| RESEARCH | 多源研究 + `[n]` 引用 |
+| DOCS | 文档片段级 `[Dn]` 问答 |
+| COMPUTE | AST 安全计算 |
+| VERIFY | 词面/否定核查（SUPPORTS / REFUTES / UNCERTAIN） |
+| SUMMARIZE | 抽取式摘要 |
+| TRANSLATE | 中英互译 |
+| EXTRACT | 数字/结论/关键事实抽取 |
 
-**非目标**：不跑任意代码、不挖矿、不采集用户数据、不做“自动真理机”。
+### 4. Community feedback → self-improvement
 
-## 3. 架构
+- 用户在 **✎ 提意见** 窗口提交意见；
+- 大脑自动分类：`bug / feature / knowledge / style / other`；
+- **知识类意见**进入 AUTO 学习队列，下一轮自动学习该主题；
+- 其他意见生成**可审计的改进提案**，显示在 `SELF-IMPROVEMENT` 面板；
+- 公开意见不会直接改代码；提案需要维护者审查。
 
-```
-                 ┌──────────────────────────┐
-                 │ Coordinator（协调者）      │
-                 │ 注册 / 任务 / 聚合 / 验证  │
-                 └───────┬──────────────────┘
-        ┌────────────────┼────────────────┐
-        │                │                │
-   ┌────▼────┐      ┌────▼────┐      ┌────▼────┐
-   │ Node A  │      │ Node B  │      │ Node C  │
-   │ 本地记忆 │      │ 本地模型 │      │ 本地工具 │
-   └─────────┘      └─────────┘      └─────────┘
-```
-
-- **Coordinator**：`coordinator.py`，HTTP 服务；节点注册、心跳、任务分发、结果聚合。
-- **Node**：`node.py`，出站轮询；本地技能；结果上报。
-- **Installer**：`install.sh`，一键安装为 launchd/systemd/nohup 服务。
-- **Skill**：默认 `retrieval`（本地小语料关键词检索），可替换为向量检索/NLI/QA。
-
-## 4. 快速开始（本机）
+API:
 
 ```bash
-# 终端 1：协调者
-python3 coordinator.py 8765
-
-# 终端 2/3/4：三个节点（分片）
-python3 node.py --coordinator http://127.0.0.1:8765 --node-id node-0 --index 0 --total 3
-python3 node.py --coordinator http://127.0.0.1:8765 --node-id node-1 --index 1 --total 3
-python3 node.py --coordinator http://127.0.0.1:8765 --node-id node-2 --index 2 --total 3
-
-# 查询
-curl -s -X POST http://127.0.0.1:8765/query \
-  -H 'Content-Type: application/json' \
-  -d '{"query":"多台电脑如何组成智能体","timeout":6}'
+POST /api/brain/feedback       {"text":"...","kind":"knowledge","contact":""}
+GET  /api/brain/feedback       recent public feedback
+GET  /api/brain/improvements   improvement proposals
 ```
 
-或直接 `python3 demo.py`（1 协调者 + 3 节点 + 两次查询）。
+## Why this design
 
-## 5. 一键加入（互联网）
+- **证据优先**：没有来源就明说，不编造；
+- **可追溯**：每张卡有来源、置信度、状态；
+- **可进化**：AUTO 学习 + EVOLVE 重建图 + 意见驱动课程；
+- **可审计**：冲突不删除，标记 `disputed`；
+- **网络原生**：节点只做 source / verifier / memory / expert，不要求人人有模型。
 
-先在公网服务器部署协调者（见 §7），然后每台电脑执行：
+## Quick start
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/zacrisy/open-net-agent/main/install.sh | bash -s -- \
-  --coordinator https://coord.example.com --token YOUR_TOKEN
+cd network_agent
+python3 -m venv .venv && . .venv/bin/activate
+pip install aiohttp
+python3 run_online.py
+# open http://127.0.0.1:8080/
 ```
 
-安装脚本会：
-
-1. 检测 Python3；
-2. 下载 `node.py` / `corpus.py` 到 `~/.netagent`；
-3. 写入配置与 `run.sh`（`nice -n 19`）；
-4. 注册为 launchd（macOS）/ systemd --user（Linux）/ nohup；
-5. 节点**只建立出站连接**，不开放入站端口。
-
-管理：
+实验复现：
 
 ```bash
-bash install.sh --pause      # 暂停（不吃 CPU）
-bash install.sh --resume     # 恢复
-bash install.sh --uninstall  # 卸载
+cd nbpw
+pip install -r requirements.txt
+python3 run_experiments.py      # routing / predictive coding / workspace
+python3 run_continual.py        # knowledge cards / belief revision / pruning
 ```
 
-## 6. 不影响正常工作
+实验报告：
 
-- **出站 only**：节点主动连协调者，不需要公网 IP/端口映射；
-- **低优先级**：`nice -n 19`，轮询间隔 0.6–1.0s，空闲才干活；
-- **可暂停**：`pause` 文件存在时节点只睡眠；
-- **可卸载**：一条命令删除服务与目录；
-- **不跑任意代码**：任务只调用内置技能（检索/NLI），带超时与大小限制；
-- **可限流**：协调者限制每节点并发与 QPS（TODO 已留接口）。
+- [`nbpw/REPORT.md`](nbpw/REPORT.md)
+- [`nbpw/REPORT_CONTINUAL.md`](nbpw/REPORT_CONTINUAL.md)
 
-## 7. 部署协调者（公网）
+## Architecture
 
-```bash
-# 服务器
-python3 coordinator.py 8765
-
-# Caddy 反代 + TLS（示例）
-coord.example.com {
-  reverse_proxy 127.0.0.1:8765
-}
+```
+brain.html ── CORS ──> coordinator_async.py
+                         ├─ /api/brain/status, /graph, /learn, /evolve
+                         ├─ /api/brain/feedback, /improvements
+                         ├─ /public/ask (research/docs/compute/verify/summarize/translate/extract)
+                         └─ /public/status
+                              │
+                              ▼
+                         brain.py  (NBCL)
+                         ├─ agent_core.collect — real sources
+                         ├─ continual.extract_cards / dedup / build_belief
+                         └─ SQLite: cycles / cards / edges / feedback / improvements
 ```
 
-- 用 Caddy/Nginx 提供 HTTPS；
-- 用 token/白名单限制加入；
-- 监控 `/status`（节点数、任务数）；
-- 生产环境建议加 Redis/Postgres 持久化与审计。
+## Public hosting caveat
 
-## 8. 安全与隐私
+- UI 托管在 GitHub Pages，公开可访问；
+- API 当前通过 **Cloudflare Quick Tunnel + serveo fallback** 跑在维护者机器上；
+- **不是 24/7 云服务**：机器休眠/断网/隧道重启会暂停问答与 AUTO；
+- 生产部署见 [`deploy/PUBLIC.md`](deploy/PUBLIC.md)。
 
-- **传输**：HTTPS（Caddy/Nginx）；
-- **认证**：`--token`（当前原型透传，生产需在 coordinator 校验）；
-- **数据最小化**：节点只回任务所需片段/分数，不回传原始文件；
-- **沙箱**：技能在本地进程内，限制输入大小/超时；不执行任意脚本；
-- **审计**：记录 task_id、node_id、耗时、分数；
-- **退出**：随时 pause/uninstall。
+## Limitations (honest)
 
-## 9. 技能扩展
+- Verify 是词面/否定启发式，不是完整 NLI；
+- 图谱支持边是语义启发式，不是严格事实；
+- 概念问答实验约 0.67，仍需多卡综合；
+- 真实外部节点仍为 0，当前是本机演示节点；
+- 反馈驱动的自动改进目前限于**学习主题 + 提案**，不会自动改代码。
 
-在 `node.py` 中替换 `Node` 的本地技能：
+## Contributing
 
-```python
-def handle(self, query):
-    # 1) 本地检索
-    # 2) 本地 NLI/验证
-    # 3) 返回 {"answer":..., "score":..., "evidence":[...]}
-```
+- 提意见：控制台 **✎ 提意见**；
+- 提 Issue / PR：<https://github.com/zacrisy/open-net-agent/issues>
+- 设计讨论：`nbpw/DESIGN.md`
 
-建议技能：`retrieval`、`nli`、`qa`、`tool`（计算/转换）。
-协调者按 `skills` 路由；节点只声明自己会什么。
+## License
 
-## 10. API
-
-| 方法 | 路径 | 作用 |
-|---|---|---|
-| POST | `/register` | 节点注册 |
-| POST | `/heartbeat` | 心跳 |
-| GET | `/task?node_id=` | 拉取任务 |
-| POST | `/result` | 上报结果 |
-| POST | `/query` | 提交查询并聚合 |
-| GET | `/status` | 节点/任务状态 |
-
-## 11. 路线图
-
-- [x] 本机多进程原型（协调者 + 3 节点）
-- [x] 一键安装/暂停/卸载
-- [ ] token 校验 + TLS 强制
-- [ ] 技能插件化（检索/NLI/QA）
-- [ ] 路由学习（bandit）+ 信誉分
-- [ ] quorum/超时/重试/故障注入
-- [ ] LAN 3–5 台真机联调
-- [ ] 公网小规模试点（10–50 节点）
-
-## 12. 许可证
-
-MIT。见 `LICENSE`。
-
----
-
-## 13. v2 更新（鉴权 / 技能 / 容错 / 信誉）
-
-### 13.1 token 鉴权
-
-协调者带 token 启动：
-
-```bash
-python3 coordinator.py 8765 secret
-```
-
-节点/客户端需带 `X-Auth-Token: secret`；错 token 返回 401，节点不会注册。
-
-### 13.2 技能插件
-
-`skills.py` 提供：
-
-- `retrieval`：本地分片关键词检索；
-- `echo`：连通性测试。
-
-节点用 `--skill retrieval` 声明；协调者按 skill 路由，只把任务分给会该技能的节点。
-
-### 13.3 quorum 与故障容错
-
-- 查询可指定 `quorum`（默认 3）；
-- 节点掉线/超时：协调者记录 `fail`，按剩余节点降级；
-- 测试：`python3 test_system.py`（错 token、节点掉线、quorum 降级）。
-
-### 13.4 信誉与指标
-
-`GET /metrics`：
-
-```json
-{"nodes":2,"tasks":2,"results":3,"ok":3,"fail":0,"avg_score":0.42}
-```
-
-`/status` 返回每节点 `skills/ok/fail`，用于后续路由学习。
-
-### 13.5 测试结果
-
-```bash
-$ python3 test_system.py
-nodes after bad-token attempt: ['good-1', 'good-0']
-wrong token query -> 401
-normal results: 2
-after one node down, results: 1
-ALL TESTS PASSED
-```
-
----
-
-## 14. v3 更新（TLS / token 轮换 / 信誉路由 / NLI 技能 / 负载）
-
-### 14.1 可选 TLS
-
-```bash
-python3 coordinator.py 8773 "token1,token2" cert.pem key.pem
-```
-
-- 带证书：HTTPS；不带：HTTP（建议反代）。
-- 测试：`curl -k -H "X-Auth-Token: token1" https://127.0.0.1:8773/status`。
-
-### 14.2 token 轮换
-
-`--token` 支持逗号分隔多个 token，旧 token 可短期共存后下线。
-
-### 14.3 信誉路由
-
-- `/status` 返回每节点 `ok/fail/rep`；
-- 协调者按 `rep` 选 `preferred` 节点，preferred 有 0.4s 宽限先拿任务；
-- 测试：`python3 test_reputation.py`（A 信誉 20、B 信誉 0 → A 先拿）。
-
-### 14.4 NLI 技能
-
-`skills.py` 新增 `nli`：
-
-```python
-nli("Metformin reduces glucose. || Metformin does not reduce glucose.", {})
-# {'answer': 'CONTRADICTION', 'score': -0.999}
-```
-
-节点 `--skill nli` 即可声明；协调者按技能路由。
-
-### 14.5 20 节点负载
-
-```bash
-python3 load_test.py
-# nodes 20 queries 50 success 1.0
-# p50 0.418 p95 0.503 avg 0.429
-```
-
-### 14.6 Docker + Caddy
-
-```bash
-TOKEN=secret docker compose up -d
-```
-
-- coordinator 内部 8765；
-- Caddy 自动 HTTPS（域名改 `deploy/Caddyfile`）。
-
----
-
-## 15. v4 更新（长轮询 / UCB / 审计 / 插件市场 / WAN 模拟）
-
-### 15.1 长轮询
-
-`GET /task?node_id=...&wait=3`：没有任务时挂起最多 3s，有任务立即返回。
-20 节点负载从 p50 0.418s 降到 **0.243s**。
-
-### 15.2 UCB 信誉路由
-
-`/status` 返回每节点 `rep/ucb/pulls`；`preferred` 按 UCB 选，兼顾利用与探索。
-
-### 15.3 SQLite 审计
-
-`db.py` 写 `nodes/tasks/results`；`GET /audit?task_id=...` 返回任务与结果。
-
-### 15.4 技能插件市场
-
-`plugins/<name>/manifest.json + handler.py`，启动时自动加载；`GET /skills` 列出。
-
-当前：`echo`、`retrieval`、`nli`。
-
-### 15.5 WAN 模拟
-
-节点支持 `--latency-ms 30 --drop-rate 0.05`。
-5 节点、30ms、5% 丢包、20 次查询：**success 1.0，p50 0.24s**。
-
-### 15.6 测试
-
-```bash
-python3 test_system.py      # 鉴权/掉线/quorum
-python3 test_reputation.py  # 信誉路由
-python3 test_audit.py       # 审计 + 技能市场
-python3 test_wan.py         # WAN 延迟/丢包
-python3 load_test.py        # 20 节点负载
-```
-
-### 15.7 Docker
-
-`docker compose config` 通过；本机 Docker daemon 未运行，镜像未构建。
-
-
-## GitHub connectivity in restricted networks
-
-If `github.com` is blocked or DNS returns an unreachable IP:
-
-```bash
-bash scripts/fix_github.sh
-```
-
-It prefers **SSH over 443** (`ssh.github.com`, deploy key) and falls back to a
-local CONNECT proxy (`127.0.0.1:8899`, multi-IP probe + failover) with HTTP/1.1.
-
-Why: in some networks `github.com:443` is reset while `api.github.com` and
-`ssh.github.com:443` still work. The deploy key is added via the API:
-
-```bash
-gh api -X POST repos/zacrisy/open-net-agent/keys \
-  -f title=opennetagent-deploy -f key="$(cat ~/.ssh/github_deploy.pub)" -F read_only=false
-```
+MIT

@@ -31,6 +31,7 @@ PUBLIC_HITS = defaultdict(list)
 ASK_HITS = defaultdict(list)
 ASK_JOBS = {}
 LEARN_HITS = defaultdict(list)
+FEEDBACK_HITS = defaultdict(list)
 db.init()
 
 
@@ -259,6 +260,30 @@ async def brain_evolve(req):
     return web.json_response(await asyncio.to_thread(brain.consolidate))
 
 
+def feedback_limited(req):
+    ip = req.headers.get("X-Forwarded-For", req.remote or "?").split(",")[0].strip()
+    now = time.time(); FEEDBACK_HITS[ip] = [t for t in FEEDBACK_HITS[ip] if now - t < 60]
+    if len(FEEDBACK_HITS[ip]) >= 5: return True
+    FEEDBACK_HITS[ip].append(now); return False
+
+
+async def feedback_submit(req):
+    if feedback_limited(req):
+        return web.json_response({"error": "feedback rate limit (5/min)"}, status=429)
+    try: d = await req.json()
+    except Exception: d = {}
+    res = brain.submit_feedback(d.get("text", ""), d.get("kind", ""), d.get("contact", ""))
+    return web.json_response(res, status=400 if res.get("error") else 200)
+
+
+async def feedback_list(req):
+    return web.json_response(brain.feedback_list(int(req.query.get("limit", 20))))
+
+
+async def improvement_list(req):
+    return web.json_response(brain.improvement_list(int(req.query.get("limit", 20))))
+
+
 async def brain_status(req):
     return web.json_response(brain.status())
 
@@ -392,6 +417,9 @@ def app():
     a.router.add_get("/public/ask/result", public_ask_result)
     a.router.add_post("/api/brain/learn", brain_learn)
     a.router.add_post("/api/brain/evolve", brain_evolve)
+    a.router.add_post("/api/brain/feedback", feedback_submit)
+    a.router.add_get("/api/brain/feedback", feedback_list)
+    a.router.add_get("/api/brain/improvements", improvement_list)
     a.router.add_get("/api/brain/status", brain_status)
     a.router.add_get("/api/brain/cards", brain_cards)
     a.router.add_get("/api/brain/graph", brain_graph)

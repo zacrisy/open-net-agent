@@ -63,6 +63,14 @@ pre{background:rgba(3,9,15,.9);border:1px solid var(--line);padding:9px;color:va
 .act b{font-weight:500;color:var(--green)}.act b.evo{color:var(--amber)}.act span{flex:1;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.act em{font-style:normal;color:var(--dim);font-size:8px}
 .card-modal{position:fixed;inset:0;z-index:320;display:none;place-items:center;background:rgba(2,5,9,.82);backdrop-filter:blur(8px);padding:20px}.card-modal.open{display:grid}
 .card-box{position:relative;width:min(640px,94vw);max-height:80vh;overflow:auto;background:#08111b;border:1px solid var(--green);padding:20px;box-shadow:0 0 50px rgba(77,255,184,.12)}.card-box h3{font:600 17px/1.5 var(--sans);margin:8px 0 10px;color:var(--text)}.card-box p{color:var(--muted);font-size:12px;margin:0 0 10px}.card-box .meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.card-box a{color:var(--cyan);text-decoration:none;font:9px/1.5 var(--mono)}.card-close{position:absolute;right:10px;top:8px;background:transparent;border:0;color:var(--muted);font-size:20px;cursor:pointer}.card-close:hover{color:var(--green)}
+.improvements{display:flex;flex-direction:column;gap:5px;max-height:180px;overflow:auto}
+.imp{display:flex;gap:8px;align-items:baseline;border-bottom:1px solid rgba(94,242,255,.07);padding:5px 0;font:9px/1.5 var(--mono);color:var(--muted)}
+.imp b{color:var(--cyan);font-weight:500;min-width:56px}.imp span{flex:1;color:var(--text);font-family:var(--sans);font-size:11px}.imp em{font-style:normal;color:var(--dim);font-size:8px}
+.imp .applied{color:var(--green)}.imp .queued{color:var(--amber)}
+.feedback-modal{position:fixed;inset:0;z-index:330;display:none;place-items:center;background:rgba(2,5,9,.85);backdrop-filter:blur(10px);padding:20px}.feedback-modal.open{display:grid}
+.feedback-box{position:relative;width:min(560px,94vw);max-height:86vh;overflow:auto;background:#08111b;border:1px solid var(--green);padding:20px;box-shadow:0 0 50px rgba(77,255,184,.12)}
+.feedback-box h3{font:600 19px/1.4 var(--sans);margin:7px 0 8px}.feedback-box select,.feedback-box textarea,.feedback-box input{width:100%;background:rgba(3,9,15,.9);border:1px solid var(--line);color:var(--text);padding:9px;margin-top:8px;font:12px/1.5 var(--sans);outline:none}.feedback-box textarea{resize:vertical}.feedback-box select{font-family:var(--mono);font-size:11px}
+.fb-actions{display:flex;gap:8px;align-items:center;margin-top:9px}.fb-actions .btn{padding:9px 12px}.feedback-list{max-height:180px;overflow:auto;margin-top:6px}.fb-item{border-bottom:1px solid rgba(94,242,255,.08);padding:6px 0;font:9px/1.5 var(--mono);color:var(--muted)}.fb-item b{color:var(--cyan);font-weight:500}.fb-item span{color:var(--text);font-family:var(--sans);font-size:11px;display:block}.fb-item em{font-style:normal;color:var(--dim);font-size:8px}
 .graph-detail{margin-top:8px;border:1px solid rgba(94,242,255,.12);padding:8px 10px;font:9px/1.6 var(--mono);color:var(--muted);min-height:38px;background:rgba(3,9,15,.35)}
 .graph-detail b{color:var(--cyan)}.graph-detail a{color:var(--green)}
 .mix{display:flex;flex-direction:column;gap:7px}
@@ -90,6 +98,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
     <div class="pill"><b id="cardCountTop">--</b>&nbsp;CARDS</div>
     <div class="pill"><span id="autoState">AUTO</span></div>
     <div class="pill" id="mode">PUBLIC</div>
+    <button class="pill" id="feedbackBtn" style="cursor:pointer;background:rgba(77,255,184,.08);color:var(--green)">✎ 提意见</button>
     <button class="icon" id="settingsBtn" title="admin">⚙</button>
   </div>
 </header>
@@ -199,11 +208,34 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
       <div class="hint" style="margin-top:8px">自动循环每 90 秒在 LEARN / EVOLVE 之间切换；EVOLVE 重建信念图与支持边。</div>
     </div>
   </section>
+  <section class="panel" style="margin-top:14px">
+    <div class="head"><span class="tag">06 / SELF-IMPROVEMENT</span><button class="btn ghost" id="feedbackBtn2">给大脑提意见</button></div>
+    <div class="improvements" id="improvements"></div>
+    <div class="hint" style="margin-top:8px">知识类意见进入 AUTO 学习队列；Bug / 功能 / 回答风格生成可审计的改进提案。公开意见不会直接改代码。</div>
+  </section>
 </main>
 
 <footer><div>OPENNETBRAIN // NBCL · <span id="clock">--:--:--</span></div><div><a href="https://github.com/zacrisy/open-net-agent">GITHUB</a> · <a href="https://zacrisy.github.io/open-net-agent/">DOCS</a></div></footer>
 
 <div class="card-modal" id="cardModal"><div class="card-box"><button class="card-close" id="closeCard">×</button><div id="cardBody"></div></div></div>
+<div class="feedback-modal" id="feedbackModal"><div class="feedback-box">
+  <button class="card-close" id="closeFeedback">×</button>
+  <div class="tag">COMMUNITY INPUT // SELF-IMPROVEMENT</div>
+  <h3>给网络大脑提意见</h3>
+  <p class="hint">告诉它哪里不好、缺什么能力，或希望它学习什么主题。知识类意见会自动进入 90 秒 AUTO 学习队列。</p>
+  <select id="fbKind">
+    <option value="knowledge">知识 / 学习主题</option>
+    <option value="feature">功能建议</option>
+    <option value="bug">Bug / 故障</option>
+    <option value="style">回答质量 / 风格</option>
+    <option value="other">其他</option>
+  </select>
+  <textarea id="fbText" rows="4" placeholder="例如：希望学习 graph neural network 的最新进展；或：回答太长，请先给结论。"></textarea>
+  <input id="fbContact" placeholder="联系方式（可选，不公开展示）">
+  <div class="fb-actions"><button class="btn" id="fbSubmit">SUBMIT TO BRAIN</button><span id="fbMsg" class="hint"></span></div>
+  <div class="tag" style="margin-top:14px">RECENT COMMUNITY INPUT</div>
+  <div class="feedback-list" id="fbRecent"></div>
+</div></div>
 <div class="modal" id="settings"><div class="modal-card"><h3>ADMIN LINK</h3><p>可选：管理员 token 用于审计/NLI。公共学习与工作台无需 token。</p><input id="token" placeholder="admin token"><div class="modal-actions"><button id="saveToken">SAVE</button><button id="closeSettings" class="ghost">CANCEL</button></div></div></div>
 
 <script>
@@ -290,6 +322,28 @@ async function evolve() {
   $('evolve').disabled = true;
   try { await api('/api/brain/evolve', {method:'POST', body:'{}'}); await refreshBrain(); } catch(e) {}
   setTimeout(() => $('evolve').disabled = false, 2500);
+}
+
+async function loadFeedback(){
+  const rows = await api('/api/brain/feedback?limit=8');
+  $('fbRecent').innerHTML = (rows||[]).length ? rows.map(f=>`<div class="fb-item"><b>${esc(f.kind).toUpperCase()}</b> <em>${esc(f.status)} · ${timeAgo(f.created)}</em><span>${esc(f.text)}</span></div>`).join('') : '<div class="hint">还没有公开意见，第一条来自你。</div>';
+}
+async function loadImprovements(){
+  const rows = await api('/api/brain/improvements?limit=8');
+  $('improvements').innerHTML = (rows||[]).length ? rows.map(i=>`<div class="imp"><b>${esc(i.kind).toUpperCase()}</b><span>${esc(i.title)}</span><em class="${esc(i.status)}">${esc(i.status)}</em></div>`).join('') : '<div class="hint">还没有改进提案。提交一条意见试试。</div>';
+}
+function openFeedback(){ $('feedbackModal').classList.add('open'); loadFeedback(); loadImprovements(); }
+function closeFeedback(){ $('feedbackModal').classList.remove('open'); }
+async function submitFeedback(){
+  const text=$('fbText').value.trim();
+  if(text.length<4){ $('fbMsg').textContent='至少写 4 个字'; return; }
+  $('fbSubmit').disabled=true; $('fbMsg').textContent='提交中…';
+  const r=await api('/api/brain/feedback',{method:'POST',body:JSON.stringify({text,kind:$('fbKind').value,contact:$('fbContact').value})});
+  $('fbSubmit').disabled=false;
+  if(r.error){ $('fbMsg').textContent=r.error; return; }
+  $('fbMsg').textContent = r.kind==='knowledge' ? '已进入 AUTO 学习队列' : '已生成改进提案';
+  $('fbText').value=''; $('fbContact').value='';
+  await loadFeedback(); await loadImprovements(); await refreshBrain();
 }
 
 function timeAgo(ts){ if(!ts) return '--'; const s=Math.max(0,Math.round(Date.now()/1000-ts)); if(s<60) return s+'s ago'; if(s<3600) return Math.round(s/60)+'m ago'; return Math.round(s/3600)+'h ago'; }
@@ -382,6 +436,8 @@ async function ask(){
 async function vote(id,v){ if(!id)return; const r=await api('/feedback',{method:'POST',body:JSON.stringify({id,vote:v})}); if(r.ok){$('fbMsg').textContent='SAVED ✓';} }
 
 $('train').onclick=startLearn; $('evolve').onclick=evolve;
+$('feedbackBtn').onclick=openFeedback; $('feedbackBtn2').onclick=openFeedback; $('closeFeedback').onclick=closeFeedback; $('feedbackModal').onclick=e=>{if(e.target.id==='feedbackModal')closeFeedback();}; $('fbSubmit').onclick=submitFeedback;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFeedback();});
 $('closeCard').onclick=closeCard; $('cardModal').onclick=e=>{if(e.target.id==='cardModal')closeCard();}; document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCard();});
 $('brainCanvas').onclick=ev=>{const c=$('brainCanvas'),r=c.getBoundingClientRect(),mx=ev.clientX-r.left,my=ev.clientY-r.top;let best=null,bd=1e9;(window.__brainNodes||[]).forEach(n=>{const p=(window.__brainPos||{})[n.id];if(!p)return;const d=Math.hypot(p.x-mx,p.y-my);if(d<bd){bd=d;best=n;}});if(best&&bd<18){$('nodeDetail').textContent=`${best.source_type} · ${best.status} · ${best.label}`;openCard(best);}}; $('heroTrain').onclick=()=>{document.querySelector('.panel').scrollIntoView({behavior:'smooth'});startLearn();};
 $('ask').onclick=ask;
@@ -398,7 +454,7 @@ $('token').value=localStorage.getItem('netagent_token')||'';
 window.addEventListener('error', e => { const b=$('bootMsg'); if(b){b.textContent='JS ERROR: '+e.message; b.classList.add('err'); b.style.display='block';} });
 setTimeout(()=>{ const b=$('bootMsg'); if(b && !window.__brainReady){ b.textContent='INITIALIZATION SLOW / API UNREACHABLE — reload'; b.classList.add('err'); b.style.display='block'; } }, 8000);
 setInterval(()=>$('clock').textContent=new Date().toLocaleTimeString(),1000);
-setMode('research'); refreshBrain(); drawBrain(); setInterval(refreshBrain,4000);
+setMode('research'); refreshBrain(); drawBrain(); loadImprovements(); if(QS.get('feedback')==='1') setTimeout(openFeedback,600); setInterval(refreshBrain,4000);
 </script>
 </body>
 </html>
