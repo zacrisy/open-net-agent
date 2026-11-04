@@ -10,7 +10,9 @@ Synthetic testbed for the Network Brain / Predictive Workspace design.
 
 ```bash
 cd nbpw
+pip install -r requirements.txt
 python3 run_experiments.py
+python3 run_continual.py
 ```
 
 Outputs:
