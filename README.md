@@ -133,7 +133,13 @@ brain.html ── CORS ──> coordinator_async.py
 - **不是 24/7 云服务**：机器休眠/断网/隧道重启会暂停问答与 AUTO；
 - 生产部署见 [`deploy/PUBLIC.md`](deploy/PUBLIC.md)。
 
-## Deploy full API 24/7 (Hugging Face Space)
+## Deploy full API 24/7 (domestic VPS recommended)
+
+Hugging Face is not reliably reachable from mainland China. For a domestic 24/7 API, use an Aliyun/Tencent/Huawei lightweight Ubuntu server (requires your real-name account):
+
+See [`deploy/DOMESTIC.md`](deploy/DOMESTIC.md). The root `Dockerfile` runs the full coordinator + `BRAIN_AUTO=1` 20s heartbeat.
+
+## Alternative: Hugging Face Space
 
 GitHub Actions runs learning, but cannot serve a persistent HTTP API. For a 24/7 full API:
 
