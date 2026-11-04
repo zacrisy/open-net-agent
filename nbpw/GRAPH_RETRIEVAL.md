@@ -1,4 +1,4 @@
-# Graph Retrieval v0.6：typed graph + PPR 关联扩散
+# Graph Retrieval（v0.8）：typed graph + PPR 关联扩散
 
 ## 实现
 

@@ -17,7 +17,7 @@
 - **Feedback window**: 控制台右上角 **✎ 提意见**，或 <https://zacrisy.github.io/open-net-agent/brain.html?v=15&feedback=1>
 - **Landing**: <https://zacrisy.github.io/open-net-agent/>
 - **GitHub**: <https://github.com/zacrisy/open-net-agent>
-- **Release v0.3.1**: <https://github.com/zacrisy/open-net-agent/releases/tag/v0.3.1>
+- **Release v0.8.0**: <https://github.com/zacrisy/open-net-agent/releases/tag/v0.8.0>
 - **Roadmap discussion**: <https://github.com/zacrisy/open-net-agent/discussions/9>
 - **Feedback issue**: <https://github.com/zacrisy/open-net-agent/issues/8>
 - **Full API (domestic VPS)**: <https://kids-pcs-attacked-myth.trycloudflare.com>
