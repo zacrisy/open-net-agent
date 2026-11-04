@@ -3,9 +3,9 @@
 import json, os, random, re, sqlite3, threading, time, uuid
 import agent_core
 try:
-    from continual import extract_cards, dedup, build_belief
+    from continual import extract_cards, dedup, build_belief, conflict_type, score, make_questions
 except Exception:
-    from nbpw.continual import extract_cards, dedup, build_belief
+    from nbpw.continual import extract_cards, dedup, build_belief, conflict_type, score, make_questions
 
 DB = os.environ.get("BRAIN_DB") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "brain.db")
 LOCK = threading.Lock()
@@ -30,6 +30,7 @@ def init():
         c.execute("CREATE TABLE IF NOT EXISTS edges (src TEXT, dst TEXT, kind TEXT)")
         c.execute("CREATE TABLE IF NOT EXISTS feedback (id TEXT PRIMARY KEY, kind TEXT, text TEXT, contact TEXT, topic TEXT, status TEXT, created REAL, updated REAL)")
         c.execute("CREATE TABLE IF NOT EXISTS improvements (id TEXT PRIMARY KEY, feedback_id TEXT, kind TEXT, title TEXT, detail TEXT, status TEXT, created REAL, updated REAL)")
+        c.execute("CREATE TABLE IF NOT EXISTS quiz (id TEXT PRIMARY KEY, card_id TEXT, question TEXT, answer TEXT, topic TEXT, correct INTEGER, ts REAL)")
     c.close()
 
 
@@ -46,6 +47,68 @@ def _set(cid, stage, **kw):
     c.close()
 
 
+
+
+def self_test(n=3):
+    import graph_retrieval
+    cs = cards(200)
+    if not cs:
+        return {"n": 0, "correct": 0}
+    qs = make_questions(cs, per_topic=2)[:n]
+    c = _conn(); correct = 0
+    with c:
+        for q in qs:
+            r = graph_retrieval.retrieve(q["q"], 3)
+            hit = any(x.get("id") == q["card"]["id"] for x in r.get("cards", []))
+            correct += int(hit)
+            c.execute("INSERT INTO quiz VALUES (?,?,?,?,?,?,?)",
+                      ("q-" + uuid.uuid4().hex[:10], q["card"]["id"], q["q"], q.get("answer", ""), q.get("topic", ""), int(hit), time.time()))
+    c.close()
+    return {"n": len(qs), "correct": correct}
+
+
+def retention():
+    c = _conn()
+    row = c.execute("SELECT COUNT(*), COALESCE(SUM(correct),0) FROM quiz").fetchone()
+    recent = c.execute("SELECT correct FROM quiz ORDER BY ts DESC LIMIT 100").fetchall()
+    c.close()
+    total, good = row
+    return {"n": total, "correct": good, "rate": round(good / total, 3) if total else 0.0,
+            "recent": round(sum(x[0] for x in recent) / len(recent), 3) if recent else 0.0}
+
+def reconcile(new_cards):
+    """Compare new cards against the existing library, mark conflicts with type."""
+    if not new_cards:
+        return 0
+    c = _conn()
+    rows = c.execute("SELECT id,topic,claim,evidence,source_json,source_type,confidence,status,support FROM cards").fetchall()
+    existing = []
+    for r in rows:
+        existing.append({"id": r[0], "topic": r[1], "claim": r[2], "evidence": r[3],
+                         "source": json.loads(r[4] or "{}"), "source_type": r[5],
+                         "confidence": r[6], "status": r[7], "support": r[8]})
+    by_topic = {}
+    for old in existing:
+        by_topic.setdefault(old.get("topic", ""), []).append(old)
+    pairs = 0
+    with c:
+        for n in new_cards:
+            n.setdefault("contradicts", [])
+            for old in by_topic.get(n.get("topic", ""), []):
+                typ = conflict_type(n, old)
+                if not typ:
+                    continue
+                pairs += 1
+                n["conflict_type"] = typ
+                n["contradicts"].append(old["id"])
+                if score(n) >= score(old):
+                    old["status"] = "disputed"
+                else:
+                    n["status"] = "disputed"
+                c.execute("UPDATE cards SET status=? WHERE id=?", (old["status"], old["id"]))
+    c.close()
+    return pairs
+
 def upsert(cards, cid):
     c = _conn(); new = 0; conflicts = 0
     with c:
@@ -59,7 +122,8 @@ def upsert(cards, cid):
                        int(card.get("support", 1)), cid, time.time()))
             c.execute("DELETE FROM edges WHERE src=?", (card["id"],))
             for dst in card.get("supports", []) or []: c.execute("INSERT INTO edges VALUES (?,?,?)", (card["id"], dst, "supports"))
-            for dst in card.get("contradicts", []) or []: c.execute("INSERT INTO edges VALUES (?,?,?)", (card["id"], dst, "contradicts"))
+            for dst in card.get("contradicts", []) or []:
+                c.execute("INSERT INTO edges VALUES (?,?,?)", (card["id"], dst, "contradicts:" + str(card.get("conflict_type", "unknown"))))
             if card.get("status") == "disputed": conflicts += 1
     c.close(); return new, conflicts
 
@@ -84,10 +148,15 @@ def _run(cid, topic):
         cards = dedup(cards)
         _set(cid, "verifying", cards=len(cards))
         build_belief(cards)
+        reconciled = reconcile(cards)
         _set(cid, "consolidating", cards=len(cards))
         new, conflicts = upsert(cards, cid)
         mark_feedback_learned(topic)
-        _set(cid, "complete", cards=len(cards), new_cards=new, conflicts=conflicts, status="complete")
+        try:
+            self_test(3)
+        except Exception as e:
+            print("SELF TEST ERROR:", e, flush=True)
+        _set(cid, "complete", cards=len(cards), new_cards=new, conflicts=conflicts + reconciled, status="complete")
     except Exception as e:
         with LOCK: CURRENT["stage"] = "error"; CURRENT["error"] = str(e)[:200]
         c = _conn()
@@ -172,7 +241,8 @@ def status():
                         "topics": [{"topic": t, "count": n} for t, n in topics],
                         "avg_confidence": round(sum(x[4] for x in feed) / max(1, len(feed)), 2),
                         "sources": len(srcs), "source_mix": [{"type": t, "count": n} for t, n in mix],
-                        "feedback": fb_count, "feedback_open": fb_open, "improvements": imp_count},
+                        "feedback": fb_count, "feedback_open": fb_open, "improvements": imp_count,
+                        "quiz": retention()["n"], "retention": retention()["rate"]},
             "cycles": [{"id": r[0], "topic": r[1], "started": r[2], "finished": r[3], "stage": r[4],
                         "sources": r[5], "cards": r[6], "new_cards": r[7], "conflicts": r[8], "status": r[9]} for r in rows],
             "feed": [{"id": r[0], "topic": r[1], "claim": r[2][:260], "source_type": r[3], "confidence": r[4], "status": r[5]} for r in feed]}

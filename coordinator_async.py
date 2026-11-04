@@ -201,6 +201,12 @@ async def _ask_core(d):
                 res["engine"] = (res.get("engine") or "") + "+graph"
         except Exception as e:
             res.setdefault("trace", []).append({"step": "graph", "detail": "skipped: " + str(e)[:80]})
+        try:
+            check = agent_core.citation_report(res.get("answer", ""), res.get("sources", []))
+            res["citation_check"] = check
+            res.setdefault("trace", []).append({"step": "cite_check", "detail": f"{check['refs']} refs / {check['unsupported']} unsupported"})
+        except Exception:
+            pass
     res["id"] = uuid.uuid4().hex[:12]
     res["mode"] = mode
     res["query"] = query

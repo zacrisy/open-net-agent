@@ -77,7 +77,7 @@ pre{background:rgba(3,9,15,.9);border:1px solid var(--line);padding:9px;color:va
 .mix{display:flex;flex-direction:column;gap:7px}
 .mix-row{display:flex;align-items:center;gap:8px;font:9px/1.5 var(--mono);color:var(--muted)}
 .mix-row b{width:90px;color:var(--text);font-weight:500}.mix-bar{flex:1;height:3px;background:rgba(94,242,255,.1);overflow:hidden}.mix-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan))}
-.evo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.evo-grid div{border:1px solid rgba(94,242,255,.1);padding:8px;background:rgba(3,9,15,.35)}.evo-grid b{display:block;font:600 18px/1.2 var(--mono);color:var(--green)}.evo-grid span{font:8px/1.4 var(--mono);color:var(--muted);letter-spacing:.12em}
+.evo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.evo-grid div{border:1px solid rgba(94,242,255,.1);padding:8px;background:rgba(3,9,15,.35)}.evo-grid b{display:block;font:600 18px/1.2 var(--mono);color:var(--green)}.evo-grid span{font:8px/1.4 var(--mono);color:var(--muted);letter-spacing:.12em}
 .boot{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:250;padding:6px 12px;border:1px solid var(--line);background:rgba(3,7,12,.9);color:var(--muted);font:9px/1.4 var(--mono);letter-spacing:.12em}
 .boot.err{border-color:var(--amber);color:var(--amber)}
 footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:8px/1.5 var(--mono);letter-spacing:.1em;color:var(--dim)}footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--green)}
@@ -307,7 +307,7 @@ async function refreshBrain() {
   $('sourceCount').textContent = m.sources ?? 0;
   const mix = m.source_mix || []; const total = Math.max(1, mix.reduce((s,x)=>s+x.count,0));
   $('sourceMix').innerHTML = mix.length ? mix.map(x=>`<div class="mix-row"><b>${esc(x.type)}</b><div class="mix-bar"><i style="width:${Math.round(x.count/total*100)}%"></i></div><span>${x.count}</span></div>`).join('') : '<div class="hint">NO SOURCES YET</div>';
-  $('evoStats').innerHTML = `<div><b>${m.cycles||0}</b><span>CYCLES</span></div><div><b>${m.disputed||0}</b><span>DISPUTED</span></div><div><b>${(m.avg_confidence||0).toFixed(2)}</b><span>AVG CONF</span></div>`;
+  $('evoStats').innerHTML = `<div><b>${m.cycles||0}</b><span>CYCLES</span></div><div><b>${m.disputed||0}</b><span>DISPUTED</span></div><div><b>${(m.avg_confidence||0).toFixed(2)}</b><span>AVG CONF</span></div><div><b>${(m.retention||0).toFixed(2)}</b><span>RETENTION</span></div>`;
   window.__brainReady = true; const bm = $('bootMsg'); if (bm) bm.style.display = 'none';
   setStage(s.learning?.stage);
   $('learnMsg').textContent = cloud ? `云端快照：${s.cloud?.repo || 'GitHub Actions'} · ${timeAgo(s.cloud?.updated)}` : (s.learning?.stage === 'complete' ? `完成：${s.learning.topic} · ${s.learning.elapsed}s` : (s.learning?.stage ? `当前阶段：${s.learning.stage} · ${s.learning.elapsed}s` : '等待开始学习。'));

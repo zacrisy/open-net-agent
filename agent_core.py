@@ -307,6 +307,15 @@ def compose(query, sources, picks):
     return "结论：\n" + rows[0] + "\n\n关键证据：\n" + "\n".join(rows[1:] or rows[:1])
 
 
+def citation_report(answer, sources):
+    refs = re.findall(r"\[(\d+|M\d+)\]", answer or "")
+    valid = len(sources or [])
+    numeric = [int(x) for x in refs if x.isdigit()]
+    unsupported = [ln for ln in (answer or "").splitlines() if ln.strip().startswith("- ") and not re.search(r"\[(?:\d+|M\d+)\]", ln)]
+    return {"refs": len(refs), "sources": valid, "bad_refs": [r for r in numeric if r < 1 or r > valid],
+            "unsupported": len(unsupported), "ok": not unsupported and all(1 <= r <= valid for r in numeric)}
+
+
 def research(query, mode="auto", memory=None):
     t0 = time.time()
     search_q = expand(query)

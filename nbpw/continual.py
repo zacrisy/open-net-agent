@@ -79,16 +79,39 @@ def dedup(cards):
     return out
 
 
-def conflict(a, b):
-    ta, tb = toks(a["claim"]), toks(b["claim"])
-    if not ta or not tb: return False
+NUM = re.compile(r"\b\d+(?:\.\d+)?\s*(?:%|mg|kg|g|ml|mmhg|weeks?|months?|years?)?\b", re.I)
+YEAR = re.compile(r"\b(?:19|20)\d{2}\b")
+POP = re.compile(r"\b(adults?|children|elderly|mice|rats|patients?|pregnant|women|men)\b", re.I)
+DEF = re.compile(r"\b(is defined as|refers to|means)\b", re.I)
+
+
+def conflict_type(a, b):
+    ta, tb = toks(a.get("claim", "")), toks(b.get("claim", ""))
+    if not ta or not tb:
+        return None
     overlap = len(ta & tb) / len(ta | tb)
-    if overlap < .35: return False
-    na, nb = bool(NEG.search(a["claim"])), bool(NEG.search(b["claim"]))
-    if na != nb: return True
-    nums_a = set(re.findall(r"\d+(?:\.\d+)?", a["claim"]))
-    nums_b = set(re.findall(r"\d+(?:\.\d+)?", b["claim"]))
-    return bool(nums_a and nums_b and nums_a != nums_b)
+    if overlap < .35:
+        return None
+    ca, cb = a.get("claim", ""), b.get("claim", "")
+    na, nb = bool(NEG.search(ca)), bool(NEG.search(cb))
+    if na != nb:
+        return "negation"
+    nums_a = set(NUM.findall(ca)); nums_b = set(NUM.findall(cb))
+    if nums_a and nums_b and nums_a != nums_b:
+        return "numeric"
+    years_a = set(YEAR.findall(ca)); years_b = set(YEAR.findall(cb))
+    if years_a and years_b and years_a != years_b:
+        return "temporal"
+    pops_a = set(x.lower() for x in POP.findall(ca)); pops_b = set(x.lower() for x in POP.findall(cb))
+    if pops_a and pops_b and pops_a != pops_b:
+        return "population"
+    if DEF.search(ca) != DEF.search(cb):
+        return "definition"
+    return None
+
+
+def conflict(a, b):
+    return conflict_type(a, b) is not None
 
 
 def score(card):
