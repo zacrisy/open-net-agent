@@ -1,23 +1,23 @@
 {
  "learning": {
-  "cycle_id": "98c0890f8bf5",
+  "cycle_id": "953e048b49c6",
   "topic": "EVOLUTION",
   "stage": "complete",
-  "started": 1793804223.758989,
+  "started": 1793826921.0123055,
   "elapsed": 0.2
  },
  "auto": {
   "enabled": false,
   "interval": 20,
   "next": null,
-  "last": 1793804223.9062595,
+  "last": 1793826921.1671526,
   "last_kind": "evolve"
  },
  "metrics": {
-  "cards": 139,
-  "active": 138,
+  "cards": 141,
+  "active": 140,
   "disputed": 1,
-  "cycles": 30,
+  "cycles": 45,
   "topics": [
    {
     "topic": "LLM agent reliability evaluation",
@@ -49,15 +49,15 @@
    },
    {
     "topic": "semaglutide cardiovascular outcomes",
-    "count": 15
+    "count": 17
    }
   ],
   "avg_confidence": 0.59,
-  "sources": 85,
+  "sources": 86,
   "source_mix": [
    {
     "type": "Crossref",
-    "count": 79
+    "count": 81
    },
    {
     "type": "Hacker News",
@@ -75,18 +75,54 @@
   "feedback": 1,
   "feedback_open": 0,
   "improvements": 1,
-  "quiz": 30,
+  "quiz": 60,
   "retention": 1.0,
   "tiers": {
-   "hot": 139
+   "hot": 141
   }
  },
  "cycles": [
   {
-   "id": "98c0890f8bf5",
+   "id": "953e048b49c6",
    "topic": "EVOLUTION",
-   "started": 1793804223.7591608,
-   "finished": 1793804223.9064167,
+   "started": 1793826921.0124364,
+   "finished": 1793826921.167309,
+   "stage": "complete",
+   "sources": 0,
+   "cards": 141,
+   "new_cards": 0,
+   "conflicts": 1,
+   "status": "complete"
+  },
+  {
+   "id": "68f95dabe5d6",
+   "topic": "semaglutide cardiovascular outcomes",
+   "started": 1793826906.9880428,
+   "finished": 1793826920.633096,
+   "stage": "complete",
+   "sources": 10,
+   "cards": 2,
+   "new_cards": 2,
+   "conflicts": 0,
+   "status": "complete"
+  },
+  {
+   "id": "7ac3bc980512",
+   "topic": "LLM agent reliability evaluation",
+   "started": 1793826894.9640226,
+   "finished": 1793826905.9854403,
+   "stage": "complete",
+   "sources": 3,
+   "cards": 0,
+   "new_cards": 0,
+   "conflicts": 0,
+   "status": "complete"
+  },
+  {
+   "id": "17d6c48d4934",
+   "topic": "EVOLUTION",
+   "started": 1793826894.8108802,
+   "finished": 1793826894.9610798,
    "stage": "complete",
    "sources": 0,
    "cards": 139,
@@ -95,67 +131,47 @@
    "status": "complete"
   },
   {
-   "id": "c6dc88e64518",
-   "topic": "knowledge graph construction",
-   "started": 1793804209.7379663,
-   "finished": 1793804222.4008117,
+   "id": "48ab8e1bcdbb",
+   "topic": "federated learning privacy",
+   "started": 1793826880.7877352,
+   "finished": 1793826893.2603145,
    "stage": "complete",
-   "sources": 11,
+   "sources": 16,
+   "cards": 0,
+   "new_cards": 0,
+   "conflicts": 0,
+   "status": "complete"
+  },
+  {
+   "id": "5285b75e4d72",
+   "topic": "knowledge graph construction",
+   "started": 1793826868.7627056,
+   "finished": 1793826878.8239424,
+   "stage": "complete",
+   "sources": 13,
    "cards": 1,
    "new_cards": 0,
    "conflicts": 1,
    "status": "complete"
-  },
-  {
-   "id": "94f09d088216",
-   "topic": "continual learning catastrophic forgetting",
-   "started": 1793804197.7179918,
-   "finished": 1793804207.981616,
-   "stage": "complete",
-   "sources": 7,
-   "cards": 0,
-   "new_cards": 0,
-   "conflicts": 0,
-   "status": "complete"
-  },
-  {
-   "id": "2551329550b1",
-   "topic": "EVOLUTION",
-   "started": 1793804197.5685005,
-   "finished": 1793804197.7153375,
-   "stage": "complete",
-   "sources": 0,
-   "cards": 139,
-   "new_cards": 0,
-   "conflicts": 1,
-   "status": "complete"
-  },
-  {
-   "id": "6d7b32c0ffe9",
-   "topic": "retrieval augmented generation evaluation",
-   "started": 1793804183.5465808,
-   "finished": 1793804196.6026778,
-   "stage": "complete",
-   "sources": 14,
-   "cards": 0,
-   "new_cards": 0,
-   "conflicts": 0,
-   "status": "complete"
-  },
-  {
-   "id": "88e6a6274262",
-   "topic": "Python asyncio event loop",
-   "started": 1793804171.523765,
-   "finished": 1793804181.5819983,
-   "stage": "complete",
-   "sources": 9,
-   "cards": 0,
-   "new_cards": 0,
-   "conflicts": 0,
-   "status": "complete"
   }
  ],
  "feed": [
+  {
+   "id": "kc-e21ae66411",
+   "topic": "semaglutide cardiovascular outcomes",
+   "claim": "The primary outcome in a time-to-event analysis was the first occurrence of a major adverse cardiovascular event (death from cardiovascular causes, nonfatal myocardial infarction, or nonfatal stroke).",
+   "source_type": "Crossref",
+   "confidence": 0.515,
+   "status": "active"
+  },
+  {
+   "id": "kc-93230ec515",
+   "topic": "semaglutide cardiovascular outcomes",
+   "claim": "METHODS: We assessed cardiovascular outcomes of once-daily oral semaglutide in an event-driven, randomized, double-blind, placebo-controlled trial involving patients at high cardiovascular risk (age of ≥50 years with established cardiovascular or chronic kidne",
+   "source_type": "Crossref",
+   "confidence": 0.64,
+   "status": "active"
+  },
   {
    "id": "kc-423f0f18e2",
    "topic": "knowledge graph construction",
@@ -235,26 +251,231 @@
    "source_type": "Hacker News",
    "confidence": 0.508,
    "status": "active"
-  },
-  {
-   "id": "kc-0b01e6fa6f",
-   "topic": "semaglutide cardiovascular outcomes",
-   "claim": "Whether semaglutide can reduce cardiovascular risk associated with overweight and obesity in the absence of diabetes is unknown.",
-   "source_type": "Crossref",
-   "confidence": 0.577,
-   "status": "active"
-  },
-  {
-   "id": "kc-023676a56e",
-   "topic": "semaglutide cardiovascular outcomes",
-   "claim": "BACKGROUND: Semaglutide, a glucagon-like peptide-1 receptor agonist, has been shown to reduce the risk of adverse cardiovascular events in patients with diabetes.",
-   "source_type": "Crossref",
-   "confidence": 0.577,
-   "status": "active"
   }
  ],
  "graph": {
   "nodes": [
+   {
+    "id": "kc-e21ae66411",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "The primary outcome in a time-to-event analysis was the first occurrence of a major advers",
+    "claim": "The primary outcome in a time-to-event analysis was the first occurrence of a major adverse cardiovascular event (death from cardiovascular causes, nonfatal myocardial infarction, or nonfatal stroke).",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1056/nejmoa1607141",
+    "source_title": "Semaglutide and Cardiovascular Outcomes in Patients with Type 2 Diabetes",
+    "x": 125.0,
+    "y": 0.0
+   },
+   {
+    "id": "kc-93230ec515",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "METHODS: We assessed cardiovascular outcomes of once-daily oral semaglutide in an event-dr",
+    "claim": "METHODS: We assessed cardiovascular outcomes of once-daily oral semaglutide in an event-driven, randomized, double-blind, placebo-controlled trial involving patients at high cardiovascular risk (age of ≥50 years with established cardiovascular or chronic kidney disease, or age of ≥60 years with cardiovascular risk factors only).",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1056/nejmoa1607141",
+    "source_title": "Semaglutide and Cardiovascular Outcomes in Patients with Type 2 Diabetes",
+    "x": 116.55902867554448,
+    "y": 45.155208273394116
+   },
+   {
+    "id": "kc-5f6e6aebc3",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Methods A systematic search was conducted in major databases for randomized controlled tri",
+    "claim": "Methods A systematic search was conducted in major databases for randomized controlled trials (RCTs) up to May 2025, with a primary outcome of cardiovascular events, expanded outcomes included nonfatal stroke, death from cardiovascular cause, and nonfatal myocardial infarction, and the secondary outcome was all-cause mortality.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.ijcard.2025.133683",
+    "source_title": "Effects of oral semaglutide on cardiovascular outcomes: A systematic review and meta-analysis",
+    "x": 92.37611465258239,
+    "y": 84.21195545581965
+   },
+   {
+    "id": "kc-63274234f3",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "This meta-analysis evaluates the efficacy of oral semaglutide on cardiovascular outcomes t",
+    "claim": "This meta-analysis evaluates the efficacy of oral semaglutide on cardiovascular outcomes to better inform clinical decision-making.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.ijcard.2025.133683",
+    "source_title": "Effects of oral semaglutide on cardiovascular outcomes: A systematic review and meta-analysis",
+    "x": 55.71729447206729,
+    "y": 111.8954114193828
+   },
+   {
+    "id": "kc-c76b16142b",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Semaglutide effects on safety and cardiovascular outcomes in patients with overweight or o",
+    "claim": "Semaglutide effects on safety and cardiovascular outcomes in patients with overweight or obesity: a systematic review and meta-analysis",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1038/s41366-024-01646-9",
+    "source_title": "Semaglutide effects on safety and cardiovascular outcomes in patients with overweight or obesity: a systematic review and meta-analysis",
+    "x": 11.533544932912752,
+    "y": 124.4667720368793
+   },
+   {
+    "id": "kc-ef573eb779",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Results: Across completed head-to-head randomized trials, tirzepatide consistently achieve",
+    "claim": "Results: Across completed head-to-head randomized trials, tirzepatide consistently achieved greater reductions in body weight, and HbA1c than semaglutide in individuals with obesity or T2DM.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.3389/fmed.2026.1764664",
+    "source_title": "Tirzepatide vs. semaglutide for obesity, glycemic control, and cardiovascular outcomes: a narrative review of clinical trials",
+    "x": -34.20787375901036,
+    "y": 120.22820539660238
+   },
+   {
+    "id": "kc-54ee3cf62b",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Literature was sourced from ClinicalTrials.gov and relevant scientific databases to compar",
+    "claim": "Literature was sourced from ClinicalTrials.gov and relevant scientific databases to compare tirzepatide and semaglutide across weight, glycemic, cardiometabolic, and safety outcomes.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.3389/fmed.2026.1764664",
+    "source_title": "Tirzepatide vs. semaglutide for obesity, glycemic control, and cardiovascular outcomes: a narrative review of clinical trials",
+    "x": -75.32932954740704,
+    "y": 99.75215341002995
+   },
+   {
+    "id": "kc-9920f75156",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Introduction: In the context of GLP-1 analogs and cardiovascular risks, both subcutaneous ",
+    "claim": "Introduction: In the context of GLP-1 analogs and cardiovascular risks, both subcutaneous and oral formulations of semaglutide have undergone extensive phase 3 clinical trials.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.54448/ijn25207",
+    "source_title": "Investigation of clinical outcomes on the oral or injectable use of semaglutide and cardiovascular risks: a systematic review",
+    "x": -106.27714196620175,
+    "y": 65.80402035966951
+   },
+   {
+    "id": "kc-5d5dc8cda3",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Objective: It was to analyze, through a systematic review, the main clinical findings of t",
+    "claim": "Objective: It was to analyze, through a systematic review, the main clinical findings of the oral or injectable use of semaglutide and its relationship with cardiovascular risks.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.54448/ijn25207",
+    "source_title": "Investigation of clinical outcomes on the oral or injectable use of semaglutide and cardiovascular risks: a systematic review",
+    "x": -122.87163746048772,
+    "y": 22.968689727071297
+   },
+   {
+    "id": "kc-a6dd8a3bb3",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Review for \"The impact of semaglutide on peri‐operative cardiovascular outcomes in diabete",
+    "claim": "Review for \"The impact of semaglutide on peri‐operative cardiovascular outcomes in diabetes\"",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1111/dom.70145/v1/review2",
+    "source_title": "Review for \"The impact of semaglutide on peri‐operative cardiovascular outcomes in diabetes\"",
+    "x": -122.87163746048772,
+    "y": -22.968689727071265
+   },
+   {
+    "id": "kc-11865523ca",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Semaglutide and Cardiovascular Outcomes in Obese but Non-Diabetic People",
+    "claim": "Semaglutide and Cardiovascular Outcomes in Obese but Non-Diabetic People",
+    "status": "active",
+    "confidence": 0.508,
+    "source_type": "Hacker News",
+    "source_url": "https://diabetesjournals.org/care/article/47/8/1360/156810/Semaglutide-and-Cardiovascular-Outcomes-by",
+    "source_title": "Semaglutide and Cardiovascular Outcomes in Obese but Non-Diabetic People",
+    "x": -106.27714196620177,
+    "y": -65.80402035966948
+   },
+   {
+    "id": "kc-0b01e6fa6f",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Whether semaglutide can reduce cardiovascular risk associated with overweight and obesity ",
+    "claim": "Whether semaglutide can reduce cardiovascular risk associated with overweight and obesity in the absence of diabetes is unknown.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1056/nejmoa2307563",
+    "source_title": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
+    "x": -75.32932954740714,
+    "y": -99.75215341002986
+   },
+   {
+    "id": "kc-023676a56e",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "BACKGROUND: Semaglutide, a glucagon-like peptide-1 receptor agonist, has been shown to red",
+    "claim": "BACKGROUND: Semaglutide, a glucagon-like peptide-1 receptor agonist, has been shown to reduce the risk of adverse cardiovascular events in patients with diabetes.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1056/nejmoa2307563",
+    "source_title": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
+    "x": -34.20787375901039,
+    "y": -120.22820539660238
+   },
+   {
+    "id": "kc-1f096743d8",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Abstract Semaglutide is often optimized for weight loss, but whether longer-term cardiovas",
+    "claim": "Abstract Semaglutide is often optimized for weight loss, but whether longer-term cardiovascular benefit tracks achieved weight loss or therapeutic exposure levels remains unclear.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.64898/2026.04.02.26350077",
+    "source_title": "Semaglutide cardiovascular outcomes align more closely with attained dose than achieved weight loss",
+    "x": 11.533544932912804,
+    "y": -124.4667720368793
+   },
+   {
+    "id": "kc-1a0c073c27",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "We quantified dose escalation and weight change during the 0–2-year period after semagluti",
+    "claim": "We quantified dose escalation and weight change during the 0–2-year period after semaglutide initiation (landmark period) and assessed cardiovascular outcomes during the 2–4-year period (post-landmark).",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.64898/2026.04.02.26350077",
+    "source_title": "Semaglutide cardiovascular outcomes align more closely with attained dose than achieved weight loss",
+    "x": 55.71729447206721,
+    "y": -111.89541141938282
+   },
+   {
+    "id": "kc-df61ada8a4",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "Participants will either get semaglutide tablets or placebo tablets (\"dummy\" medicine) - w",
+    "claim": "Participants will either get semaglutide tablets or placebo tablets (\"dummy\" medicine) - which treatment is decided by chance.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.25934/pr00012016",
+    "source_title": "Semaglutide Cardiovascular Outcomes Trial in Patients With Type 2 Diabetes",
+    "x": 92.37611465258232,
+    "y": -84.21195545581972
+   },
+   {
+    "id": "kc-8093870e28",
+    "topic": "semaglutide cardiovascular outcomes",
+    "label": "The researchers are doing this study to look whether the type 2 diabetes medicine, semaglu",
+    "claim": "The researchers are doing this study to look whether the type 2 diabetes medicine, semaglutide, has a positive effect on heart disease.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.25934/pr00012016",
+    "source_title": "Semaglutide Cardiovascular Outcomes Trial in Patients With Type 2 Diabetes",
+    "x": 116.55902867554448,
+    "y": -45.15520827339413
+   },
    {
     "id": "kc-423f0f18e2",
     "topic": "knowledge graph construction",
@@ -265,7 +486,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.18653/v1/2022.emnlp-main.1",
     "source_title": "Generative Knowledge Graph Construction: A Review",
-    "x": 112.0,
+    "x": 126.0,
     "y": 0.0
    },
    {
@@ -278,8 +499,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1162/qss_a_00226/v1/review1",
     "source_title": "Review for \"Wikinformetrics: Construction and description of an open Wikipedia knowledge graph dataset for informetric purposes\"",
-    "x": 104.43688969328785,
-    "y": 40.459066612961124
+    "x": 117.49150090494884,
+    "y": 45.51644993958127
    },
    {
     "id": "kc-f44787f5f5",
@@ -291,8 +512,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-2589475/v2",
     "source_title": "WITHDRAWN: Document-Level Relation Extraction based Knowledge Graph Construction for Industrial Domain",
-    "x": 82.76899872871383,
-    "y": 75.45391208841441
+    "x": 93.11512356980305,
+    "y": 84.8856510994662
    },
    {
     "id": "kc-760b6ab19f",
@@ -304,8 +525,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-2589475/v2",
     "source_title": "WITHDRAWN: Document-Level Relation Extraction based Knowledge Graph Construction for Industrial Domain",
-    "x": 49.92269584697229,
-    "y": 100.25828863176699
+    "x": 56.16303282784383,
+    "y": 112.79057471073786
    },
    {
     "id": "kc-f18f1dfb61",
@@ -317,8 +538,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/cse-euc.2017.181",
     "source_title": "Review of Development and Construction of Uyghur Knowledge Graph",
-    "x": 10.334056259889826,
-    "y": 111.52222774504386
+    "x": 11.625813292376055,
+    "y": 125.46250621317434
    },
    {
     "id": "kc-fba2939df1",
@@ -330,8 +551,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/cse-euc.2017.181",
     "source_title": "Review of Development and Construction of Uyghur Knowledge Graph",
-    "x": -30.650254888073285,
-    "y": 107.72447203535573
+    "x": -34.481536749082444,
+    "y": 121.1900310397752
    },
    {
     "id": "kc-b8446b1466",
@@ -343,8 +564,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.heliyon.2024.e25383",
     "source_title": "A systematic literature review of knowledge graph construction and application in education",
-    "x": -67.49507927447671,
-    "y": 89.37792945538683
+    "x": -75.93196418378629,
+    "y": 100.55017063731019
    },
    {
     "id": "kc-bcc8ffd5b5",
@@ -356,8 +577,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.heliyon.2024.e25383",
     "source_title": "A systematic literature review of knowledge graph construction and application in education",
-    "x": -95.22431920171677,
-    "y": 58.96040224226388
+    "x": -107.12735910193136,
+    "y": 66.33045252254686
    },
    {
     "id": "kc-2b80e6da65",
@@ -369,8 +590,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.cageo.2022.105082",
     "source_title": "Knowledge graph construction and application in geosciences: A review",
-    "x": -110.092987164597,
-    "y": 20.57994599545588
+    "x": -123.85461056017162,
+    "y": 23.152439244887866
    },
    {
     "id": "kc-06705d6a5f",
@@ -382,8 +603,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.cageo.2022.105082",
     "source_title": "Knowledge graph construction and application in geosciences: A review",
-    "x": -110.092987164597,
-    "y": -20.57994599545585
+    "x": -123.85461056017162,
+    "y": -23.152439244887834
    },
    {
     "id": "kc-af49e0fb23",
@@ -395,8 +616,8 @@
     "source_type": "Hacker News",
     "source_url": "https://research.fb.com/publications/using-local-knowledge-graph-construction-to-scale-seq2seq-models-to-multi-document-inputs/",
     "source_title": "Local Knowledge Graph Construction to Scale Seq2Seq Models",
-    "x": -95.22431920171678,
-    "y": -58.960402242263854
+    "x": -107.12735910193138,
+    "y": -66.33045252254684
    },
    {
     "id": "kc-a6ed9cd933",
@@ -408,8 +629,8 @@
     "source_type": "arXiv",
     "source_url": "https://arxiv.org/abs/1906.05317",
     "source_title": "Comet: Commonsense Transformers for Automatic Knowledge Graph Construction",
-    "x": -67.49507927447681,
-    "y": -89.37792945538676
+    "x": -75.9319641837864,
+    "y": -100.5501706373101
    },
    {
     "id": "kc-7793a9b79a",
@@ -421,8 +642,8 @@
     "source_type": "Hacker News",
     "source_url": "https://www.mdpi.com/2227-7390/11/23/4852",
     "source_title": "Event-Centric Temporal Knowledge Graph Construction: A Survey",
-    "x": -30.65025488807331,
-    "y": -107.72447203535573
+    "x": -34.48153674908247,
+    "y": -121.1900310397752
    },
    {
     "id": "kc-60f59605ae",
@@ -434,8 +655,8 @@
     "source_type": "arXiv",
     "source_url": "https://arxiv.org/abs/2510.20345",
     "source_title": "LLM-empowered knowledge graph construction: A survey",
-    "x": 10.334056259889872,
-    "y": -111.52222774504386
+    "x": 11.625813292376106,
+    "y": -125.46250621317434
    },
    {
     "id": "kc-2105554487",
@@ -447,8 +668,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/978-3-030-12375-8",
     "source_title": "Domain-Specific Knowledge Graph Construction",
-    "x": 49.922695846972225,
-    "y": -100.258288631767
+    "x": 56.16303282784375,
+    "y": -112.79057471073789
    },
    {
     "id": "kc-3133e591e9",
@@ -460,8 +681,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1145/3618295",
     "source_title": "A Comprehensive Survey on Automatic Knowledge Graph Construction",
-    "x": 82.76899872871375,
-    "y": -75.45391208841447
+    "x": 93.11512356980298,
+    "y": -84.88565109946627
    },
    {
     "id": "kc-1db40929de",
@@ -473,203 +694,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1145/3618295",
     "source_title": "A Comprehensive Survey on Automatic Knowledge Graph Construction",
-    "x": 104.43688969328785,
-    "y": -40.45906661296114
-   },
-   {
-    "id": "kc-5f6e6aebc3",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Methods A systematic search was conducted in major databases for randomized controlled tri",
-    "claim": "Methods A systematic search was conducted in major databases for randomized controlled trials (RCTs) up to May 2025, with a primary outcome of cardiovascular events, expanded outcomes included nonfatal stroke, death from cardiovascular cause, and nonfatal myocardial infarction, and the secondary outcome was all-cause mortality.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1016/j.ijcard.2025.133683",
-    "source_title": "Effects of oral semaglutide on cardiovascular outcomes: A systematic review and meta-analysis",
-    "x": 123.0,
-    "y": 0.0
-   },
-   {
-    "id": "kc-63274234f3",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "This meta-analysis evaluates the efficacy of oral semaglutide on cardiovascular outcomes t",
-    "claim": "This meta-analysis evaluates the efficacy of oral semaglutide on cardiovascular outcomes to better inform clinical decision-making.",
-    "status": "active",
-    "confidence": 0.64,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1016/j.ijcard.2025.133683",
-    "source_title": "Effects of oral semaglutide on cardiovascular outcomes: A systematic review and meta-analysis",
-    "x": 112.3660912900399,
-    "y": 50.02860709832342
-   },
-   {
-    "id": "kc-c76b16142b",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Semaglutide effects on safety and cardiovascular outcomes in patients with overweight or o",
-    "claim": "Semaglutide effects on safety and cardiovascular outcomes in patients with overweight or obesity: a systematic review and meta-analysis",
-    "status": "active",
-    "confidence": 0.64,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1038/s41366-024-01646-9",
-    "source_title": "Semaglutide effects on safety and cardiovascular outcomes in patients with overweight or obesity: a systematic review and meta-analysis",
-    "x": 82.30306458213957,
-    "y": 91.40681353371947
-   },
-   {
-    "id": "kc-ef573eb779",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Results: Across completed head-to-head randomized trials, tirzepatide consistently achieve",
-    "claim": "Results: Across completed head-to-head randomized trials, tirzepatide consistently achieved greater reductions in body weight, and HbA1c than semaglutide in individuals with obesity or T2DM.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.3389/fmed.2026.1764664",
-    "source_title": "Tirzepatide vs. semaglutide for obesity, glycemic control, and cardiovascular outcomes: a narrative review of clinical trials",
-    "x": 38.00909030811854,
-    "y": 116.97995150430388
-   },
-   {
-    "id": "kc-54ee3cf62b",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Literature was sourced from ClinicalTrials.gov and relevant scientific databases to compar",
-    "claim": "Literature was sourced from ClinicalTrials.gov and relevant scientific databases to compare tirzepatide and semaglutide across weight, glycemic, cardiometabolic, and safety outcomes.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.3389/fmed.2026.1764664",
-    "source_title": "Tirzepatide vs. semaglutide for obesity, glycemic control, and cardiovascular outcomes: a narrative review of clinical trials",
-    "x": -12.85700098192136,
-    "y": 122.32619313029763
-   },
-   {
-    "id": "kc-9920f75156",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Introduction: In the context of GLP-1 analogs and cardiovascular risks, both subcutaneous ",
-    "claim": "Introduction: In the context of GLP-1 analogs and cardiovascular risks, both subcutaneous and oral formulations of semaglutide have undergone extensive phase 3 clinical trials.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.54448/ijn25207",
-    "source_title": "Investigation of clinical outcomes on the oral or injectable use of semaglutide and cardiovascular risks: a systematic review",
-    "x": -61.49999999999997,
-    "y": 106.52112466548596
-   },
-   {
-    "id": "kc-5d5dc8cda3",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Objective: It was to analyze, through a systematic review, the main clinical findings of t",
-    "claim": "Objective: It was to analyze, through a systematic review, the main clinical findings of the oral or injectable use of semaglutide and its relationship with cardiovascular risks.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.54448/ijn25207",
-    "source_title": "Investigation of clinical outcomes on the oral or injectable use of semaglutide and cardiovascular risks: a systematic review",
-    "x": -99.50909030811852,
-    "y": 72.2975860319742
-   },
-   {
-    "id": "kc-a6dd8a3bb3",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Review for \"The impact of semaglutide on peri‐operative cardiovascular outcomes in diabete",
-    "claim": "Review for \"The impact of semaglutide on peri‐operative cardiovascular outcomes in diabetes\"",
-    "status": "active",
-    "confidence": 0.64,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1111/dom.70145/v1/review2",
-    "source_title": "Review for \"The impact of semaglutide on peri‐operative cardiovascular outcomes in diabetes\"",
-    "x": -120.3121548902581,
-    "y": 25.573137970584394
-   },
-   {
-    "id": "kc-11865523ca",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Semaglutide and Cardiovascular Outcomes in Obese but Non-Diabetic People",
-    "claim": "Semaglutide and Cardiovascular Outcomes in Obese but Non-Diabetic People",
-    "status": "active",
-    "confidence": 0.508,
-    "source_type": "Hacker News",
-    "source_url": "https://diabetesjournals.org/care/article/47/8/1360/156810/Semaglutide-and-Cardiovascular-Outcomes-by",
-    "source_title": "Semaglutide and Cardiovascular Outcomes in Obese but Non-Diabetic People",
-    "x": -120.3121548902581,
-    "y": -25.573137970584366
-   },
-   {
-    "id": "kc-0b01e6fa6f",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Whether semaglutide can reduce cardiovascular risk associated with overweight and obesity ",
-    "claim": "Whether semaglutide can reduce cardiovascular risk associated with overweight and obesity in the absence of diabetes is unknown.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1056/nejmoa2307563",
-    "source_title": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
-    "x": -99.50909030811854,
-    "y": -72.29758603197418
-   },
-   {
-    "id": "kc-023676a56e",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "BACKGROUND: Semaglutide, a glucagon-like peptide-1 receptor agonist, has been shown to red",
-    "claim": "BACKGROUND: Semaglutide, a glucagon-like peptide-1 receptor agonist, has been shown to reduce the risk of adverse cardiovascular events in patients with diabetes.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1056/nejmoa2307563",
-    "source_title": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
-    "x": -61.50000000000006,
-    "y": -106.52112466548591
-   },
-   {
-    "id": "kc-1f096743d8",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Abstract Semaglutide is often optimized for weight loss, but whether longer-term cardiovas",
-    "claim": "Abstract Semaglutide is often optimized for weight loss, but whether longer-term cardiovascular benefit tracks achieved weight loss or therapeutic exposure levels remains unclear.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.64898/2026.04.02.26350077",
-    "source_title": "Semaglutide cardiovascular outcomes align more closely with attained dose than achieved weight loss",
-    "x": -12.857000981921471,
-    "y": -122.32619313029761
-   },
-   {
-    "id": "kc-1a0c073c27",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "We quantified dose escalation and weight change during the 0–2-year period after semagluti",
-    "claim": "We quantified dose escalation and weight change during the 0–2-year period after semaglutide initiation (landmark period) and assessed cardiovascular outcomes during the 2–4-year period (post-landmark).",
-    "status": "active",
-    "confidence": 0.64,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.64898/2026.04.02.26350077",
-    "source_title": "Semaglutide cardiovascular outcomes align more closely with attained dose than achieved weight loss",
-    "x": 38.00909030811851,
-    "y": -116.9799515043039
-   },
-   {
-    "id": "kc-df61ada8a4",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "Participants will either get semaglutide tablets or placebo tablets (\"dummy\" medicine) - w",
-    "claim": "Participants will either get semaglutide tablets or placebo tablets (\"dummy\" medicine) - which treatment is decided by chance.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.25934/pr00012016",
-    "source_title": "Semaglutide Cardiovascular Outcomes Trial in Patients With Type 2 Diabetes",
-    "x": 82.30306458213958,
-    "y": -91.40681353371946
-   },
-   {
-    "id": "kc-8093870e28",
-    "topic": "semaglutide cardiovascular outcomes",
-    "label": "The researchers are doing this study to look whether the type 2 diabetes medicine, semaglu",
-    "claim": "The researchers are doing this study to look whether the type 2 diabetes medicine, semaglutide, has a positive effect on heart disease.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.25934/pr00012016",
-    "source_title": "Semaglutide Cardiovascular Outcomes Trial in Patients With Type 2 Diabetes",
-    "x": 112.36609129003992,
-    "y": -50.02860709832342
+    "x": 117.49150090494884,
+    "y": -45.516449939581285
    },
    {
     "id": "kc-cb51e9552c",
@@ -681,7 +707,7 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2609.21267v1",
     "source_title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
-    "x": 147.0,
+    "x": 136.0,
     "y": 0.0
    },
    {
@@ -694,8 +720,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2609.21267v1",
     "source_title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
-    "x": 73.50000000000001,
-    "y": 127.30573435631247
+    "x": 68.00000000000001,
+    "y": 117.77945491468365
    },
    {
     "id": "kc-177bd76775",
@@ -707,8 +733,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2608.24314v2",
     "source_title": "Benchmarking LLM Judges for Voice-Agent Evaluation: Reliability, Calibration, and Human Oversight",
-    "x": -73.49999999999997,
-    "y": 127.30573435631248
+    "x": -67.99999999999997,
+    "y": 117.77945491468367
    },
    {
     "id": "kc-6cf9180e84",
@@ -720,8 +746,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2608.24314v2",
     "source_title": "Benchmarking LLM Judges for Voice-Agent Evaluation: Reliability, Calibration, and Human Oversight",
-    "x": -147.0,
-    "y": 1.8002307947466092e-14
+    "x": -136.0,
+    "y": 1.6655196468404002e-14
    },
    {
     "id": "kc-d088138d8d",
@@ -733,8 +759,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2605.11209v1",
     "source_title": "Measuring Five-Nines Reliability: Sample-Efficient LLM Evaluation in Saturated Benchmarks",
-    "x": -73.50000000000007,
-    "y": -127.30573435631244
+    "x": -68.00000000000006,
+    "y": -117.77945491468361
    },
    {
     "id": "kc-2a986f3602",
@@ -746,8 +772,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2605.11209v1",
     "source_title": "Measuring Five-Nines Reliability: Sample-Efficient LLM Evaluation in Saturated Benchmarks",
-    "x": 73.50000000000001,
-    "y": -127.30573435631247
+    "x": 68.00000000000001,
+    "y": -117.77945491468365
    },
    {
     "id": "kc-7251119468",
@@ -759,7 +785,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-4846662/v1",
     "source_title": "SPM-FL: A Federated Learning Privacy Protection Mechanism Based on Local Differential Privacy",
-    "x": 117.0,
+    "x": 110.0,
     "y": 0.0
    },
    {
@@ -772,8 +798,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-4846662/v1",
     "source_title": "SPM-FL: A Federated Learning Privacy Protection Mechanism Based on Local Differential Privacy",
-    "x": 111.27361240653296,
-    "y": 36.154988341868844
+    "x": 104.61621679246689,
+    "y": 33.991869381244214
    },
    {
     "id": "kc-728f7b88a1",
@@ -785,8 +811,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1002/itl2.499/v1/review1",
     "source_title": "Review for \"Protecting health monitoring privacy in fitness training: A federated learning framework based on personalized differential privacy\"",
-    "x": 94.65498834186886,
-    "y": 68.77087451821936
+    "x": 88.99186938124421,
+    "y": 64.65637775217205
    },
    {
     "id": "kc-2313ab1977",
@@ -798,8 +824,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-3525508/v1",
     "source_title": "Privacy-Friendly IoT: Does federated learning guarantee privacy?",
-    "x": 68.77087451821936,
-    "y": 94.65498834186886
+    "x": 64.65637775217205,
+    "y": 88.99186938124421
    },
    {
     "id": "kc-300348fa02",
@@ -811,8 +837,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-3525508/v1",
     "source_title": "Privacy-Friendly IoT: Does federated learning guarantee privacy?",
-    "x": 36.15498834186885,
-    "y": 111.27361240653296
+    "x": 33.99186938124422,
+    "y": 104.61621679246689
    },
    {
     "id": "kc-84d0aa9125",
@@ -824,8 +850,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/nerv-bit/nerv",
     "source_title": "Show HN: A private, PQ-secure, infinitely scalable blockchain[fully open-source]",
-    "x": 7.164183775012016e-15,
-    "y": 117.0
+    "x": 6.735557395310443e-15,
+    "y": 110.0
    },
    {
     "id": "kc-a70993930a",
@@ -837,8 +863,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/nerv-bit/nerv",
     "source_title": "Show HN: A private, PQ-secure, infinitely scalable blockchain[fully open-source]",
-    "x": -36.15498834186884,
-    "y": 111.27361240653298
+    "x": -33.99186938124421,
+    "y": 104.6162167924669
    },
    {
     "id": "kc-95fe2281b4",
@@ -850,8 +876,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.55248/gengpi.5.1224.3512",
     "source_title": "Federated Learning and Data Privacy: A Review of Challenges and Opportunities",
-    "x": -68.77087451821934,
-    "y": 94.65498834186886
+    "x": -64.65637775217203,
+    "y": 88.99186938124421
    },
    {
     "id": "kc-cc3ffcdcd9",
@@ -863,8 +889,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3390/ijerph20156539",
     "source_title": "A Review of Privacy Enhancement Methods for Federated Learning in Healthcare Systems",
-    "x": -94.65498834186884,
-    "y": 68.77087451821937
+    "x": -88.99186938124421,
+    "y": 64.65637775217206
    },
    {
     "id": "kc-228bc3c9ad",
@@ -876,8 +902,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3390/ijerph20156539",
     "source_title": "A Review of Privacy Enhancement Methods for Federated Learning in Healthcare Systems",
-    "x": -111.27361240653296,
-    "y": 36.15498834186886
+    "x": -104.61621679246689,
+    "y": 33.99186938124423
    },
    {
     "id": "kc-76df6489fb",
@@ -889,8 +915,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.compag.2025.110048",
     "source_title": "Agricultural data privacy and federated learning: A review of challenges and opportunities",
-    "x": -117.0,
-    "y": 1.432836755002403e-14
+    "x": -110.0,
+    "y": 1.3471114790620885e-14
    },
    {
     "id": "kc-fb8a0ac8fc",
@@ -902,8 +928,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.compag.2025.110048",
     "source_title": "Agricultural data privacy and federated learning: A review of challenges and opportunities",
-    "x": -111.27361240653299,
-    "y": -36.15498834186879
+    "x": -104.61621679246691,
+    "y": -33.99186938124416
    },
    {
     "id": "kc-c4c7116d74",
@@ -915,8 +941,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/978-3-030-70604-3_2",
     "source_title": "A Review of Privacy-Preserving Federated Learning for the Internet-of-Things",
-    "x": -94.65498834186886,
-    "y": -68.77087451821934
+    "x": -88.99186938124423,
+    "y": -64.65637775217203
    },
    {
     "id": "kc-f30842db71",
@@ -928,8 +954,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/978-981-19-8692-5_5",
     "source_title": "Differential Privacy in Federated Learning",
-    "x": -68.77087451821937,
-    "y": -94.65498834186884
+    "x": -64.65637775217206,
+    "y": -88.99186938124421
    },
    {
     "id": "kc-bed8d40d59",
@@ -941,8 +967,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/poga/awesome-federated-learning",
     "source_title": "Resources list for federated learning and privacy in machine learning",
-    "x": -36.154988341868865,
-    "y": -111.27361240653296
+    "x": -33.99186938124423,
+    "y": -104.61621679246689
    },
    {
     "id": "kc-edd1a9ec45",
@@ -954,8 +980,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/b978-0-443-36322-1.00029-8",
     "source_title": "Federated learning, privacy and accuracy",
-    "x": -2.1492551325036047e-14,
-    "y": -117.0
+    "x": -2.0206672185931328e-14,
+    "y": -110.0
    },
    {
     "id": "kc-41e3ee5c61",
@@ -967,8 +993,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2511.02785",
     "source_title": "Enhancing Federated Learning Privacy with QUBO",
-    "x": 36.15498834186882,
-    "y": -111.27361240653298
+    "x": 33.99186938124419,
+    "y": -104.6162167924669
    },
    {
     "id": "kc-5d861a1414",
@@ -980,8 +1006,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2511.02785",
     "source_title": "Enhancing Federated Learning Privacy with QUBO",
-    "x": 68.77087451821933,
-    "y": -94.65498834186886
+    "x": 64.65637775217202,
+    "y": -88.99186938124423
    },
    {
     "id": "kc-db18afb75c",
@@ -993,8 +1019,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.cose.2024.103715",
     "source_title": "Efficient federated learning privacy preservation method with heterogeneous differential privacy",
-    "x": 94.65498834186884,
-    "y": -68.77087451821939
+    "x": 88.99186938124421,
+    "y": -64.65637775217206
    },
    {
     "id": "kc-f1c59b59fd",
@@ -1006,8 +1032,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/s10115-024-02285-2",
     "source_title": "Trustworthy federated learning: privacy, security, and beyond",
-    "x": 111.27361240653296,
-    "y": -36.15498834186887
+    "x": 104.61621679246689,
+    "y": -33.991869381244236
    },
    {
     "id": "kc-90a600bf18",
@@ -1019,7 +1045,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1002/eng2.12854/v2/review1",
     "source_title": "Review for \"Preserving node similarity adversarial learning graph representation with graph neural network\"",
-    "x": 145.0,
+    "x": 137.0,
     "y": 0.0
    },
    {
@@ -1032,8 +1058,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.68159/e795301159",
     "source_title": "Graph Neural Networks for Materials Property Prediction: A Decadal Review of Advances and Limits",
-    "x": 130.64048584585078,
-    "y": 62.91314217204593
+    "x": 123.43273490263142,
+    "y": 59.442072259105466
    },
    {
     "id": "kc-cfb830afc0",
@@ -1045,8 +1071,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.20517/jmi.2025.42",
     "source_title": "Advances in graph neural networks for alloy design and properties predictions: a review",
-    "x": 90.40602126951637,
-    "y": 113.36556495786432
+    "x": 85.4181028546465,
+    "y": 107.11091309812008
    },
    {
     "id": "kc-54e3070b92",
@@ -1058,8 +1084,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.20517/jmi.2025.42",
     "source_title": "Advances in graph neural networks for alloy design and properties predictions: a review",
-    "x": 32.2655354236656,
-    "y": 141.3645472663644
+    "x": 30.48536795201508,
+    "y": 133.56512396890983
    },
    {
     "id": "kc-774b24955f",
@@ -1071,8 +1097,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/access.2024.3354809",
     "source_title": "A Systematic Review of Graph Neural Network in Healthcare-Based Applications: Recent Advances, Trends, and Future Directions",
-    "x": -32.26553542366558,
-    "y": 141.3645472663644
+    "x": -30.485367952015064,
+    "y": 133.56512396890983
    },
    {
     "id": "kc-f8917c215a",
@@ -1084,8 +1110,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/access.2024.3354809",
     "source_title": "A Systematic Review of Graph Neural Network in Healthcare-Based Applications: Recent Advances, Trends, and Future Directions",
-    "x": -90.40602126951636,
-    "y": 113.36556495786434
+    "x": -85.41810285464649,
+    "y": 107.1109130981201
    },
    {
     "id": "kc-00fc58d407",
@@ -1097,8 +1123,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3389/fnins.2025.1623141",
     "source_title": "Graph neural networks in Alzheimer's disease diagnosis: a review of unimodal and multimodal advances",
-    "x": -130.64048584585075,
-    "y": 62.913142172045944
+    "x": -123.43273490263141,
+    "y": 59.44207225910548
    },
    {
     "id": "kc-609ef7f963",
@@ -1110,8 +1136,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3389/fnins.2025.1623141",
     "source_title": "Graph neural networks in Alzheimer's disease diagnosis: a review of unimodal and multimodal advances",
-    "x": -145.0,
-    "y": 1.7757378587636622e-14
+    "x": -137.0,
+    "y": 1.6777661148318737e-14
    },
    {
     "id": "kc-3bf9581371",
@@ -1123,8 +1149,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.52202/075280-0138",
     "source_title": "GraphMP: Graph Neural Network-based Motion Planning with Efficient Graph Search",
-    "x": -130.64048584585078,
-    "y": -62.91314217204591
+    "x": -123.43273490263142,
+    "y": -59.442072259105444
    },
    {
     "id": "kc-8ad7f1d7f4",
@@ -1136,8 +1162,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.52202/068431-0427",
     "source_title": "Geodesic Graph Neural Network for Efficient Graph Representation Learning",
-    "x": -90.40602126951639,
-    "y": -113.36556495786431
+    "x": -85.41810285464652,
+    "y": -107.11091309812007
    },
    {
     "id": "kc-0a4e13ce9a",
@@ -1149,8 +1175,8 @@
     "source_type": "Hacker News",
     "source_url": "https://deepmind.com/blog/article/traffic-prediction-with-advanced-graph-neural-networks",
     "source_title": "Deepmind improves the accuracy of ETAs in Google Maps",
-    "x": -32.26553542366562,
-    "y": -141.3645472663644
+    "x": -30.4853679520151,
+    "y": -133.56512396890983
    },
    {
     "id": "kc-52e64794c9",
@@ -1162,8 +1188,8 @@
     "source_type": "Hacker News",
     "source_url": "https://deepmind.com/blog/article/traffic-prediction-with-advanced-graph-neural-networks",
     "source_title": "Traffic Prediction with Advanced Graph Neural Networks",
-    "x": 32.26553542366543,
-    "y": -141.36454726636447
+    "x": 30.485367952014926,
+    "y": -133.56512396890986
    },
    {
     "id": "kc-3a861aa129",
@@ -1175,8 +1201,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=30643520",
     "source_title": "Launch HN: Tensil (YC S19) – Open-Source ML Accelerators",
-    "x": 90.40602126951634,
-    "y": -113.36556495786434
+    "x": 85.41810285464648,
+    "y": -107.1109130981201
    },
    {
     "id": "kc-c90cf66db0",
@@ -1188,8 +1214,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=30643520",
     "source_title": "Launch HN: Tensil (YC S19) – Open-Source ML Accelerators",
-    "x": 130.6404858458508,
-    "y": -62.91314217204584
+    "x": 123.43273490263145,
+    "y": -59.44207225910538
    },
    {
     "id": "kc-94c6c34b80",
@@ -1201,7 +1227,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.17918/00011156",
     "source_title": "Memory that lasts",
-    "x": 144.0,
+    "x": 140.0,
     "y": 0.0
    },
    {
@@ -1214,8 +1240,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.17918/00011156",
     "source_title": "Memory that lasts",
-    "x": 137.60248403320426,
-    "y": 42.44474511517021
+    "x": 133.7801928100597,
+    "y": 41.26572441752659
    },
    {
     "id": "kc-5f2b708f6f",
@@ -1227,8 +1253,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
     "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
-    "x": 118.97838350150326,
-    "y": 81.11808836116158
+    "x": 115.67342840423929,
+    "y": 78.86480812890709
    },
    {
     "id": "kc-e65cebd138",
@@ -1240,8 +1266,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
     "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
-    "x": 89.78253146765763,
-    "y": 112.58373347539629
+    "x": 87.28857226022271,
+    "y": 109.45640754552417
    },
    {
     "id": "kc-7cfd4be640",
@@ -1253,8 +1279,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.33612/diss.625549871",
     "source_title": "Continual lifelong learning in neural systems",
-    "x": 52.60910750876088,
-    "y": 134.04581980476542
+    "x": 51.147743411295295,
+    "y": 130.3223248101886
    },
    {
     "id": "kc-aa780fc43f",
@@ -1266,8 +1292,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
     "source_title": "Continual lifelong learning with neural networks: A review",
-    "x": 10.761133476445112,
-    "y": 143.59734679408993
+    "x": 10.462213102099415,
+    "y": 139.60853160536522
    },
    {
     "id": "kc-d08c3713b2",
@@ -1279,8 +1305,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
     "source_title": "Continual lifelong learning with neural networks: A review",
-    "x": -32.043014489709265,
-    "y": 140.3896193541826
+    "x": -31.152930753884007,
+    "y": 136.4899077054553
    },
    {
     "id": "kc-3af64b1f05",
@@ -1292,8 +1318,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
     "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
-    "x": -71.99999999999997,
-    "y": 124.70765814495917
+    "x": -69.99999999999997,
+    "y": 121.24355652982142
    },
    {
     "id": "kc-8736732c7d",
@@ -1305,8 +1331,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
     "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
-    "x": -105.559469543495,
-    "y": 97.94487423901239
+    "x": -102.62726205617568,
+    "y": 95.22418328792871
    },
    {
     "id": "kc-456575c107",
@@ -1318,8 +1344,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=47552974",
     "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
-    "x": -129.73951697794834,
-    "y": 62.47925843292838
+    "x": -126.13564150633866,
+    "y": 60.74372347645815
    },
    {
     "id": "kc-a774b7c48c",
@@ -1331,8 +1357,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=47552974",
     "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
-    "x": -142.3916389764185,
-    "y": 21.46208632936916
+    "x": -138.436315671518,
+    "y": 20.86591726466446
    },
    {
     "id": "kc-7f2cf8b5b7",
@@ -1344,8 +1370,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=50219762",
     "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
-    "x": -142.39163897641853,
-    "y": -21.46208632936906
+    "x": -138.436315671518,
+    "y": -20.865917264664365
    },
    {
     "id": "kc-7ca3ec5314",
@@ -1357,8 +1383,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=50219762",
     "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
-    "x": -129.73951697794837,
-    "y": -62.479258432928354
+    "x": -126.13564150633869,
+    "y": -60.74372347645812
    },
    {
     "id": "kc-04d83d7bb3",
@@ -1370,8 +1396,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=47259384",
     "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
-    "x": -105.55946954349497,
-    "y": -97.9448742390124
+    "x": -102.62726205617567,
+    "y": -95.22418328792872
    },
    {
     "id": "kc-1b3a360fa1",
@@ -1383,8 +1409,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=47259384",
     "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
-    "x": -72.00000000000006,
-    "y": -124.70765814495913
+    "x": -70.00000000000006,
+    "y": -121.24355652982138
    },
    {
     "id": "kc-f03c909328",
@@ -1396,8 +1422,8 @@
     "source_type": "arXiv",
     "source_url": "https://arxiv.org/abs/2509.10518",
     "source_title": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
-    "x": -32.0430144897093,
-    "y": -140.3896193541826
+    "x": -31.152930753884043,
+    "y": -136.4899077054553
    },
    {
     "id": "kc-2192758123",
@@ -1409,8 +1435,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
     "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
-    "x": 10.761133476445108,
-    "y": -143.59734679408993
+    "x": 10.462213102099412,
+    "y": -139.60853160536522
    },
    {
     "id": "kc-fe79cc687a",
@@ -1422,8 +1448,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
     "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
-    "x": 52.609107508760935,
-    "y": -134.0458198047654
+    "x": 51.14774341129535,
+    "y": -130.32232481018858
    },
    {
     "id": "kc-5587a179f6",
@@ -1435,8 +1461,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/b978-0-443-15754-7.00073-0",
     "source_title": "Continual learning and catastrophic forgetting",
-    "x": 89.7825314676576,
-    "y": -112.58373347539631
+    "x": 87.28857226022268,
+    "y": -109.45640754552419
    },
    {
     "id": "kc-a18e455b10",
@@ -1448,8 +1474,8 @@
     "source_type": "arXiv",
     "source_url": "https://openalex.org/W3123422770",
     "source_title": "Does Continual Learning = Catastrophic Forgetting?",
-    "x": 118.9783835015032,
-    "y": -81.11808836116167
+    "x": 115.67342840423922,
+    "y": -78.86480812890719
    },
    {
     "id": "kc-515fe243a5",
@@ -1461,8 +1487,8 @@
     "source_type": "arXiv",
     "source_url": "https://openalex.org/W3123422770",
     "source_title": "Does Continual Learning = Catastrophic Forgetting?",
-    "x": 137.60248403320423,
-    "y": -42.44474511517028
+    "x": 133.78019281005967,
+    "y": -41.265724417526656
    },
    {
     "id": "kc-822f488f2a",
@@ -1474,7 +1500,7 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=41583460",
     "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
-    "x": 112.0,
+    "x": 126.0,
     "y": 0.0
    },
    {
@@ -1487,8 +1513,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=41583460",
     "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
-    "x": 110.092987164597,
-    "y": 20.57994599545588
+    "x": 123.85461056017162,
+    "y": 23.152439244887862
    },
    {
     "id": "kc-a8214ca652",
@@ -1500,8 +1526,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=42299349",
     "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
-    "x": 104.43688969328785,
-    "y": 40.459066612961124
+    "x": 117.49150090494884,
+    "y": 45.51644993958127
    },
    {
     "id": "kc-a2c6d35353",
@@ -1513,8 +1539,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=42299349",
     "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
-    "x": 95.2243192017168,
-    "y": 58.96040224226384
+    "x": 107.12735910193139,
+    "y": 66.33045252254682
    },
    {
     "id": "kc-8d4f9f9e03",
@@ -1526,8 +1552,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.48448/xra9-a775",
     "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
-    "x": 82.76899872871383,
-    "y": 75.45391208841441
+    "x": 93.11512356980305,
+    "y": 84.8856510994662
    },
    {
     "id": "kc-f7b38c74d7",
@@ -1539,8 +1565,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.48448/xra9-a775",
     "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
-    "x": 67.49507927447672,
-    "y": 89.37792945538682
+    "x": 75.9319641837863,
+    "y": 100.55017063731017
    },
    {
     "id": "kc-c886dba568",
@@ -1552,8 +1578,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
     "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
-    "x": 49.92269584697229,
-    "y": 100.25828863176699
+    "x": 56.16303282784383,
+    "y": 112.79057471073786
    },
    {
     "id": "kc-b9a0b6002a",
@@ -1565,8 +1591,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
     "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
-    "x": 30.650254888073295,
-    "y": 107.72447203535573
+    "x": 34.48153674908246,
+    "y": 121.1900310397752
    },
    {
     "id": "kc-597b6482b3",
@@ -1578,8 +1604,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
     "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
-    "x": 10.334056259889826,
-    "y": 111.52222774504386
+    "x": 11.625813292376055,
+    "y": 125.46250621317434
    },
    {
     "id": "kc-59bd20092f",
@@ -1591,8 +1617,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
     "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
-    "x": -10.334056259889811,
-    "y": 111.52222774504388
+    "x": -11.625813292376039,
+    "y": 125.46250621317435
    },
    {
     "id": "kc-9087a32610",
@@ -1604,8 +1630,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
     "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
-    "x": -30.650254888073285,
-    "y": 107.72447203535573
+    "x": -34.481536749082444,
+    "y": 121.1900310397752
    },
    {
     "id": "kc-f89f4982e3",
@@ -1617,8 +1643,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
     "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
-    "x": -49.92269584697223,
-    "y": 100.258288631767
+    "x": -56.163032827843764,
+    "y": 112.79057471073789
    },
    {
     "id": "kc-2f9d983a58",
@@ -1630,8 +1656,8 @@
     "source_type": "Hacker News",
     "source_url": "https://openevaluation.ai/",
     "source_title": "Show HN: Open Evaluation",
-    "x": -67.49507927447671,
-    "y": 89.37792945538683
+    "x": -75.93196418378629,
+    "y": 100.55017063731019
    },
    {
     "id": "kc-771a8eda61",
@@ -1643,8 +1669,8 @@
     "source_type": "Hacker News",
     "source_url": "https://openevaluation.ai/",
     "source_title": "Show HN: Open Evaluation",
-    "x": -82.76899872871384,
-    "y": 75.4539120884144
+    "x": -93.11512356980307,
+    "y": 84.88565109946619
    },
    {
     "id": "kc-dc8d51599c",
@@ -1656,8 +1682,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/TonicAI/tvalmetrics",
     "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
-    "x": -95.22431920171677,
-    "y": 58.96040224226388
+    "x": -107.12735910193136,
+    "y": 66.33045252254686
    },
    {
     "id": "kc-e3c79148cd",
@@ -1669,8 +1695,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/TonicAI/tvalmetrics",
     "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
-    "x": -104.43688969328784,
-    "y": 40.45906661296117
+    "x": -117.49150090494882,
+    "y": 45.516449939581314
    },
    {
     "id": "kc-1db45eb38d",
@@ -1682,8 +1708,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=45595999",
     "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
-    "x": -110.092987164597,
-    "y": 20.57994599545588
+    "x": -123.85461056017162,
+    "y": 23.152439244887866
    },
    {
     "id": "kc-54950ddb54",
@@ -1695,8 +1721,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=45595999",
     "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
-    "x": -112.0,
-    "y": 1.3716044150450356e-14
+    "x": -126.0,
+    "y": 1.543054966925665e-14
    },
    {
     "id": "kc-d621210711",
@@ -1708,8 +1734,8 @@
     "source_type": "arXiv",
     "source_url": "https://arxiv.org/abs/2309.15217",
     "source_title": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
-    "x": -110.092987164597,
-    "y": -20.57994599545585
+    "x": -123.85461056017162,
+    "y": -23.152439244887834
    },
    {
     "id": "kc-299c0b5375",
@@ -1721,8 +1747,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
     "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
-    "x": -104.43688969328787,
-    "y": -40.4590666129611
+    "x": -117.49150090494885,
+    "y": -45.51644993958124
    },
    {
     "id": "kc-e4b8366796",
@@ -1734,8 +1760,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
     "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
-    "x": -95.22431920171678,
-    "y": -58.960402242263854
+    "x": -107.12735910193138,
+    "y": -66.33045252254684
    },
    {
     "id": "kc-57f17750d1",
@@ -1747,8 +1773,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
     "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
-    "x": -82.76899872871383,
-    "y": -75.45391208841441
+    "x": -93.11512356980305,
+    "y": -84.8856510994662
    },
    {
     "id": "kc-eff7db7b8d",
@@ -1760,8 +1786,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
     "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
-    "x": -67.49507927447681,
-    "y": -89.37792945538676
+    "x": -75.9319641837864,
+    "y": -100.5501706373101
    },
    {
     "id": "kc-66c269b6c4",
@@ -1773,8 +1799,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
     "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
-    "x": -49.92269584697235,
-    "y": -100.25828863176694
+    "x": -56.1630328278439,
+    "y": -112.79057471073781
    },
    {
     "id": "kc-fc34399e20",
@@ -1786,8 +1812,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
     "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
-    "x": -30.65025488807331,
-    "y": -107.72447203535573
+    "x": -34.48153674908247,
+    "y": -121.1900310397752
    },
    {
     "id": "kc-2890aea1c6",
@@ -1799,8 +1825,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
     "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
-    "x": -10.334056259889815,
-    "y": -111.52222774504388
+    "x": -11.625813292376042,
+    "y": -125.46250621317435
    },
    {
     "id": "kc-5f6a1c83e8",
@@ -1812,8 +1838,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
     "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
-    "x": 10.334056259889872,
-    "y": -111.52222774504386
+    "x": 11.625813292376106,
+    "y": -125.46250621317434
    },
    {
     "id": "kc-11351c0296",
@@ -1825,8 +1851,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
     "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
-    "x": 30.65025488807327,
-    "y": -107.72447203535573
+    "x": 34.48153674908243,
+    "y": -121.1900310397752
    },
    {
     "id": "kc-02a8fad3cb",
@@ -1838,8 +1864,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
     "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
-    "x": 49.922695846972225,
-    "y": -100.258288631767
+    "x": 56.16303282784375,
+    "y": -112.79057471073789
    },
    {
     "id": "kc-0bff370f8c",
@@ -1851,8 +1877,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.32388/4l83f7",
     "source_title": "Review of: \"GeAR: Generation Augmented Retrieval\"",
-    "x": 67.4950792744767,
-    "y": -89.37792945538685
+    "x": 75.93196418378628,
+    "y": -100.5501706373102
    },
    {
     "id": "kc-e2a70437e9",
@@ -1864,8 +1890,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.18653/v1/2026.magmar-main.6",
     "source_title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
-    "x": 82.76899872871375,
-    "y": -75.45391208841447
+    "x": 93.11512356980298,
+    "y": -84.88565109946627
    },
    {
     "id": "kc-9c44c2ae9a",
@@ -1877,8 +1903,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
     "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
-    "x": 95.22431920171675,
-    "y": -58.96040224226389
+    "x": 107.12735910193135,
+    "y": -66.33045252254688
    },
    {
     "id": "kc-88845a5448",
@@ -1890,8 +1916,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
     "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
-    "x": 104.43688969328785,
-    "y": -40.45906661296114
+    "x": 117.49150090494884,
+    "y": -45.516449939581285
    },
    {
     "id": "kc-6ba2e3f702",
@@ -1903,8 +1929,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.5040/9781350865778",
     "source_title": "Master Retrieval-Augmented Generation (RAG) Systems",
-    "x": 110.092987164597,
-    "y": -20.579945995455848
+    "x": 123.85461056017162,
+    "y": -23.152439244887827
    },
    {
     "id": "kc-8a0e82af5f",
@@ -1916,7 +1942,7 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/suleymanibis0/dracula",
     "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
-    "x": 144.0,
+    "x": 143.0,
     "y": 0.0
    },
    {
@@ -1929,8 +1955,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/suleymanibis0/dracula",
     "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
-    "x": 124.70765814495917,
-    "y": 71.99999999999999
+    "x": 123.84163274117473,
+    "y": 71.49999999999999
    },
    {
     "id": "kc-7745efe221",
@@ -1942,8 +1968,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
     "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
-    "x": 72.00000000000001,
-    "y": 124.70765814495915
+    "x": 71.50000000000001,
+    "y": 123.84163274117472
    },
    {
     "id": "kc-ce52db2358",
@@ -1955,8 +1981,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
     "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
-    "x": 8.817456953860943e-15,
-    "y": 144.0
+    "x": 8.756224613903576e-15,
+    "y": 143.0
    },
    {
     "id": "kc-5fa4663d51",
@@ -1968,8 +1994,8 @@
     "source_type": "Hacker News",
     "source_url": "https://temporal.io/blog/durable-distributed-asyncio-event-loop",
     "source_title": "Temporal Python – A durable, distributed asyncio event loop (2023)",
-    "x": -71.99999999999997,
-    "y": 124.70765814495917
+    "x": -71.49999999999997,
+    "y": 123.84163274117473
    },
    {
     "id": "kc-a9b5005224",
@@ -1981,8 +2007,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/Feverup/aiocop",
     "source_title": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
-    "x": -124.70765814495917,
-    "y": 71.99999999999999
+    "x": -123.84163274117473,
+    "y": 71.49999999999999
    },
    {
     "id": "kc-63d6e3473d",
@@ -1994,8 +2020,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
     "source_title": "Implementing REST API in Python with existing asyncio event loop",
-    "x": -144.0,
-    "y": 1.7634913907721887e-14
+    "x": -143.0,
+    "y": 1.751244922780715e-14
    },
    {
     "id": "kc-275c1daaea",
@@ -2007,8 +2033,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
     "source_title": "Implementing REST API in Python with existing asyncio event loop",
-    "x": -124.7076581449592,
-    "y": -71.99999999999996
+    "x": -123.84163274117475,
+    "y": -71.49999999999996
    },
    {
     "id": "kc-42931f927d",
@@ -2020,8 +2046,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
     "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
-    "x": -72.00000000000006,
-    "y": -124.70765814495913
+    "x": -71.50000000000006,
+    "y": -123.84163274117469
    },
    {
     "id": "kc-cc73604a11",
@@ -2033,8 +2059,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
     "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
-    "x": -2.6452370861582827e-14,
-    "y": -144.0
+    "x": -2.6268673841710724e-14,
+    "y": -143.0
    },
    {
     "id": "kc-b49c2f806d",
@@ -2046,8 +2072,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
     "source_title": "how to measure python asyncio event loop metrics?",
-    "x": 72.00000000000001,
-    "y": -124.70765814495915
+    "x": 71.50000000000001,
+    "y": -123.84163274117472
    },
    {
     "id": "kc-e4a0ef852a",
@@ -2059,8 +2085,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
     "source_title": "how to measure python asyncio event loop metrics?",
-    "x": 124.70765814495913,
-    "y": -72.00000000000006
+    "x": 123.84163274117469,
+    "y": -71.50000000000006
    }
   ],
   "edges": [
@@ -2075,233 +2101,33 @@
     "kind": "contradicts:unknown"
    },
    {
-    "source": "kc-423f0f18e2",
-    "target": "kc-fba2939df1",
+    "source": "kc-e21ae66411",
+    "target": "kc-5f6e6aebc3",
     "kind": "supports"
    },
    {
-    "source": "kc-423f0f18e2",
-    "target": "kc-1db40929de",
+    "source": "kc-93230ec515",
+    "target": "kc-63274234f3",
     "kind": "supports"
    },
    {
-    "source": "kc-4299879fe8",
-    "target": "kc-f18f1dfb61",
+    "source": "kc-93230ec515",
+    "target": "kc-c76b16142b",
     "kind": "supports"
    },
    {
-    "source": "kc-4299879fe8",
-    "target": "kc-af49e0fb23",
+    "source": "kc-93230ec515",
+    "target": "kc-0b01e6fa6f",
     "kind": "supports"
    },
    {
-    "source": "kc-4299879fe8",
-    "target": "kc-a6ed9cd933",
+    "source": "kc-93230ec515",
+    "target": "kc-023676a56e",
     "kind": "supports"
    },
    {
-    "source": "kc-4299879fe8",
-    "target": "kc-7793a9b79a",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-4299879fe8",
-    "target": "kc-60f59605ae",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-4299879fe8",
-    "target": "kc-2105554487",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-4299879fe8",
-    "target": "kc-3133e591e9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-4299879fe8",
-    "target": "kc-1db40929de",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f44787f5f5",
-    "target": "kc-760b6ab19f",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-fba2939df1",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-2b80e6da65",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-06705d6a5f",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-af49e0fb23",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-a6ed9cd933",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-7793a9b79a",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-60f59605ae",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-2105554487",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-3133e591e9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f18f1dfb61",
-    "target": "kc-1db40929de",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-fba2939df1",
-    "target": "kc-1db40929de",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-06705d6a5f",
-    "target": "kc-60f59605ae",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-06705d6a5f",
-    "target": "kc-2105554487",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-06705d6a5f",
-    "target": "kc-1db40929de",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-af49e0fb23",
-    "target": "kc-a6ed9cd933",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-af49e0fb23",
-    "target": "kc-7793a9b79a",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-af49e0fb23",
-    "target": "kc-60f59605ae",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-af49e0fb23",
-    "target": "kc-2105554487",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-af49e0fb23",
-    "target": "kc-3133e591e9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-af49e0fb23",
-    "target": "kc-1db40929de",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-a6ed9cd933",
-    "target": "kc-7793a9b79a",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-a6ed9cd933",
-    "target": "kc-60f59605ae",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-a6ed9cd933",
-    "target": "kc-2105554487",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-a6ed9cd933",
-    "target": "kc-3133e591e9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-a6ed9cd933",
-    "target": "kc-1db40929de",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-7793a9b79a",
-    "target": "kc-60f59605ae",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-7793a9b79a",
-    "target": "kc-2105554487",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-7793a9b79a",
-    "target": "kc-3133e591e9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-7793a9b79a",
-    "target": "kc-1db40929de",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-60f59605ae",
-    "target": "kc-2105554487",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-60f59605ae",
-    "target": "kc-3133e591e9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-60f59605ae",
-    "target": "kc-1db40929de",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-2105554487",
-    "target": "kc-3133e591e9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-2105554487",
-    "target": "kc-1db40929de",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-3133e591e9",
-    "target": "kc-1db40929de",
+    "source": "kc-93230ec515",
+    "target": "kc-1a0c073c27",
     "kind": "supports"
    },
    {
@@ -2547,6 +2373,236 @@
    {
     "source": "kc-023676a56e",
     "target": "kc-8093870e28",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-423f0f18e2",
+    "target": "kc-fba2939df1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-423f0f18e2",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-f18f1dfb61",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-af49e0fb23",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-a6ed9cd933",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-7793a9b79a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f44787f5f5",
+    "target": "kc-760b6ab19f",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-fba2939df1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-2b80e6da65",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-06705d6a5f",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-af49e0fb23",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-a6ed9cd933",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-7793a9b79a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fba2939df1",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-06705d6a5f",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-06705d6a5f",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-06705d6a5f",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-a6ed9cd933",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-7793a9b79a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-7793a9b79a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7793a9b79a",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7793a9b79a",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7793a9b79a",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7793a9b79a",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-60f59605ae",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-60f59605ae",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-60f59605ae",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2105554487",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2105554487",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3133e591e9",
+    "target": "kc-1db40929de",
     "kind": "supports"
    },
    {
@@ -3971,8 +4027,8 @@
    }
   ],
   "topics": [
-   "knowledge graph construction",
    "semaglutide cardiovascular outcomes",
+   "knowledge graph construction",
    "LLM agent reliability evaluation",
    "federated learning privacy",
    "graph neural network advances",
@@ -4002,8 +4058,8 @@
   }
  ],
  "cloud": {
-  "updated": 1793804223.9298494,
-  "runner": "41852282470",
+  "updated": 1793826921.190698,
+  "runner": "41913993025",
   "repo": "zacrisy/open-net-agent"
  }
 }
