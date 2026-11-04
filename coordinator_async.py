@@ -29,6 +29,7 @@ NODE_TTL = 20
 HITS = defaultdict(list)
 PUBLIC_HITS = defaultdict(list)
 ASK_HITS = defaultdict(list)
+LEARN_HITS = defaultdict(list)
 db.init()
 
 
@@ -168,7 +169,16 @@ async def knowledge_pack(req):
     return web.json_response(_knowledge_pack())
 
 
+def learn_limited(req):
+    ip = req.headers.get("X-Forwarded-For", req.remote or "?").split(",")[0].strip()
+    now = time.time(); LEARN_HITS[ip] = [t for t in LEARN_HITS[ip] if now - t < 60]
+    if len(LEARN_HITS[ip]) >= 3: return True
+    LEARN_HITS[ip].append(now); return False
+
+
 async def brain_learn(req):
+    if learn_limited(req):
+        return web.json_response({"error": "learning rate limit (3/min)"}, status=429)
     try:
         d = await req.json()
     except Exception:
