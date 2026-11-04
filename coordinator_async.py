@@ -6,6 +6,7 @@ from aiohttp import web, WSMsgType
 import db, db_async
 import agent_core
 import brain
+import graph_retrieval
 from skills import SKILLS, SKILL_META
 from starter_corpus import DOCS as STARTER_DOCS
 
@@ -175,6 +176,31 @@ async def _ask_core(d):
     else:
         memory = db.search_experience(query, 3)
         res = await asyncio.to_thread(agent_core.research, query, mode, memory)
+        try:
+            g = await asyncio.to_thread(graph_retrieval.retrieve, query, 4)
+            if g.get("cards"):
+                seen = {str(s.get("url") or s.get("title") or "") for s in (res.get("sources") or [])}
+                mem_sources = []
+                for c in g["cards"]:
+                    src = c.get("source") or {}
+                    key = str(src.get("url") or src.get("title") or c.get("claim", ""))
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    mem_sources.append({"title": (c.get("claim") or "")[:140], "snippet": (c.get("evidence") or "")[:400],
+                                        "url": src.get("url", ""), "source": c.get("source_type", "memory"), "year": src.get("year", "")})
+                if mem_sources:
+                    res["sources"] = mem_sources + (res.get("sources") or [])
+                    extra = "\n\n关联知识卡（图谱扩散）：\n" + "\n".join(
+                        f"- {(c.get('claim') or '')[:220]} [M{i+1}]" for i, c in enumerate(g["cards"]))
+                    res["answer"] = (res.get("answer") or "") + extra
+                res["trace"] = (res.get("trace") or []) + [{"step": "graph", "detail": f"PPR {len(g['cards'])} cards / {g.get('edges',0)} edges"}]
+                res["graph"] = {"engine": g.get("engine"), "edges": g.get("edges", 0),
+                                "seeds": g.get("seeds", []),
+                                "cards": [{"id": c.get("id"), "claim": (c.get("claim") or "")[:220], "score": c.get("score", 0)} for c in g["cards"]]}
+                res["engine"] = (res.get("engine") or "") + "+graph"
+        except Exception as e:
+            res.setdefault("trace", []).append({"step": "graph", "detail": "skipped: " + str(e)[:80]})
     res["id"] = uuid.uuid4().hex[:12]
     res["mode"] = mode
     res["query"] = query
@@ -292,6 +318,12 @@ async def improvement_list(req):
 
 async def brain_status(req):
     return web.json_response(brain.status())
+
+
+async def brain_retrieve(req):
+    q = req.query.get("q", "")
+    k = int(req.query.get("k", 5))
+    return web.json_response(await asyncio.to_thread(graph_retrieval.retrieve, q, k))
 
 
 async def brain_cards(req):
@@ -430,6 +462,7 @@ def app():
     a.router.add_get("/api/brain/status", brain_status)
     a.router.add_get("/api/brain/cards", brain_cards)
     a.router.add_get("/api/brain/graph", brain_graph)
+    a.router.add_get("/api/brain/retrieve", brain_retrieve)
     a.router.add_post("/feedback", feedback)
     a.router.add_get("/evolution/stats", evolution_stats)
     a.router.add_get("/knowledge_pack.json", knowledge_pack)

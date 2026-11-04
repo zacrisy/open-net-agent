@@ -435,6 +435,9 @@ function renderAnswer(d) {
   const conf=Math.max(0,Math.min(1,Number(d.confidence??0))); const srcs=(d.sources||[]).map((s,i)=>`<a class="src" href="${esc(s.url||'#')}" target="_blank" rel="noopener"><b>${i+1}</b><span>${esc(s.title||'')}</span><em>${esc(s.source||'')} ${esc(s.year||'')}</em></a>`).join('');
   $('response').innerHTML=`<div class="answer-head"><span class="tag">RESPONSE · ${conf.toFixed(2)} CONF</span><span class="task">${esc(d.mode||'')} · ${esc(d.engine||'')} · ${d.elapsed??'-'}s</span></div><div class="answer">${esc(d.answer)}</div><div class="meta">${(d.trace||[]).map(t=>`<span>${esc(t.step)}: ${esc(t.detail)}</span>`).join(' · ')}</div><div class="srcs">${srcs||'<div class="empty">无外部来源</div>'}</div><div class="feedback"><button data-vote="up" data-id="${esc(d.id||'')}">HELPFUL ↑</button><button data-vote="down" data-id="${esc(d.id||'')}">NOT QUITE ↓</button><span id="fbMsg"></span></div>`;
   document.querySelectorAll('.feedback button').forEach(b=>b.onclick=()=>vote(b.dataset.id,b.dataset.vote));
+  if(d.graph){
+    $('graphDetail').innerHTML = `<b>PPR · ${esc(d.graph.engine||'graph')}</b> · ${d.graph.cards.length} activated cards · ${d.graph.edges} edges<br>` + d.graph.cards.map((c,i)=>`${i+1}. ${esc(c.claim)} <span style="color:var(--dim)">(${Number(c.score||0).toFixed(3)})</span>`).join('<br>');
+  }
 }
 
 function openAlexAbstract(w){

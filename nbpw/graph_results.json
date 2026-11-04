@@ -1,0 +1,19 @@
+{
+ "cards": 57,
+ "edges": 87,
+ "masked": {
+  "n": 57,
+  "flat_top1": 1.0,
+  "ppr_top1": 1.0
+ },
+ "multihop": {
+  "n": 20,
+  "flat_cover3": 1.0,
+  "ppr_cover3": 0.95
+ },
+ "association": {
+  "n": 20,
+  "flat_top3": 0.2,
+  "ppr_top3": 0.2
+ }
+}
