@@ -49,7 +49,7 @@ We tested the network-brain design on a synthetic 30-node testbed:
 - Predictive coding: θ=1.8 gives **22.9×** fewer bytes but MSE 0.112; it is a budget knob.
 - **Correlated errors cap the workspace**: with corr=0.2, k=5 (0.825) < k=3 (0.830). Diversity > quantity.
 
-Code: [`nbpw/`](nbpw/) · Design: [`nbpw/DESIGN.md`](nbpw/DESIGN.md) · Report: [`nbpw/REPORT.md`](nbpw/REPORT.md)
+Code: [`nbpw/`](nbpw/) · Design: [`nbpw/DESIGN.md`](nbpw/DESIGN.md) · Report: [`nbpw/REPORT.md`](nbpw/REPORT.md) · Continual: [`nbpw/REPORT_CONTINUAL.md`](nbpw/REPORT_CONTINUAL.md)
 
 ## 1. 思想
 

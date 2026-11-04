@@ -2,6 +2,7 @@
 
 - Design: [DESIGN.md](DESIGN.md)
 - Experiment report: [REPORT.md](REPORT.md)
+- Continual learning report: [REPORT_CONTINUAL.md](REPORT_CONTINUAL.md)
 
 Synthetic testbed for the Network Brain / Predictive Workspace design.
 

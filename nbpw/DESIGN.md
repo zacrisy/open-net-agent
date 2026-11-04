@@ -518,6 +518,17 @@ L_global = E_{x~probe}[ KL( p_i(y|x) || q(y|x) ) ]
 
 **修订**：workspace 默认 k=2（预算敏感）或 k=3（尾敏感）；增加错误相关性惩罚；预测编码阈值按任务设；不再假设“多接同质节点会更聪明”。
 
+## 17. 持续学习实验（NBCL）
+
+真实来源 → 57 张知识卡 → 掩码/概念题 → 信念图/剪枝：
+
+- 静态知识掩码题 0.0；知识卡 1.0；概念题只有 **0.67**（知识卡≠会答题，需要多卡综合）。
+- 合成冲突对：append-only 0.0，NBCL 信念图 **1.0**；真实来源冲突检测 0（规则太保守，需要 NLI）。
+- 旧题 before/after 1.0：纯记忆追加**无灾难遗忘**，代价是存储膨胀。
+- 按置信度剪枝是**负结果**：57→28 卡概念题 0.67→0.33，12 卡归零；低置信唯一卡有覆盖价值。
+
+详见 [`REPORT_CONTINUAL.md`](REPORT_CONTINUAL.md)。
+
 ## 参考文献
 
 - [Distributed Machine Learning Systems: Algorithms, Communication Efficiency, and Convergence Guarantees](https://zenodo.org/records/19486564)

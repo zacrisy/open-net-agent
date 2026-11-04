@@ -1,0 +1,85 @@
+{
+ "static": {
+  "success": 0.0,
+  "citation": 0.0,
+  "n": 12
+ },
+ "memory": {
+  "success": 1.0,
+  "citation": 1.0,
+  "n": 12
+ },
+ "nbcl": {
+  "success": 1.0,
+  "citation": 1.0,
+  "n": 12
+ },
+ "belief": {
+  "nbcl": 1.0,
+  "naive": 0.0
+ },
+ "concept_static": {
+  "success": 0.0,
+  "n": 6
+ },
+ "concept_memory": {
+  "success": 0.6666666666666666,
+  "n": 6
+ },
+ "concept_nbcl": {
+  "success": 0.6666666666666666,
+  "n": 6
+ },
+ "prune": [
+  {
+   "threshold": 0.0,
+   "cards": 57,
+   "concept": 0.6666666666666666,
+   "masked": 1.0
+  },
+  {
+   "threshold": 0.5,
+   "cards": 45,
+   "concept": 0.6666666666666666,
+   "masked": 0.8333333333333334
+  },
+  {
+   "threshold": 0.55,
+   "cards": 28,
+   "concept": 0.3333333333333333,
+   "masked": 0.6666666666666666
+  },
+  {
+   "threshold": 0.6,
+   "cards": 12,
+   "concept": 0.0,
+   "masked": 0.5
+  },
+  {
+   "threshold": 0.65,
+   "cards": 5,
+   "concept": 0.0,
+   "masked": 0.3333333333333333
+  }
+ ],
+ "retention": {
+  "before": {
+   "success": 1.0,
+   "citation": 1.0,
+   "n": 4
+  },
+  "after": {
+   "success": 1.0,
+   "citation": 1.0,
+   "n": 4
+  }
+ },
+ "cost": {
+  "cards": 57,
+  "active": 57,
+  "disputed": 0,
+  "questions": 12,
+  "bytes_cards": 12922,
+  "sources": 30
+ }
+}
