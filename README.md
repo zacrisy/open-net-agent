@@ -142,7 +142,7 @@ GitHub Actions runs learning, but cannot serve a persistent HTTP API. For a 24/7
 
 ```bash
 cd network_agent
-HF_TOKEN=hf_xxx SPACE=YOUR_USERNAME/open-net-brain bash deploy/hf_space.sh
+HF_TOKEN=hf_xxx bash deploy/hf_space.sh
 ```
 
 The Space builds the root `Dockerfile`, serves the full API + `brain.html`, and runs `BRAIN_AUTO=1` inside the container.

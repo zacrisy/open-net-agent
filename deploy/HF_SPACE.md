@@ -2,11 +2,11 @@
 
 1. Create a free account: https://huggingface.co/join
 2. Create a **write** token: https://huggingface.co/settings/tokens
-3. Run:
+3. Run（SPACE 可省略，默认 `你的用户名/open-net-brain`）：
 
 ```bash
 cd network_agent
-HF_TOKEN=hf_xxx SPACE=YOUR_USERNAME/open-net-brain bash deploy/hf_space.sh
+HF_TOKEN=hf_xxx bash deploy/hf_space.sh
 ```
 
 The Space builds the root `Dockerfile` and serves the full API + brain.html on:
