@@ -87,6 +87,9 @@ python3 -m venv .venv && . .venv/bin/activate
 pip install aiohttp
 python3 run_online.py
 # open http://127.0.0.1:8080/
+
+# optional, recommended: external heartbeat for continuous AUTO learning
+python3 auto_beat.py --interval 15
 ```
 
 实验复现：
