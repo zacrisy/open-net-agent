@@ -160,7 +160,7 @@ async def _ask_core(d):
         label, score, detail = _lexical_nli(claim, evidence)
         res = {"answer": label, "sources": [{"title": "Lexical/NLI check", "snippet": claim + " || " + evidence, "source": "NLI", "url": "", "year": ""}],
                "trace": [{"step": "verify", "detail": label}, {"step": "method", "detail": detail}],
-               "confidence": round(min(1.0, abs(score)), 2), "engine": "lexical-nli"}
+               "confidence": round(min(1.0, abs(score)), 2), "engine": "lexical-nli", "elapsed": 0.0}
     elif mode == "compute":
         res = await asyncio.to_thread(agent_core.compute, query)
     elif mode == "docs":
