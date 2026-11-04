@@ -38,7 +38,17 @@ async def main():
             print("nli warm failed:", e, flush=True)
     threading.Thread(target=warm, daemon=True).start()
     brain.maybe_bootstrap()
-    print(f"OpenNetAgent online: http://127.0.0.1:{PORT}/", flush=True)
+    if os.environ.get("BRAIN_AUTO") == "1":
+        import time
+        def beat():
+            while True:
+                time.sleep(15)
+                try:
+                    brain.auto_tick()
+                except Exception as e:
+                    print("AUTO BEAT ERROR:", e, flush=True)
+        threading.Thread(target=beat, daemon=True).start()
+    print(f"OpenNetBrain online: http://127.0.0.1:{PORT}/", flush=True)
     print(f"LAN: http://{lan_ip()}:{PORT}/  token={TOKEN}", flush=True)
     stop = asyncio.Event()
     loop = asyncio.get_event_loop()
