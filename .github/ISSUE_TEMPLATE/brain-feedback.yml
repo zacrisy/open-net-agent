@@ -1,0 +1,29 @@
+name: Brain feedback
+description: Tell OpenNetBrain what to learn, fix or improve.
+title: "Brain feedback: "
+labels: ["feedback"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Type
+      options:
+        - knowledge / learning topic
+        - feature
+        - bug
+        - answer quality / style
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: feedback
+    attributes:
+      label: What should the brain learn or improve?
+      description: For knowledge requests, name a topic it should learn next.
+      placeholder: "Learn: graph neural network advances\n\nOr: answers are too long; start with the conclusion."
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: Contact (optional, not public)
