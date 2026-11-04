@@ -341,6 +341,30 @@ def mark_feedback_learned(topic):
             c.execute("UPDATE improvements SET status='applied', updated=? WHERE feedback_id=?", (time.time(), fid))
     c.close()
 
+def auto_tick():
+    with LOCK:
+        now = time.time()
+        if AUTO.get("next") and now < AUTO["next"]:
+            return {"status": "wait", "next_in": round(AUTO["next"] - now)}
+        busy = CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating")
+    if busy:
+        with LOCK: AUTO["next"] = time.time() + 30
+        return {"status": "busy", "stage": CURRENT.get("stage")}
+    fb = next_feedback_topic()
+    if fb:
+        r = start(fb["topic"])
+        if r.get("status") in ("started", "already_running"):
+            mark_feedback_learning(fb["id"])
+        action = "feedback"
+    elif AUTO.get("last_kind") == "learn":
+        r = consolidate(); action = "evolve"
+    else:
+        r = start(random.choice(AUTO_TOPICS)); action = "learn"
+    with LOCK:
+        AUTO.update({"enabled": True, "interval": 90, "next": time.time() + 90, "last": time.time()})
+    return {"status": "started", "action": action, "result": r, "next_in": 90}
+
+
 def maybe_bootstrap():
     c = _conn(); n = c.execute("SELECT COUNT(*) FROM cards").fetchone()[0]; c.close()
     if n == 0: start(DEFAULT_TOPIC)

@@ -38,7 +38,6 @@ async def main():
             print("nli warm failed:", e, flush=True)
     threading.Thread(target=warm, daemon=True).start()
     brain.maybe_bootstrap()
-    brain.auto_start()
     print(f"OpenNetAgent online: http://127.0.0.1:{PORT}/", flush=True)
     print(f"LAN: http://{lan_ip()}:{PORT}/  token={TOKEN}", flush=True)
     stop = asyncio.Event()

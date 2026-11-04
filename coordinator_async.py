@@ -254,6 +254,12 @@ async def brain_learn(req):
     return web.json_response(brain.start(d.get("topic")))
 
 
+async def brain_auto_tick(req):
+    if req.remote not in ("127.0.0.1", "::1"):
+        return web.json_response({"error": "local only"}, status=403)
+    return web.json_response(brain.auto_tick())
+
+
 async def brain_evolve(req):
     if learn_limited(req):
         return web.json_response({"error": "evolution rate limit (3/min)"}, status=429)
@@ -417,6 +423,7 @@ def app():
     a.router.add_get("/public/ask/result", public_ask_result)
     a.router.add_post("/api/brain/learn", brain_learn)
     a.router.add_post("/api/brain/evolve", brain_evolve)
+    a.router.add_post("/api/brain/auto_tick", brain_auto_tick)
     a.router.add_post("/api/brain/feedback", feedback_submit)
     a.router.add_get("/api/brain/feedback", feedback_list)
     a.router.add_get("/api/brain/improvements", improvement_list)
