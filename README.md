@@ -16,12 +16,12 @@
 - **GitHub**：<https://github.com/zacrisy/open-net-agent>
 - **分享素材 / 一键发帖文案**：<https://zacrisy.github.io/open-net-agent/share.html>
 - **在线控制台（推荐）**：<https://zacrisy.github.io/open-net-agent/brain.html?v=1>（GitHub Pages，稳定、无隧道警告；后端走 serveo）
-- **后端直连**：<https://opennetagent.serveousercontent.com/>（serveo 固定域名；浏览器首次会看到 Serveo 警告页）
+- **后端直连**：<https://opennetagent2.serveousercontent.com/>（serveo 固定域名；浏览器首次会看到 Serveo 警告页）
 - **一键加入**（把一台电脑变成节点）：
 
 ```bash
-curl -fsSL https://opennetagent.serveousercontent.com/install.sh | bash -s -- \
-  --coordinator https://opennetagent.serveousercontent.com --token <YOUR_TOKEN>
+curl -fsSL https://opennetagent2.serveousercontent.com/install.sh | bash -s -- \
+  --coordinator https://opennetagent2.serveousercontent.com --token <YOUR_TOKEN>
 ```
 
 - 出站连接、`nice 19`、可 `--pause` / `--resume` / `--uninstall`；

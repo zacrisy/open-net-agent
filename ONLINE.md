@@ -3,9 +3,9 @@
 ## 公网访问（已开通）
 
 - **控制台（推荐，无隧道警告）**：<https://zacrisy.github.io/open-net-agent/brain.html?v=1>
-- **后端 / 一键加入**：<https://opennetagent.serveousercontent.com/>（serveo 固定域名；浏览器直连会看到 Serveo 警告页）
+- **后端 / 一键加入**：<https://opennetagent2.serveousercontent.com/>（serveo 固定域名；浏览器直连会看到 Serveo 警告页）
 
-- **公网 URL**：<https://opennetagent.serveousercontent.com/>
+- **公网 URL**：<https://opennetagent2.serveousercontent.com/>
 - **Token**：`918b9416a631d0ff91c83ac46a1fc4f8`
 - 本机：<http://127.0.0.1:8080/>
 - 局域网：<http://10.162.241.50:8080/>
@@ -45,7 +45,7 @@ coordinator_async.py（aiohttp）
 
 ```bash
 TOKEN=918b9416a631d0ff91c83ac46a1fc4f8
-BASE=https://opennetagent.serveousercontent.com
+BASE=https://opennetagent2.serveousercontent.com
 
 # 健康
 curl -H "X-Auth-Token: $TOKEN" $BASE/health

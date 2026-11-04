@@ -1,8 +1,8 @@
 # Join a node
 
 ```bash
-curl -fsSL https://opennetagent.serveousercontent.com/install.sh | bash -s -- \
-  --coordinator https://opennetagent.serveousercontent.com --token <YOUR_TOKEN>
+curl -fsSL https://opennetagent2.serveousercontent.com/install.sh | bash -s -- \
+  --coordinator https://opennetagent2.serveousercontent.com --token <YOUR_TOKEN>
 ```
 
 ## What it does

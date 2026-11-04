@@ -86,7 +86,7 @@ research skills across nodes.
 If you have an idle machine, you can add it as a node:
 
 ```bash
-COORD=https://opennetagent.serveousercontent.com
+COORD=https://opennetagent2.serveousercontent.com
 curl -fsSL $COORD/install.sh | bash -s -- \
   --coordinator $COORD --token <YOUR_TOKEN>
 ```
