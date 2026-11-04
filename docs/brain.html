@@ -58,6 +58,10 @@ textarea,input{background:rgba(3,9,15,.85);border:1px solid var(--line);color:va
 .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.node{display:flex;justify-content:space-between;gap:8px;font:8px/1.5 var(--mono);border-bottom:1px solid rgba(94,242,255,.08);padding:4px 0;color:var(--muted)}.node b{color:var(--text);font-weight:500}
 pre{background:rgba(3,9,15,.9);border:1px solid var(--line);padding:9px;color:var(--cyan);font:8.5px/1.7 var(--mono);white-space:pre-wrap;word-break:normal;overflow-wrap:break-word;margin:0 0 7px}.copy{width:100%;border:1px solid var(--green);background:rgba(77,255,184,.08);color:var(--green);font:8px/1 var(--mono);letter-spacing:.12em;padding:7px;cursor:pointer}
 .modal{position:fixed;inset:0;z-index:300;display:none;place-items:center;background:rgba(2,5,9,.85);backdrop-filter:blur(10px)}.modal.open{display:grid}.modal-card{width:min(420px,92vw);background:#08111b;border:1px solid var(--green);padding:20px}.modal-card h3{font:10px/1 var(--mono);letter-spacing:.2em;color:var(--green);margin:0 0 8px}.modal-card p{color:var(--muted);font-size:11px;margin:0 0 12px}.modal-actions{display:flex;gap:7px;margin-top:10px}.modal-actions button{flex:1;padding:8px;font:8px/1 var(--mono);letter-spacing:.12em;cursor:pointer;border:1px solid var(--green);background:var(--green);color:#021016}.modal-actions .ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.mix{display:flex;flex-direction:column;gap:7px}
+.mix-row{display:flex;align-items:center;gap:8px;font:9px/1.5 var(--mono);color:var(--muted)}
+.mix-row b{width:90px;color:var(--text);font-weight:500}.mix-bar{flex:1;height:3px;background:rgba(94,242,255,.1);overflow:hidden}.mix-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan))}
+.evo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.evo-grid div{border:1px solid rgba(94,242,255,.1);padding:8px;background:rgba(3,9,15,.35)}.evo-grid b{display:block;font:600 18px/1.2 var(--mono);color:var(--green)}.evo-grid span{font:8px/1.4 var(--mono);color:var(--muted);letter-spacing:.12em}
 .boot{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:250;padding:6px 12px;border:1px solid var(--line);background:rgba(3,7,12,.9);color:var(--muted);font:9px/1.4 var(--mono);letter-spacing:.12em}
 .boot.err{border-color:var(--amber);color:var(--amber)}
 footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:8px/1.5 var(--mono);letter-spacing:.1em;color:var(--dim)}footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--green)}
@@ -75,7 +79,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
   <div class="brand"><div class="logo">◈</div><div><h1>OPEN<span>NET</span>BRAIN</h1><p>NETWORK-NATIVE CONTINUAL LEARNING</p></div></div>
   <div class="pills">
     <div class="pill"><span class="dot" id="dot"></span><span id="linkState">LINKING</span></div>
-    <div class="pill"><b id="nodeCount">--</b>&nbsp;NODES</div>
+    <div class="pill"><b id="sourceCount">--</b>&nbsp;SOURCES</div>
     <div class="pill"><b id="cardCountTop">--</b>&nbsp;CARDS</div>
     <div class="pill"><span id="autoState">AUTO</span></div>
     <div class="pill" id="mode">PUBLIC</div>
@@ -172,20 +176,21 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
 
   <section class="bottom">
     <div class="panel">
-      <div class="head"><span class="tag">04 / NETWORK NODES</span><button class="hint" id="refresh" style="background:none;border:0;cursor:pointer">SYNC</button></div>
-      <div id="nodeList"><div class="node"><b>waiting</b><span>--</span></div></div>
-      <div class="hint" style="margin-top:8px">节点只出站、nice 19、可暂停；学习由网络大脑协调。</div>
+      <div class="head"><span class="tag">04 / SOURCE MIX</span><span class="hint" id="autoHint">AUTO</span></div>
+      <div id="sourceMix" class="mix"></div>
+      <div class="hint" style="margin-top:8px">Evidence feeds: PubMed · arXiv · HN · Stack Overflow · OpenAlex · Crossref</div>
     </div>
     <div class="panel">
-      <div class="head"><span class="tag">05 / JOIN THE NETWORK</span></div>
-      <p class="hint" style="margin:0 0 8px">把闲置电脑变成节点：source / verifier / memory / expert。</p>
-      <pre id="joinCmd">COORD=...</pre>
-      <button class="copy" id="copyJoin">COPY COMMAND</button>
+      <div class="head"><span class="tag">05 / EVOLUTION</span><span class="hint">LEARN → CONSOLIDATE</span></div>
+      <div class="evo-grid" id="evoStats">
+        <div><b>--</b><span>CYCLES</span></div><div><b>--</b><span>DISPUTED</span></div><div><b>--</b><span>AVG CONF</span></div>
+      </div>
+      <div class="hint" style="margin-top:8px">自动循环每 10 分钟在 LEARN / EVOLVE 之间切换；EVOLVE 重建信念图与支持边。</div>
     </div>
   </section>
 </main>
 
-<footer><div>OPENNETBRAIN // NBCL · <span id="clock">--:--:--</span></div><div><a href="https://github.com/zacrisy/open-net-agent">GITHUB</a> · <a href="https://zacrisy.github.io/open-net-agent/">DOCS</a> · <a href="/share.html">SHARE</a></div></footer>
+<footer><div>OPENNETBRAIN // NBCL · <span id="clock">--:--:--</span></div><div><a href="https://github.com/zacrisy/open-net-agent">GITHUB</a> · <a href="https://zacrisy.github.io/open-net-agent/">DOCS</a></div></footer>
 
 <div class="modal" id="settings"><div class="modal-card"><h3>ADMIN LINK</h3><p>可选：管理员 token 用于审计/NLI。公共学习与工作台无需 token。</p><input id="token" placeholder="admin token"><div class="modal-actions"><button id="saveToken">SAVE</button><button id="closeSettings" class="ghost">CANCEL</button></div></div></div>
 
@@ -195,7 +200,6 @@ const PRIMARY = 'https://meal-mature-blah-shepherd.trycloudflare.com';
 const STABLE = 'https://opennetagent2.serveousercontent.com';
 const QS = new URLSearchParams(location.search);
 const REMOTE = PRIMARY;
-const JOIN_BASE = STABLE;
 const BACKEND = QS.get('backend') || (location.hostname.endsWith('github.io') ? PRIMARY : location.origin);
 const state = { mode: 'research', graph: { nodes: [], edges: [] }, cards: [], learning: null };
 const token = () => $('token').value.trim();
@@ -239,6 +243,12 @@ async function refreshBrain() {
     $('cardCountTop').textContent = m.cards ?? 0;
     const a = s.auto || {};
     $('autoState').textContent = a.enabled ? `AUTO ${Math.round((a.interval||600)/60)}m · next ${a.next_in ?? '--'}s` : 'AUTO OFF';
+    $('autoHint').textContent = a.enabled ? `NEXT ${a.next_in ?? '--'}s` : 'AUTO OFF';
+    $('linkState').textContent = m.cards ? 'LEARNING' : 'IDLE'; $('dot').classList.toggle('off', !m.cards);
+    $('sourceCount').textContent = m.sources ?? 0;
+    const mix = m.source_mix || []; const total = Math.max(1, mix.reduce((s,x)=>s+x.count,0));
+    $('sourceMix').innerHTML = mix.length ? mix.map(x=>`<div class="mix-row"><b>${esc(x.type)}</b><div class="mix-bar"><i style="width:${Math.round(x.count/total*100)}%"></i></div><span>${x.count}</span></div>`).join('') : '<div class="hint">NO SOURCES YET</div>';
+    $('evoStats').innerHTML = `<div><b>${m.cycles||0}</b><span>CYCLES</span></div><div><b>${m.disputed||0}</b><span>DISPUTED</span></div><div><b>${(m.avg_confidence||0).toFixed(2)}</b><span>AVG CONF</span></div>`;
     window.__brainReady = true; const bm = $('bootMsg'); if (bm) bm.style.display = 'none';
     setStage(s.learning?.stage);
     $('learnMsg').textContent = s.learning?.stage === 'complete' ? `完成：${s.learning.topic} · ${s.learning.elapsed}s` : (s.learning?.stage ? `当前阶段：${s.learning.stage} · ${s.learning.elapsed}s` : '等待开始学习。');
@@ -251,7 +261,7 @@ async function refreshBrain() {
 async function loadGraph() {
   const g = await api('/api/brain/graph');
   state.graph = g || {nodes:[],edges:[]};
-  $('graphInfo').textContent = `${state.graph.nodes.length} NODES · ${state.graph.edges.length} EDGES`;
+  $('graphInfo').textContent = `${state.graph.nodes.length} KNOWLEDGE NODES · ${state.graph.edges.length} EDGES`;
   drawGraph();
 }
 
@@ -298,10 +308,6 @@ function drawBrain() {
   requestAnimationFrame(drawBrain);
 }
 
-async function refreshNodes() {
-  try { const s=await api('/public/status'); const nodes=s.nodes||{}; $('nodeCount').textContent=Object.keys(nodes).length; $('linkState').textContent=Object.keys(nodes).length?'ONLINE':'WAITING'; $('dot').classList.toggle('off',!Object.keys(nodes).length); $('nodeList').innerHTML=Object.entries(nodes).slice(0,8).map(([id,n])=>`<div class="node"><b>${esc(id)}</b><span>${(n.skills||[]).join(' / ')}</span></div>`).join(''); } catch(e){}
-}
-
 function setMode(mode) {
   state.mode=mode;
   document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
@@ -344,15 +350,13 @@ async function ask(){
 async function vote(id,v){ if(!id)return; const r=await api('/feedback',{method:'POST',body:JSON.stringify({id,vote:v})}); if(r.ok){$('fbMsg').textContent='SAVED ✓';} }
 
 $('train').onclick=startLearn; $('evolve').onclick=evolve; $('heroTrain').onclick=()=>{document.querySelector('.panel').scrollIntoView({behavior:'smooth'});startLearn();};
-$('refresh').onclick=refreshNodes; $('ask').onclick=ask;
+$('ask').onclick=ask;
 document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 document.querySelectorAll('#samples button').forEach(b=>b.onclick=()=>{setMode('research');$('q').value=b.dataset.q;ask();});
 document.querySelectorAll('.app').forEach(b=>b.onclick=()=>{setMode(b.dataset.mode);$('q').value=b.dataset.q;if(b.dataset.doc)$('doc').value=b.dataset.doc;$('workbench').scrollIntoView({behavior:'smooth'});ask();});
 $('settingsBtn').onclick=()=>$('settings').classList.add('open'); $('closeSettings').onclick=()=>$('settings').classList.remove('open');
 $('saveToken').onclick=()=>{localStorage.setItem('netagent_token',token());$('settings').classList.remove('open');modeText();};
 $('token').value=localStorage.getItem('netagent_token')||'';
-$('copyJoin').onclick=async()=>{try{await navigator.clipboard.writeText($('joinCmd').textContent);$('copyJoin').textContent='COPIED ✓';setTimeout(()=>$('copyJoin').textContent='COPY COMMAND',1400);}catch(e){}};
-$('joinCmd').textContent=`COORD=${JOIN_BASE}\ncurl -fsSL $COORD/install.sh | bash -s -- \\\n  --coordinator $COORD --token <YOUR_TOKEN>`;
 
 /* stars */
 (()=>{const c=$('stars'),x=c.getContext('2d');let W,H,pts=[];const resize=()=>{W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';pts=Array.from({length:Math.min(110,innerWidth/13)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.08,vy:(Math.random()-.5)*.08,r:Math.random()*1.2+.2}));};const draw=()=>{x.clearRect(0,0,W,H);for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,p.r*devicePixelRatio,0,7);x.fillStyle='rgba(77,255,184,.25)';x.fill();}requestAnimationFrame(draw);};resize();addEventListener('resize',resize);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)draw();})();
@@ -360,7 +364,7 @@ $('joinCmd').textContent=`COORD=${JOIN_BASE}\ncurl -fsSL $COORD/install.sh | bas
 window.addEventListener('error', e => { const b=$('bootMsg'); if(b){b.textContent='JS ERROR: '+e.message; b.classList.add('err'); b.style.display='block';} });
 setTimeout(()=>{ const b=$('bootMsg'); if(b && !window.__brainReady){ b.textContent='INITIALIZATION SLOW / API UNREACHABLE — reload'; b.classList.add('err'); b.style.display='block'; } }, 8000);
 setInterval(()=>$('clock').textContent=new Date().toLocaleTimeString(),1000);
-setMode('research'); refreshBrain(); refreshNodes(); drawBrain(); setInterval(refreshBrain,4000); setInterval(refreshNodes,12000);
+setMode('research'); refreshBrain(); drawBrain(); setInterval(refreshBrain,4000);
 </script>
 </body>
 </html>

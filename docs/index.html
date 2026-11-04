@@ -3,86 +3,65 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta property="og:title" content="OpenNetAgent — the network is the agent">
-<meta property="og:description" content="Evidence-first network agent: research with real sources, document Q&A, safe compute, NLI verification, self-evolving memory.">
+<title>OpenNetBrain · 网络大脑</title>
+<meta property="og:title" content="OpenNetBrain — the network is learning">
+<meta property="og:description" content="A network brain that learns from real sources, builds knowledge cards, revises beliefs and answers with citations.">
 <meta property="og:image" content="https://zacrisy.github.io/open-net-agent/preview.png">
 <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="OpenNetAgent — the network is the agent">
-<meta name="twitter:description" content="Research with real sources, document Q&A, compute, NLI verification, self-evolving memory.">
-<meta name="twitter:image" content="https://zacrisy.github.io/open-net-agent/preview.png">
 <meta property="og:url" content="https://zacrisy.github.io/open-net-agent/">
-
-<title>OpenNetAgent · 网络智能体</title>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OpenNetBrain — the network is learning">
+<meta name="twitter:description" content="Learn from real sources, build knowledge cards, revise beliefs, answer with citations.">
+<meta name="twitter:image" content="https://zacrisy.github.io/open-net-agent/preview.png">
 <style>
-:root{--bg:#0e1116;--card:#171c24;--line:#2a3240;--txt:#e6edf3;--muted:#8b98a9;--accent:#4c8dff}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-main{max-width:860px;margin:0 auto;padding:8vh 22px}
-h1{font-size:34px;margin:0 0 6px}h1 span{color:var(--accent)}
-.lead{color:var(--muted);font-size:17px;margin-bottom:26px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0}
-pre{background:#0b0f14;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto;font-size:13px}
-code{background:#0b0f14;border:1px solid var(--line);border-radius:6px;padding:2px 6px}
-a{color:var(--accent)}.row{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:10px 16px;border-radius:9px}
-.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
-ul{color:var(--muted)}li{margin:4px 0}
+:root{--bg:#03070c;--card:#0a121c;--line:rgba(94,242,255,.16);--cyan:#5ef2ff;--green:#4dffb8;--amber:#ffc857;--txt:#d9e8f4;--muted:#6f879b;--mono:"SF Mono",ui-monospace,monospace;--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.7 var(--sans);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background:radial-gradient(900px 600px at 20% 8%,rgba(94,242,255,.12),transparent 60%),radial-gradient(800px 600px at 84% 22%,rgba(77,255,184,.09),transparent 60%)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(94,242,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(94,242,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 25%,#000 20%,transparent 78%)}
+main{max-width:1100px;margin:0 auto;padding:8vh 24px 70px}
+.eyebrow{font:9px/1.4 var(--mono);letter-spacing:.32em;color:var(--green);margin:0 0 14px}
+h1{font-size:clamp(40px,6vw,76px);line-height:1.02;letter-spacing:-.02em;margin:0 0 18px;font-weight:800}h1 em{font-style:normal;color:transparent;-webkit-text-stroke:1px var(--green);text-shadow:0 0 34px rgba(77,255,184,.3)}
+.lead{color:var(--muted);max-width:680px;font-size:15px;margin:0 0 24px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;text-decoration:none;font:10px/1 var(--mono);letter-spacing:.15em;border:1px solid var(--cyan);color:#021016;background:linear-gradient(90deg,var(--green),var(--cyan))}
+.btn.ghost{background:transparent;color:var(--txt);border-color:var(--line)}.btn:hover{filter:brightness(1.08)}
+img{width:100%;border:1px solid var(--line);border-radius:12px;margin:10px 0 24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:22px 0}
+.card{background:var(--card);border:1px solid var(--line);padding:16px;border-radius:2px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.card b{display:block;font:9px/1.4 var(--mono);letter-spacing:.16em;color:var(--cyan);margin-bottom:7px}.card p{margin:0;color:var(--muted);font-size:12.5px}
+.loop{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 26px;font:8px/1.5 var(--mono);color:var(--muted)}
+.loop span{border:1px solid var(--line);padding:5px 7px}.loop span::after{content:" →";color:var(--green)}.loop span:last-child::after{content:""}
+footer{border-top:1px solid var(--line);margin-top:20px;padding-top:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:8px/1.6 var(--mono);letter-spacing:.1em;color:var(--dim)}footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--green)}
 </style>
-<link rel="alternate" type="application/rss+xml" title="OpenNetAgent" href="feed.xml">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"OpenNetAgent","applicationCategory":"DeveloperApplication","operatingSystem":"Linux, macOS","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"url":"https://zacrisy.github.io/open-net-agent/brain.html?v=5","description":"Evidence-first network agent: research with real sources, document Q&A, safe compute, NLI verification, self-evolving memory."}</script>
 </head>
 <body>
 <main>
-  <h1>Open<span>Net</span>Agent</h1>
-  <img src="preview.png" alt="OpenNetAgent control deck" style="width:100%;border:1px solid var(--line);border-radius:14px;margin:18px 0">
-  <p class="lead">把每台电脑变成一个节点，用 WebSocket 组成一个可加入、可退出、低打扰、可验证的网络智能体。</p>
-
-  <div class="row">
-    <a class="btn" href="./brain.html?v=5">进入网络大脑</a>
-    <a class="btn ghost" href="https://opennetagent2.serveousercontent.com/">直连后端</a>
-    <a class="btn ghost" href="./share.html">分享素材</a>
+  <p class="eyebrow">NBCL // PERCEIVE · VERIFY · CONSOLIDATE</p>
+  <h1>THE NETWORK<br><em>IS LEARNING.</em></h1>
+  <p class="lead">OpenNetBrain 是一个持续学习的网络大脑：从真实来源抽取知识卡，建立信念图，检测冲突，生成课程，并把学到的东西固化成可追溯的记忆。它每 10 分钟自动在“学习”和“进化”之间切换。</p>
+  <div class="actions">
+    <a class="btn" href="./brain.html?v=6">进入网络大脑</a>
     <a class="btn ghost" href="https://github.com/zacrisy/open-net-agent">GitHub</a>
-    <a class="btn ghost" href="https://github.com/zacrisy/open-net-agent/issues">参与贡献</a>
+    <a class="btn ghost" href="https://github.com/zacrisy/open-net-agent/blob/main/nbpw/DESIGN.md">设计文档</a>
   </div>
 
-  <div class="card">
-    <h3>一键加入</h3>
-    <pre>curl -fsSL https://opennetagent2.serveousercontent.com/install.sh | bash -s -- \
-  --coordinator https://opennetagent2.serveousercontent.com --token &lt;YOUR_TOKEN&gt;</pre>
-    <p>出站连接、<code>nice 19</code>、可 <code>--pause</code> / <code>--resume</code> / <code>--uninstall</code>，不开放入站端口。</p>
+  <img src="preview.png" alt="OpenNetBrain control deck">
+
+  <div class="loop">
+    <span>RETRIEVE</span><span>EXTRACT</span><span>VERIFY</span><span>CONSOLIDATE</span><span>EVOLVE</span>
   </div>
 
-  <div class="card">
-    <h3>它是什么</h3>
-    <ul>
-      <li>Research：PubMed / arXiv / HN / Stack Overflow 真实来源 + 引用</li>
-      <li>Docs：粘贴报告/代码，片段级回答 [Dn]</li>
-      <li>Compute：AST 安全计算；Verify：NLI 支持/反驳</li>
-      <li>Evolution：反馈 → 经验 → 知识包 → 网络记忆</li>
-      <li>50 节点本机试点：100 查询 100%，p50 0.023s</li>
-    </ul>
+  <div class="grid">
+    <div class="card"><b>LEARN</b><p>从 PubMed / arXiv / HN / Stack Overflow / OpenAlex / Crossref 抽取知识卡，带来源与置信度。</p></div>
+    <div class="card"><b>REVISE</b><p>信念图保留支持/冲突/争议关系；新证据不删除旧卡，而是标记与审计。</p></div>
+    <div class="card"><b>CONSOLIDATE</b><p>去重、重建图、更新边；自动循环每 10 分钟执行一次进化。</p></div>
+    <div class="card"><b>ANSWER</b><p>研究、文档、计算、核查、摘要、翻译、事实抽取——都带来源或可追溯轨迹。</p></div>
   </div>
 
-  <div class="card">
-    <h3>自动配置</h3>
-    <ul>
-      <li>检测内存/磁盘，默认 <code>lite</code>：不需要本地模型，只开 retrieval/echo</li>
-      <li>自动拉取 15 条 starter 记忆到 <code>~/.netagent/data</code></li>
-      <li>有 transformers/torch 且内存足够时自动加 <code>nli</code></li>
-      <li>可选 <code>--data-dir</code> 接入自己的文档</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h3>想参与？</h3>
-    <ul>
-      <li><a href="https://github.com/zacrisy/open-net-agent/issues/1">#1 写一个 Go/Rust 节点客户端</a>（good first issue）</li>
-      <li><a href="https://github.com/zacrisy/open-net-agent/issues/2">#2 Prometheus 指标</a></li>
-      <li><a href="https://github.com/zacrisy/open-net-agent/issues/3">#3 插件沙箱</a></li>
-      <li>跑一个节点、报告 LAN/WAN 延迟与故障</li>
-    </ul>
-  </div>
-
-  <p style="color:var(--muted);font-size:13px">Demo 走临时隧道，URL 可能变化；生产部署见仓库 <code>deploy/PUBLIC.md</code>。</p>
+  <footer>
+    <div>OPENNETBRAIN // NBCL</div>
+    <div><a href="https://github.com/zacrisy/open-net-agent">GITHUB</a> · <a href="https://github.com/zacrisy/open-net-agent/blob/main/nbpw/REPORT_CONTINUAL.md">持续学习实验</a> · <a href="brain.html?v=6">控制台</a></div>
+  </footer>
 </main>
 </body>
 </html>

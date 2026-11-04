@@ -147,6 +147,12 @@ def status():
     topics = c.execute("SELECT topic, COUNT(*) FROM cards GROUP BY topic").fetchall()
     rows = c.execute("SELECT id,topic,started,finished,stage,sources,cards,new_cards,conflicts,status FROM cycles ORDER BY started DESC LIMIT 6").fetchall()
     feed = c.execute("SELECT id,topic,claim,source_type,confidence,status,ts FROM cards ORDER BY ts DESC LIMIT 12").fetchall()
+    srcs = set()
+    for (sj,) in c.execute("SELECT source_json FROM cards").fetchall():
+        try: srcs.add(json.loads(sj or "{}").get("url") or "")
+        except Exception: pass
+    srcs.discard("")
+    mix = c.execute("SELECT source_type, COUNT(*) FROM cards GROUP BY source_type ORDER BY COUNT(*) DESC").fetchall()
     c.close()
     with LOCK:
         cur = dict(CURRENT)
@@ -156,7 +162,8 @@ def status():
     return {"learning": cur, "auto": auto,
             "metrics": {"cards": cards, "active": active, "disputed": disputed, "cycles": cycles,
                         "topics": [{"topic": t, "count": n} for t, n in topics],
-                        "avg_confidence": round(sum(x[4] for x in feed) / max(1, len(feed)), 2)},
+                        "avg_confidence": round(sum(x[4] for x in feed) / max(1, len(feed)), 2),
+                        "sources": len(srcs), "source_mix": [{"type": t, "count": n} for t, n in mix]},
             "cycles": [{"id": r[0], "topic": r[1], "started": r[2], "finished": r[3], "stage": r[4],
                         "sources": r[5], "cards": r[6], "new_cards": r[7], "conflicts": r[8], "status": r[9]} for r in rows],
             "feed": [{"id": r[0], "topic": r[1], "claim": r[2][:260], "source_type": r[3], "confidence": r[4], "status": r[5]} for r in feed]}
