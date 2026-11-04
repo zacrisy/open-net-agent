@@ -133,6 +133,12 @@ async def _ask_core(d):
         res = await asyncio.to_thread(agent_core.compute, query)
     elif mode == "docs":
         res = await asyncio.to_thread(agent_core.doc_answer, query, doc)
+    elif mode == "summarize":
+        res = await asyncio.to_thread(agent_core.summarize, doc or query)
+    elif mode == "translate":
+        res = await asyncio.to_thread(agent_core.translate_text, doc or query, str(d.get("target", "zh")))
+    elif mode == "extract":
+        res = await asyncio.to_thread(agent_core.extract_facts, doc or query)
     else:
         memory = db.search_experience(query, 3)
         res = await asyncio.to_thread(agent_core.research, query, mode, memory)

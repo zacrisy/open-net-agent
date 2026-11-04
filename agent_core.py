@@ -341,6 +341,41 @@ def research(query, mode="auto", memory=None):
             "engine": "evidence+translate", "elapsed": round(time.time() - t0, 1), "search_query": search_q}
 
 
+def summarize(text):
+    t0 = time.time(); text = (text or "")[:12000]
+    sents = _sentences(text)
+    if not sents:
+        return {"answer": "没有可摘要的内容。", "sources": [], "trace": [{"step": "input", "detail": "empty"}], "confidence": 0.0, "engine": "extractive"}
+    picks = sorted(enumerate(sents), key=lambda x: (len(x[1]), -x[0]), reverse=True)[:5]
+    picks = [x[1] for x in sorted(picks, key=lambda x: x[0])]
+    answer = "要点：\n" + "\n".join("- " + x.strip() for x in picks)
+    return {"answer": answer, "sources": [], "trace": [{"step": "split", "detail": f"{len(sents)} sentences"}, {"step": "rank", "detail": f"{len(picks)} bullets"}],
+            "confidence": 0.62, "engine": "extractive", "elapsed": round(time.time() - t0, 1)}
+
+
+def extract_facts(text):
+    t0 = time.time(); text = (text or "")[:12000]
+    sents = _sentences(text)
+    scored = []
+    for sent in sents:
+        score = len(re.findall(r"\d+(?:\.\d+)?%?", sent)) * 2 + (2 if re.search(r"\b(is|are|was|were|shows|found|increases|decreases|reduces)\b", sent, re.I) else 0)
+        if score: scored.append((score, sent))
+    picks = [s for _, s in sorted(scored, reverse=True)[:6]]
+    if not picks: picks = sents[:4]
+    answer = "关键事实：\n" + "\n".join("- " + x.strip() for x in picks)
+    return {"answer": answer, "sources": [], "trace": [{"step": "scan", "detail": f"{len(sents)} sentences"}, {"step": "extract", "detail": f"{len(picks)} facts"}],
+            "confidence": 0.58, "engine": "rule-based", "elapsed": round(time.time() - t0, 1)}
+
+
+def translate_text(text, target="zh"):
+    t0 = time.time(); text = (text or "")[:900]
+    pair = "en|zh-CN" if str(target).lower().startswith("zh") else "zh-CN|en"
+    out = translate(text, pair)
+    if not out:
+        return {"answer": "翻译服务暂时不可用。", "sources": [], "trace": [{"step": "translate", "detail": "failed"}], "confidence": 0.1, "engine": "mymemory"}
+    return {"answer": out, "sources": [], "trace": [{"step": "translate", "detail": pair}], "confidence": 0.7, "engine": "mymemory", "elapsed": round(time.time() - t0, 1)}
+
+
 def doc_answer(question, doc):
     t0 = time.time()
     doc = (doc or "")[:12000]

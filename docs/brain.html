@@ -48,6 +48,8 @@ h2{font-size:clamp(38px,5.2vw,70px);line-height:1.02;letter-spacing:-.02em;margi
 textarea,input{background:rgba(3,9,15,.85);border:1px solid var(--line);color:var(--text);padding:10px;font:12px/1.6 var(--sans);outline:none;width:100%}textarea:focus,input:focus{border-color:var(--green)}
 .query{display:flex;gap:7px}.query textarea{flex:1;min-height:58px;resize:vertical}.send{min-width:88px;border:1px solid var(--green);color:var(--green);background:rgba(77,255,184,.08);font:9px/1 var(--mono);letter-spacing:.12em;cursor:pointer}.send:hover{background:rgba(77,255,184,.18)}
 .extra{display:none;margin-top:7px}.extra.show{display:block}
+.extra select{background:rgba(3,9,15,.85);border:1px solid var(--line);color:var(--text);padding:8px;font:11px/1.5 var(--mono);width:100%;outline:none}
+.tabs button{min-width:62px}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.chips button{background:transparent;border:1px dashed rgba(94,242,255,.2);color:var(--muted);padding:4px 7px;font:8px/1.4 var(--mono);cursor:pointer}.chips button:hover{border-color:var(--green);color:var(--green)}
 .response{min-height:180px;border-top:1px solid var(--line);padding-top:10px;margin-top:6px}.empty{color:var(--dim);font:9px/1.7 var(--mono);padding:14px 0}
 .answer-head{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px}.task{font:8px/1 var(--mono);color:var(--dim)}.answer{white-space:pre-wrap;font-size:13.5px;line-height:1.8}.meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;font:8px/1.5 var(--mono);color:var(--dim)}.src{display:flex;gap:6px;align-items:baseline;border-bottom:1px dashed rgba(94,242,255,.08);padding:4px 0;font:9px/1.5 var(--mono);color:var(--muted);text-decoration:none}.src b{color:var(--cyan)}.src span{color:var(--text);flex:1}.src em{color:var(--dim);font-style:normal;font-size:8px}
@@ -141,9 +143,13 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
         <button data-mode="docs">DOCS</button>
         <button data-mode="compute">COMPUTE</button>
         <button data-mode="verify">VERIFY</button>
+        <button data-mode="summarize">SUMMARIZE</button>
+        <button data-mode="translate">TRANSLATE</button>
+        <button data-mode="extract">EXTRACT</button>
       </div>
       <div class="query"><textarea id="q" rows="2" placeholder="问一个真实问题…"></textarea><button class="send" id="ask">ASK</button></div>
-      <div class="extra" id="docWrap"><textarea id="doc" rows="3" placeholder="粘贴文档/报告/代码…"></textarea></div>
+      <div class="extra" id="docWrap"><textarea id="doc" rows="3" placeholder="粘贴文档 / 报告 / 代码 / 待翻译文本…"></textarea></div>
+      <div class="extra" id="targetWrap"><select id="target"><option value="zh">翻译为中文</option><option value="en">Translate to English</option></select></div>
       <div class="extra" id="verifyWrap"><input id="claim" placeholder="Claim：待核查说法"><input id="evidence" placeholder="Evidence：证据" style="margin-top:6px"></div>
       <div class="chips" id="samples">
         <button data-q="GLP-1 减肥药的作用机制是什么？">GLP-1 机制</button>
@@ -159,6 +165,9 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
     <div class="app" data-mode="research" data-q="最近 AI agent 评估有什么值得关注？"><b>TECH RADAR</b><p>技术趋势、论文与社区信号。</p></div>
     <div class="app" data-mode="research" data-q="Python asyncio RuntimeError event loop is closed 怎么解决？"><b>CODE FIX</b><p>Stack Overflow 高票答案与修复代码。</p></div>
     <div class="app" data-mode="docs" data-doc="OpenNetAgent 把每台电脑当成节点。节点只建立出站连接，不开放入站端口。默认 lite 模式不需要本地大模型，任何 Python3 电脑都能加入。" data-q="这份文档的核心结论是什么？"><b>DOCUMENT ANALYSIS</b><p>粘贴报告，片段级回答 [Dn]。</p></div>
+    <div class="app" data-mode="summarize" data-doc="OpenNetAgent 把每台电脑当成节点。节点只建立出站连接，不开放入站端口。默认 lite 模式不需要本地大模型，任何 Python3 电脑都能加入。节点可以暂停和卸载，学习由网络大脑协调。知识卡、信念图和课程让网络持续积累可追溯的记忆。" data-q="总结要点"><b>SUMMARIZE</b><p>把长文档压缩成 3–5 条要点。</p></div>
+    <div class="app" data-mode="translate" data-doc="OpenNetAgent turns each computer into a node. Nodes keep local memory and skills; the coordinator routes tasks and verifies results." data-q="翻译"><b>TRANSLATE</b><p>中英互译，保留技术术语。</p></div>
+    <div class="app" data-mode="extract" data-doc="GLP-1 receptor agonists reduce appetite and slow gastric emptying. In a 2023 review, semaglutide produced 15% weight loss in adults with obesity. The trial enrolled 1,961 participants over 68 weeks." data-q="提取关键事实"><b>FACT EXTRACT</b><p>从文本抽取数字、结论与关键事实。</p></div>
   </section>
 
   <section class="bottom">
@@ -293,7 +302,15 @@ async function refreshNodes() {
   try { const s=await api('/public/status'); const nodes=s.nodes||{}; $('nodeCount').textContent=Object.keys(nodes).length; $('linkState').textContent=Object.keys(nodes).length?'ONLINE':'WAITING'; $('dot').classList.toggle('off',!Object.keys(nodes).length); $('nodeList').innerHTML=Object.entries(nodes).slice(0,8).map(([id,n])=>`<div class="node"><b>${esc(id)}</b><span>${(n.skills||[]).join(' / ')}</span></div>`).join(''); } catch(e){}
 }
 
-function setMode(mode) { state.mode=mode; document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode)); $('docWrap').classList.toggle('show',mode==='docs'); $('verifyWrap').classList.toggle('show',mode==='verify'); $('hint').textContent={research:'LIVE RESEARCH',docs:'DOCUMENT ANALYSIS',compute:'SAFE COMPUTE',verify:'NLI VERIFY'}[mode]; }
+function setMode(mode) {
+  state.mode=mode;
+  document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  const docModes=['docs','summarize','translate','extract'];
+  $('docWrap').classList.toggle('show',docModes.includes(mode));
+  $('targetWrap').classList.toggle('show',mode==='translate');
+  $('verifyWrap').classList.toggle('show',mode==='verify');
+  $('hint').textContent={research:'LIVE RESEARCH',docs:'DOCUMENT ANALYSIS',compute:'SAFE COMPUTE',verify:'NLI VERIFY',summarize:'SUMMARIZE',translate:'TRANSLATE',extract:'FACT EXTRACT'}[mode]||'WORKBENCH';
+}
 
 function loading(){ $('response').innerHTML=`<div class="empty">RUNNING ${state.mode.toUpperCase()}…</div>`; }
 
@@ -305,10 +322,13 @@ function renderAnswer(d) {
 }
 
 async function ask(){
-  const q=$('q').value.trim(); if(!q&&state.mode!=='verify'){$('q').focus();return;}
+  const q=$('q').value.trim();
+  const docModes=['docs','summarize','translate','extract'];
+  if(docModes.includes(state.mode) && !$('doc').value.trim()){ $('response').innerHTML='<div class="empty">请先粘贴文档/文本。</div>'; return; }
+  if(!q && !docModes.includes(state.mode) && state.mode!=='verify'){$('q').focus();return;}
   loading();
   try{
-    const body={query:q,mode:state.mode,doc:$('doc').value,claim:$('claim').value,evidence:$('evidence').value};
+    const body={query:q,mode:state.mode,doc:$('doc').value,claim:$('claim').value,evidence:$('evidence').value,target:$('target').value};
     const s=await api('/public/ask/start',{method:'POST',body:JSON.stringify(body)});
     if(!s.job_id){ renderAnswer({error:s.error||'无法启动任务'}); return; }
     for(let i=0;i<90;i++){
