@@ -20,6 +20,7 @@
 - **Release v0.3.1**: <https://github.com/zacrisy/open-net-agent/releases/tag/v0.3.1>
 - **Roadmap discussion**: <https://github.com/zacrisy/open-net-agent/discussions/9>
 - **Feedback issue**: <https://github.com/zacrisy/open-net-agent/issues/8>
+- **Full API (domestic VPS)**: <https://kids-pcs-attacked-myth.trycloudflare.com>
 - **Cloud mode**: GitHub Actions runs learning/evolution every 5 minutes and publishes `docs/cloud_brain.json`; Pages automatically uses this snapshot when the local API is offline, with browser-side OpenAlex/Crossref research.
 - **Cloud feedback**: feedback opened as a GitHub issue labeled `feedback` is imported by `cloud_feedback.yml` into the cloud brain DB.
 
