@@ -1,0 +1,31 @@
+name: cloud brain
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: cloud-brain
+  cancel-in-progress: false
+jobs:
+  learn:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Learn on GitHub runner
+        env:
+          CLOUD_CYCLES: "5"
+        run: python cloud_learn.py
+      - name: Publish snapshot
+        run: |
+          git config user.name "open-net-brain[bot]"
+          git config user.email "open-net-brain@users.noreply.github.com"
+          git add docs/cloud_brain.db docs/cloud_brain.json
+          git diff --cached --quiet && exit 0
+          git commit -m "cloud brain: auto learn/evolve [skip ci]"
+          git push

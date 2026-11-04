@@ -21,6 +21,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;background-image:linear
 .pills{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid var(--line);font:9px/1 var(--mono);letter-spacing:.12em;color:var(--muted);background:rgba(9,18,28,.55)}.pill b{color:var(--text)}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}.dot.warn{background:var(--amber);box-shadow:0 0 10px var(--amber)}.dot.off{background:#e74c3c;box-shadow:0 0 10px #e74c3c}
 .icon{background:transparent;border:1px solid var(--line);color:var(--muted);width:30px;height:27px;cursor:pointer}.icon:hover{color:var(--cyan);border-color:var(--cyan)}
 .shell{max-width:1360px;margin:0 auto;padding:26px 26px 70px}
+.cloud-banner{display:flex;gap:8px;flex-wrap:wrap;align-items:center;border:1px solid rgba(255,200,87,.35);background:rgba(255,200,87,.06);padding:7px 10px;margin:0 0 8px;font:9px/1.5 var(--mono);color:var(--amber)}.cloud-banner a{color:var(--amber)}
 .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;min-height:62vh;padding:10px 0 30px}
 .eyebrow{font:9px/1.4 var(--mono);letter-spacing:.32em;color:var(--green);margin:0 0 14px}
 h2{font-size:clamp(38px,5.2vw,70px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px;font-weight:800}h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px var(--green);text-shadow:0 0 34px rgba(77,255,184,.3)}
@@ -104,6 +105,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
 </header>
 
 <main class="shell">
+  <div class="cloud-banner" id="cloudBanner" style="display:none">CLOUD SNAPSHOT · GitHub Actions · <span id="cloudTime">--</span> · <a href="https://github.com/zacrisy/open-net-agent/actions/workflows/cloud_brain.yml" target="_blank" rel="noopener">RUN ON GITHUB ↗</a></div>
   <section class="hero">
     <div>
       <p class="eyebrow">NBCL // PERCEIVE · VERIFY · CONSOLIDATE</p>
@@ -245,18 +247,18 @@ const STABLE = 'https://opennetagent2.serveousercontent.com';
 const QS = new URLSearchParams(location.search);
 const REMOTE = PRIMARY;
 const BACKEND = QS.get('backend') || (location.hostname.endsWith('github.io') ? PRIMARY : location.origin);
-const state = { mode: 'research', graph: { nodes: [], edges: [] }, cards: [], learning: null };
+const state = { mode: 'research', graph: { nodes: [], edges: [] }, cards: [], learning: null, cloud: false, cloudData: null };
 const token = () => $('token').value.trim();
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-async function api(path, opts = {}) {
+async function api(path, opts = {}, timeoutMs = 40000) {
   const t = token(); const h = {'Content-Type':'application/json'};
   if (t) h['X-Auth-Token'] = t;
   const bases = BACKEND === location.origin ? [BACKEND] : [BACKEND, STABLE];
   let last = null;
   for (const base of bases) {
     try {
-      const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 40000);
+      const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), timeoutMs);
       const r = await fetch(base + path, Object.assign({}, opts, {headers: Object.assign(h, opts.headers || {}), signal: ctrl.signal}));
       clearTimeout(timer);
       const txt = await r.text();
@@ -278,40 +280,54 @@ function setStage(stage) {
 }
 
 async function refreshBrain() {
-  try {
-    const s = await api('/api/brain/status');
-    state.learning = s.learning;
-    const m = s.metrics || {};
-    $('statCards').textContent = m.cards ?? 0; $('statActive').textContent = m.active ?? 0;
-    $('statCycles').textContent = m.cycles ?? 0; $('statConf').textContent = (m.avg_confidence ?? 0).toFixed(2);
-    $('cardCountTop').textContent = m.cards ?? 0;
-    const a = s.auto || {};
-    const sec = a.interval || 90; const alabel = sec < 120 ? `${sec}s` : `${Math.round(sec/60)}m`;
+  let s = null, cloud = false;
+  try { s = await api('/api/brain/status', {}, 4000); } catch (e) {}
+  if (!s || !s.metrics) {
+    try { const r = await fetch('cloud_brain.json?ts=' + Date.now()); if (r.ok) { s = await r.json(); cloud = true; } } catch (e) {}
+  }
+  if (!s || !s.metrics) { $('linkState').textContent = 'OFFLINE'; $('dot').classList.add('off'); return; }
+  state.cloud = cloud; state.cloudData = s; state.learning = s.learning;
+  const m = s.metrics || {};
+  $('statCards').textContent = m.cards ?? 0; $('statActive').textContent = m.active ?? 0;
+  $('statCycles').textContent = m.cycles ?? 0; $('statConf').textContent = (m.avg_confidence ?? 0).toFixed(2);
+  $('cardCountTop').textContent = m.cards ?? 0;
+  const a = s.auto || {};
+  if (cloud) {
+    $('autoState').textContent = 'CLOUD · ' + timeAgo(s.cloud?.updated);
+    $('autoHint').textContent = 'GITHUB ACTIONS';
+    $('linkState').textContent = 'CLOUD'; $('dot').classList.remove('off');
+    $('cloudBanner').style.display = 'flex'; $('cloudTime').textContent = timeAgo(s.cloud?.updated);
+  } else {
+    const sec = a.interval || 20; const alabel = sec < 120 ? `${sec}s` : `${Math.round(sec/60)}m`;
     $('autoState').textContent = a.enabled ? `AUTO ${alabel} · next ${a.next_in ?? '--'}s` : 'AUTO OFF';
     $('autoHint').textContent = a.enabled ? `NEXT ${a.next_in ?? '--'}s` : 'AUTO OFF';
     $('linkState').textContent = m.cards ? 'LEARNING' : 'IDLE'; $('dot').classList.toggle('off', !m.cards);
-    $('sourceCount').textContent = m.sources ?? 0;
-    const mix = m.source_mix || []; const total = Math.max(1, mix.reduce((s,x)=>s+x.count,0));
-    $('sourceMix').innerHTML = mix.length ? mix.map(x=>`<div class="mix-row"><b>${esc(x.type)}</b><div class="mix-bar"><i style="width:${Math.round(x.count/total*100)}%"></i></div><span>${x.count}</span></div>`).join('') : '<div class="hint">NO SOURCES YET</div>';
-    $('evoStats').innerHTML = `<div><b>${m.cycles||0}</b><span>CYCLES</span></div><div><b>${m.disputed||0}</b><span>DISPUTED</span></div><div><b>${(m.avg_confidence||0).toFixed(2)}</b><span>AVG CONF</span></div>`;
-    window.__brainReady = true; const bm = $('bootMsg'); if (bm) bm.style.display = 'none';
-    setStage(s.learning?.stage);
-    $('learnMsg').textContent = s.learning?.stage === 'complete' ? `完成：${s.learning.topic} · ${s.learning.elapsed}s` : (s.learning?.stage ? `当前阶段：${s.learning.stage} · ${s.learning.elapsed}s` : '等待开始学习。');
-    $('feed').innerHTML = (s.feed || []).length ? s.feed.map(c => `<div class="feed-item"><b>${esc(c.source_type)}</b><span>${(c.confidence||0).toFixed(2)}</span><p>${esc(c.claim)}</p></div>`).join('') : '<div class="feed-item"><p>等待学习周期…</p></div>';
-    $('cycles').innerHTML = (s.cycles || []).slice(0,5).map(c => `<div class="cycle"><b>${esc(c.topic)}</b><span>${c.cards||0} cards · ${c.sources||0} src · ${c.status}</span></div>`).join('');
-    $('activity').innerHTML = (s.cycles || []).slice(0,8).map(c => { const evo=c.topic==='EVOLUTION'; return `<div class="act"><b class="${evo?'evo':'learn'}">${evo?'EVOLVE':'LEARN'}</b><span>${esc(c.topic)}</span><em>${timeAgo(c.finished||c.started)}</em></div>`; }).join('');
-    await loadGraph();
-  } catch (e) { $('linkState').textContent = 'OFFLINE'; $('dot').classList.add('off'); }
+    $('cloudBanner').style.display = 'none';
+  }
+  $('sourceCount').textContent = m.sources ?? 0;
+  const mix = m.source_mix || []; const total = Math.max(1, mix.reduce((s,x)=>s+x.count,0));
+  $('sourceMix').innerHTML = mix.length ? mix.map(x=>`<div class="mix-row"><b>${esc(x.type)}</b><div class="mix-bar"><i style="width:${Math.round(x.count/total*100)}%"></i></div><span>${x.count}</span></div>`).join('') : '<div class="hint">NO SOURCES YET</div>';
+  $('evoStats').innerHTML = `<div><b>${m.cycles||0}</b><span>CYCLES</span></div><div><b>${m.disputed||0}</b><span>DISPUTED</span></div><div><b>${(m.avg_confidence||0).toFixed(2)}</b><span>AVG CONF</span></div>`;
+  window.__brainReady = true; const bm = $('bootMsg'); if (bm) bm.style.display = 'none';
+  setStage(s.learning?.stage);
+  $('learnMsg').textContent = cloud ? `云端快照：${s.cloud?.repo || 'GitHub Actions'} · ${timeAgo(s.cloud?.updated)}` : (s.learning?.stage === 'complete' ? `完成：${s.learning.topic} · ${s.learning.elapsed}s` : (s.learning?.stage ? `当前阶段：${s.learning.stage} · ${s.learning.elapsed}s` : '等待开始学习。'));
+  $('feed').innerHTML = (s.feed || []).length ? s.feed.map(c => `<div class="feed-item"><b>${esc(c.source_type)}</b><span>${(c.confidence||0).toFixed(2)}</span><p>${esc(c.claim)}</p></div>`).join('') : '<div class="feed-item"><p>等待学习周期…</p></div>';
+  $('cycles').innerHTML = (s.cycles || []).slice(0,5).map(c => `<div class="cycle"><b>${esc(c.topic)}</b><span>${c.cards||0} cards · ${c.sources||0} src · ${c.status}</span></div>`).join('');
+  $('activity').innerHTML = (s.cycles || []).slice(0,8).map(c => { const evo=c.topic==='EVOLUTION'; return `<div class="act"><b class="${evo?'evo':'learn'}">${evo?'EVOLVE':'LEARN'}</b><span>${esc(c.topic)}</span><em>${timeAgo(c.finished||c.started)}</em></div>`; }).join('');
+  await loadGraph();
 }
 
 async function loadGraph() {
-  const g = await api('/api/brain/graph');
+  let g = null;
+  if (state.cloud) g = state.cloudData?.graph || null;
+  else g = await api('/api/brain/graph', {}, 4000);
   state.graph = g || {nodes:[],edges:[]};
   $('graphInfo').textContent = `${state.graph.nodes.length} KNOWLEDGE NODES · ${state.graph.edges.length} EDGES`;
   drawGraph();
 }
 
 async function startLearn() {
+  if (state.cloud) { window.open('https://github.com/zacrisy/open-net-agent/actions/workflows/cloud_brain.yml', '_blank'); $('learnMsg').textContent = '云端快照模式：请在 GitHub Actions 运行云端学习'; return; }
   const topic = ($('topic').value || '').trim();
   $('train').disabled = true; $('learnMsg').textContent = '启动学习周期…';
   try { await api('/api/brain/learn', {method:'POST', body: JSON.stringify({topic})}); await refreshBrain(); } catch (e) {}
@@ -319,22 +335,30 @@ async function startLearn() {
 }
 
 async function evolve() {
+  if (state.cloud) { window.open('https://github.com/zacrisy/open-net-agent/actions/workflows/cloud_brain.yml', '_blank'); return; }
   $('evolve').disabled = true;
   try { await api('/api/brain/evolve', {method:'POST', body:'{}'}); await refreshBrain(); } catch(e) {}
   setTimeout(() => $('evolve').disabled = false, 2500);
 }
 
 async function loadFeedback(){
-  const rows = await api('/api/brain/feedback?limit=8');
+  const rows = state.cloud ? (state.cloudData?.feedback || []) : await api('/api/brain/feedback?limit=8', {}, 5000);
   $('fbRecent').innerHTML = (rows||[]).length ? rows.map(f=>`<div class="fb-item"><b>${esc(f.kind).toUpperCase()}</b> <em>${esc(f.status)} · ${timeAgo(f.created)}</em><span>${esc(f.text)}</span></div>`).join('') : '<div class="hint">还没有公开意见，第一条来自你。</div>';
 }
 async function loadImprovements(){
-  const rows = await api('/api/brain/improvements?limit=8');
+  const rows = state.cloud ? (state.cloudData?.improvements || []) : await api('/api/brain/improvements?limit=8', {}, 5000);
   $('improvements').innerHTML = (rows||[]).length ? rows.map(i=>`<div class="imp"><b>${esc(i.kind).toUpperCase()}</b><span>${esc(i.title)}</span><em class="${esc(i.status)}">${esc(i.status)}</em></div>`).join('') : '<div class="hint">还没有改进提案。提交一条意见试试。</div>';
 }
 function openFeedback(){ $('feedbackModal').classList.add('open'); loadFeedback(); loadImprovements(); }
 function closeFeedback(){ $('feedbackModal').classList.remove('open'); }
 async function submitFeedback(){
+  if(state.cloud){
+    const text=$('fbText').value.trim();
+    if(text.length<4){ $('fbMsg').textContent='至少写 4 个字'; return; }
+    const kind=$('fbKind').value;
+    const url='https://github.com/zacrisy/open-net-agent/issues/new?labels=feedback&title='+encodeURIComponent('Brain feedback: '+kind)+'&body='+encodeURIComponent(text+'\n\nkind: '+kind);
+    window.open(url,'_blank'); $('fbMsg').textContent='已打开 GitHub 反馈表单'; return;
+  }
   const text=$('fbText').value.trim();
   if(text.length<4){ $('fbMsg').textContent='至少写 4 个字'; return; }
   $('fbSubmit').disabled=true; $('fbMsg').textContent='提交中…';
@@ -414,6 +438,7 @@ function renderAnswer(d) {
 }
 
 async function ask(){
+  if(state.cloud){ $('response').innerHTML='<div class="empty">云端快照模式只发布学习结果；问答需要 coordinator API。请启动本地 run_online.py，或把 API 部署到 VPS。</div>'; return; }
   const q=$('q').value.trim();
   const docModes=['docs','summarize','translate','extract'];
   if(docModes.includes(state.mode) && !$('doc').value.trim()){ $('response').innerHTML='<div class="empty">请先粘贴文档/文本。</div>'; return; }

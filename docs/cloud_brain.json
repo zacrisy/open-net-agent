@@ -1,0 +1,509 @@
+{
+ "learning": {
+  "cycle_id": "6ed4c9dbdbc8",
+  "topic": "retrieval augmented generation evaluation",
+  "stage": "complete",
+  "started": 1793774413.233174,
+  "elapsed": 8.0
+ },
+ "auto": {
+  "enabled": false,
+  "interval": 20,
+  "next": null,
+  "last": 1793774413.233174,
+  "last_kind": "learn"
+ },
+ "metrics": {
+  "cards": 18,
+  "active": 18,
+  "disputed": 0,
+  "cycles": 1,
+  "topics": [
+   {
+    "topic": "retrieval augmented generation evaluation",
+    "count": 18
+   }
+  ],
+  "avg_confidence": 0.48,
+  "sources": 11,
+  "source_mix": [
+   {
+    "type": "Hacker News",
+    "count": 10
+   },
+   {
+    "type": "Crossref",
+    "count": 7
+   },
+   {
+    "type": "arXiv",
+    "count": 1
+   }
+  ],
+  "feedback": 0,
+  "feedback_open": 0,
+  "improvements": 0
+ },
+ "cycles": [
+  {
+   "id": "6ed4c9dbdbc8",
+   "topic": "retrieval augmented generation evaluation",
+   "started": 1793774413.233428,
+   "finished": 1793774420.503799,
+   "stage": "complete",
+   "sources": 11,
+   "cards": 18,
+   "new_cards": 18,
+   "conflicts": 0,
+   "status": "complete"
+  }
+ ],
+ "feed": [
+  {
+   "id": "kc-11351c0296",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, including morphology-aware chunking, cultural context weighting, and agglutination-aware answer normalization.",
+   "source_type": "Crossref",
+   "confidence": 0.515,
+   "status": "active"
+  },
+  {
+   "id": "kc-02a8fad3cb",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Generation (RAG) systems versus fine-tuned language models for Turkish cultural question answering.",
+   "source_type": "Crossref",
+   "confidence": 0.577,
+   "status": "active"
+  },
+  {
+   "id": "kc-0bff370f8c",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+   "source_type": "Crossref",
+   "confidence": 0.64,
+   "status": "active"
+  },
+  {
+   "id": "kc-822f488f2a",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "Cortex Click is an LLM-driven platform for creating high quality developer marketing content including blog posts, tutorials, documentation, and copilots for product onboarding.",
+   "source_type": "Hacker News",
+   "confidence": 0.36,
+   "status": "active"
+  },
+  {
+   "id": "kc-be8e4b0212",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "We’re Evan, Derek, Eugene, and Jeremy, the team behind Cortex Click (<a href=\"https:&#x2F;&#x2F;www.cortexclick.com&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.cortexclick.com&#x2F;</a>).",
+   "source_type": "Hacker News",
+   "confidence": 0.36,
+   "status": "active"
+  },
+  {
+   "id": "kc-a8214ca652",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "If you’ve tried using models like these, you know exactly how limited they are in truly understanding your data.<p>I looked into thousands of datapoints of actual user queries to clearly classify and determine exactly where and when semantic search starts to b",
+   "source_type": "Hacker News",
+   "confidence": 0.36,
+   "status": "active"
+  },
+  {
+   "id": "kc-a2c6d35353",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "A single retrieval call into a vector database powers most Retrieval-Augmented Generation systems today.",
+   "source_type": "Hacker News",
+   "confidence": 0.459,
+   "status": "active"
+  },
+  {
+   "id": "kc-e2a70437e9",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
+   "source_type": "Crossref",
+   "confidence": 0.577,
+   "status": "active"
+  },
+  {
+   "id": "kc-9c44c2ae9a",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "An experimental approach was applied by comparing three retrieval strategies: lexical retrieval based on term frequency–inverse document frequency, semantic retrieval using vector representations, and a hybrid retrieval method combining lexical and semantic si",
+   "source_type": "Crossref",
+   "confidence": 0.515,
+   "status": "active"
+  },
+  {
+   "id": "kc-88845a5448",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot based on Retrieval-Augmented Generation to improve information accuracy and relevance while reducing hallucination risks.",
+   "source_type": "Crossref",
+   "confidence": 0.577,
+   "status": "active"
+  },
+  {
+   "id": "kc-6ba2e3f702",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "Master Retrieval-Augmented Generation (RAG) Systems",
+   "source_type": "Crossref",
+   "confidence": 0.515,
+   "status": "active"
+  },
+  {
+   "id": "kc-2f9d983a58",
+   "topic": "retrieval augmented generation evaluation",
+   "claim": "This report is in CSV format and the data is basically impossible for a human to read because there&#x27;s so much of it.<p>I built Open Evaluat",
+   "source_type": "Hacker News",
+   "confidence": 0.36,
+   "status": "active"
+  }
+ ],
+ "graph": {
+  "nodes": [
+   {
+    "id": "kc-11351c0296",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, ",
+    "claim": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, including morphology-aware chunking, cultural context weighting, and agglutination-aware answer normalization.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
+    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
+    "x": 142.0,
+    "y": 0.0
+   },
+   {
+    "id": "kc-02a8fad3cb",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Gen",
+    "claim": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Generation (RAG) systems versus fine-tuned language models for Turkish cultural question answering.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
+    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
+    "x": 133.436352151599,
+    "y": 48.56686035224496
+   },
+   {
+    "id": "kc-0bff370f8c",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "claim": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.32388/4l83f7",
+    "source_title": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "x": 108.77831092289487,
+    "y": 91.27584057548857
+   },
+   {
+    "id": "kc-822f488f2a",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Cortex Click is an LLM-driven platform for creating high quality developer marketing conte",
+    "claim": "Cortex Click is an LLM-driven platform for creating high quality developer marketing content including blog posts, tutorials, documentation, and copilots for product onboarding.",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=41583460",
+    "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
+    "x": 71.00000000000001,
+    "y": 122.97560733739029
+   },
+   {
+    "id": "kc-be8e4b0212",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "We’re Evan, Derek, Eugene, and Jeremy, the team behind Cortex Click (<a href=\"https:&#x2F;",
+    "claim": "We’re Evan, Derek, Eugene, and Jeremy, the team behind Cortex Click (<a href=\"https:&#x2F;&#x2F;www.cortexclick.com&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.cortexclick.com&#x2F;</a>).",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=41583460",
+    "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
+    "x": 24.658041228704118,
+    "y": 139.84270092773355
+   },
+   {
+    "id": "kc-a8214ca652",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "If you’ve tried using models like these, you know exactly how limited they are in truly un",
+    "claim": "If you’ve tried using models like these, you know exactly how limited they are in truly understanding your data.<p>I looked into thousands of datapoints of actual user queries to clearly classify and determine exactly where and when semantic search starts to break down and provide missing or halluc",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=42299349",
+    "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
+    "x": -24.658041228704104,
+    "y": 139.84270092773355
+   },
+   {
+    "id": "kc-a2c6d35353",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "A single retrieval call into a vector database powers most Retrieval-Augmented Generation ",
+    "claim": "A single retrieval call into a vector database powers most Retrieval-Augmented Generation systems today.",
+    "status": "active",
+    "confidence": 0.459,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=42299349",
+    "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
+    "x": -70.99999999999997,
+    "y": 122.9756073373903
+   },
+   {
+    "id": "kc-e2a70437e9",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evalu",
+    "claim": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.18653/v1/2026.magmar-main.6",
+    "source_title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
+    "x": -108.77831092289486,
+    "y": 91.2758405754886
+   },
+   {
+    "id": "kc-9c44c2ae9a",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "An experimental approach was applied by comparing three retrieval strategies: lexical retr",
+    "claim": "An experimental approach was applied by comparing three retrieval strategies: lexical retrieval based on term frequency–inverse document frequency, semantic retrieval using vector representations, and a hybrid retrieval method combining lexical and semantic signals.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
+    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
+    "x": -133.43635215159898,
+    "y": 48.56686035224498
+   },
+   {
+    "id": "kc-88845a5448",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot ",
+    "claim": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot based on Retrieval-Augmented Generation to improve information accuracy and relevance while reducing hallucination risks.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
+    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
+    "x": -142.0,
+    "y": 1.7389984547892416e-14
+   },
+   {
+    "id": "kc-6ba2e3f702",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "claim": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.5040/9781350865778",
+    "source_title": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "x": -133.436352151599,
+    "y": -48.56686035224495
+   },
+   {
+    "id": "kc-2f9d983a58",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "This report is in CSV format and the data is basically impossible for a human to read beca",
+    "claim": "This report is in CSV format and the data is basically impossible for a human to read because there&#x27;s so much of it.<p>I built Open Evaluat",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://openevaluation.ai/",
+    "source_title": "Show HN: Open Evaluation",
+    "x": -108.77831092289493,
+    "y": -91.27584057548853
+   },
+   {
+    "id": "kc-771a8eda61",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Hey HN, this will likely interest you if you&#x27;re a) into dense data visualization or b",
+    "claim": "Hey HN, this will likely interest you if you&#x27;re a) into dense data visualization or b) trying to figure out how to measure the quality of a retrieval-augmented generation (RAG) system.<p>There&#x27;s an OSS tool called Open RAG Eval that analyzes RAG-based query-and-answer sets to generate a dense set of metrics in an &quot;evaluation report&quot;.",
+    "status": "active",
+    "confidence": 0.459,
+    "source_type": "Hacker News",
+    "source_url": "https://openevaluation.ai/",
+    "source_title": "Show HN: Open Evaluation",
+    "x": -71.00000000000006,
+    "y": -122.97560733739024
+   },
+   {
+    "id": "kc-dc8d51599c",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Hey HN, Joe and Ethan from Tonic.ai here.",
+    "claim": "Hey HN, Joe and Ethan from Tonic.ai here.",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/TonicAI/tvalmetrics",
+    "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
+    "x": -24.658041228704107,
+    "y": -139.84270092773355
+   },
+   {
+    "id": "kc-e3c79148cd",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "We just released a new open-source python package for evaluating the performance of Retrie",
+    "claim": "We just released a new open-source python package for evaluating the performance of Retrieval Augmented Generation (RAG) systems.<p>Earlier this year, we started developing a RAG-powered app to enable companies to talk to their free-text data safely.<p>During our experimentation, however, we realized that using such a new method meant that there weren’t industry-standards for evaluation metrics to measure the accuracy of RAG performance.",
+    "status": "active",
+    "confidence": 0.546,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/TonicAI/tvalmetrics",
+    "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
+    "x": 24.658041228704057,
+    "y": -139.84270092773355
+   },
+   {
+    "id": "kc-1db45eb38d",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Repo: REPLACE_WITH_GITHUB_REPO_URL  (profile: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;m",
+    "claim": "Repo: REPLACE_WITH_GITHUB_REPO_URL  (profile: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;myroslav-abdeljawwad\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;myroslav-abdeljawwad</a>)<p>What it is",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=45595999",
+    "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
+    "x": 70.9999999999999,
+    "y": -122.97560733739034
+   },
+   {
+    "id": "kc-54950ddb54",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "A small toolkit to run reproducible, local evaluations for retrieval-augmented generation ",
+    "claim": "A small toolkit to run reproducible, local evaluations for retrieval-augmented generation (RAG).",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=45595999",
+    "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
+    "x": 108.77831092289485,
+    "y": -91.27584057548862
+   },
+   {
+    "id": "kc-d621210711",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
+    "claim": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://arxiv.org/abs/2309.15217",
+    "source_title": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
+    "x": 133.436352151599,
+    "y": -48.566860352244944
+   }
+  ],
+  "edges": [
+   {
+    "source": "kc-02a8fad3cb",
+    "target": "kc-e2a70437e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-02a8fad3cb",
+    "target": "kc-88845a5448",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-02a8fad3cb",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-02a8fad3cb",
+    "target": "kc-771a8eda61",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-02a8fad3cb",
+    "target": "kc-e3c79148cd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-02a8fad3cb",
+    "target": "kc-54950ddb54",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-0bff370f8c",
+    "target": "kc-a2c6d35353",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-0bff370f8c",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-0bff370f8c",
+    "target": "kc-d621210711",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-be8e4b0212",
+    "target": "kc-1db45eb38d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a2c6d35353",
+    "target": "kc-e2a70437e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a2c6d35353",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a2c6d35353",
+    "target": "kc-d621210711",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e2a70437e9",
+    "target": "kc-88845a5448",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e2a70437e9",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e2a70437e9",
+    "target": "kc-54950ddb54",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e2a70437e9",
+    "target": "kc-d621210711",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-6ba2e3f702",
+    "target": "kc-54950ddb54",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2f9d983a58",
+    "target": "kc-771a8eda61",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-771a8eda61",
+    "target": "kc-e3c79148cd",
+    "kind": "supports"
+   }
+  ],
+  "topics": [
+   "retrieval augmented generation evaluation"
+  ]
+ },
+ "feedback": [],
+ "improvements": [],
+ "cloud": {
+  "updated": 1793774421.28174,
+  "runner": "local",
+  "repo": "zacrisy/open-net-agent"
+ }
+}

@@ -7,7 +7,7 @@ try:
 except Exception:
     from nbpw.continual import extract_cards, dedup, build_belief
 
-DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brain.db")
+DB = os.environ.get("BRAIN_DB") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "brain.db")
 LOCK = threading.Lock()
 CURRENT = {"cycle_id": None, "topic": None, "stage": "idle", "started": None, "elapsed": 0}
 AUTO = {"enabled": False, "interval": 20, "next": None, "last": None, "last_kind": None}
