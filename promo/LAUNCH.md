@@ -2,8 +2,8 @@
 
 ## 链接
 
-- **控制台（推荐）**：https://zacrisy.github.io/open-net-agent/brain.html?v=14
-- **短链**：https://tinyurl.com/24hn93ap
+- **控制台（推荐）**：https://zacrisy.github.io/open-net-agent/brain.html?v=15
+- **短链**：https://tinyurl.com/2xjr28jg
 - **仓库**：https://github.com/zacrisy/open-net-agent
 - **Release**：https://github.com/zacrisy/open-net-agent/releases/tag/v0.7.0
 - **Discussion**：https://github.com/zacrisy/open-net-agent/discussions/6
@@ -22,7 +22,7 @@
 
 **Title:** Show HN: OpenNetAgent – a network agent that cites real sources
 
-**URL:** https://zacrisy.github.io/open-net-agent/brain.html?v=14
+**URL:** https://zacrisy.github.io/open-net-agent/brain.html?v=15
 
 **Body:**
 
@@ -69,7 +69,7 @@ increases orexin release”, which is not in any source. So I changed the design
 Feedback (upvote) becomes experience → knowledge pack → new nodes pull it → later
 answers cite `network memory`.
 
-Control deck: https://tinyurl.com/24hn93ap
+Control deck: https://tinyurl.com/2xjr28jg
 Repo: https://github.com/zacrisy/open-net-agent
 
 Would love feedback on source ranking, translation quality, and how to distribute
@@ -97,7 +97,7 @@ curl -fsSL $COORD/install.sh | bash -s -- \
 - coordinator routes research / docs / compute / NLI tasks.
 
 I’m looking for 3–5 machine LAN tests and WAN latency reports. Control deck:
-https://tinyurl.com/24hn93ap
+https://tinyurl.com/2xjr28jg
 
 ---
 
@@ -117,7 +117,7 @@ Evidence first, not vibes.
 5/ Upvote an answer → experience → knowledge pack → new nodes pull it → later
 answers cite `network memory`.
 
-6/ Try it: https://tinyurl.com/24hn93ap
+6/ Try it: https://tinyurl.com/2xjr28jg
 Repo: https://github.com/zacrisy/open-net-agent
 Looking for node runners + contributors.
 
@@ -142,7 +142,7 @@ Looking for node runners + contributors.
 实测：GLP-1 机制返回 4 篇真实论文，约 11 秒；asyncio 报错返回 Stack Overflow
 高票答案。
 
-体验：https://tinyurl.com/24hn93ap
+体验：https://tinyurl.com/2xjr28jg
 仓库：https://github.com/zacrisy/open-net-agent
 加入节点：https://github.com/zacrisy/open-net-agent/issues/4
 
