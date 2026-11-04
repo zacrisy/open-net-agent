@@ -1,24 +1,28 @@
 {
  "learning": {
-  "cycle_id": "c96f0b354371",
-  "topic": "continual learning catastrophic forgetting",
+  "cycle_id": "a5a94843c0c4",
+  "topic": "LLM agent reliability evaluation",
   "stage": "complete",
-  "started": 1793774519.3799987,
+  "started": 1793775123.074207,
   "elapsed": 2.0
  },
  "auto": {
   "enabled": false,
   "interval": 20,
   "next": null,
-  "last": 1793774519.3800004,
+  "last": 1793775123.0742085,
   "last_kind": "learn"
  },
  "metrics": {
-  "cards": 81,
-  "active": 80,
+  "cards": 124,
+  "active": 123,
   "disputed": 1,
-  "cycles": 8,
+  "cycles": 15,
   "topics": [
+   {
+    "topic": "LLM agent reliability evaluation",
+    "count": 6
+   },
    {
     "topic": "Python asyncio event loop",
     "count": 12
@@ -28,1082 +32,778 @@
     "count": 21
    },
    {
+    "topic": "federated learning privacy",
+    "count": 20
+   },
+   {
     "topic": "graph neural network advances",
     "count": 14
+   },
+   {
+    "topic": "knowledge graph construction",
+    "count": 17
    },
    {
     "topic": "retrieval augmented generation evaluation",
     "count": 34
    }
   ],
-  "avg_confidence": 0.57,
-  "sources": 47,
+  "avg_confidence": 0.59,
+  "sources": 76,
   "source_mix": [
    {
     "type": "Crossref",
-    "count": 37
+    "count": 65
    },
    {
     "type": "Hacker News",
-    "count": 24
+    "count": 29
    },
    {
     "type": "arXiv",
-    "count": 12
+    "count": 22
    },
    {
     "type": "Stack Overflow",
     "count": 8
    }
   ],
-  "feedback": 0,
+  "feedback": 1,
   "feedback_open": 0,
-  "improvements": 0
+  "improvements": 1
  },
  "cycles": [
   {
-   "id": "c96f0b354371",
-   "topic": "continual learning catastrophic forgetting",
-   "started": 1793774519.3802497,
-   "finished": 1793774519.395236,
+   "id": "a5a94843c0c4",
+   "topic": "LLM agent reliability evaluation",
+   "started": 1793775123.0744176,
+   "finished": 1793775123.8103666,
    "stage": "complete",
-   "sources": 13,
-   "cards": 21,
+   "sources": 3,
+   "cards": 6,
    "new_cards": 0,
-   "conflicts": 1,
-   "status": "complete"
-  },
-  {
-   "id": "eed4cc6b0be1",
-   "topic": "EVOLUTION",
-   "started": 1793774519.3327227,
-   "finished": 1793774519.377427,
-   "stage": "complete",
-   "sources": 0,
-   "cards": 81,
-   "new_cards": 0,
-   "conflicts": 1,
-   "status": "complete"
-  },
-  {
-   "id": "1f1491c5dfe0",
-   "topic": "retrieval augmented generation evaluation",
-   "started": 1793774515.3272471,
-   "finished": 1793774517.9297388,
-   "stage": "complete",
-   "sources": 14,
-   "cards": 27,
-   "new_cards": 16,
    "conflicts": 0,
    "status": "complete"
   },
   {
-   "id": "236b30441223",
-   "topic": "Python asyncio event loop",
-   "started": 1793774513.3219724,
-   "finished": 1793774514.8693137,
-   "stage": "complete",
-   "sources": 9,
-   "cards": 12,
-   "new_cards": 12,
-   "conflicts": 0,
-   "status": "complete"
-  },
-  {
-   "id": "7b3c9e069eea",
+   "id": "44b6a06e66f1",
    "topic": "EVOLUTION",
-   "started": 1793774513.298022,
-   "finished": 1793774513.3194208,
+   "started": 1793775122.9477062,
+   "finished": 1793775123.0711167,
    "stage": "complete",
    "sources": 0,
-   "cards": 53,
+   "cards": 124,
    "new_cards": 0,
    "conflicts": 1,
    "status": "complete"
   },
   {
-   "id": "67fb839dfbc4",
-   "topic": "continual learning catastrophic forgetting",
-   "started": 1793774509.293349,
-   "finished": 1793774511.5267913,
+   "id": "666bde16e469",
+   "topic": "federated learning privacy",
+   "started": 1793775118.9366786,
+   "finished": 1793775121.1850061,
+   "stage": "complete",
+   "sources": 16,
+   "cards": 20,
+   "new_cards": 20,
+   "conflicts": 0,
+   "status": "complete"
+  },
+  {
+   "id": "c41187585ec9",
+   "topic": "knowledge graph construction",
+   "started": 1793775114.9274697,
+   "finished": 1793775117.2964303,
    "stage": "complete",
    "sources": 13,
-   "cards": 21,
-   "new_cards": 21,
+   "cards": 17,
+   "new_cards": 17,
+   "conflicts": 0,
+   "status": "complete"
+  },
+  {
+   "id": "f46b0cea78cb",
+   "topic": "EVOLUTION",
+   "started": 1793775114.8511941,
+   "finished": 1793775114.9242363,
+   "stage": "complete",
+   "sources": 0,
+   "cards": 87,
+   "new_cards": 0,
    "conflicts": 1,
+   "status": "complete"
+  },
+  {
+   "id": "97b96c496672",
+   "topic": "LLM agent reliability evaluation",
+   "started": 1793775112.84558,
+   "finished": 1793775114.001465,
+   "stage": "complete",
+   "sources": 3,
+   "cards": 6,
+   "new_cards": 6,
+   "conflicts": 0,
    "status": "complete"
   }
  ],
  "feed": [
   {
-   "id": "kc-94c6c34b80",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "This dissertation contributes to a deeper understanding of why catastrophic forgetting occurs and investigates the mechanisms that enable learning models to maintain stability while acquiring new knowledge over time.",
-   "source_type": "Crossref",
-   "confidence": 0.64,
+   "id": "kc-cb51e9552c",
+   "topic": "LLM agent reliability evaluation",
+   "claim": "Production LLM agents are evaluated repeatedly as they evolve, but full agent benchmarks are costly to rerun.",
+   "source_type": "arXiv",
+   "confidence": 0.636,
    "status": "active"
   },
   {
-   "id": "kc-9a86f26ee5",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "Catastrophic forgetting, the tendency of learning systems to lose previously acquired knowledge when trained on new information, remains one of the most fundamental challenges in continual learning.",
-   "source_type": "Crossref",
-   "confidence": 0.686,
+   "id": "kc-da1c5343ff",
+   "topic": "LLM agent reliability evaluation",
+   "claim": "We study efficient recurring evaluation for a production analytics agent serving tens of thousands of monthly active users and report first-hand deployment experience.",
+   "source_type": "arXiv",
+   "confidence": 0.636,
    "status": "active"
   },
   {
-   "id": "kc-5f2b708f6f",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "Continual learning is a fundamental challenge in artificial intelligence (AI) that aims to enable models to learn from a continuous stream of data while retaining previously acquired knowledge.",
-   "source_type": "Crossref",
-   "confidence": 0.577,
+   "id": "kc-177bd76775",
+   "topic": "LLM agent reliability evaluation",
+   "claim": "We investigate LLM-as-a-Judge evaluation by comparing human judgments with GPT-4.1 and GPT-5 on telecom and retail voice-agent conversations, across conversational quality and safety dimensions.",
+   "source_type": "arXiv",
+   "confidence": 0.568,
    "status": "active"
   },
   {
-   "id": "kc-e65cebd138",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "Unlike traditional machine learning, which operates in static environments, continual learning requires algorithms to adapt incrementally to new tasks and evolving data distributions without catastrophic forgetting.",
-   "source_type": "Crossref",
-   "confidence": 0.686,
+   "id": "kc-6cf9180e84",
+   "topic": "LLM agent reliability evaluation",
+   "claim": "The same interac- tions are scored under three evaluation configurations, p0, p1, and p2, to test whether automated judgments are sensitive to the evaluation setup and whether observed patterns generalize across configurations and judge models.",
+   "source_type": "arXiv",
+   "confidence": 0.568,
    "status": "active"
   },
   {
-   "id": "kc-7cfd4be640",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "Continual lifelong learning in neural systems",
-   "source_type": "Crossref",
-   "confidence": 0.577,
+   "id": "kc-d088138d8d",
+   "topic": "LLM agent reliability evaluation",
+   "claim": "Still, estimating such a rare failure probability with tight confidence bounds requires prohibitively large LLM inference sizes, making standard Monte Carlo evaluation infeasible under limited compute budgets.",
+   "source_type": "arXiv",
+   "confidence": 0.636,
    "status": "active"
   },
   {
-   "id": "kc-aa780fc43f",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "This ability, referred to as lifelong learning, is mediated by a rich set of neurocognitive mechanisms that together contribute to the development and specialization of our sensorimotor skills as well as to long-term memory consolidation and retrieval.",
+   "id": "kc-2a986f3602",
+   "topic": "LLM agent reliability evaluation",
+   "claim": "While existing benchmarks demonstrate the near-perfect performance of large language models (LLMs) on various tasks, this apparent saturation often obscures the need for rigorous evaluation of their reliability.",
+   "source_type": "arXiv",
+   "confidence": 0.636,
+   "status": "active"
+  },
+  {
+   "id": "kc-7251119468",
+   "topic": "federated learning privacy",
+   "claim": "Currently, many methods in FL apply local differential privacy (LDP) to protect model parameters, but model accuracy significantly declines with smaller privacy budgets and varying numbers of clients.",
    "source_type": "Crossref",
    "confidence": 0.515,
    "status": "active"
   },
   {
-   "id": "kc-d08c3713b2",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "However, lifelong learning remains a long-standing challenge for machine learning and neural network models since the continual acquisition of incrementally available information from non-stationary data distributions generally leads to catastrophic forgetting",
+   "id": "kc-70d197cbbf",
+   "topic": "federated learning privacy",
+   "claim": "Abstract Federated learning (FL) is a popular distributed machine learning approach that avoids data transfer to third parties by sharing and computing model parameters through a central server, thereby protecting client privacy.",
    "source_type": "Crossref",
-   "confidence": 0.686,
+   "confidence": 0.64,
    "status": "active"
   },
   {
-   "id": "kc-3af64b1f05",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "Continual learning enables models to train incrementally from an ongoing stream of data by learning new data as it comes while saving old experiences, which eliminates the need to collect new data with old data to be retrained together from scratch, saving tim",
+   "id": "kc-728f7b88a1",
+   "topic": "federated learning privacy",
+   "claim": "Review for \"Protecting health monitoring privacy in fitness training: A federated learning framework based on personalized differential privacy\"",
+   "source_type": "Crossref",
+   "confidence": 0.64,
+   "status": "active"
+  },
+  {
+   "id": "kc-2313ab1977",
+   "topic": "federated learning privacy",
+   "claim": "Abstract Federated learning is an emerging machine learning paradigm where multiple clients train models locally and formulate a global model based on the local model updates.",
    "source_type": "Crossref",
    "confidence": 0.577,
    "status": "active"
   },
   {
-   "id": "kc-8736732c7d",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "Continual learning, also referred to as lifelong learning, has emerged as a significant advancement for model adaptation and generalization in deep learning with the capability to train models sequentially from a continuous stream of data across multiple tasks",
+   "id": "kc-300348fa02",
+   "topic": "federated learning privacy",
+   "claim": "To determine if federated learning guarantees privacy we study security threats that jeopardize privacy.",
    "source_type": "Crossref",
-   "confidence": 0.577,
+   "confidence": 0.64,
    "status": "active"
   },
   {
-   "id": "kc-456575c107",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "I&#x27;ve been thinking about why LLM training is so expensive and why continuous learning remains unsolved.",
+   "id": "kc-84d0aa9125",
+   "topic": "federated learning privacy",
+   "claim": "The result is NERV: a private-by-default, horizontally scalable blockchain that replaces Merkle trees with 512-byte neural state embeddings, proven inside Halo2 circuits and attested in hardware enclaves.",
    "source_type": "Hacker News",
-   "confidence": 0.409,
-   "status": "active"
-  },
-  {
-   "id": "kc-a774b7c48c",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "Catastrophic forgetting — when fine-tuning a model on new knowledge destroys old knowledge — is universally treated as a problem to minimize.",
-   "source_type": "Hacker News",
-   "confidence": 0.459,
-   "status": "active"
-  },
-  {
-   "id": "kc-7f2cf8b5b7",
-   "topic": "continual learning catastrophic forgetting",
-   "claim": "It trains on a single stream at batch 1, with the attention&#x2F;embedding trunk learning rate",
-   "source_type": "Hacker News",
-   "confidence": 0.409,
+   "confidence": 0.36,
    "status": "active"
   }
  ],
  "graph": {
   "nodes": [
    {
-    "id": "kc-94c6c34b80",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "This dissertation contributes to a deeper understanding of why catastrophic forgetting occ",
-    "claim": "This dissertation contributes to a deeper understanding of why catastrophic forgetting occurs and investigates the mechanisms that enable learning models to maintain stability while acquiring new knowledge over time.",
-    "status": "active",
-    "confidence": 0.64,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.17918/00011156",
-    "source_title": "Memory that lasts",
-    "x": 146.0,
-    "y": 0.0
-   },
-   {
-    "id": "kc-9a86f26ee5",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Catastrophic forgetting, the tendency of learning systems to lose previously acquired know",
-    "claim": "Catastrophic forgetting, the tendency of learning systems to lose previously acquired knowledge when trained on new information, remains one of the most fundamental challenges in continual learning.",
-    "status": "active",
-    "confidence": 0.686,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.17918/00011156",
-    "source_title": "Memory that lasts",
-    "x": 139.51362964477653,
-    "y": 43.03425546399201
-   },
-   {
-    "id": "kc-5f2b708f6f",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Continual learning is a fundamental challenge in artificial intelligence (AI) that aims to",
-    "claim": "Continual learning is a fundamental challenge in artificial intelligence (AI) that aims to enable models to learn from a continuous stream of data while retaining previously acquired knowledge.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
-    "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
-    "x": 120.63086105013525,
-    "y": 82.24472847728882
-   },
-   {
-    "id": "kc-e65cebd138",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Unlike traditional machine learning, which operates in static environments, continual lear",
-    "claim": "Unlike traditional machine learning, which operates in static environments, continual learning requires algorithms to adapt incrementally to new tasks and evolving data distributions without catastrophic forgetting.",
-    "status": "active",
-    "confidence": 0.686,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
-    "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
-    "x": 91.02951107137511,
-    "y": 114.14739644033236
-   },
-   {
-    "id": "kc-7cfd4be640",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Continual lifelong learning in neural systems",
-    "claim": "Continual lifelong learning in neural systems",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.33612/diss.625549871",
-    "source_title": "Continual lifelong learning in neural systems",
-    "x": 53.33978955749367,
-    "y": 135.90756730205382
-   },
-   {
-    "id": "kc-aa780fc43f",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "This ability, referred to as lifelong learning, is mediated by a rich set of neurocognitiv",
-    "claim": "This ability, referred to as lifelong learning, is mediated by a rich set of neurocognitive mechanisms that together contribute to the development and specialization of our sensorimotor skills as well as to long-term memory consolidation and retrieval.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
-    "source_title": "Continual lifelong learning with neural networks: A review",
-    "x": 10.910593663617961,
-    "y": 145.5917543884523
-   },
-   {
-    "id": "kc-d08c3713b2",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "However, lifelong learning remains a long-standing challenge for machine learning and neur",
-    "claim": "However, lifelong learning remains a long-standing challenge for machine learning and neural network models since the continual acquisition of incrementally available information from non-stationary data distributions generally leads to catastrophic forgetting or interference.",
-    "status": "active",
-    "confidence": 0.686,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
-    "source_title": "Continual lifelong learning with neural networks: A review",
-    "x": -32.48805635762189,
-    "y": 142.33947517854625
-   },
-   {
-    "id": "kc-3af64b1f05",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Continual learning enables models to train incrementally from an ongoing stream of data by",
-    "claim": "Continual learning enables models to train incrementally from an ongoing stream of data by learning new data as it comes while saving old experiences, which eliminates the need to collect new data with old data to be retrained together from scratch, saving time, resources, and effort.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
-    "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
-    "x": -72.99999999999997,
-    "y": 126.43970895252805
-   },
-   {
-    "id": "kc-8736732c7d",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Continual learning, also referred to as lifelong learning, has emerged as a significant ad",
-    "claim": "Continual learning, also referred to as lifelong learning, has emerged as a significant advancement for model adaptation and generalization in deep learning with the capability to train models sequentially from a continuous stream of data across multiple tasks while retaining previously acquired knowledge.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
-    "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
-    "x": -107.02557328715464,
-    "y": 99.30521971455423
-   },
-   {
-    "id": "kc-456575c107",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "I&#x27;ve been thinking about why LLM training is so expensive and why continuous learning",
-    "claim": "I&#x27;ve been thinking about why LLM training is so expensive and why continuous learning remains unsolved.",
-    "status": "active",
-    "confidence": 0.409,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=47552974",
-    "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
-    "x": -131.54145471375318,
-    "y": 63.3470259111635
-   },
-   {
-    "id": "kc-a774b7c48c",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Catastrophic forgetting — when fine-tuning a model on new knowledge destroys old knowledge",
-    "claim": "Catastrophic forgetting — when fine-tuning a model on new knowledge destroys old knowledge — is universally treated as a problem to minimize.",
-    "status": "active",
-    "confidence": 0.459,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=47552974",
-    "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
-    "x": -144.36930062886876,
-    "y": 21.76017086172151
-   },
-   {
-    "id": "kc-7f2cf8b5b7",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "It trains on a single stream at batch 1, with the attention&#x2F;embedding trunk learning ",
-    "claim": "It trains on a single stream at batch 1, with the attention&#x2F;embedding trunk learning rate",
-    "status": "active",
-    "confidence": 0.409,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=50219762",
-    "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
-    "x": -144.36930062886879,
-    "y": -21.76017086172141
-   },
-   {
-    "id": "kc-7ca3ec5314",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "A month ago, I shared mini-AGI, an experiment in training a byte-level, continually learni",
-    "claim": "A month ago, I shared mini-AGI, an experiment in training a byte-level, continually learning language model from scratch on a single 8 GB laptop GPU (an RTX 3070).",
-    "status": "active",
-    "confidence": 0.409,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=50219762",
-    "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
-    "x": -131.54145471375318,
-    "y": -63.34702591116347
-   },
-   {
-    "id": "kc-04d83d7bb3",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Many people think that we won&#x27;t reach AGI or even ASI if LLM&#x27;s don&#x27;t have s",
-    "claim": "Many people think that we won&#x27;t reach AGI or even ASI if LLM&#x27;s don&#x27;t have something called &quot;continual learning&quot;.",
-    "status": "active",
-    "confidence": 0.459,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=47259384",
-    "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
-    "x": -107.02557328715463,
-    "y": -99.30521971455424
-   },
-   {
-    "id": "kc-1b3a360fa1",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Basically, continual learning is the ability for an AI to learn on the job, update its neu",
-    "claim": "Basically, continual learning is the ability for an AI to learn on the job, update its neural weights in real-time, and get smarter without forgetting everything else (catastrophic forgetting).",
-    "status": "active",
-    "confidence": 0.546,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=47259384",
-    "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
-    "x": -73.00000000000007,
-    "y": -126.43970895252801
-   },
-   {
-    "id": "kc-f03c909328",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
-    "claim": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
-    "status": "active",
-    "confidence": 0.757,
-    "source_type": "arXiv",
-    "source_url": "https://arxiv.org/abs/2509.10518",
-    "source_title": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
-    "x": -32.48805635762193,
-    "y": -142.33947517854625
-   },
-   {
-    "id": "kc-2192758123",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "This paper presents a conceptually simple yet general and effective framework for handling",
-    "claim": "This paper presents a conceptually simple yet general and effective framework for handling catastrophic forgetting in continual learning with DNNs.",
-    "status": "active",
-    "confidence": 0.757,
-    "source_type": "arXiv",
-    "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
-    "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
-    "x": 10.910593663617957,
-    "y": -145.5917543884523
-   },
-   {
-    "id": "kc-fe79cc687a",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Addressing catastrophic forgetting is one of the key challenges in continual learning wher",
-    "claim": "Addressing catastrophic forgetting is one of the key challenges in continual learning where machine learning systems are trained with sequential or streaming tasks.",
-    "status": "active",
-    "confidence": 0.757,
-    "source_type": "arXiv",
-    "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
-    "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
-    "x": 53.339789557493724,
-    "y": -135.9075673020538
-   },
-   {
-    "id": "kc-5587a179f6",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Continual learning and catastrophic forgetting",
-    "claim": "Continual learning and catastrophic forgetting",
-    "status": "disputed",
-    "confidence": 0.686,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1016/b978-0-443-15754-7.00073-0",
-    "source_title": "Continual learning and catastrophic forgetting",
-    "x": 91.02951107137507,
-    "y": -114.14739644033237
-   },
-   {
-    "id": "kc-a18e455b10",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "Continual learning is known for suffering from catastrophic forgetting, a phenomenon where",
-    "claim": "Continual learning is known for suffering from catastrophic forgetting, a phenomenon where earlier learned concepts are forgotten at the expense of more recent samples.",
-    "status": "active",
-    "confidence": 0.757,
-    "source_type": "arXiv",
-    "source_url": "https://openalex.org/W3123422770",
-    "source_title": "Does Continual Learning = Catastrophic Forgetting?",
-    "x": 120.6308610501352,
-    "y": -82.24472847728892
-   },
-   {
-    "id": "kc-515fe243a5",
-    "topic": "continual learning catastrophic forgetting",
-    "label": "In this work, we challenge the assumption that continual learning is inevitably associated",
-    "claim": "In this work, we challenge the assumption that continual learning is inevitably associated with catastrophic forgetting by presenting a set of tasks that surprisingly do not suffer from catastrophic forgetting when learned continually.",
-    "status": "active",
-    "confidence": 0.757,
-    "source_type": "arXiv",
-    "source_url": "https://openalex.org/W3123422770",
-    "source_title": "Does Continual Learning = Catastrophic Forgetting?",
-    "x": 139.51362964477653,
-    "y": -43.03425546399209
-   },
-   {
-    "id": "kc-822f488f2a",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Cortex Click is an LLM-driven platform for creating high quality developer marketing conte",
-    "claim": "Cortex Click is an LLM-driven platform for creating high quality developer marketing content including blog posts, tutorials, documentation, and copilots for product onboarding.",
-    "status": "active",
-    "confidence": 0.36,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=41583460",
-    "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
-    "x": 140.0,
-    "y": 0.0
-   },
-   {
-    "id": "kc-be8e4b0212",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "We’re Evan, Derek, Eugene, and Jeremy, the team behind Cortex Click (<a href=\"https:&#x2F;",
-    "claim": "We’re Evan, Derek, Eugene, and Jeremy, the team behind Cortex Click (<a href=\"https:&#x2F;&#x2F;www.cortexclick.com&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.cortexclick.com&#x2F;</a>).",
-    "status": "active",
-    "confidence": 0.36,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=41583460",
-    "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
-    "x": 137.61623395574625,
-    "y": 25.724932494319848
-   },
-   {
-    "id": "kc-a8214ca652",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "If you’ve tried using models like these, you know exactly how limited they are in truly un",
-    "claim": "If you’ve tried using models like these, you know exactly how limited they are in truly understanding your data.<p>I looked into thousands of datapoints of actual user queries to clearly classify and determine exactly where and when semantic search starts to break down and provide missing or halluc",
-    "status": "active",
-    "confidence": 0.36,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=42299349",
-    "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
-    "x": 130.5461121166098,
-    "y": 50.57383326620141
-   },
-   {
-    "id": "kc-a2c6d35353",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "A single retrieval call into a vector database powers most Retrieval-Augmented Generation ",
-    "claim": "A single retrieval call into a vector database powers most Retrieval-Augmented Generation systems today.",
-    "status": "active",
-    "confidence": 0.459,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=42299349",
-    "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
-    "x": 119.03039900214598,
-    "y": 73.7005028028298
-   },
-   {
-    "id": "kc-8d4f9f9e03",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Automating systematic reviews (SRs), i.e., evidence-driven analyses under explicit protoco",
-    "claim": "Automating systematic reviews (SRs), i.e., evidence-driven analyses under explicit protocol constraints, is a natural target for retrieval-augmented generation and deep research agents, yet existing benchmarks evaluate isolated subtasks or assume fixed evidence inputs.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.48448/xra9-a775",
-    "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
-    "x": 103.46124841089227,
-    "y": 94.317390110518
-   },
-   {
-    "id": "kc-f7b38c74d7",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "These elements support evaluation across key tasks in systematic review creation such as l",
-    "claim": "These elements support evaluation across key tasks in systematic review creation such as literature retrieval, eligibility screening, citation-grounded review generation, and structured table generation, in both stage-wise and end-to-end settings.",
-    "status": "active",
-    "confidence": 0.64,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.48448/xra9-a775",
-    "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
-    "x": 84.3688490930959,
-    "y": 111.72241181923353
-   },
-   {
-    "id": "kc-c886dba568",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "This systematic literature review characterizes current RAG architectures, components, and",
-    "claim": "This systematic literature review characterizes current RAG architectures, components, and evaluation practices in peer-reviewed studies published between 2021 and 2025 across IEEE Xplore, Scopus, and Web of Science.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
-    "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
-    "x": 62.40336980871536,
-    "y": 125.32286078970873
-   },
-   {
-    "id": "kc-b9a0b6002a",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by integrating ",
-    "claim": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by integrating external retrieval mechanisms to improve factuality and currency.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
-    "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
-    "x": 38.31281861009162,
-    "y": 134.65559004419467
-   },
-   {
-    "id": "kc-597b6482b3",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "The frameworks span diverse domains and employ varying automation levels, from manual anno",
-    "claim": "The frameworks span diverse domains and employ varying automation levels, from manual annotation to LLM-as-a-Judge paradigms.Our analysis reveals a paradigm shift toward automated and hybrid evaluation approaches.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
-    "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
-    "x": 12.917570324862282,
-    "y": 139.40278468130484
-   },
-   {
-    "id": "kc-59bd20092f",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Retrieval-Augmented Generation (RAG) addresses these limitations by combining generative m",
-    "claim": "Retrieval-Augmented Generation (RAG) addresses these limitations by combining generative models with external knowledge retrieval.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
-    "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
-    "x": -12.917570324862265,
-    "y": 139.40278468130484
-   },
-   {
-    "id": "kc-9087a32610",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "The framework structures evaluation dimensions and metrics, identifies suitable datasets a",
-    "claim": "The framework structures evaluation dimensions and metrics, identifies suitable datasets and question types, and provides guidance for applying the framework in practice.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
-    "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
-    "x": -38.312818610091604,
-    "y": 134.65559004419467
-   },
-   {
-    "id": "kc-f89f4982e3",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Abstract This study addresses limitations of traditional benchmarking methods for Retrieva",
-    "claim": "Abstract This study addresses limitations of traditional benchmarking methods for Retrieval-Augmented Generation (RAG) systems by proposing an evaluation framework for RAG-enhanced Large Language Models (LLMs).",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
-    "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
-    "x": -62.40336980871529,
-    "y": 125.32286078970876
-   },
-   {
-    "id": "kc-2f9d983a58",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "This report is in CSV format and the data is basically impossible for a human to read beca",
-    "claim": "This report is in CSV format and the data is basically impossible for a human to read because there&#x27;s so much of it.<p>I built Open Evaluat",
-    "status": "active",
-    "confidence": 0.36,
-    "source_type": "Hacker News",
-    "source_url": "https://openevaluation.ai/",
-    "source_title": "Show HN: Open Evaluation",
-    "x": -84.36884909309587,
-    "y": 111.72241181923354
-   },
-   {
-    "id": "kc-771a8eda61",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Hey HN, this will likely interest you if you&#x27;re a) into dense data visualization or b",
-    "claim": "Hey HN, this will likely interest you if you&#x27;re a) into dense data visualization or b) trying to figure out how to measure the quality of a retrieval-augmented generation (RAG) system.<p>There&#x27;s an OSS tool called Open RAG Eval that analyzes RAG-based query-and-answer sets to generate a dense set of metrics in an &quot;evaluation report&quot;.",
-    "status": "active",
-    "confidence": 0.459,
-    "source_type": "Hacker News",
-    "source_url": "https://openevaluation.ai/",
-    "source_title": "Show HN: Open Evaluation",
-    "x": -103.46124841089231,
-    "y": 94.31739011051799
-   },
-   {
-    "id": "kc-dc8d51599c",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Hey HN, Joe and Ethan from Tonic.ai here.",
-    "claim": "Hey HN, Joe and Ethan from Tonic.ai here.",
-    "status": "active",
-    "confidence": 0.36,
-    "source_type": "Hacker News",
-    "source_url": "https://github.com/TonicAI/tvalmetrics",
-    "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
-    "x": -119.03039900214596,
-    "y": 73.70050280282985
-   },
-   {
-    "id": "kc-e3c79148cd",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "We just released a new open-source python package for evaluating the performance of Retrie",
-    "claim": "We just released a new open-source python package for evaluating the performance of Retrieval Augmented Generation (RAG) systems.<p>Earlier this year, we started developing a RAG-powered app to enable companies to talk to their free-text data safely.<p>During our experimentation, however, we realized that using such a new method meant that there weren’t industry-standards for evaluation metrics to measure the accuracy of RAG performance.",
-    "status": "active",
-    "confidence": 0.546,
-    "source_type": "Hacker News",
-    "source_url": "https://github.com/TonicAI/tvalmetrics",
-    "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
-    "x": -130.5461121166098,
-    "y": 50.57383326620146
-   },
-   {
-    "id": "kc-1db45eb38d",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Repo: REPLACE_WITH_GITHUB_REPO_URL  (profile: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;m",
-    "claim": "Repo: REPLACE_WITH_GITHUB_REPO_URL  (profile: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;myroslav-abdeljawwad\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;myroslav-abdeljawwad</a>)<p>What it is",
-    "status": "active",
-    "confidence": 0.36,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=45595999",
-    "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
-    "x": -137.61623395574625,
-    "y": 25.72493249431985
-   },
-   {
-    "id": "kc-54950ddb54",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "A small toolkit to run reproducible, local evaluations for retrieval-augmented generation ",
-    "claim": "A small toolkit to run reproducible, local evaluations for retrieval-augmented generation (RAG).",
-    "status": "active",
-    "confidence": 0.409,
-    "source_type": "Hacker News",
-    "source_url": "https://news.ycombinator.com/item?id=45595999",
-    "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
-    "x": -140.0,
-    "y": 1.7145055188062946e-14
-   },
-   {
-    "id": "kc-d621210711",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
-    "claim": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
-    "status": "active",
-    "confidence": 0.757,
-    "source_type": "arXiv",
-    "source_url": "https://arxiv.org/abs/2309.15217",
-    "source_title": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
-    "x": -137.61623395574625,
-    "y": -25.724932494319816
-   },
-   {
-    "id": "kc-299c0b5375",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Recently, building retrieval-augmented generation (RAG) systems to enhance the capability ",
-    "claim": "Recently, building retrieval-augmented generation (RAG) systems to enhance the capability of large language models (LLMs) has become a common practice.",
-    "status": "active",
-    "confidence": 0.568,
-    "source_type": "arXiv",
-    "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
-    "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
-    "x": -130.54611211660983,
-    "y": -50.573833266201376
-   },
-   {
-    "id": "kc-e4b8366796",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "However, the overall performance of RAG system depends on many components: (1) retrieval c",
-    "claim": "However, the overall performance of RAG system depends on many components: (1) retrieval corpora, (2) retrieval algorithms, (3) rerankers, (4) LLM backbones, and (5) evaluation metrics.",
+    "id": "kc-cb51e9552c",
+    "topic": "LLM agent reliability evaluation",
+    "label": "Production LLM agents are evaluated repeatedly as they evolve, but full agent benchmarks a",
+    "claim": "Production LLM agents are evaluated repeatedly as they evolve, but full agent benchmarks are costly to rerun.",
     "status": "active",
     "confidence": 0.636,
     "source_type": "arXiv",
-    "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
-    "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
-    "x": -119.03039900214597,
-    "y": -73.70050280282982
+    "source_url": "http://arxiv.org/abs/2609.21267v1",
+    "source_title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
+    "x": 148.0,
+    "y": 0.0
    },
    {
-    "id": "kc-57f17750d1",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "While advances in prompt engineering and RAG have improved LLM proficiency in field-specif",
-    "claim": "While advances in prompt engineering and RAG have improved LLM proficiency in field-specific, specialized tasks, there has yet to be an industry standard or accepted evaluation metric of the highly fragmented RAG solutions that are currently being deployed.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
-    "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
-    "x": -103.46124841089227,
-    "y": -94.317390110518
-   },
-   {
-    "id": "kc-eff7db7b8d",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "We contribute 1) a platform that evaluates an RAG system's performance on a multimodal inp",
-    "claim": "We contribute 1) a platform that evaluates an RAG system's performance on a multimodal input context for LLM question answering and 2) MRAFE: Multimodal Retrieval Augmented Feature Extractor, which processes information from the input to our platform.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
-    "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
-    "x": -84.368849093096,
-    "y": -111.72241181923346
-   },
-   {
-    "id": "kc-66c269b6c4",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Deploying Large Language Model (LLM) applications, particularly those relying on Retrieval",
-    "claim": "Deploying Large Language Model (LLM) applications, particularly those relying on Retrieval-Augmented Generation (RAG), remains challenging due to high computational demands, outdated knowledge bases, and the need to manually select optimal pipeline components.",
-    "status": "active",
-    "confidence": 0.568,
-    "source_type": "arXiv",
-    "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
-    "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
-    "x": -62.40336980871544,
-    "y": -125.32286078970868
-   },
-   {
-    "id": "kc-fc34399e20",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "By directly correlating retrieval and generation quality with underlying hardware constrai",
-    "claim": "By directly correlating retrieval and generation quality with underlying hardware constraints, RAGe supports researchers to identify the most effective, domain-specific RAG setups for",
+    "id": "kc-da1c5343ff",
+    "topic": "LLM agent reliability evaluation",
+    "label": "We study efficient recurring evaluation for a production analytics agent serving tens of t",
+    "claim": "We study efficient recurring evaluation for a production analytics agent serving tens of thousands of monthly active users and report first-hand deployment experience.",
     "status": "active",
     "confidence": 0.636,
     "source_type": "arXiv",
-    "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
-    "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
-    "x": -38.31281861009163,
-    "y": -134.65559004419467
+    "source_url": "http://arxiv.org/abs/2609.21267v1",
+    "source_title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
+    "x": 74.00000000000001,
+    "y": 128.1717597600969
    },
    {
-    "id": "kc-2890aea1c6",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Retrieval Augmented Generation (RAG) is a promising method to leverage the potential of LL",
-    "claim": "Retrieval Augmented Generation (RAG) is a promising method to leverage the potential of LLMs while enhancing the accuracy of their outcomes.",
+    "id": "kc-177bd76775",
+    "topic": "LLM agent reliability evaluation",
+    "label": "We investigate LLM-as-a-Judge evaluation by comparing human judgments with GPT-4.1 and GPT",
+    "claim": "We investigate LLM-as-a-Judge evaluation by comparing human judgments with GPT-4.1 and GPT-5 on telecom and retail voice-agent conversations, across conversational quality and safety dimensions.",
     "status": "active",
-    "confidence": 0.705,
+    "confidence": 0.568,
     "source_type": "arXiv",
-    "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
-    "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
-    "x": -12.917570324862268,
-    "y": -139.40278468130484
+    "source_url": "http://arxiv.org/abs/2608.24314v2",
+    "source_title": "Benchmarking LLM Judges for Voice-Agent Evaluation: Reliability, Calibration, and Human Oversight",
+    "x": -73.99999999999997,
+    "y": 128.17175976009693
    },
    {
-    "id": "kc-5f6a1c83e8",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "To this end, it describes: (1) an internally developed proof of concept pipeline that empl",
-    "claim": "To this end, it describes: (1) an internally developed proof of concept pipeline that employs state-of-the-art practices to deliver safe and trustable analysis for healthcare documents and scientific papers called RAGEv (Retrieval Augmented Generation Evaluation); (2) a set of evaluation tools for LLM-based do",
+    "id": "kc-6cf9180e84",
+    "topic": "LLM agent reliability evaluation",
+    "label": "The same interac- tions are scored under three evaluation configurations, p0, p1, and p2, ",
+    "claim": "The same interac- tions are scored under three evaluation configurations, p0, p1, and p2, to test whether automated judgments are sensitive to the evaluation setup and whether observed patterns generalize across configurations and judge models.",
     "status": "active",
-    "confidence": 0.757,
+    "confidence": 0.568,
     "source_type": "arXiv",
-    "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
-    "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
-    "x": 12.917570324862341,
-    "y": -139.40278468130484
+    "source_url": "http://arxiv.org/abs/2608.24314v2",
+    "source_title": "Benchmarking LLM Judges for Voice-Agent Evaluation: Reliability, Calibration, and Human Oversight",
+    "x": -148.0,
+    "y": 1.8124772627380827e-14
    },
    {
-    "id": "kc-11351c0296",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, ",
-    "claim": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, including morphology-aware chunking, cultural context weighting, and agglutination-aware answer normalization.",
+    "id": "kc-d088138d8d",
+    "topic": "LLM agent reliability evaluation",
+    "label": "Still, estimating such a rare failure probability with tight confidence bounds requires pr",
+    "claim": "Still, estimating such a rare failure probability with tight confidence bounds requires prohibitively large LLM inference sizes, making standard Monte Carlo evaluation infeasible under limited compute budgets.",
+    "status": "active",
+    "confidence": 0.636,
+    "source_type": "arXiv",
+    "source_url": "http://arxiv.org/abs/2605.11209v1",
+    "source_title": "Measuring Five-Nines Reliability: Sample-Efficient LLM Evaluation in Saturated Benchmarks",
+    "x": -74.00000000000007,
+    "y": -128.17175976009688
+   },
+   {
+    "id": "kc-2a986f3602",
+    "topic": "LLM agent reliability evaluation",
+    "label": "While existing benchmarks demonstrate the near-perfect performance of large language model",
+    "claim": "While existing benchmarks demonstrate the near-perfect performance of large language models (LLMs) on various tasks, this apparent saturation often obscures the need for rigorous evaluation of their reliability.",
+    "status": "active",
+    "confidence": 0.636,
+    "source_type": "arXiv",
+    "source_url": "http://arxiv.org/abs/2605.11209v1",
+    "source_title": "Measuring Five-Nines Reliability: Sample-Efficient LLM Evaluation in Saturated Benchmarks",
+    "x": 74.00000000000001,
+    "y": -128.1717597600969
+   },
+   {
+    "id": "kc-7251119468",
+    "topic": "federated learning privacy",
+    "label": "Currently, many methods in FL apply local differential privacy (LDP) to protect model para",
+    "claim": "Currently, many methods in FL apply local differential privacy (LDP) to protect model parameters, but model accuracy significantly declines with smaller privacy budgets and varying numbers of clients.",
     "status": "active",
     "confidence": 0.515,
     "source_type": "Crossref",
-    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
-    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
-    "x": 38.31281861009159,
-    "y": -134.65559004419467
-   },
-   {
-    "id": "kc-02a8fad3cb",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Gen",
-    "claim": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Generation (RAG) systems versus fine-tuned language models for Turkish cultural question answering.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
-    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
-    "x": 62.403369808715276,
-    "y": -125.32286078970876
-   },
-   {
-    "id": "kc-0bff370f8c",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Review of: \"GeAR: Generation Augmented Retrieval\"",
-    "claim": "Review of: \"GeAR: Generation Augmented Retrieval\"",
-    "status": "active",
-    "confidence": 0.64,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.32388/4l83f7",
-    "source_title": "Review of: \"GeAR: Generation Augmented Retrieval\"",
-    "x": 84.36884909309586,
-    "y": -111.72241181923356
-   },
-   {
-    "id": "kc-e2a70437e9",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evalu",
-    "claim": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.18653/v1/2026.magmar-main.6",
-    "source_title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
-    "x": 103.4612484108922,
-    "y": -94.31739011051809
-   },
-   {
-    "id": "kc-9c44c2ae9a",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "An experimental approach was applied by comparing three retrieval strategies: lexical retr",
-    "claim": "An experimental approach was applied by comparing three retrieval strategies: lexical retrieval based on term frequency–inverse document frequency, semantic retrieval using vector representations, and a hybrid retrieval method combining lexical and semantic signals.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
-    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
-    "x": 119.03039900214594,
-    "y": -73.70050280282986
-   },
-   {
-    "id": "kc-88845a5448",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot ",
-    "claim": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot based on Retrieval-Augmented Generation to improve information accuracy and relevance while reducing hallucination risks.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
-    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
-    "x": 130.5461121166098,
-    "y": -50.573833266201426
-   },
-   {
-    "id": "kc-6ba2e3f702",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Master Retrieval-Augmented Generation (RAG) Systems",
-    "claim": "Master Retrieval-Augmented Generation (RAG) Systems",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.5040/9781350865778",
-    "source_title": "Master Retrieval-Augmented Generation (RAG) Systems",
-    "x": 137.61623395574625,
-    "y": -25.72493249431981
-   },
-   {
-    "id": "kc-8a0e82af5f",
-    "topic": "Python asyncio event loop",
-    "label": "I initially built it because I wanted a simpler Mini SDK that handled conversational memor",
-    "claim": "I initially built it because I wanted a simpler Mini SDK that handled conversational memory, function calling, and streaming out of the box without the boilerplate of the official SDK.<p>Recently, I got some well-deserved technical criticism from early users: using JSON files to store chat history was a memory-bloat disaster waiting to happen; forcing a PyQt6 dependency on",
-    "status": "active",
-    "confidence": 0.36,
-    "source_type": "Hacker News",
-    "source_url": "https://github.com/suleymanibis0/dracula",
-    "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-4846662/v1",
+    "source_title": "SPM-FL: A Federated Learning Privacy Protection Mechanism Based on Local Differential Privacy",
     "x": 136.0,
     "y": 0.0
    },
    {
-    "id": "kc-3cda4380f7",
-    "topic": "Python asyncio event loop",
-    "label": "I&#x27;ve been building Dracula, a Python wrapper for the Google Gemini API.",
-    "claim": "I&#x27;ve been building Dracula, a Python wrapper for the Google Gemini API.",
+    "id": "kc-70d197cbbf",
+    "topic": "federated learning privacy",
+    "label": "Abstract Federated learning (FL) is a popular distributed machine learning approach that a",
+    "claim": "Abstract Federated learning (FL) is a popular distributed machine learning approach that avoids data transfer to third parties by sharing and computing model parameters through a central server, thereby protecting client privacy.",
     "status": "active",
-    "confidence": 0.409,
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-4846662/v1",
+    "source_title": "SPM-FL: A Federated Learning Privacy Protection Mechanism Based on Local Differential Privacy",
+    "x": 129.34368621614087,
+    "y": 42.026311234992846
+   },
+   {
+    "id": "kc-728f7b88a1",
+    "topic": "federated learning privacy",
+    "label": "Review for \"Protecting health monitoring privacy in fitness training: A federated learning",
+    "claim": "Review for \"Protecting health monitoring privacy in fitness training: A federated learning framework based on personalized differential privacy\"",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1002/itl2.499/v1/review1",
+    "source_title": "Review for \"Protecting health monitoring privacy in fitness training: A federated learning framework based on personalized differential privacy\"",
+    "x": 110.02631123499285,
+    "y": 79.93879431177635
+   },
+   {
+    "id": "kc-2313ab1977",
+    "topic": "federated learning privacy",
+    "label": "Abstract Federated learning is an emerging machine learning paradigm where multiple client",
+    "claim": "Abstract Federated learning is an emerging machine learning paradigm where multiple clients train models locally and formulate a global model based on the local model updates.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-3525508/v1",
+    "source_title": "Privacy-Friendly IoT: Does federated learning guarantee privacy?",
+    "x": 79.93879431177635,
+    "y": 110.02631123499285
+   },
+   {
+    "id": "kc-300348fa02",
+    "topic": "federated learning privacy",
+    "label": "To determine if federated learning guarantees privacy we study security threats that jeopa",
+    "claim": "To determine if federated learning guarantees privacy we study security threats that jeopardize privacy.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-3525508/v1",
+    "source_title": "Privacy-Friendly IoT: Does federated learning guarantee privacy?",
+    "x": 42.02631123499285,
+    "y": 129.34368621614087
+   },
+   {
+    "id": "kc-84d0aa9125",
+    "topic": "federated learning privacy",
+    "label": "The result is NERV: a private-by-default, horizontally scalable blockchain that replaces M",
+    "claim": "The result is NERV: a private-by-default, horizontally scalable blockchain that replaces Merkle trees with 512-byte neural state embeddings, proven inside Halo2 circuits and attested in hardware enclaves.",
+    "status": "active",
+    "confidence": 0.36,
     "source_type": "Hacker News",
-    "source_url": "https://github.com/suleymanibis0/dracula",
-    "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
-    "x": 117.77945491468367,
-    "y": 67.99999999999999
-   },
-   {
-    "id": "kc-7745efe221",
-    "topic": "Python asyncio event loop",
-    "label": "# trivial example here while True: print(datetime.datetime.now()) time.sleep(2) This opens",
-    "claim": "# trivial example here while True: print(datetime.datetime.now()) time.sleep(2) This opens new TCP port on localhost:5564 and starts listening on it.",
-    "status": "active",
-    "confidence": 0.418,
-    "source_type": "Stack Overflow",
-    "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
-    "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
-    "x": 68.00000000000001,
-    "y": 117.77945491468365
-   },
-   {
-    "id": "kc-ce52db2358",
-    "topic": "Python asyncio event loop",
-    "label": "Try: # asamp.py import time import datetime import asyncio import websockets import thread",
-    "claim": "Try: # asamp.py import time import datetime import asyncio import websockets import threading def bgWorker_SK(): # create handler for each connection async def handler(websocket, path): data = await websocket.recv() reply = f\"Data recieved as: {data}!\" await websocket.send(reply) loop = asyncio.new_event_loop() # <-- create new loop in this thread here asyncio.set_event_loop(loop) start_server = websockets.serve(handler, \"localhost\", 5564) loop.run_until_complete(start_server) loop.run_forever() bgsk = threading.Thread(target=bgWorker_SK, daemon=True).start() if __name__ == \"__main__\": # the m",
-    "status": "active",
-    "confidence": 0.59,
-    "source_type": "Stack Overflow",
-    "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
-    "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
+    "source_url": "https://github.com/nerv-bit/nerv",
+    "source_title": "Show HN: A private, PQ-secure, infinitely scalable blockchain[fully open-source]",
     "x": 8.327598234202001e-15,
     "y": 136.0
    },
    {
-    "id": "kc-5fa4663d51",
-    "topic": "Python asyncio event loop",
-    "label": "Temporal Python – A durable, distributed asyncio event loop (2023)",
-    "claim": "Temporal Python – A durable, distributed asyncio event loop (2023)",
+    "id": "kc-a70993930a",
+    "topic": "federated learning privacy",
+    "label": "<p><pre><code>  For the past few months, I’ve been working on a new Layer 1 blockchain des",
+    "claim": "<p><pre><code>  For the past few months, I’ve been working on a new Layer 1 blockchain designed to solve what I see as the fundamental trilemma in the space: achieving strong privacy, infinite scalability, and post-quantum security simultaneously.",
     "status": "active",
-    "confidence": 0.546,
+    "confidence": 0.409,
     "source_type": "Hacker News",
-    "source_url": "https://temporal.io/blog/durable-distributed-asyncio-event-loop",
-    "source_title": "Temporal Python – A durable, distributed asyncio event loop (2023)",
-    "x": -67.99999999999997,
-    "y": 117.77945491468367
+    "source_url": "https://github.com/nerv-bit/nerv",
+    "source_title": "Show HN: A private, PQ-secure, infinitely scalable blockchain[fully open-source]",
+    "x": -42.02631123499284,
+    "y": 129.3436862161409
    },
    {
-    "id": "kc-a9b5005224",
-    "topic": "Python asyncio event loop",
-    "label": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
-    "claim": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
+    "id": "kc-95fe2281b4",
+    "topic": "federated learning privacy",
+    "label": "This article provides an extensive review of the challenges and opportunities at the inter",
+    "claim": "This article provides an extensive review of the challenges and opportunities at the intersection of federated learning (FL) and data privacy.Federated learning is a distributed machine learning paradigm enabling collaborative model training across decentralized devices without transferring raw data to a central repository.This method reduces privacy risks and aligns with regulatory compliance while unlocking potential in sensitive domains such as healthcare, finance, and IoT.Despite these advantages, FL faces critical challenges, including susceptibility to adversarial attacks, communication ",
     "status": "active",
-    "confidence": 0.546,
-    "source_type": "Hacker News",
-    "source_url": "https://github.com/Feverup/aiocop",
-    "source_title": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
-    "x": -117.77945491468367,
-    "y": 67.99999999999999
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.55248/gengpi.5.1224.3512",
+    "source_title": "Federated Learning and Data Privacy: A Review of Challenges and Opportunities",
+    "x": -79.93879431177633,
+    "y": 110.02631123499285
    },
    {
-    "id": "kc-63d6e3473d",
-    "topic": "Python asyncio event loop",
-    "label": "OK, to answer my question, the above works quite nicely using aiohttp.",
-    "claim": "OK, to answer my question, the above works quite nicely using aiohttp.",
+    "id": "kc-cc3ffcdcd9",
+    "topic": "federated learning privacy",
+    "label": "However, there are privacy challenges in FL arising from the fact that the model updates a",
+    "claim": "However, there are privacy challenges in FL arising from the fact that the model updates are shared between the client and the server which can be used for re-generating the client's data, breaching privacy requirements of applicati",
     "status": "active",
-    "confidence": 0.418,
-    "source_type": "Stack Overflow",
-    "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
-    "source_title": "Implementing REST API in Python with existing asyncio event loop",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.3390/ijerph20156539",
+    "source_title": "A Review of Privacy Enhancement Methods for Federated Learning in Healthcare Systems",
+    "x": -110.02631123499283,
+    "y": 79.93879431177636
+   },
+   {
+    "id": "kc-228bc3c9ad",
+    "topic": "federated learning privacy",
+    "label": "Federated learning (FL) provides a distributed machine learning system that enables partic",
+    "claim": "Federated learning (FL) provides a distributed machine learning system that enables participants to train using local data to create a shared model by eliminating the requirement of data sharing.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.3390/ijerph20156539",
+    "source_title": "A Review of Privacy Enhancement Methods for Federated Learning in Healthcare Systems",
+    "x": -129.34368621614087,
+    "y": 42.02631123499286
+   },
+   {
+    "id": "kc-76df6489fb",
+    "topic": "federated learning privacy",
+    "label": "• Applications in agriculture: Federated Learning (FL) role in key areas such as crop dise",
+    "claim": "• Applications in agriculture: Federated Learning (FL) role in key areas such as crop disease detection, yield prediction, and resource optimization are highlighted, emphasizing its ability to retain data confidentiality.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.compag.2025.110048",
+    "source_title": "Agricultural data privacy and federated learning: A review of challenges and opportunities",
     "x": -136.0,
     "y": 1.6655196468404002e-14
    },
    {
-    "id": "kc-275c1daaea",
-    "topic": "Python asyncio event loop",
-    "label": "For future reference, here is a minimal example adopted from the aiohttp documentation: im",
-    "claim": "For future reference, here is a minimal example adopted from the aiohttp documentation: import asyncio import code from aiohttp import web async def handle(request): name = request.match_info.get('name', \"Anonymous\") text = \"Hello, \" + name return web.Response(text=text) app = web.Application() app.router.add_get('/', handle) app.router.add_get('/{name}', handle) loop = asyncio.get_event_loop() handler = app.make_handler() f = loop.create_server(handler, '0.0.0.0', 8080) srv = loop.run_until_complete(f) loop.run_forever() code.interact(local=locals())",
+    "id": "kc-fb8a0ac8fc",
+    "topic": "federated learning privacy",
+    "label": "• Comprehensive review of Federated Learning (FL) in agriculture: This study examines the ",
+    "claim": "• Comprehensive review of Federated Learning (FL) in agriculture: This study examines the potential of FL in addressing critical agricultural data privacy concerns without compromising data-driven decision-making.",
     "status": "active",
-    "confidence": 0.59,
-    "source_type": "Stack Overflow",
-    "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
-    "source_title": "Implementing REST API in Python with existing asyncio event loop",
-    "x": -117.77945491468368,
-    "y": -67.99999999999996
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.compag.2025.110048",
+    "source_title": "Agricultural data privacy and federated learning: A review of challenges and opportunities",
+    "x": -129.34368621614092,
+    "y": -42.026311234992775
    },
    {
-    "id": "kc-42931f927d",
-    "topic": "Python asyncio event loop",
-    "label": "And further : An event loop runs in a thread and executes all callbacks and tasks in the s",
-    "claim": "And further : An event loop runs in a thread and executes all callbacks and tasks in the same thread.",
+    "id": "kc-c4c7116d74",
+    "topic": "federated learning privacy",
+    "label": "A Review of Privacy-Preserving Federated Learning for the Internet-of-Things",
+    "claim": "A Review of Privacy-Preserving Federated Learning for the Internet-of-Things",
     "status": "active",
-    "confidence": 0.533,
-    "source_type": "Stack Overflow",
-    "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
-    "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
-    "x": -68.00000000000006,
-    "y": -117.77945491468361
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1007/978-3-030-70604-3_2",
+    "source_title": "A Review of Privacy-Preserving Federated Learning for the Internet-of-Things",
+    "x": -110.02631123499287,
+    "y": -79.93879431177633
    },
    {
-    "id": "kc-cc73604a11",
-    "topic": "Python asyncio event loop",
-    "label": "Example: loop.call_soon_threadsafe(callback, *args) Seems to be what we need: import async",
-    "claim": "Example: loop.call_soon_threadsafe(callback, *args) Seems to be what we need: import asyncio from threading import Thread loop = asyncio.get_event_loop() thread = Thread(target=loop.run_forever) thread.start() print('Started!') loop.call_soon_threadsafe(loop.stop) # here print('Requested stop!') thread.join() print('Finished!') Prints: Started!",
+    "id": "kc-f30842db71",
+    "topic": "federated learning privacy",
+    "label": "Differential Privacy in Federated Learning",
+    "claim": "Differential Privacy in Federated Learning",
     "status": "active",
-    "confidence": 0.59,
-    "source_type": "Stack Overflow",
-    "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
-    "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1007/978-981-19-8692-5_5",
+    "source_title": "Differential Privacy in Federated Learning",
+    "x": -79.93879431177636,
+    "y": -110.02631123499283
+   },
+   {
+    "id": "kc-bed8d40d59",
+    "topic": "federated learning privacy",
+    "label": "Resources list for federated learning and privacy in machine learning",
+    "claim": "Resources list for federated learning and privacy in machine learning",
+    "status": "active",
+    "confidence": 0.508,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/poga/awesome-federated-learning",
+    "source_title": "Resources list for federated learning and privacy in machine learning",
+    "x": -42.02631123499287,
+    "y": -129.34368621614087
+   },
+   {
+    "id": "kc-edd1a9ec45",
+    "topic": "federated learning privacy",
+    "label": "Federated learning, privacy and accuracy",
+    "claim": "Federated learning, privacy and accuracy",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/b978-0-443-36322-1.00029-8",
+    "source_title": "Federated learning, privacy and accuracy",
     "x": -2.4982794702606005e-14,
     "y": -136.0
    },
    {
-    "id": "kc-b49c2f806d",
-    "topic": "Python asyncio event loop",
-    "label": "Thing is - each asyncio task (or any other Python object) can consume different amount of ",
-    "claim": "Thing is - each asyncio task (or any other Python object) can consume different amount of different machine resources.",
+    "id": "kc-41e3ee5c61",
+    "topic": "federated learning privacy",
+    "label": "Attackers can launch membership inference attacks (MIA; deciding whether a sample or clien",
+    "claim": "Attackers can launch membership inference attacks (MIA; deciding whether a sample or client participated), property inference attacks (PIA; inferring attributes of a client's data), and model inversion attacks (MI; reconstructing inputs), thereby inferring client-specific attributes and, in some cases, reconstructing inputs.",
     "status": "active",
-    "confidence": 0.533,
-    "source_type": "Stack Overflow",
-    "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
-    "source_title": "how to measure python asyncio event loop metrics?",
-    "x": 68.00000000000001,
-    "y": -117.77945491468365
+    "confidence": 0.499,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2511.02785",
+    "source_title": "Enhancing Federated Learning Privacy with QUBO",
+    "x": 42.026311234992825,
+    "y": -129.3436862161409
    },
    {
-    "id": "kc-e4a0ef852a",
-    "topic": "Python asyncio event loop",
-    "label": "If your event loop is blocked by some CPU calculation, asyncio will start to process new c",
-    "claim": "If your event loop is blocked by some CPU calculation, asyncio will start to process new conn",
+    "id": "kc-5d861a1414",
+    "topic": "federated learning privacy",
+    "label": "Federated learning (FL) is a widely used method for training machine learning (ML) models ",
+    "claim": "Federated learning (FL) is a widely used method for training machine learning (ML) models in a scalable way while preserving privacy (i.e., without centralizing raw data).",
     "status": "active",
-    "confidence": 0.59,
-    "source_type": "Stack Overflow",
-    "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
-    "source_title": "how to measure python asyncio event loop metrics?",
-    "x": 117.77945491468361,
-    "y": -68.00000000000006
+    "confidence": 0.705,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2511.02785",
+    "source_title": "Enhancing Federated Learning Privacy with QUBO",
+    "x": 79.93879431177632,
+    "y": -110.02631123499287
+   },
+   {
+    "id": "kc-db18afb75c",
+    "topic": "federated learning privacy",
+    "label": "Efficient federated learning privacy preservation method with heterogeneous differential p",
+    "claim": "Efficient federated learning privacy preservation method with heterogeneous differential privacy",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.cose.2024.103715",
+    "source_title": "Efficient federated learning privacy preservation method with heterogeneous differential privacy",
+    "x": 110.02631123499283,
+    "y": -79.93879431177638
+   },
+   {
+    "id": "kc-f1c59b59fd",
+    "topic": "federated learning privacy",
+    "label": "Trustworthy federated learning: privacy, security, and beyond",
+    "claim": "Trustworthy federated learning: privacy, security, and beyond",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1007/s10115-024-02285-2",
+    "source_title": "Trustworthy federated learning: privacy, security, and beyond",
+    "x": 129.34368621614087,
+    "y": -42.026311234992875
+   },
+   {
+    "id": "kc-4299879fe8",
+    "topic": "knowledge graph construction",
+    "label": "Review for \"Wikinformetrics: Construction and description of an open Wikipedia knowledge g",
+    "claim": "Review for \"Wikinformetrics: Construction and description of an open Wikipedia knowledge graph dataset for informetric purposes\"",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1162/qss_a_00226/v1/review1",
+    "source_title": "Review for \"Wikinformetrics: Construction and description of an open Wikipedia knowledge graph dataset for informetric purposes\"",
+    "x": 131.0,
+    "y": 0.0
+   },
+   {
+    "id": "kc-f44787f5f5",
+    "topic": "knowledge graph construction",
+    "label": "Therefore, the authors do not wish this work to be cited as a reference.",
+    "claim": "Therefore, the authors do not wish this work to be cited as a reference.",
+    "status": "active",
+    "confidence": 0.452,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-2589475/v2",
+    "source_title": "WITHDRAWN: Document-Level Relation Extraction based Knowledge Graph Construction for Industrial Domain",
+    "x": 122.1538620519706,
+    "y": 47.32265827051703
+   },
+   {
+    "id": "kc-760b6ab19f",
+    "topic": "knowledge graph construction",
+    "label": "Abstract The full text of this preprint has been withdrawn by the authors while they make ",
+    "claim": "Abstract The full text of this preprint has been withdrawn by the authors while they make corrections to the work.",
+    "status": "active",
+    "confidence": 0.452,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-2589475/v2",
+    "source_title": "WITHDRAWN: Document-Level Relation Extraction based Knowledge Graph Construction for Industrial Domain",
+    "x": 96.81016815590634,
+    "y": 88.254129317699
+   },
+   {
+    "id": "kc-f18f1dfb61",
+    "topic": "knowledge graph construction",
+    "label": "Construction of Uyghur's knowledge graph has the great value of Uyghur information process",
+    "claim": "Construction of Uyghur's knowledge graph has the great value of Uyghur information processing and Uyghur application software development.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/cse-euc.2017.181",
+    "source_title": "Review of Development and Construction of Uyghur Knowledge Graph",
+    "x": 58.39172460672652,
+    "y": 117.26639116751316
+   },
+   {
+    "id": "kc-fba2939df1",
+    "topic": "knowledge graph construction",
+    "label": "Firstly, this paper describes the definition and structure of the knowledge graph, then it",
+    "claim": "Firstly, this paper describes the definition and structure of the knowledge graph, then it reviews the related research and construction process of the Uyghur's knowledge graph, and analyses the characteristics of word formation of Uighur entities in depth, focuses on the related concepts and methods of knowledge extraction, knowledge fusion, and knowledge update, Introduced the Uyghur semantic disambiguation technology in detail, Finally, looking forward to the future works.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/cse-euc.2017.181",
+    "source_title": "Review of Development and Construction of Uyghur Knowledge Graph",
+    "x": 12.087155089692564,
+    "y": 130.4411770946495
+   },
+   {
+    "id": "kc-b8446b1466",
+    "topic": "knowledge graph construction",
+    "label": "In this paper, a systematic literature review (SLR) has been conducted to comprehensively ",
+    "claim": "In this paper, a systematic literature review (SLR) has been conducted to comprehensively examine KG construction methodologies and their applications across five key domains in education.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.heliyon.2024.e25383",
+    "source_title": "A systematic literature review of knowledge graph construction and application in education",
+    "x": -35.84985169944286,
+    "y": 125.9991592556393
+   },
+   {
+    "id": "kc-bcc8ffd5b5",
+    "topic": "knowledge graph construction",
+    "label": "These structured representations of knowledge are increasingly proving to be indispensable",
+    "claim": "These structured representations of knowledge are increasingly proving to be indispensable tools, fostering advancements driven by the growing recognition of their essential role in enriching personalised learning, curriculum design, concept mapping, and educational content recommendation systems.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.heliyon.2024.e25383",
+    "source_title": "A systematic literature review of knowledge graph construction and application in education",
+    "x": -78.94513736568257,
+    "y": 104.54025677371139
+   },
+   {
+    "id": "kc-2b80e6da65",
+    "topic": "knowledge graph construction",
+    "label": "It consists of four major parts: 1) concepts rele-vant to KG and approaches for KG constru",
+    "claim": "It consists of four major parts: 1) concepts rele-vant to KG and approaches for KG construction, 2) KG application in data collection, curation, and service, 3) KG application in data analysis, and 4) challenges and trends of geoscience KG creation and application in the near future.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.cageo.2022.105082",
+    "source_title": "Knowledge graph construction and application in geosciences: A review",
+    "x": -111.37844478057943,
+    "y": 68.96261333693364
+   },
+   {
+    "id": "kc-06705d6a5f",
+    "topic": "knowledge graph construction",
+    "label": "Knowledge graph (KG) is a topic of great interests to geoscientists as it can be deployed ",
+    "claim": "Knowledge graph (KG) is a topic of great interests to geoscientists as it can be deployed throughout the data life cycle in data-intensive geoscience studies.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.cageo.2022.105082",
+    "source_title": "Knowledge graph construction and application in geosciences: A review",
+    "x": -128.76947605859112,
+    "y": 24.071186833970717
+   },
+   {
+    "id": "kc-af49e0fb23",
+    "topic": "knowledge graph construction",
+    "label": "Local Knowledge Graph Construction to Scale Seq2Seq Models",
+    "claim": "Local Knowledge Graph Construction to Scale Seq2Seq Models",
+    "status": "active",
+    "confidence": 0.508,
+    "source_type": "Hacker News",
+    "source_url": "https://research.fb.com/publications/using-local-knowledge-graph-construction-to-scale-seq2seq-models-to-multi-document-inputs/",
+    "source_title": "Local Knowledge Graph Construction to Scale Seq2Seq Models",
+    "x": -128.76947605859112,
+    "y": -24.071186833970685
+   },
+   {
+    "id": "kc-a6ed9cd933",
+    "topic": "knowledge graph construction",
+    "label": "Comet: Commonsense Transformers for Automatic Knowledge Graph Construction",
+    "claim": "Comet: Commonsense Transformers for Automatic Knowledge Graph Construction",
+    "status": "active",
+    "confidence": 0.705,
+    "source_type": "arXiv",
+    "source_url": "https://arxiv.org/abs/1906.05317",
+    "source_title": "Comet: Commonsense Transformers for Automatic Knowledge Graph Construction",
+    "x": -111.37844478057944,
+    "y": -68.96261333693361
+   },
+   {
+    "id": "kc-7793a9b79a",
+    "topic": "knowledge graph construction",
+    "label": "Event-Centric Temporal Knowledge Graph Construction: A Survey",
+    "claim": "Event-Centric Temporal Knowledge Graph Construction: A Survey",
+    "status": "active",
+    "confidence": 0.508,
+    "source_type": "Hacker News",
+    "source_url": "https://www.mdpi.com/2227-7390/11/23/4852",
+    "source_title": "Event-Centric Temporal Knowledge Graph Construction: A Survey",
+    "x": -78.9451373656827,
+    "y": -104.5402567737113
+   },
+   {
+    "id": "kc-60f59605ae",
+    "topic": "knowledge graph construction",
+    "label": "LLM-empowered knowledge graph construction: A survey",
+    "claim": "LLM-empowered knowledge graph construction: A survey",
+    "status": "active",
+    "confidence": 0.705,
+    "source_type": "arXiv",
+    "source_url": "https://arxiv.org/abs/2510.20345",
+    "source_title": "LLM-empowered knowledge graph construction: A survey",
+    "x": -35.84985169944289,
+    "y": -125.9991592556393
+   },
+   {
+    "id": "kc-423f0f18e2",
+    "topic": "knowledge graph construction",
+    "label": "Generative Knowledge Graph Construction (KGC) refers to those methods that leverage the se",
+    "claim": "Generative Knowledge Graph Construction (KGC) refers to those methods that leverage the sequence-to-sequence framework for building knowledge graphs, which is flexible and can be adapted to widespread tasks.In this study, we summarize the recent compelling progress in generative knowledge graph construction.We present the advantages and weaknesses of each paradigm in terms of different generation targets and provide theoretical insight and empirical analysis.Based on the review, we suggest promising research directions for the future.Our contributions are threefold: (1) We present a detailed, ",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.18653/v1/2022.emnlp-main.1",
+    "source_title": "Generative Knowledge Graph Construction: A Review",
+    "x": 12.087155089692619,
+    "y": -130.4411770946495
+   },
+   {
+    "id": "kc-2105554487",
+    "topic": "knowledge graph construction",
+    "label": "Domain-Specific Knowledge Graph Construction",
+    "claim": "Domain-Specific Knowledge Graph Construction",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1007/978-3-030-12375-8",
+    "source_title": "Domain-Specific Knowledge Graph Construction",
+    "x": 58.39172460672644,
+    "y": -117.26639116751319
+   },
+   {
+    "id": "kc-3133e591e9",
+    "topic": "knowledge graph construction",
+    "label": "Automatic knowledge graph construction aims at manufacturing structured human knowledge.",
+    "claim": "Automatic knowledge graph construction aims at manufacturing structured human knowledge.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1145/3618295",
+    "source_title": "A Comprehensive Survey on Automatic Knowledge Graph Construction",
+    "x": 96.81016815590627,
+    "y": -88.25412931769907
+   },
+   {
+    "id": "kc-1db40929de",
+    "topic": "knowledge graph construction",
+    "label": "To meet this demand, we comprehensively survey more than 300 methods to summarize the late",
+    "claim": "To meet this demand, we comprehensively survey more than 300 methods to summarize the latest developments in knowledge graph construction.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1145/3618295",
+    "source_title": "A Comprehensive Survey on Automatic Knowledge Graph Construction",
+    "x": 122.1538620519706,
+    "y": -47.322658270517046
    },
    {
     "id": "kc-90a600bf18",
@@ -1115,7 +815,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1002/eng2.12854/v2/review1",
     "source_title": "Review for \"Preserving node similarity adversarial learning graph representation with graph neural network\"",
-    "x": 120.0,
+    "x": 137.0,
     "y": 0.0
    },
    {
@@ -1128,8 +828,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.68159/e795301159",
     "source_title": "Graph Neural Networks for Materials Property Prediction: A Decadal Review of Advances and Limits",
-    "x": 108.1162641482903,
-    "y": 52.066048694106975
+    "x": 123.43273490263142,
+    "y": 59.442072259105466
    },
    {
     "id": "kc-cfb830afc0",
@@ -1141,8 +841,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.20517/jmi.2025.42",
     "source_title": "Advances in graph neural networks for alloy design and properties predictions: a review",
-    "x": 74.81877622304803,
-    "y": 93.81977789616357
+    "x": 85.4181028546465,
+    "y": 107.11091309812008
    },
    {
     "id": "kc-54e3070b92",
@@ -1154,8 +854,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.20517/jmi.2025.42",
     "source_title": "Advances in graph neural networks for alloy design and properties predictions: a review",
-    "x": 26.702512074757735,
-    "y": 116.99134946181883
+    "x": 30.48536795201508,
+    "y": 133.56512396890983
    },
    {
     "id": "kc-774b24955f",
@@ -1167,8 +867,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/access.2024.3354809",
     "source_title": "A Systematic Review of Graph Neural Network in Healthcare-Based Applications: Recent Advances, Trends, and Future Directions",
-    "x": -26.70251207475772,
-    "y": 116.99134946181883
+    "x": -30.485367952015064,
+    "y": 133.56512396890983
    },
    {
     "id": "kc-f8917c215a",
@@ -1180,8 +880,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/access.2024.3354809",
     "source_title": "A Systematic Review of Graph Neural Network in Healthcare-Based Applications: Recent Advances, Trends, and Future Directions",
-    "x": -74.81877622304802,
-    "y": 93.81977789616359
+    "x": -85.41810285464649,
+    "y": 107.1109130981201
    },
    {
     "id": "kc-00fc58d407",
@@ -1193,8 +893,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3389/fnins.2025.1623141",
     "source_title": "Graph neural networks in Alzheimer's disease diagnosis: a review of unimodal and multimodal advances",
-    "x": -108.11626414829028,
-    "y": 52.06604869410699
+    "x": -123.43273490263141,
+    "y": 59.44207225910548
    },
    {
     "id": "kc-609ef7f963",
@@ -1206,8 +906,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3389/fnins.2025.1623141",
     "source_title": "Graph neural networks in Alzheimer's disease diagnosis: a review of unimodal and multimodal advances",
-    "x": -120.0,
-    "y": 1.469576158976824e-14
+    "x": -137.0,
+    "y": 1.6777661148318737e-14
    },
    {
     "id": "kc-3bf9581371",
@@ -1219,8 +919,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.52202/075280-0138",
     "source_title": "GraphMP: Graph Neural Network-based Motion Planning with Efficient Graph Search",
-    "x": -108.1162641482903,
-    "y": -52.06604869410696
+    "x": -123.43273490263142,
+    "y": -59.442072259105444
    },
    {
     "id": "kc-8ad7f1d7f4",
@@ -1232,8 +932,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.52202/068431-0427",
     "source_title": "Geodesic Graph Neural Network for Efficient Graph Representation Learning",
-    "x": -74.81877622304805,
-    "y": -93.81977789616356
+    "x": -85.41810285464652,
+    "y": -107.11091309812007
    },
    {
     "id": "kc-0a4e13ce9a",
@@ -1245,8 +945,8 @@
     "source_type": "Hacker News",
     "source_url": "https://deepmind.com/blog/article/traffic-prediction-with-advanced-graph-neural-networks",
     "source_title": "Deepmind improves the accuracy of ETAs in Google Maps",
-    "x": -26.70251207475775,
-    "y": -116.99134946181883
+    "x": -30.4853679520151,
+    "y": -133.56512396890983
    },
    {
     "id": "kc-52e64794c9",
@@ -1258,8 +958,8 @@
     "source_type": "Hacker News",
     "source_url": "https://deepmind.com/blog/article/traffic-prediction-with-advanced-graph-neural-networks",
     "source_title": "Traffic Prediction with Advanced Graph Neural Networks",
-    "x": 26.7025120747576,
-    "y": -116.99134946181886
+    "x": 30.485367952014926,
+    "y": -133.56512396890986
    },
    {
     "id": "kc-3a861aa129",
@@ -1271,8 +971,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=30643520",
     "source_title": "Launch HN: Tensil (YC S19) – Open-Source ML Accelerators",
-    "x": 74.818776223048,
-    "y": -93.81977789616359
+    "x": 85.41810285464648,
+    "y": -107.1109130981201
    },
    {
     "id": "kc-c90cf66db0",
@@ -1284,8 +984,879 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=30643520",
     "source_title": "Launch HN: Tensil (YC S19) – Open-Source ML Accelerators",
-    "x": 108.11626414829033,
-    "y": -52.066048694106904
+    "x": 123.43273490263145,
+    "y": -59.44207225910538
+   },
+   {
+    "id": "kc-94c6c34b80",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "This dissertation contributes to a deeper understanding of why catastrophic forgetting occ",
+    "claim": "This dissertation contributes to a deeper understanding of why catastrophic forgetting occurs and investigates the mechanisms that enable learning models to maintain stability while acquiring new knowledge over time.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.17918/00011156",
+    "source_title": "Memory that lasts",
+    "x": 129.0,
+    "y": 0.0
+   },
+   {
+    "id": "kc-9a86f26ee5",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Catastrophic forgetting, the tendency of learning systems to lose previously acquired know",
+    "claim": "Catastrophic forgetting, the tendency of learning systems to lose previously acquired knowledge when trained on new information, remains one of the most fundamental challenges in continual learning.",
+    "status": "active",
+    "confidence": 0.686,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.17918/00011156",
+    "source_title": "Memory that lasts",
+    "x": 123.26889194641215,
+    "y": 38.02341749900664
+   },
+   {
+    "id": "kc-5f2b708f6f",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning is a fundamental challenge in artificial intelligence (AI) that aims to",
+    "claim": "Continual learning is a fundamental challenge in artificial intelligence (AI) that aims to enable models to learn from a continuous stream of data while retaining previously acquired knowledge.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
+    "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
+    "x": 106.58480188676334,
+    "y": 72.66828749020725
+   },
+   {
+    "id": "kc-e65cebd138",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Unlike traditional machine learning, which operates in static environments, continual lear",
+    "claim": "Unlike traditional machine learning, which operates in static environments, continual learning requires algorithms to adapt incrementally to new tasks and evolving data distributions without catastrophic forgetting.",
+    "status": "active",
+    "confidence": 0.686,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
+    "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
+    "x": 80.43018443977664,
+    "y": 100.85626123837585
+   },
+   {
+    "id": "kc-7cfd4be640",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual lifelong learning in neural systems",
+    "claim": "Continual lifelong learning in neural systems",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.33612/diss.625549871",
+    "source_title": "Continual lifelong learning in neural systems",
+    "x": 47.12899214326495,
+    "y": 120.08271357510235
+   },
+   {
+    "id": "kc-aa780fc43f",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "This ability, referred to as lifelong learning, is mediated by a rich set of neurocognitiv",
+    "claim": "This ability, referred to as lifelong learning, is mediated by a rich set of neurocognitive mechanisms that together contribute to the development and specialization of our sensorimotor skills as well as to long-term memory consolidation and retrieval.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
+    "source_title": "Continual lifelong learning with neural networks: A review",
+    "x": 9.640182072648747,
+    "y": 128.63928983637223
+   },
+   {
+    "id": "kc-d08c3713b2",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "However, lifelong learning remains a long-standing challenge for machine learning and neur",
+    "claim": "However, lifelong learning remains a long-standing challenge for machine learning and neural network models since the continual acquisition of incrementally available information from non-stationary data distributions generally leads to catastrophic forgetting or interference.",
+    "status": "active",
+    "confidence": 0.686,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
+    "source_title": "Continual lifelong learning with neural networks: A review",
+    "x": -28.70520048036455,
+    "y": 125.76570067145525
+   },
+   {
+    "id": "kc-3af64b1f05",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning enables models to train incrementally from an ongoing stream of data by",
+    "claim": "Continual learning enables models to train incrementally from an ongoing stream of data by learning new data as it comes while saving old experiences, which eliminates the need to collect new data with old data to be retrained together from scratch, saving time, resources, and effort.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
+    "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
+    "x": -64.49999999999997,
+    "y": 111.71727708819259
+   },
+   {
+    "id": "kc-8736732c7d",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning, also referred to as lifelong learning, has emerged as a significant ad",
+    "claim": "Continual learning, also referred to as lifelong learning, has emerged as a significant advancement for model adaptation and generalization in deep learning with the capability to train models sequentially from a continuous stream of data across multiple tasks while retaining previously acquired knowledge.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
+    "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
+    "x": -94.5636914660476,
+    "y": 87.7422831724486
+   },
+   {
+    "id": "kc-456575c107",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "I&#x27;ve been thinking about why LLM training is so expensive and why continuous learning",
+    "claim": "I&#x27;ve been thinking about why LLM training is so expensive and why continuous learning remains unsolved.",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=47552974",
+    "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
+    "x": -116.22498395941206,
+    "y": 55.971002346165015
+   },
+   {
+    "id": "kc-a774b7c48c",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Catastrophic forgetting — when fine-tuning a model on new knowledge destroys old knowledge",
+    "claim": "Catastrophic forgetting — when fine-tuning a model on new knowledge destroys old knowledge — is universally treated as a problem to minimize.",
+    "status": "active",
+    "confidence": 0.459,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=47552974",
+    "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
+    "x": -127.55917658304158,
+    "y": 19.22645233672654
+   },
+   {
+    "id": "kc-7f2cf8b5b7",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "It trains on a single stream at batch 1, with the attention&#x2F;embedding trunk learning ",
+    "claim": "It trains on a single stream at batch 1, with the attention&#x2F;embedding trunk learning rate",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=50219762",
+    "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
+    "x": -127.55917658304159,
+    "y": -19.22645233672645
+   },
+   {
+    "id": "kc-7ca3ec5314",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "A month ago, I shared mini-AGI, an experiment in training a byte-level, continually learni",
+    "claim": "A month ago, I shared mini-AGI, an experiment in training a byte-level, continually learning language model from scratch on a single 8 GB laptop GPU (an RTX 3070).",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=50219762",
+    "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
+    "x": -116.22498395941207,
+    "y": -55.97100234616498
+   },
+   {
+    "id": "kc-04d83d7bb3",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Many people think that we won&#x27;t reach AGI or even ASI if LLM&#x27;s don&#x27;t have s",
+    "claim": "Many people think that we won&#x27;t reach AGI or even ASI if LLM&#x27;s don&#x27;t have something called &quot;continual learning&quot;.",
+    "status": "active",
+    "confidence": 0.459,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=47259384",
+    "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
+    "x": -94.56369146604759,
+    "y": -87.74228317244861
+   },
+   {
+    "id": "kc-1b3a360fa1",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Basically, continual learning is the ability for an AI to learn on the job, update its neu",
+    "claim": "Basically, continual learning is the ability for an AI to learn on the job, update its neural weights in real-time, and get smarter without forgetting everything else (catastrophic forgetting).",
+    "status": "active",
+    "confidence": 0.546,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=47259384",
+    "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
+    "x": -64.50000000000006,
+    "y": -111.71727708819255
+   },
+   {
+    "id": "kc-f03c909328",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
+    "claim": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://arxiv.org/abs/2509.10518",
+    "source_title": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
+    "x": -28.70520048036458,
+    "y": -125.76570067145525
+   },
+   {
+    "id": "kc-2192758123",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "This paper presents a conceptually simple yet general and effective framework for handling",
+    "claim": "This paper presents a conceptually simple yet general and effective framework for handling catastrophic forgetting in continual learning with DNNs.",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
+    "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
+    "x": 9.640182072648743,
+    "y": -128.63928983637223
+   },
+   {
+    "id": "kc-fe79cc687a",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Addressing catastrophic forgetting is one of the key challenges in continual learning wher",
+    "claim": "Addressing catastrophic forgetting is one of the key challenges in continual learning where machine learning systems are trained with sequential or streaming tasks.",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
+    "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
+    "x": 47.128992143265,
+    "y": -120.08271357510233
+   },
+   {
+    "id": "kc-5587a179f6",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning and catastrophic forgetting",
+    "claim": "Continual learning and catastrophic forgetting",
+    "status": "disputed",
+    "confidence": 0.686,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/b978-0-443-15754-7.00073-0",
+    "source_title": "Continual learning and catastrophic forgetting",
+    "x": 80.43018443977661,
+    "y": -100.85626123837586
+   },
+   {
+    "id": "kc-a18e455b10",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning is known for suffering from catastrophic forgetting, a phenomenon where",
+    "claim": "Continual learning is known for suffering from catastrophic forgetting, a phenomenon where earlier learned concepts are forgotten at the expense of more recent samples.",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://openalex.org/W3123422770",
+    "source_title": "Does Continual Learning = Catastrophic Forgetting?",
+    "x": 106.58480188676329,
+    "y": -72.66828749020733
+   },
+   {
+    "id": "kc-515fe243a5",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "In this work, we challenge the assumption that continual learning is inevitably associated",
+    "claim": "In this work, we challenge the assumption that continual learning is inevitably associated with catastrophic forgetting by presenting a set of tasks that surprisingly do not suffer from catastrophic forgetting when learned continually.",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://openalex.org/W3123422770",
+    "source_title": "Does Continual Learning = Catastrophic Forgetting?",
+    "x": 123.26889194641214,
+    "y": -38.023417499006705
+   },
+   {
+    "id": "kc-822f488f2a",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Cortex Click is an LLM-driven platform for creating high quality developer marketing conte",
+    "claim": "Cortex Click is an LLM-driven platform for creating high quality developer marketing content including blog posts, tutorials, documentation, and copilots for product onboarding.",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=41583460",
+    "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
+    "x": 130.0,
+    "y": 0.0
+   },
+   {
+    "id": "kc-be8e4b0212",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "We’re Evan, Derek, Eugene, and Jeremy, the team behind Cortex Click (<a href=\"https:&#x2F;",
+    "claim": "We’re Evan, Derek, Eugene, and Jeremy, the team behind Cortex Click (<a href=\"https:&#x2F;&#x2F;www.cortexclick.com&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.cortexclick.com&#x2F;</a>).",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=41583460",
+    "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
+    "x": 127.78650295890723,
+    "y": 23.887437316154145
+   },
+   {
+    "id": "kc-a8214ca652",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "If you’ve tried using models like these, you know exactly how limited they are in truly un",
+    "claim": "If you’ve tried using models like these, you know exactly how limited they are in truly understanding your data.<p>I looked into thousands of datapoints of actual user queries to clearly classify and determine exactly where and when semantic search starts to break down and provide missing or halluc",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=42299349",
+    "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
+    "x": 121.22138982256625,
+    "y": 46.96141660432988
+   },
+   {
+    "id": "kc-a2c6d35353",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "A single retrieval call into a vector database powers most Retrieval-Augmented Generation ",
+    "claim": "A single retrieval call into a vector database powers most Retrieval-Augmented Generation systems today.",
+    "status": "active",
+    "confidence": 0.459,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=42299349",
+    "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
+    "x": 110.52822764484985,
+    "y": 68.43618117405624
+   },
+   {
+    "id": "kc-8d4f9f9e03",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Automating systematic reviews (SRs), i.e., evidence-driven analyses under explicit protoco",
+    "claim": "Automating systematic reviews (SRs), i.e., evidence-driven analyses under explicit protocol constraints, is a natural target for retrieval-augmented generation and deep research agents, yet existing benchmarks evaluate isolated subtasks or assume fixed evidence inputs.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.48448/xra9-a775",
+    "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
+    "x": 96.07115923868568,
+    "y": 87.58043367405244
+   },
+   {
+    "id": "kc-f7b38c74d7",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "These elements support evaluation across key tasks in systematic review creation such as l",
+    "claim": "These elements support evaluation across key tasks in systematic review creation such as literature retrieval, eligibility screening, citation-grounded review generation, and structured table generation, in both stage-wise and end-to-end settings.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.48448/xra9-a775",
+    "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
+    "x": 78.34250272930333,
+    "y": 103.74223954643114
+   },
+   {
+    "id": "kc-c886dba568",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "This systematic literature review characterizes current RAG architectures, components, and",
+    "claim": "This systematic literature review characterizes current RAG architectures, components, and evaluation practices in peer-reviewed studies published between 2021 and 2025 across IEEE Xplore, Scopus, and Web of Science.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
+    "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
+    "x": 57.94598625094998,
+    "y": 116.3712278761581
+   },
+   {
+    "id": "kc-b9a0b6002a",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by integrating ",
+    "claim": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by integrating external retrieval mechanisms to improve factuality and currency.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
+    "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
+    "x": 35.57618870937079,
+    "y": 125.03733361246647
+   },
+   {
+    "id": "kc-597b6482b3",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "The frameworks span diverse domains and employ varying automation levels, from manual anno",
+    "claim": "The frameworks span diverse domains and employ varying automation levels, from manual annotation to LLM-as-a-Judge paradigms.Our analysis reveals a paradigm shift toward automated and hybrid evaluation approaches.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
+    "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
+    "x": 11.994886730229261,
+    "y": 129.44544291835447
+   },
+   {
+    "id": "kc-59bd20092f",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Retrieval-Augmented Generation (RAG) addresses these limitations by combining generative m",
+    "claim": "Retrieval-Augmented Generation (RAG) addresses these limitations by combining generative models with external knowledge retrieval.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
+    "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
+    "x": -11.994886730229245,
+    "y": 129.4454429183545
+   },
+   {
+    "id": "kc-9087a32610",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "The framework structures evaluation dimensions and metrics, identifies suitable datasets a",
+    "claim": "The framework structures evaluation dimensions and metrics, identifies suitable datasets and question types, and provides guidance for applying the framework in practice.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
+    "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
+    "x": -35.576188709370776,
+    "y": 125.03733361246647
+   },
+   {
+    "id": "kc-f89f4982e3",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Abstract This study addresses limitations of traditional benchmarking methods for Retrieva",
+    "claim": "Abstract This study addresses limitations of traditional benchmarking methods for Retrieval-Augmented Generation (RAG) systems by proposing an evaluation framework for RAG-enhanced Large Language Models (LLMs).",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
+    "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
+    "x": -57.945986250949915,
+    "y": 116.37122787615813
+   },
+   {
+    "id": "kc-2f9d983a58",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "This report is in CSV format and the data is basically impossible for a human to read beca",
+    "claim": "This report is in CSV format and the data is basically impossible for a human to read because there&#x27;s so much of it.<p>I built Open Evaluat",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://openevaluation.ai/",
+    "source_title": "Show HN: Open Evaluation",
+    "x": -78.34250272930332,
+    "y": 103.74223954643115
+   },
+   {
+    "id": "kc-771a8eda61",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Hey HN, this will likely interest you if you&#x27;re a) into dense data visualization or b",
+    "claim": "Hey HN, this will likely interest you if you&#x27;re a) into dense data visualization or b) trying to figure out how to measure the quality of a retrieval-augmented generation (RAG) system.<p>There&#x27;s an OSS tool called Open RAG Eval that analyzes RAG-based query-and-answer sets to generate a dense set of metrics in an &quot;evaluation report&quot;.",
+    "status": "active",
+    "confidence": 0.459,
+    "source_type": "Hacker News",
+    "source_url": "https://openevaluation.ai/",
+    "source_title": "Show HN: Open Evaluation",
+    "x": -96.07115923868571,
+    "y": 87.58043367405243
+   },
+   {
+    "id": "kc-dc8d51599c",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Hey HN, Joe and Ethan from Tonic.ai here.",
+    "claim": "Hey HN, Joe and Ethan from Tonic.ai here.",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/TonicAI/tvalmetrics",
+    "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
+    "x": -110.52822764484982,
+    "y": 68.43618117405629
+   },
+   {
+    "id": "kc-e3c79148cd",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "We just released a new open-source python package for evaluating the performance of Retrie",
+    "claim": "We just released a new open-source python package for evaluating the performance of Retrieval Augmented Generation (RAG) systems.<p>Earlier this year, we started developing a RAG-powered app to enable companies to talk to their free-text data safely.<p>During our experimentation, however, we realized that using such a new method meant that there weren’t industry-standards for evaluation metrics to measure the accuracy of RAG performance.",
+    "status": "active",
+    "confidence": 0.546,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/TonicAI/tvalmetrics",
+    "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
+    "x": -121.22138982256624,
+    "y": 46.96141660432993
+   },
+   {
+    "id": "kc-1db45eb38d",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Repo: REPLACE_WITH_GITHUB_REPO_URL  (profile: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;m",
+    "claim": "Repo: REPLACE_WITH_GITHUB_REPO_URL  (profile: <a href=\"https:&#x2F;&#x2F;github.com&#x2F;myroslav-abdeljawwad\" rel=\"nofollow\">https:&#x2F;&#x2F;github.com&#x2F;myroslav-abdeljawwad</a>)<p>What it is",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=45595999",
+    "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
+    "x": -127.78650295890723,
+    "y": 23.88743731615415
+   },
+   {
+    "id": "kc-54950ddb54",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "A small toolkit to run reproducible, local evaluations for retrieval-augmented generation ",
+    "claim": "A small toolkit to run reproducible, local evaluations for retrieval-augmented generation (RAG).",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=45595999",
+    "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
+    "x": -130.0,
+    "y": 1.592040838891559e-14
+   },
+   {
+    "id": "kc-d621210711",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
+    "claim": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://arxiv.org/abs/2309.15217",
+    "source_title": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
+    "x": -127.78650295890723,
+    "y": -23.887437316154116
+   },
+   {
+    "id": "kc-299c0b5375",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Recently, building retrieval-augmented generation (RAG) systems to enhance the capability ",
+    "claim": "Recently, building retrieval-augmented generation (RAG) systems to enhance the capability of large language models (LLMs) has become a common practice.",
+    "status": "active",
+    "confidence": 0.568,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
+    "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
+    "x": -121.22138982256627,
+    "y": -46.96141660432985
+   },
+   {
+    "id": "kc-e4b8366796",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "However, the overall performance of RAG system depends on many components: (1) retrieval c",
+    "claim": "However, the overall performance of RAG system depends on many components: (1) retrieval corpora, (2) retrieval algorithms, (3) rerankers, (4) LLM backbones, and (5) evaluation metrics.",
+    "status": "active",
+    "confidence": 0.636,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
+    "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
+    "x": -110.52822764484984,
+    "y": -68.43618117405626
+   },
+   {
+    "id": "kc-57f17750d1",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "While advances in prompt engineering and RAG have improved LLM proficiency in field-specif",
+    "claim": "While advances in prompt engineering and RAG have improved LLM proficiency in field-specific, specialized tasks, there has yet to be an industry standard or accepted evaluation metric of the highly fragmented RAG solutions that are currently being deployed.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
+    "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
+    "x": -96.07115923868568,
+    "y": -87.58043367405244
+   },
+   {
+    "id": "kc-eff7db7b8d",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "We contribute 1) a platform that evaluates an RAG system's performance on a multimodal inp",
+    "claim": "We contribute 1) a platform that evaluates an RAG system's performance on a multimodal input context for LLM question answering and 2) MRAFE: Multimodal Retrieval Augmented Feature Extractor, which processes information from the input to our platform.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
+    "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
+    "x": -78.34250272930343,
+    "y": -103.74223954643107
+   },
+   {
+    "id": "kc-66c269b6c4",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Deploying Large Language Model (LLM) applications, particularly those relying on Retrieval",
+    "claim": "Deploying Large Language Model (LLM) applications, particularly those relying on Retrieval-Augmented Generation (RAG), remains challenging due to high computational demands, outdated knowledge bases, and the need to manually select optimal pipeline components.",
+    "status": "active",
+    "confidence": 0.568,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
+    "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
+    "x": -57.94598625095005,
+    "y": -116.37122787615806
+   },
+   {
+    "id": "kc-fc34399e20",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "By directly correlating retrieval and generation quality with underlying hardware constrai",
+    "claim": "By directly correlating retrieval and generation quality with underlying hardware constraints, RAGe supports researchers to identify the most effective, domain-specific RAG setups for",
+    "status": "active",
+    "confidence": 0.636,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
+    "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
+    "x": -35.576188709370804,
+    "y": -125.03733361246647
+   },
+   {
+    "id": "kc-2890aea1c6",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Retrieval Augmented Generation (RAG) is a promising method to leverage the potential of LL",
+    "claim": "Retrieval Augmented Generation (RAG) is a promising method to leverage the potential of LLMs while enhancing the accuracy of their outcomes.",
+    "status": "active",
+    "confidence": 0.705,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
+    "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
+    "x": -11.994886730229249,
+    "y": -129.4454429183545
+   },
+   {
+    "id": "kc-5f6a1c83e8",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "To this end, it describes: (1) an internally developed proof of concept pipeline that empl",
+    "claim": "To this end, it describes: (1) an internally developed proof of concept pipeline that employs state-of-the-art practices to deliver safe and trustable analysis for healthcare documents and scientific papers called RAGEv (Retrieval Augmented Generation Evaluation); (2) a set of evaluation tools for LLM-based do",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
+    "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
+    "x": 11.994886730229316,
+    "y": -129.44544291835447
+   },
+   {
+    "id": "kc-11351c0296",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, ",
+    "claim": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, including morphology-aware chunking, cultural context weighting, and agglutination-aware answer normalization.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
+    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
+    "x": 35.57618870937076,
+    "y": -125.03733361246647
+   },
+   {
+    "id": "kc-02a8fad3cb",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Gen",
+    "claim": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Generation (RAG) systems versus fine-tuned language models for Turkish cultural question answering.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
+    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
+    "x": 57.9459862509499,
+    "y": -116.37122787615813
+   },
+   {
+    "id": "kc-0bff370f8c",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "claim": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.32388/4l83f7",
+    "source_title": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "x": 78.3425027293033,
+    "y": -103.74223954643116
+   },
+   {
+    "id": "kc-e2a70437e9",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evalu",
+    "claim": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.18653/v1/2026.magmar-main.6",
+    "source_title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
+    "x": 96.07115923868561,
+    "y": -87.58043367405251
+   },
+   {
+    "id": "kc-9c44c2ae9a",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "An experimental approach was applied by comparing three retrieval strategies: lexical retr",
+    "claim": "An experimental approach was applied by comparing three retrieval strategies: lexical retrieval based on term frequency–inverse document frequency, semantic retrieval using vector representations, and a hybrid retrieval method combining lexical and semantic signals.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
+    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
+    "x": 110.5282276448498,
+    "y": -68.4361811740563
+   },
+   {
+    "id": "kc-88845a5448",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot ",
+    "claim": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot based on Retrieval-Augmented Generation to improve information accuracy and relevance while reducing hallucination risks.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
+    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
+    "x": 121.22138982256625,
+    "y": -46.96141660432989
+   },
+   {
+    "id": "kc-6ba2e3f702",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "claim": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.5040/9781350865778",
+    "source_title": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "x": 127.78650295890723,
+    "y": -23.88743731615411
+   },
+   {
+    "id": "kc-8a0e82af5f",
+    "topic": "Python asyncio event loop",
+    "label": "I initially built it because I wanted a simpler Mini SDK that handled conversational memor",
+    "claim": "I initially built it because I wanted a simpler Mini SDK that handled conversational memory, function calling, and streaming out of the box without the boilerplate of the official SDK.<p>Recently, I got some well-deserved technical criticism from early users: using JSON files to store chat history was a memory-bloat disaster waiting to happen; forcing a PyQt6 dependency on",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/suleymanibis0/dracula",
+    "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
+    "x": 131.0,
+    "y": 0.0
+   },
+   {
+    "id": "kc-3cda4380f7",
+    "topic": "Python asyncio event loop",
+    "label": "I&#x27;ve been building Dracula, a Python wrapper for the Google Gemini API.",
+    "claim": "I&#x27;ve been building Dracula, a Python wrapper for the Google Gemini API.",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/suleymanibis0/dracula",
+    "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
+    "x": 113.44932789576147,
+    "y": 65.49999999999999
+   },
+   {
+    "id": "kc-7745efe221",
+    "topic": "Python asyncio event loop",
+    "label": "# trivial example here while True: print(datetime.datetime.now()) time.sleep(2) This opens",
+    "claim": "# trivial example here while True: print(datetime.datetime.now()) time.sleep(2) This opens new TCP port on localhost:5564 and starts listening on it.",
+    "status": "active",
+    "confidence": 0.418,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
+    "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
+    "x": 65.50000000000001,
+    "y": 113.44932789576146
+   },
+   {
+    "id": "kc-ce52db2358",
+    "topic": "Python asyncio event loop",
+    "label": "Try: # asamp.py import time import datetime import asyncio import websockets import thread",
+    "claim": "Try: # asamp.py import time import datetime import asyncio import websockets import threading def bgWorker_SK(): # create handler for each connection async def handler(websocket, path): data = await websocket.recv() reply = f\"Data recieved as: {data}!\" await websocket.send(reply) loop = asyncio.new_event_loop() # <-- create new loop in this thread here asyncio.set_event_loop(loop) start_server = websockets.serve(handler, \"localhost\", 5564) loop.run_until_complete(start_server) loop.run_forever() bgsk = threading.Thread(target=bgWorker_SK, daemon=True).start() if __name__ == \"__main__\": # the m",
+    "status": "active",
+    "confidence": 0.59,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
+    "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
+    "x": 8.021436534415163e-15,
+    "y": 131.0
+   },
+   {
+    "id": "kc-5fa4663d51",
+    "topic": "Python asyncio event loop",
+    "label": "Temporal Python – A durable, distributed asyncio event loop (2023)",
+    "claim": "Temporal Python – A durable, distributed asyncio event loop (2023)",
+    "status": "active",
+    "confidence": 0.546,
+    "source_type": "Hacker News",
+    "source_url": "https://temporal.io/blog/durable-distributed-asyncio-event-loop",
+    "source_title": "Temporal Python – A durable, distributed asyncio event loop (2023)",
+    "x": -65.49999999999997,
+    "y": 113.44932789576147
+   },
+   {
+    "id": "kc-a9b5005224",
+    "topic": "Python asyncio event loop",
+    "label": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
+    "claim": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
+    "status": "active",
+    "confidence": 0.546,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/Feverup/aiocop",
+    "source_title": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
+    "x": -113.44932789576147,
+    "y": 65.49999999999999
+   },
+   {
+    "id": "kc-63d6e3473d",
+    "topic": "Python asyncio event loop",
+    "label": "OK, to answer my question, the above works quite nicely using aiohttp.",
+    "claim": "OK, to answer my question, the above works quite nicely using aiohttp.",
+    "status": "active",
+    "confidence": 0.418,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
+    "source_title": "Implementing REST API in Python with existing asyncio event loop",
+    "x": -131.0,
+    "y": 1.6042873068830326e-14
+   },
+   {
+    "id": "kc-275c1daaea",
+    "topic": "Python asyncio event loop",
+    "label": "For future reference, here is a minimal example adopted from the aiohttp documentation: im",
+    "claim": "For future reference, here is a minimal example adopted from the aiohttp documentation: import asyncio import code from aiohttp import web async def handle(request): name = request.match_info.get('name', \"Anonymous\") text = \"Hello, \" + name return web.Response(text=text) app = web.Application() app.router.add_get('/', handle) app.router.add_get('/{name}', handle) loop = asyncio.get_event_loop() handler = app.make_handler() f = loop.create_server(handler, '0.0.0.0', 8080) srv = loop.run_until_complete(f) loop.run_forever() code.interact(local=locals())",
+    "status": "active",
+    "confidence": 0.59,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
+    "source_title": "Implementing REST API in Python with existing asyncio event loop",
+    "x": -113.44932789576148,
+    "y": -65.49999999999996
+   },
+   {
+    "id": "kc-42931f927d",
+    "topic": "Python asyncio event loop",
+    "label": "And further : An event loop runs in a thread and executes all callbacks and tasks in the s",
+    "claim": "And further : An event loop runs in a thread and executes all callbacks and tasks in the same thread.",
+    "status": "active",
+    "confidence": 0.533,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
+    "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
+    "x": -65.50000000000006,
+    "y": -113.44932789576143
+   },
+   {
+    "id": "kc-cc73604a11",
+    "topic": "Python asyncio event loop",
+    "label": "Example: loop.call_soon_threadsafe(callback, *args) Seems to be what we need: import async",
+    "claim": "Example: loop.call_soon_threadsafe(callback, *args) Seems to be what we need: import asyncio from threading import Thread loop = asyncio.get_event_loop() thread = Thread(target=loop.run_forever) thread.start() print('Started!') loop.call_soon_threadsafe(loop.stop) # here print('Requested stop!') thread.join() print('Finished!') Prints: Started!",
+    "status": "active",
+    "confidence": 0.59,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
+    "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
+    "x": -2.4064309603245488e-14,
+    "y": -131.0
+   },
+   {
+    "id": "kc-b49c2f806d",
+    "topic": "Python asyncio event loop",
+    "label": "Thing is - each asyncio task (or any other Python object) can consume different amount of ",
+    "claim": "Thing is - each asyncio task (or any other Python object) can consume different amount of different machine resources.",
+    "status": "active",
+    "confidence": 0.533,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
+    "source_title": "how to measure python asyncio event loop metrics?",
+    "x": 65.50000000000001,
+    "y": -113.44932789576146
+   },
+   {
+    "id": "kc-e4a0ef852a",
+    "topic": "Python asyncio event loop",
+    "label": "If your event loop is blocked by some CPU calculation, asyncio will start to process new c",
+    "claim": "If your event loop is blocked by some CPU calculation, asyncio will start to process new conn",
+    "status": "active",
+    "confidence": 0.59,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
+    "source_title": "how to measure python asyncio event loop metrics?",
+    "x": 113.44932789576143,
+    "y": -65.50000000000006
    }
   ],
   "edges": [
@@ -1298,6 +1869,736 @@
     "source": "kc-f03c909328",
     "target": "kc-5587a179f6",
     "kind": "contradicts"
+   },
+   {
+    "source": "kc-177bd76775",
+    "target": "kc-6cf9180e84",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7251119468",
+    "target": "kc-2313ab1977",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7251119468",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7251119468",
+    "target": "kc-db18afb75c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-728f7b88a1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-2313ab1977",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-300348fa02",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-95fe2281b4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-cc3ffcdcd9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-228bc3c9ad",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-f30842db71",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-bed8d40d59",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-41e3ee5c61",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-70d197cbbf",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-728f7b88a1",
+    "target": "kc-300348fa02",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-728f7b88a1",
+    "target": "kc-fb8a0ac8fc",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-728f7b88a1",
+    "target": "kc-c4c7116d74",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-728f7b88a1",
+    "target": "kc-f30842db71",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-728f7b88a1",
+    "target": "kc-bed8d40d59",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-728f7b88a1",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-728f7b88a1",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-728f7b88a1",
+    "target": "kc-db18afb75c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-728f7b88a1",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2313ab1977",
+    "target": "kc-95fe2281b4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2313ab1977",
+    "target": "kc-228bc3c9ad",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2313ab1977",
+    "target": "kc-c4c7116d74",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2313ab1977",
+    "target": "kc-bed8d40d59",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2313ab1977",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2313ab1977",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2313ab1977",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-300348fa02",
+    "target": "kc-228bc3c9ad",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-300348fa02",
+    "target": "kc-fb8a0ac8fc",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-300348fa02",
+    "target": "kc-c4c7116d74",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-300348fa02",
+    "target": "kc-f30842db71",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-300348fa02",
+    "target": "kc-bed8d40d59",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-300348fa02",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-300348fa02",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-300348fa02",
+    "target": "kc-db18afb75c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-300348fa02",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-95fe2281b4",
+    "target": "kc-228bc3c9ad",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-95fe2281b4",
+    "target": "kc-fb8a0ac8fc",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-95fe2281b4",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-cc3ffcdcd9",
+    "target": "kc-228bc3c9ad",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-cc3ffcdcd9",
+    "target": "kc-41e3ee5c61",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-228bc3c9ad",
+    "target": "kc-fb8a0ac8fc",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-228bc3c9ad",
+    "target": "kc-c4c7116d74",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-228bc3c9ad",
+    "target": "kc-bed8d40d59",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-228bc3c9ad",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-76df6489fb",
+    "target": "kc-bed8d40d59",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-76df6489fb",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-76df6489fb",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fb8a0ac8fc",
+    "target": "kc-c4c7116d74",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fb8a0ac8fc",
+    "target": "kc-f30842db71",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fb8a0ac8fc",
+    "target": "kc-bed8d40d59",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fb8a0ac8fc",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fb8a0ac8fc",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fb8a0ac8fc",
+    "target": "kc-db18afb75c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fb8a0ac8fc",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-c4c7116d74",
+    "target": "kc-f30842db71",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-c4c7116d74",
+    "target": "kc-bed8d40d59",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-c4c7116d74",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-c4c7116d74",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-c4c7116d74",
+    "target": "kc-db18afb75c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-c4c7116d74",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f30842db71",
+    "target": "kc-bed8d40d59",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f30842db71",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f30842db71",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f30842db71",
+    "target": "kc-db18afb75c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f30842db71",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-bed8d40d59",
+    "target": "kc-edd1a9ec45",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-bed8d40d59",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-bed8d40d59",
+    "target": "kc-db18afb75c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-bed8d40d59",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-edd1a9ec45",
+    "target": "kc-5d861a1414",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-edd1a9ec45",
+    "target": "kc-db18afb75c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-edd1a9ec45",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5d861a1414",
+    "target": "kc-db18afb75c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5d861a1414",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-db18afb75c",
+    "target": "kc-f1c59b59fd",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-f18f1dfb61",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-af49e0fb23",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-a6ed9cd933",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-7793a9b79a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-4299879fe8",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f44787f5f5",
+    "target": "kc-760b6ab19f",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-fba2939df1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-2b80e6da65",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-06705d6a5f",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-af49e0fb23",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-a6ed9cd933",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-7793a9b79a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f18f1dfb61",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fba2939df1",
+    "target": "kc-423f0f18e2",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fba2939df1",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-06705d6a5f",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-06705d6a5f",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-06705d6a5f",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-a6ed9cd933",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-7793a9b79a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-af49e0fb23",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-7793a9b79a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a6ed9cd933",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7793a9b79a",
+    "target": "kc-60f59605ae",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7793a9b79a",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7793a9b79a",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7793a9b79a",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-60f59605ae",
+    "target": "kc-2105554487",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-60f59605ae",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-60f59605ae",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-423f0f18e2",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2105554487",
+    "target": "kc-3133e591e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2105554487",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3133e591e9",
+    "target": "kc-1db40929de",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-54e3070b92",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-f8917c215a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-609ef7f963",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-3bf9581371",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-58d0feb9bb",
+    "target": "kc-54e3070b92",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-774b24955f",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-f8917c215a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-609ef7f963",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-774b24955f",
+    "target": "kc-f8917c215a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f8917c215a",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-609ef7f963",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-609ef7f963",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3bf9581371",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3bf9581371",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-8ad7f1d7f4",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
    },
    {
     "source": "kc-94c6c34b80",
@@ -2218,115 +3519,41 @@
     "source": "kc-cc73604a11",
     "target": "kc-e4a0ef852a",
     "kind": "supports"
-   },
-   {
-    "source": "kc-90a600bf18",
-    "target": "kc-54e3070b92",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-90a600bf18",
-    "target": "kc-f8917c215a",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-90a600bf18",
-    "target": "kc-609ef7f963",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-90a600bf18",
-    "target": "kc-3bf9581371",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-90a600bf18",
-    "target": "kc-8ad7f1d7f4",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-90a600bf18",
-    "target": "kc-52e64794c9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-58d0feb9bb",
-    "target": "kc-54e3070b92",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-54e3070b92",
-    "target": "kc-774b24955f",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-54e3070b92",
-    "target": "kc-f8917c215a",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-54e3070b92",
-    "target": "kc-609ef7f963",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-54e3070b92",
-    "target": "kc-8ad7f1d7f4",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-54e3070b92",
-    "target": "kc-52e64794c9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-774b24955f",
-    "target": "kc-f8917c215a",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-f8917c215a",
-    "target": "kc-8ad7f1d7f4",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-609ef7f963",
-    "target": "kc-8ad7f1d7f4",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-609ef7f963",
-    "target": "kc-52e64794c9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-3bf9581371",
-    "target": "kc-8ad7f1d7f4",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-3bf9581371",
-    "target": "kc-52e64794c9",
-    "kind": "supports"
-   },
-   {
-    "source": "kc-8ad7f1d7f4",
-    "target": "kc-52e64794c9",
-    "kind": "supports"
    }
   ],
   "topics": [
+   "LLM agent reliability evaluation",
+   "federated learning privacy",
+   "knowledge graph construction",
+   "graph neural network advances",
    "continual learning catastrophic forgetting",
    "retrieval augmented generation evaluation",
-   "Python asyncio event loop",
-   "graph neural network advances"
+   "Python asyncio event loop"
   ]
  },
- "feedback": [],
- "improvements": [],
+ "feedback": [
+  {
+   "id": "fb-c9068f71e2",
+   "kind": "knowledge",
+   "text": "Brain feedback: graph neural network advances\nLearn: graph neural network advances",
+   "topic": "graph neural network advances",
+   "status": "learned",
+   "created": 1793774702.6578438
+  }
+ ],
+ "improvements": [
+  {
+   "id": "imp-d169dad36a",
+   "feedback_id": "fb-c9068f71e2",
+   "kind": "knowledge",
+   "title": "Learn: graph neural network advances",
+   "status": "applied",
+   "created": 1793774702.6578438
+  }
+ ],
  "cloud": {
-  "updated": 1793774521.3953416,
-  "runner": "41787222475",
+  "updated": 1793775125.104465,
+  "runner": "41788325852",
   "repo": "zacrisy/open-net-agent"
  }
 }
