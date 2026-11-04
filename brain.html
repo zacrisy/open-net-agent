@@ -437,9 +437,92 @@ function renderAnswer(d) {
   document.querySelectorAll('.feedback button').forEach(b=>b.onclick=()=>vote(b.dataset.id,b.dataset.vote));
 }
 
+function openAlexAbstract(w){
+  const inv=w.abstract_inverted_index; if(!inv) return '';
+  const words=[]; for(const k in inv){ for(const pos of inv[k]) words[pos]=k; }
+  return words.filter(Boolean).join(' ');
+}
+async function clientResearch(query){
+  const t0=performance.now(); let works=[]; let engine='client-openalex'; let note='';
+  try {
+    const r=await fetch('https://api.openalex.org/works?search='+encodeURIComponent(query)+'&per-page=5');
+    if(r.ok){ const d=await r.json(); works=(d.results||[]).slice(0,5).map(w=>({title:w.title||w.id,url:w.doi||w.id,source:w.primary_location?.source?.display_name||'OpenAlex',year:String(w.publication_year||''),snippet:openAlexAbstract(w).slice(0,400)})); }
+    else note='OpenAlex '+r.status;
+  } catch(e){ note='OpenAlex failed'; }
+  if(!works.length){
+    engine='client-crossref';
+    try {
+      const r=await fetch('https://api.crossref.org/works?query='+encodeURIComponent(query)+'&rows=5');
+      if(r.ok){ const d=await r.json(); works=(d.message?.items||[]).slice(0,5).map(w=>({title:(w.title||['Untitled'])[0],url:w.DOI?'https://doi.org/'+w.DOI:'',source:(w['container-title']||['Crossref'])[0],year:String((w.issued?.['date-parts']?.[0]?.[0])||''),snippet:(w.abstract||'').replace(/<[^>]+>/g,' ').slice(0,400)})); }
+      else note+='; Crossref '+r.status;
+    } catch(e){ note+='; Crossref failed'; }
+  }
+  if(!works.length) return {answer:'云端检索失败（'+note+'）。稍后重试，或启动本地 coordinator 使用完整研究管道。',sources:[],trace:[{step:'search',detail:note}],confidence:.15,engine:'client-search'};
+  const bullets=works.map((w,i)=>`- ${w.title} (${w.year||'n.d.'}) [${i+1}]`).join('\n');
+  return {answer:`云端轻量检索（${engine.replace('client-','')}）\n\n${bullets}\n\n这是静态云端模式：结果来自公开元数据，未经过完整 NLI/翻译管道。`,sources:works,trace:[{step:'search',detail:engine},{step:'select',detail:`${works.length} works`}],confidence:.55,engine,elapsed:Math.round(performance.now()-t0)/1000};
+}
+function clientDocs(query,doc){
+  const sents=(doc||'').split(/(?<=[。！？.!?])\s*/).filter(x=>x.trim().length>10);
+  const q=(query||'').toLowerCase().split(/\s+/).filter(x=>x.length>1);
+  const scored=sents.map((s,i)=>({s,i,score:q.reduce((n,w)=>n+(s.toLowerCase().includes(w)?1:0),0)})).sort((a,b)=>b.score-a.score).slice(0,4);
+  const picks=scored.sort((a,b)=>a.i-b.i);
+  return {answer:'根据文档，相关证据如下：\n'+picks.map((x,i)=>`- ${x.s.trim()} [D${i+1}]`).join('\n'),sources:[],trace:[{step:'split',detail:`${sents.length} sentences`},{step:'select',detail:`${picks.length} passages`}],confidence:.6,engine:'client-docs',elapsed:0};
+}
+function clientSummarize(doc){
+  const sents=(doc||'').split(/(?<=[。！？.!?])\s*/).filter(x=>x.trim().length>10);
+  const picks=sents.slice().sort((a,b)=>b.length-a.length).slice(0,4).sort((a,b)=>sents.indexOf(a)-sents.indexOf(b));
+  return {answer:'要点：\n'+picks.map(x=>'- '+x.trim()).join('\n'),sources:[],trace:[{step:'split',detail:`${sents.length} sentences`}],confidence:.6,engine:'client-extractive',elapsed:0};
+}
+function clientExtract(doc){
+  const sents=(doc||'').split(/(?<=[。！？.!?])\s*/).filter(x=>x.trim().length>8);
+  const picks=sents.filter(s=>/\d/.test(s)||/\b(is|are|was|were|shows|found|increases|decreases|reduces)\b/i.test(s)).slice(0,6);
+  return {answer:'关键事实：\n'+(picks.length?picks:sents.slice(0,4)).map(x=>'- '+x.trim()).join('\n'),sources:[],trace:[{step:'scan',detail:`${sents.length} sentences`}],confidence:.55,engine:'client-rule',elapsed:0};
+}
+function clientVerify(claim,evidence){
+  const cw=new Set((claim||'').toLowerCase().match(/[a-z]{3,}/g)||[]);
+  const ew=new Set((evidence||'').toLowerCase().match(/[a-z]{3,}/g)||[]);
+  const overlap=[...cw].filter(x=>ew.has(x)).length/Math.max(1,cw.size);
+  const neg=/\b(not|no|never|without|cannot)\b/i;
+  let label='UNCERTAIN', conf=.35;
+  if(overlap>=.22){ label=(neg.test(claim)!==neg.test(evidence))?'REFUTES':'SUPPORTS'; conf=.66; }
+  return {answer:label,sources:[{title:'Client lexical check',snippet:claim+' || '+evidence,source:'client',url:'',year:''}],trace:[{step:'verify',detail:label},{step:'method',detail:`overlap=${overlap.toFixed(2)}`}],confidence:conf,engine:'client-lexical',elapsed:0};
+}
+function clientCompute(q){
+  if(!/^[0-9+\-*/().%\s]+$/.test(q)) return {answer:'只支持数字与 + - * / ( ) % 的安全计算。',sources:[],trace:[],confidence:0,engine:'client-calc'};
+  try{ const v=Function('"use strict";return ('+q+')')(); return {answer:`${q.trim()} = ${v}`,sources:[],trace:[{step:'compute',detail:'safe arithmetic'}],confidence:.99,engine:'client-calc',elapsed:0}; }
+  catch(e){ return {answer:'表达式无法计算。',sources:[],trace:[],confidence:0,engine:'client-calc'}; }
+}
+async function clientTranslate(text,target){
+  const pair=String(target).startsWith('zh')?'en|zh-CN':'zh-CN|en';
+  const r=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent((text||'').slice(0,900))+'&langpair='+encodeURIComponent(pair));
+  const d=await r.json(); const out=d.responseData?.translatedText||'';
+  return {answer:out||'翻译服务不可用。',sources:[],trace:[{step:'translate',detail:pair}],confidence:out?.65:.1,engine:'client-mymemory',elapsed:0};
+}
+async function clientAnswer(body){
+  const m=body.mode, q=body.query||'', doc=body.doc||'';
+  const self=['介绍','你是谁','你能做什么','who are you','what can you do','about you'];
+  if(m==='research' && self.some(k=>q.toLowerCase().includes(k))){
+    const d=state.cloudData||{}; const mm=d.metrics||{};
+    return {answer:`我是 OpenNetBrain（云端快照模式）。当前 ${mm.cards||0} 张知识卡、${mm.sources||0} 个来源、${mm.cycles||0} 个周期。学习/进化运行在 GitHub Actions；本页在 API 离线时使用云端快照和浏览器端工具。`,sources:[],trace:[{step:'self',detail:'cloud snapshot'}],confidence:.99,engine:'client-self',elapsed:0};
+  }
+  if(m==='compute') return clientCompute(q);
+  if(m==='docs') return clientDocs(q,doc);
+  if(m==='summarize') return clientSummarize(doc||q);
+  if(m==='extract') return clientExtract(doc||q);
+  if(m==='verify') return clientVerify(body.claim||'',body.evidence||'');
+  if(m==='translate') return clientTranslate(doc||q,body.target||'zh');
+  return clientResearch(q);
+}
+
 async function ask(){
-  if(state.cloud){ $('response').innerHTML='<div class="empty">云端快照模式只发布学习结果；问答需要 coordinator API。请启动本地 run_online.py，或把 API 部署到 VPS。</div>'; return; }
   const q=$('q').value.trim();
+  if(state.cloud){
+    if(!q && !['docs','summarize','translate','extract','verify'].includes(state.mode)){ $('q').focus(); return; }
+    loading();
+    try{ const d=await clientAnswer({query:q,mode:state.mode,doc:$('doc').value,claim:$('claim').value,evidence:$('evidence').value,target:$('target').value}); renderAnswer(d); }
+    catch(e){ renderAnswer({error:'云端轻量工具失败：'+e.message}); }
+    return;
+  }
   const docModes=['docs','summarize','translate','extract'];
   if(docModes.includes(state.mode) && !$('doc').value.trim()){ $('response').innerHTML='<div class="empty">请先粘贴文档/文本。</div>'; return; }
   if(!q && !docModes.includes(state.mode) && state.mode!=='verify'){$('q').focus();return;}
