@@ -10,7 +10,8 @@ except Exception:
 DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brain.db")
 LOCK = threading.Lock()
 CURRENT = {"cycle_id": None, "topic": None, "stage": "idle", "started": None, "elapsed": 0}
-AUTO = {"enabled": False, "interval": 600, "next": None, "last": None, "last_kind": None}
+AUTO = {"enabled": False, "interval": 20, "next": None, "last": None, "last_kind": None}
+AUTO_INTERVAL = 20
 AUTO_STARTED = False
 DEFAULT_TOPIC = "GLP-1 weight loss mechanism"
 
@@ -227,7 +228,10 @@ def graph():
 
 
 AUTO_TOPICS = ["GLP-1 weight loss mechanism", "AI agent evaluation", "Python asyncio event loop",
-               "LLM agent reliability evaluation", "retrieval augmented generation evaluation"]
+               "LLM agent reliability evaluation", "retrieval augmented generation evaluation",
+               "graph neural network advances", "knowledge graph construction",
+               "continual learning catastrophic forgetting", "federated learning privacy",
+               "semaglutide cardiovascular outcomes"]
 
 
 def auto_start(interval=90):
@@ -348,7 +352,7 @@ def auto_tick():
             return {"status": "wait", "next_in": round(AUTO["next"] - now)}
         busy = CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating")
     if busy:
-        with LOCK: AUTO["next"] = time.time() + 30
+        with LOCK: AUTO["next"] = time.time() + 5
         return {"status": "busy", "stage": CURRENT.get("stage")}
     fb = next_feedback_topic()
     if fb:
@@ -361,8 +365,8 @@ def auto_tick():
     else:
         r = start(random.choice(AUTO_TOPICS)); action = "learn"
     with LOCK:
-        AUTO.update({"enabled": True, "interval": 90, "next": time.time() + 90, "last": time.time()})
-    return {"status": "started", "action": action, "result": r, "next_in": 90}
+        AUTO.update({"enabled": True, "interval": AUTO_INTERVAL, "next": time.time() + AUTO_INTERVAL, "last": time.time()})
+    return {"status": "started", "action": action, "result": r, "next_in": AUTO_INTERVAL}
 
 
 def maybe_bootstrap():
