@@ -1,43 +1,59 @@
 {
  "learning": {
-  "cycle_id": "6ed4c9dbdbc8",
-  "topic": "retrieval augmented generation evaluation",
+  "cycle_id": "c96f0b354371",
+  "topic": "continual learning catastrophic forgetting",
   "stage": "complete",
-  "started": 1793774413.233174,
-  "elapsed": 8.0
+  "started": 1793774519.3799987,
+  "elapsed": 2.0
  },
  "auto": {
   "enabled": false,
   "interval": 20,
   "next": null,
-  "last": 1793774413.233174,
+  "last": 1793774519.3800004,
   "last_kind": "learn"
  },
  "metrics": {
-  "cards": 18,
-  "active": 18,
-  "disputed": 0,
-  "cycles": 1,
+  "cards": 81,
+  "active": 80,
+  "disputed": 1,
+  "cycles": 8,
   "topics": [
    {
-    "topic": "retrieval augmented generation evaluation",
-    "count": 18
-   }
-  ],
-  "avg_confidence": 0.48,
-  "sources": 11,
-  "source_mix": [
-   {
-    "type": "Hacker News",
-    "count": 10
+    "topic": "Python asyncio event loop",
+    "count": 12
    },
    {
+    "topic": "continual learning catastrophic forgetting",
+    "count": 21
+   },
+   {
+    "topic": "graph neural network advances",
+    "count": 14
+   },
+   {
+    "topic": "retrieval augmented generation evaluation",
+    "count": 34
+   }
+  ],
+  "avg_confidence": 0.57,
+  "sources": 47,
+  "source_mix": [
+   {
     "type": "Crossref",
-    "count": 7
+    "count": 37
+   },
+   {
+    "type": "Hacker News",
+    "count": 24
    },
    {
     "type": "arXiv",
-    "count": 1
+    "count": 12
+   },
+   {
+    "type": "Stack Overflow",
+    "count": 8
    }
   ],
   "feedback": 0,
@@ -46,156 +62,450 @@
  },
  "cycles": [
   {
-   "id": "6ed4c9dbdbc8",
-   "topic": "retrieval augmented generation evaluation",
-   "started": 1793774413.233428,
-   "finished": 1793774420.503799,
+   "id": "c96f0b354371",
+   "topic": "continual learning catastrophic forgetting",
+   "started": 1793774519.3802497,
+   "finished": 1793774519.395236,
    "stage": "complete",
-   "sources": 11,
-   "cards": 18,
-   "new_cards": 18,
+   "sources": 13,
+   "cards": 21,
+   "new_cards": 0,
+   "conflicts": 1,
+   "status": "complete"
+  },
+  {
+   "id": "eed4cc6b0be1",
+   "topic": "EVOLUTION",
+   "started": 1793774519.3327227,
+   "finished": 1793774519.377427,
+   "stage": "complete",
+   "sources": 0,
+   "cards": 81,
+   "new_cards": 0,
+   "conflicts": 1,
+   "status": "complete"
+  },
+  {
+   "id": "1f1491c5dfe0",
+   "topic": "retrieval augmented generation evaluation",
+   "started": 1793774515.3272471,
+   "finished": 1793774517.9297388,
+   "stage": "complete",
+   "sources": 14,
+   "cards": 27,
+   "new_cards": 16,
    "conflicts": 0,
+   "status": "complete"
+  },
+  {
+   "id": "236b30441223",
+   "topic": "Python asyncio event loop",
+   "started": 1793774513.3219724,
+   "finished": 1793774514.8693137,
+   "stage": "complete",
+   "sources": 9,
+   "cards": 12,
+   "new_cards": 12,
+   "conflicts": 0,
+   "status": "complete"
+  },
+  {
+   "id": "7b3c9e069eea",
+   "topic": "EVOLUTION",
+   "started": 1793774513.298022,
+   "finished": 1793774513.3194208,
+   "stage": "complete",
+   "sources": 0,
+   "cards": 53,
+   "new_cards": 0,
+   "conflicts": 1,
+   "status": "complete"
+  },
+  {
+   "id": "67fb839dfbc4",
+   "topic": "continual learning catastrophic forgetting",
+   "started": 1793774509.293349,
+   "finished": 1793774511.5267913,
+   "stage": "complete",
+   "sources": 13,
+   "cards": 21,
+   "new_cards": 21,
+   "conflicts": 1,
    "status": "complete"
   }
  ],
  "feed": [
   {
-   "id": "kc-11351c0296",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, including morphology-aware chunking, cultural context weighting, and agglutination-aware answer normalization.",
-   "source_type": "Crossref",
-   "confidence": 0.515,
-   "status": "active"
-  },
-  {
-   "id": "kc-02a8fad3cb",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Generation (RAG) systems versus fine-tuned language models for Turkish cultural question answering.",
-   "source_type": "Crossref",
-   "confidence": 0.577,
-   "status": "active"
-  },
-  {
-   "id": "kc-0bff370f8c",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+   "id": "kc-94c6c34b80",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "This dissertation contributes to a deeper understanding of why catastrophic forgetting occurs and investigates the mechanisms that enable learning models to maintain stability while acquiring new knowledge over time.",
    "source_type": "Crossref",
    "confidence": 0.64,
    "status": "active"
   },
   {
-   "id": "kc-822f488f2a",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "Cortex Click is an LLM-driven platform for creating high quality developer marketing content including blog posts, tutorials, documentation, and copilots for product onboarding.",
-   "source_type": "Hacker News",
-   "confidence": 0.36,
+   "id": "kc-9a86f26ee5",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "Catastrophic forgetting, the tendency of learning systems to lose previously acquired knowledge when trained on new information, remains one of the most fundamental challenges in continual learning.",
+   "source_type": "Crossref",
+   "confidence": 0.686,
    "status": "active"
   },
   {
-   "id": "kc-be8e4b0212",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "We’re Evan, Derek, Eugene, and Jeremy, the team behind Cortex Click (<a href=\"https:&#x2F;&#x2F;www.cortexclick.com&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.cortexclick.com&#x2F;</a>).",
-   "source_type": "Hacker News",
-   "confidence": 0.36,
+   "id": "kc-5f2b708f6f",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "Continual learning is a fundamental challenge in artificial intelligence (AI) that aims to enable models to learn from a continuous stream of data while retaining previously acquired knowledge.",
+   "source_type": "Crossref",
+   "confidence": 0.577,
    "status": "active"
   },
   {
-   "id": "kc-a8214ca652",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "If you’ve tried using models like these, you know exactly how limited they are in truly understanding your data.<p>I looked into thousands of datapoints of actual user queries to clearly classify and determine exactly where and when semantic search starts to b",
-   "source_type": "Hacker News",
-   "confidence": 0.36,
+   "id": "kc-e65cebd138",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "Unlike traditional machine learning, which operates in static environments, continual learning requires algorithms to adapt incrementally to new tasks and evolving data distributions without catastrophic forgetting.",
+   "source_type": "Crossref",
+   "confidence": 0.686,
    "status": "active"
   },
   {
-   "id": "kc-a2c6d35353",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "A single retrieval call into a vector database powers most Retrieval-Augmented Generation systems today.",
+   "id": "kc-7cfd4be640",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "Continual lifelong learning in neural systems",
+   "source_type": "Crossref",
+   "confidence": 0.577,
+   "status": "active"
+  },
+  {
+   "id": "kc-aa780fc43f",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "This ability, referred to as lifelong learning, is mediated by a rich set of neurocognitive mechanisms that together contribute to the development and specialization of our sensorimotor skills as well as to long-term memory consolidation and retrieval.",
+   "source_type": "Crossref",
+   "confidence": 0.515,
+   "status": "active"
+  },
+  {
+   "id": "kc-d08c3713b2",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "However, lifelong learning remains a long-standing challenge for machine learning and neural network models since the continual acquisition of incrementally available information from non-stationary data distributions generally leads to catastrophic forgetting",
+   "source_type": "Crossref",
+   "confidence": 0.686,
+   "status": "active"
+  },
+  {
+   "id": "kc-3af64b1f05",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "Continual learning enables models to train incrementally from an ongoing stream of data by learning new data as it comes while saving old experiences, which eliminates the need to collect new data with old data to be retrained together from scratch, saving tim",
+   "source_type": "Crossref",
+   "confidence": 0.577,
+   "status": "active"
+  },
+  {
+   "id": "kc-8736732c7d",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "Continual learning, also referred to as lifelong learning, has emerged as a significant advancement for model adaptation and generalization in deep learning with the capability to train models sequentially from a continuous stream of data across multiple tasks",
+   "source_type": "Crossref",
+   "confidence": 0.577,
+   "status": "active"
+  },
+  {
+   "id": "kc-456575c107",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "I&#x27;ve been thinking about why LLM training is so expensive and why continuous learning remains unsolved.",
+   "source_type": "Hacker News",
+   "confidence": 0.409,
+   "status": "active"
+  },
+  {
+   "id": "kc-a774b7c48c",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "Catastrophic forgetting — when fine-tuning a model on new knowledge destroys old knowledge — is universally treated as a problem to minimize.",
    "source_type": "Hacker News",
    "confidence": 0.459,
    "status": "active"
   },
   {
-   "id": "kc-e2a70437e9",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
-   "source_type": "Crossref",
-   "confidence": 0.577,
-   "status": "active"
-  },
-  {
-   "id": "kc-9c44c2ae9a",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "An experimental approach was applied by comparing three retrieval strategies: lexical retrieval based on term frequency–inverse document frequency, semantic retrieval using vector representations, and a hybrid retrieval method combining lexical and semantic si",
-   "source_type": "Crossref",
-   "confidence": 0.515,
-   "status": "active"
-  },
-  {
-   "id": "kc-88845a5448",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot based on Retrieval-Augmented Generation to improve information accuracy and relevance while reducing hallucination risks.",
-   "source_type": "Crossref",
-   "confidence": 0.577,
-   "status": "active"
-  },
-  {
-   "id": "kc-6ba2e3f702",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "Master Retrieval-Augmented Generation (RAG) Systems",
-   "source_type": "Crossref",
-   "confidence": 0.515,
-   "status": "active"
-  },
-  {
-   "id": "kc-2f9d983a58",
-   "topic": "retrieval augmented generation evaluation",
-   "claim": "This report is in CSV format and the data is basically impossible for a human to read because there&#x27;s so much of it.<p>I built Open Evaluat",
+   "id": "kc-7f2cf8b5b7",
+   "topic": "continual learning catastrophic forgetting",
+   "claim": "It trains on a single stream at batch 1, with the attention&#x2F;embedding trunk learning rate",
    "source_type": "Hacker News",
-   "confidence": 0.36,
+   "confidence": 0.409,
    "status": "active"
   }
  ],
  "graph": {
   "nodes": [
    {
-    "id": "kc-11351c0296",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, ",
-    "claim": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, including morphology-aware chunking, cultural context weighting, and agglutination-aware answer normalization.",
-    "status": "active",
-    "confidence": 0.515,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
-    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
-    "x": 142.0,
-    "y": 0.0
-   },
-   {
-    "id": "kc-02a8fad3cb",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Gen",
-    "claim": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Generation (RAG) systems versus fine-tuned language models for Turkish cultural question answering.",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
-    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
-    "x": 133.436352151599,
-    "y": 48.56686035224496
-   },
-   {
-    "id": "kc-0bff370f8c",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "Review of: \"GeAR: Generation Augmented Retrieval\"",
-    "claim": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "id": "kc-94c6c34b80",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "This dissertation contributes to a deeper understanding of why catastrophic forgetting occ",
+    "claim": "This dissertation contributes to a deeper understanding of why catastrophic forgetting occurs and investigates the mechanisms that enable learning models to maintain stability while acquiring new knowledge over time.",
     "status": "active",
     "confidence": 0.64,
     "source_type": "Crossref",
-    "source_url": "https://doi.org/10.32388/4l83f7",
-    "source_title": "Review of: \"GeAR: Generation Augmented Retrieval\"",
-    "x": 108.77831092289487,
-    "y": 91.27584057548857
+    "source_url": "https://doi.org/10.17918/00011156",
+    "source_title": "Memory that lasts",
+    "x": 146.0,
+    "y": 0.0
+   },
+   {
+    "id": "kc-9a86f26ee5",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Catastrophic forgetting, the tendency of learning systems to lose previously acquired know",
+    "claim": "Catastrophic forgetting, the tendency of learning systems to lose previously acquired knowledge when trained on new information, remains one of the most fundamental challenges in continual learning.",
+    "status": "active",
+    "confidence": 0.686,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.17918/00011156",
+    "source_title": "Memory that lasts",
+    "x": 139.51362964477653,
+    "y": 43.03425546399201
+   },
+   {
+    "id": "kc-5f2b708f6f",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning is a fundamental challenge in artificial intelligence (AI) that aims to",
+    "claim": "Continual learning is a fundamental challenge in artificial intelligence (AI) that aims to enable models to learn from a continuous stream of data while retaining previously acquired knowledge.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
+    "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
+    "x": 120.63086105013525,
+    "y": 82.24472847728882
+   },
+   {
+    "id": "kc-e65cebd138",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Unlike traditional machine learning, which operates in static environments, continual lear",
+    "claim": "Unlike traditional machine learning, which operates in static environments, continual learning requires algorithms to adapt incrementally to new tasks and evolving data distributions without catastrophic forgetting.",
+    "status": "active",
+    "confidence": 0.686,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
+    "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
+    "x": 91.02951107137511,
+    "y": 114.14739644033236
+   },
+   {
+    "id": "kc-7cfd4be640",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual lifelong learning in neural systems",
+    "claim": "Continual lifelong learning in neural systems",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.33612/diss.625549871",
+    "source_title": "Continual lifelong learning in neural systems",
+    "x": 53.33978955749367,
+    "y": 135.90756730205382
+   },
+   {
+    "id": "kc-aa780fc43f",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "This ability, referred to as lifelong learning, is mediated by a rich set of neurocognitiv",
+    "claim": "This ability, referred to as lifelong learning, is mediated by a rich set of neurocognitive mechanisms that together contribute to the development and specialization of our sensorimotor skills as well as to long-term memory consolidation and retrieval.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
+    "source_title": "Continual lifelong learning with neural networks: A review",
+    "x": 10.910593663617961,
+    "y": 145.5917543884523
+   },
+   {
+    "id": "kc-d08c3713b2",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "However, lifelong learning remains a long-standing challenge for machine learning and neur",
+    "claim": "However, lifelong learning remains a long-standing challenge for machine learning and neural network models since the continual acquisition of incrementally available information from non-stationary data distributions generally leads to catastrophic forgetting or interference.",
+    "status": "active",
+    "confidence": 0.686,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
+    "source_title": "Continual lifelong learning with neural networks: A review",
+    "x": -32.48805635762189,
+    "y": 142.33947517854625
+   },
+   {
+    "id": "kc-3af64b1f05",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning enables models to train incrementally from an ongoing stream of data by",
+    "claim": "Continual learning enables models to train incrementally from an ongoing stream of data by learning new data as it comes while saving old experiences, which eliminates the need to collect new data with old data to be retrained together from scratch, saving time, resources, and effort.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
+    "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
+    "x": -72.99999999999997,
+    "y": 126.43970895252805
+   },
+   {
+    "id": "kc-8736732c7d",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning, also referred to as lifelong learning, has emerged as a significant ad",
+    "claim": "Continual learning, also referred to as lifelong learning, has emerged as a significant advancement for model adaptation and generalization in deep learning with the capability to train models sequentially from a continuous stream of data across multiple tasks while retaining previously acquired knowledge.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
+    "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
+    "x": -107.02557328715464,
+    "y": 99.30521971455423
+   },
+   {
+    "id": "kc-456575c107",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "I&#x27;ve been thinking about why LLM training is so expensive and why continuous learning",
+    "claim": "I&#x27;ve been thinking about why LLM training is so expensive and why continuous learning remains unsolved.",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=47552974",
+    "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
+    "x": -131.54145471375318,
+    "y": 63.3470259111635
+   },
+   {
+    "id": "kc-a774b7c48c",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Catastrophic forgetting — when fine-tuning a model on new knowledge destroys old knowledge",
+    "claim": "Catastrophic forgetting — when fine-tuning a model on new knowledge destroys old knowledge — is universally treated as a problem to minimize.",
+    "status": "active",
+    "confidence": 0.459,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=47552974",
+    "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
+    "x": -144.36930062886876,
+    "y": 21.76017086172151
+   },
+   {
+    "id": "kc-7f2cf8b5b7",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "It trains on a single stream at batch 1, with the attention&#x2F;embedding trunk learning ",
+    "claim": "It trains on a single stream at batch 1, with the attention&#x2F;embedding trunk learning rate",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=50219762",
+    "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
+    "x": -144.36930062886879,
+    "y": -21.76017086172141
+   },
+   {
+    "id": "kc-7ca3ec5314",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "A month ago, I shared mini-AGI, an experiment in training a byte-level, continually learni",
+    "claim": "A month ago, I shared mini-AGI, an experiment in training a byte-level, continually learning language model from scratch on a single 8 GB laptop GPU (an RTX 3070).",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=50219762",
+    "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
+    "x": -131.54145471375318,
+    "y": -63.34702591116347
+   },
+   {
+    "id": "kc-04d83d7bb3",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Many people think that we won&#x27;t reach AGI or even ASI if LLM&#x27;s don&#x27;t have s",
+    "claim": "Many people think that we won&#x27;t reach AGI or even ASI if LLM&#x27;s don&#x27;t have something called &quot;continual learning&quot;.",
+    "status": "active",
+    "confidence": 0.459,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=47259384",
+    "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
+    "x": -107.02557328715463,
+    "y": -99.30521971455424
+   },
+   {
+    "id": "kc-1b3a360fa1",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Basically, continual learning is the ability for an AI to learn on the job, update its neu",
+    "claim": "Basically, continual learning is the ability for an AI to learn on the job, update its neural weights in real-time, and get smarter without forgetting everything else (catastrophic forgetting).",
+    "status": "active",
+    "confidence": 0.546,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=47259384",
+    "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
+    "x": -73.00000000000007,
+    "y": -126.43970895252801
+   },
+   {
+    "id": "kc-f03c909328",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
+    "claim": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://arxiv.org/abs/2509.10518",
+    "source_title": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
+    "x": -32.48805635762193,
+    "y": -142.33947517854625
+   },
+   {
+    "id": "kc-2192758123",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "This paper presents a conceptually simple yet general and effective framework for handling",
+    "claim": "This paper presents a conceptually simple yet general and effective framework for handling catastrophic forgetting in continual learning with DNNs.",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
+    "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
+    "x": 10.910593663617957,
+    "y": -145.5917543884523
+   },
+   {
+    "id": "kc-fe79cc687a",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Addressing catastrophic forgetting is one of the key challenges in continual learning wher",
+    "claim": "Addressing catastrophic forgetting is one of the key challenges in continual learning where machine learning systems are trained with sequential or streaming tasks.",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
+    "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
+    "x": 53.339789557493724,
+    "y": -135.9075673020538
+   },
+   {
+    "id": "kc-5587a179f6",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning and catastrophic forgetting",
+    "claim": "Continual learning and catastrophic forgetting",
+    "status": "disputed",
+    "confidence": 0.686,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1016/b978-0-443-15754-7.00073-0",
+    "source_title": "Continual learning and catastrophic forgetting",
+    "x": 91.02951107137507,
+    "y": -114.14739644033237
+   },
+   {
+    "id": "kc-a18e455b10",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "Continual learning is known for suffering from catastrophic forgetting, a phenomenon where",
+    "claim": "Continual learning is known for suffering from catastrophic forgetting, a phenomenon where earlier learned concepts are forgotten at the expense of more recent samples.",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://openalex.org/W3123422770",
+    "source_title": "Does Continual Learning = Catastrophic Forgetting?",
+    "x": 120.6308610501352,
+    "y": -82.24472847728892
+   },
+   {
+    "id": "kc-515fe243a5",
+    "topic": "continual learning catastrophic forgetting",
+    "label": "In this work, we challenge the assumption that continual learning is inevitably associated",
+    "claim": "In this work, we challenge the assumption that continual learning is inevitably associated with catastrophic forgetting by presenting a set of tasks that surprisingly do not suffer from catastrophic forgetting when learned continually.",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://openalex.org/W3123422770",
+    "source_title": "Does Continual Learning = Catastrophic Forgetting?",
+    "x": 139.51362964477653,
+    "y": -43.03425546399209
    },
    {
     "id": "kc-822f488f2a",
@@ -207,8 +517,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=41583460",
     "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
-    "x": 71.00000000000001,
-    "y": 122.97560733739029
+    "x": 140.0,
+    "y": 0.0
    },
    {
     "id": "kc-be8e4b0212",
@@ -220,8 +530,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=41583460",
     "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
-    "x": 24.658041228704118,
-    "y": 139.84270092773355
+    "x": 137.61623395574625,
+    "y": 25.724932494319848
    },
    {
     "id": "kc-a8214ca652",
@@ -233,8 +543,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=42299349",
     "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
-    "x": -24.658041228704104,
-    "y": 139.84270092773355
+    "x": 130.5461121166098,
+    "y": 50.57383326620141
    },
    {
     "id": "kc-a2c6d35353",
@@ -246,60 +556,112 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=42299349",
     "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
-    "x": -70.99999999999997,
-    "y": 122.9756073373903
+    "x": 119.03039900214598,
+    "y": 73.7005028028298
    },
    {
-    "id": "kc-e2a70437e9",
+    "id": "kc-8d4f9f9e03",
     "topic": "retrieval augmented generation evaluation",
-    "label": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evalu",
-    "claim": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
-    "status": "active",
-    "confidence": 0.577,
-    "source_type": "Crossref",
-    "source_url": "https://doi.org/10.18653/v1/2026.magmar-main.6",
-    "source_title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
-    "x": -108.77831092289486,
-    "y": 91.2758405754886
-   },
-   {
-    "id": "kc-9c44c2ae9a",
-    "topic": "retrieval augmented generation evaluation",
-    "label": "An experimental approach was applied by comparing three retrieval strategies: lexical retr",
-    "claim": "An experimental approach was applied by comparing three retrieval strategies: lexical retrieval based on term frequency–inverse document frequency, semantic retrieval using vector representations, and a hybrid retrieval method combining lexical and semantic signals.",
+    "label": "Automating systematic reviews (SRs), i.e., evidence-driven analyses under explicit protoco",
+    "claim": "Automating systematic reviews (SRs), i.e., evidence-driven analyses under explicit protocol constraints, is a natural target for retrieval-augmented generation and deep research agents, yet existing benchmarks evaluate isolated subtasks or assume fixed evidence inputs.",
     "status": "active",
     "confidence": 0.515,
     "source_type": "Crossref",
-    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
-    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
-    "x": -133.43635215159898,
-    "y": 48.56686035224498
+    "source_url": "https://doi.org/10.48448/xra9-a775",
+    "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
+    "x": 103.46124841089227,
+    "y": 94.317390110518
    },
    {
-    "id": "kc-88845a5448",
+    "id": "kc-f7b38c74d7",
     "topic": "retrieval augmented generation evaluation",
-    "label": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot ",
-    "claim": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot based on Retrieval-Augmented Generation to improve information accuracy and relevance while reducing hallucination risks.",
+    "label": "These elements support evaluation across key tasks in systematic review creation such as l",
+    "claim": "These elements support evaluation across key tasks in systematic review creation such as literature retrieval, eligibility screening, citation-grounded review generation, and structured table generation, in both stage-wise and end-to-end settings.",
     "status": "active",
-    "confidence": 0.577,
+    "confidence": 0.64,
     "source_type": "Crossref",
-    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
-    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
-    "x": -142.0,
-    "y": 1.7389984547892416e-14
+    "source_url": "https://doi.org/10.48448/xra9-a775",
+    "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
+    "x": 84.3688490930959,
+    "y": 111.72241181923353
    },
    {
-    "id": "kc-6ba2e3f702",
+    "id": "kc-c886dba568",
     "topic": "retrieval augmented generation evaluation",
-    "label": "Master Retrieval-Augmented Generation (RAG) Systems",
-    "claim": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "label": "This systematic literature review characterizes current RAG architectures, components, and",
+    "claim": "This systematic literature review characterizes current RAG architectures, components, and evaluation practices in peer-reviewed studies published between 2021 and 2025 across IEEE Xplore, Scopus, and Web of Science.",
     "status": "active",
     "confidence": 0.515,
     "source_type": "Crossref",
-    "source_url": "https://doi.org/10.5040/9781350865778",
-    "source_title": "Master Retrieval-Augmented Generation (RAG) Systems",
-    "x": -133.436352151599,
-    "y": -48.56686035224495
+    "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
+    "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
+    "x": 62.40336980871536,
+    "y": 125.32286078970873
+   },
+   {
+    "id": "kc-b9a0b6002a",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by integrating ",
+    "claim": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by integrating external retrieval mechanisms to improve factuality and currency.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
+    "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
+    "x": 38.31281861009162,
+    "y": 134.65559004419467
+   },
+   {
+    "id": "kc-597b6482b3",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "The frameworks span diverse domains and employ varying automation levels, from manual anno",
+    "claim": "The frameworks span diverse domains and employ varying automation levels, from manual annotation to LLM-as-a-Judge paradigms.Our analysis reveals a paradigm shift toward automated and hybrid evaluation approaches.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
+    "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
+    "x": 12.917570324862282,
+    "y": 139.40278468130484
+   },
+   {
+    "id": "kc-59bd20092f",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Retrieval-Augmented Generation (RAG) addresses these limitations by combining generative m",
+    "claim": "Retrieval-Augmented Generation (RAG) addresses these limitations by combining generative models with external knowledge retrieval.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
+    "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
+    "x": -12.917570324862265,
+    "y": 139.40278468130484
+   },
+   {
+    "id": "kc-9087a32610",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "The framework structures evaluation dimensions and metrics, identifies suitable datasets a",
+    "claim": "The framework structures evaluation dimensions and metrics, identifies suitable datasets and question types, and provides guidance for applying the framework in practice.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
+    "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
+    "x": -38.312818610091604,
+    "y": 134.65559004419467
+   },
+   {
+    "id": "kc-f89f4982e3",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Abstract This study addresses limitations of traditional benchmarking methods for Retrieva",
+    "claim": "Abstract This study addresses limitations of traditional benchmarking methods for Retrieval-Augmented Generation (RAG) systems by proposing an evaluation framework for RAG-enhanced Large Language Models (LLMs).",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
+    "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
+    "x": -62.40336980871529,
+    "y": 125.32286078970876
    },
    {
     "id": "kc-2f9d983a58",
@@ -311,8 +673,8 @@
     "source_type": "Hacker News",
     "source_url": "https://openevaluation.ai/",
     "source_title": "Show HN: Open Evaluation",
-    "x": -108.77831092289493,
-    "y": -91.27584057548853
+    "x": -84.36884909309587,
+    "y": 111.72241181923354
    },
    {
     "id": "kc-771a8eda61",
@@ -324,8 +686,8 @@
     "source_type": "Hacker News",
     "source_url": "https://openevaluation.ai/",
     "source_title": "Show HN: Open Evaluation",
-    "x": -71.00000000000006,
-    "y": -122.97560733739024
+    "x": -103.46124841089231,
+    "y": 94.31739011051799
    },
    {
     "id": "kc-dc8d51599c",
@@ -337,8 +699,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/TonicAI/tvalmetrics",
     "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
-    "x": -24.658041228704107,
-    "y": -139.84270092773355
+    "x": -119.03039900214596,
+    "y": 73.70050280282985
    },
    {
     "id": "kc-e3c79148cd",
@@ -350,8 +712,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/TonicAI/tvalmetrics",
     "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
-    "x": 24.658041228704057,
-    "y": -139.84270092773355
+    "x": -130.5461121166098,
+    "y": 50.57383326620146
    },
    {
     "id": "kc-1db45eb38d",
@@ -363,8 +725,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=45595999",
     "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
-    "x": 70.9999999999999,
-    "y": -122.97560733739034
+    "x": -137.61623395574625,
+    "y": 25.72493249431985
    },
    {
     "id": "kc-54950ddb54",
@@ -376,8 +738,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=45595999",
     "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
-    "x": 108.77831092289485,
-    "y": -91.27584057548862
+    "x": -140.0,
+    "y": 1.7145055188062946e-14
    },
    {
     "id": "kc-d621210711",
@@ -389,54 +751,992 @@
     "source_type": "arXiv",
     "source_url": "https://arxiv.org/abs/2309.15217",
     "source_title": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
-    "x": 133.436352151599,
-    "y": -48.566860352244944
+    "x": -137.61623395574625,
+    "y": -25.724932494319816
+   },
+   {
+    "id": "kc-299c0b5375",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Recently, building retrieval-augmented generation (RAG) systems to enhance the capability ",
+    "claim": "Recently, building retrieval-augmented generation (RAG) systems to enhance the capability of large language models (LLMs) has become a common practice.",
+    "status": "active",
+    "confidence": 0.568,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
+    "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
+    "x": -130.54611211660983,
+    "y": -50.573833266201376
+   },
+   {
+    "id": "kc-e4b8366796",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "However, the overall performance of RAG system depends on many components: (1) retrieval c",
+    "claim": "However, the overall performance of RAG system depends on many components: (1) retrieval corpora, (2) retrieval algorithms, (3) rerankers, (4) LLM backbones, and (5) evaluation metrics.",
+    "status": "active",
+    "confidence": 0.636,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
+    "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
+    "x": -119.03039900214597,
+    "y": -73.70050280282982
+   },
+   {
+    "id": "kc-57f17750d1",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "While advances in prompt engineering and RAG have improved LLM proficiency in field-specif",
+    "claim": "While advances in prompt engineering and RAG have improved LLM proficiency in field-specific, specialized tasks, there has yet to be an industry standard or accepted evaluation metric of the highly fragmented RAG solutions that are currently being deployed.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
+    "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
+    "x": -103.46124841089227,
+    "y": -94.317390110518
+   },
+   {
+    "id": "kc-eff7db7b8d",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "We contribute 1) a platform that evaluates an RAG system's performance on a multimodal inp",
+    "claim": "We contribute 1) a platform that evaluates an RAG system's performance on a multimodal input context for LLM question answering and 2) MRAFE: Multimodal Retrieval Augmented Feature Extractor, which processes information from the input to our platform.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
+    "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
+    "x": -84.368849093096,
+    "y": -111.72241181923346
+   },
+   {
+    "id": "kc-66c269b6c4",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Deploying Large Language Model (LLM) applications, particularly those relying on Retrieval",
+    "claim": "Deploying Large Language Model (LLM) applications, particularly those relying on Retrieval-Augmented Generation (RAG), remains challenging due to high computational demands, outdated knowledge bases, and the need to manually select optimal pipeline components.",
+    "status": "active",
+    "confidence": 0.568,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
+    "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
+    "x": -62.40336980871544,
+    "y": -125.32286078970868
+   },
+   {
+    "id": "kc-fc34399e20",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "By directly correlating retrieval and generation quality with underlying hardware constrai",
+    "claim": "By directly correlating retrieval and generation quality with underlying hardware constraints, RAGe supports researchers to identify the most effective, domain-specific RAG setups for",
+    "status": "active",
+    "confidence": 0.636,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
+    "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
+    "x": -38.31281861009163,
+    "y": -134.65559004419467
+   },
+   {
+    "id": "kc-2890aea1c6",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Retrieval Augmented Generation (RAG) is a promising method to leverage the potential of LL",
+    "claim": "Retrieval Augmented Generation (RAG) is a promising method to leverage the potential of LLMs while enhancing the accuracy of their outcomes.",
+    "status": "active",
+    "confidence": 0.705,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
+    "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
+    "x": -12.917570324862268,
+    "y": -139.40278468130484
+   },
+   {
+    "id": "kc-5f6a1c83e8",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "To this end, it describes: (1) an internally developed proof of concept pipeline that empl",
+    "claim": "To this end, it describes: (1) an internally developed proof of concept pipeline that employs state-of-the-art practices to deliver safe and trustable analysis for healthcare documents and scientific papers called RAGEv (Retrieval Augmented Generation Evaluation); (2) a set of evaluation tools for LLM-based do",
+    "status": "active",
+    "confidence": 0.757,
+    "source_type": "arXiv",
+    "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
+    "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
+    "x": 12.917570324862341,
+    "y": -139.40278468130484
+   },
+   {
+    "id": "kc-11351c0296",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, ",
+    "claim": "To address this, we introduce a RAG pipeline augmented with Turkish-specific adaptations, including morphology-aware chunking, cultural context weighting, and agglutination-aware answer normalization.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
+    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
+    "x": 38.31281861009159,
+    "y": -134.65559004419467
+   },
+   {
+    "id": "kc-02a8fad3cb",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Gen",
+    "claim": "Abstract This study presents the first comprehensive evaluation of Retrieval-Augmented Generation (RAG) systems versus fine-tuned language models for Turkish cultural question answering.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.21203/rs.3.rs-7217024/v1",
+    "source_title": "Retrieval-Augmented Generation versus Fine-tuning for Turkish Cultural Question Answering: A Comprehensive Evaluation and Analysis",
+    "x": 62.403369808715276,
+    "y": -125.32286078970876
+   },
+   {
+    "id": "kc-0bff370f8c",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "claim": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.32388/4l83f7",
+    "source_title": "Review of: \"GeAR: Generation Augmented Retrieval\"",
+    "x": 84.36884909309586,
+    "y": -111.72241181923356
+   },
+   {
+    "id": "kc-e2a70437e9",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evalu",
+    "claim": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.18653/v1/2026.magmar-main.6",
+    "source_title": "MODE-RAG: Manifold Outlier Diagnosis and Energy-based Retrieval-Augmented Generation Evaluation",
+    "x": 103.4612484108922,
+    "y": -94.31739011051809
+   },
+   {
+    "id": "kc-9c44c2ae9a",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "An experimental approach was applied by comparing three retrieval strategies: lexical retr",
+    "claim": "An experimental approach was applied by comparing three retrieval strategies: lexical retrieval based on term frequency–inverse document frequency, semantic retrieval using vector representations, and a hybrid retrieval method combining lexical and semantic signals.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
+    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
+    "x": 119.03039900214594,
+    "y": -73.70050280282986
+   },
+   {
+    "id": "kc-88845a5448",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot ",
+    "claim": "This study evaluated retrieval methods in the implementation of a domain-specific chatbot based on Retrieval-Augmented Generation to improve information accuracy and relevance while reducing hallucination risks.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.36085/jsai.v9i1.9897",
+    "source_title": "Evaluation of Retrieval Methods in Domain-Specific Chatbots Based on Retrieval-Augmented Generation",
+    "x": 130.5461121166098,
+    "y": -50.573833266201426
+   },
+   {
+    "id": "kc-6ba2e3f702",
+    "topic": "retrieval augmented generation evaluation",
+    "label": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "claim": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.5040/9781350865778",
+    "source_title": "Master Retrieval-Augmented Generation (RAG) Systems",
+    "x": 137.61623395574625,
+    "y": -25.72493249431981
+   },
+   {
+    "id": "kc-8a0e82af5f",
+    "topic": "Python asyncio event loop",
+    "label": "I initially built it because I wanted a simpler Mini SDK that handled conversational memor",
+    "claim": "I initially built it because I wanted a simpler Mini SDK that handled conversational memory, function calling, and streaming out of the box without the boilerplate of the official SDK.<p>Recently, I got some well-deserved technical criticism from early users: using JSON files to store chat history was a memory-bloat disaster waiting to happen; forcing a PyQt6 dependency on",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/suleymanibis0/dracula",
+    "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
+    "x": 136.0,
+    "y": 0.0
+   },
+   {
+    "id": "kc-3cda4380f7",
+    "topic": "Python asyncio event loop",
+    "label": "I&#x27;ve been building Dracula, a Python wrapper for the Google Gemini API.",
+    "claim": "I&#x27;ve been building Dracula, a Python wrapper for the Google Gemini API.",
+    "status": "active",
+    "confidence": 0.409,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/suleymanibis0/dracula",
+    "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
+    "x": 117.77945491468367,
+    "y": 67.99999999999999
+   },
+   {
+    "id": "kc-7745efe221",
+    "topic": "Python asyncio event loop",
+    "label": "# trivial example here while True: print(datetime.datetime.now()) time.sleep(2) This opens",
+    "claim": "# trivial example here while True: print(datetime.datetime.now()) time.sleep(2) This opens new TCP port on localhost:5564 and starts listening on it.",
+    "status": "active",
+    "confidence": 0.418,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
+    "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
+    "x": 68.00000000000001,
+    "y": 117.77945491468365
+   },
+   {
+    "id": "kc-ce52db2358",
+    "topic": "Python asyncio event loop",
+    "label": "Try: # asamp.py import time import datetime import asyncio import websockets import thread",
+    "claim": "Try: # asamp.py import time import datetime import asyncio import websockets import threading def bgWorker_SK(): # create handler for each connection async def handler(websocket, path): data = await websocket.recv() reply = f\"Data recieved as: {data}!\" await websocket.send(reply) loop = asyncio.new_event_loop() # <-- create new loop in this thread here asyncio.set_event_loop(loop) start_server = websockets.serve(handler, \"localhost\", 5564) loop.run_until_complete(start_server) loop.run_forever() bgsk = threading.Thread(target=bgWorker_SK, daemon=True).start() if __name__ == \"__main__\": # the m",
+    "status": "active",
+    "confidence": 0.59,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
+    "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
+    "x": 8.327598234202001e-15,
+    "y": 136.0
+   },
+   {
+    "id": "kc-5fa4663d51",
+    "topic": "Python asyncio event loop",
+    "label": "Temporal Python – A durable, distributed asyncio event loop (2023)",
+    "claim": "Temporal Python – A durable, distributed asyncio event loop (2023)",
+    "status": "active",
+    "confidence": 0.546,
+    "source_type": "Hacker News",
+    "source_url": "https://temporal.io/blog/durable-distributed-asyncio-event-loop",
+    "source_title": "Temporal Python – A durable, distributed asyncio event loop (2023)",
+    "x": -67.99999999999997,
+    "y": 117.77945491468367
+   },
+   {
+    "id": "kc-a9b5005224",
+    "topic": "Python asyncio event loop",
+    "label": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
+    "claim": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
+    "status": "active",
+    "confidence": 0.546,
+    "source_type": "Hacker News",
+    "source_url": "https://github.com/Feverup/aiocop",
+    "source_title": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
+    "x": -117.77945491468367,
+    "y": 67.99999999999999
+   },
+   {
+    "id": "kc-63d6e3473d",
+    "topic": "Python asyncio event loop",
+    "label": "OK, to answer my question, the above works quite nicely using aiohttp.",
+    "claim": "OK, to answer my question, the above works quite nicely using aiohttp.",
+    "status": "active",
+    "confidence": 0.418,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
+    "source_title": "Implementing REST API in Python with existing asyncio event loop",
+    "x": -136.0,
+    "y": 1.6655196468404002e-14
+   },
+   {
+    "id": "kc-275c1daaea",
+    "topic": "Python asyncio event loop",
+    "label": "For future reference, here is a minimal example adopted from the aiohttp documentation: im",
+    "claim": "For future reference, here is a minimal example adopted from the aiohttp documentation: import asyncio import code from aiohttp import web async def handle(request): name = request.match_info.get('name', \"Anonymous\") text = \"Hello, \" + name return web.Response(text=text) app = web.Application() app.router.add_get('/', handle) app.router.add_get('/{name}', handle) loop = asyncio.get_event_loop() handler = app.make_handler() f = loop.create_server(handler, '0.0.0.0', 8080) srv = loop.run_until_complete(f) loop.run_forever() code.interact(local=locals())",
+    "status": "active",
+    "confidence": 0.59,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
+    "source_title": "Implementing REST API in Python with existing asyncio event loop",
+    "x": -117.77945491468368,
+    "y": -67.99999999999996
+   },
+   {
+    "id": "kc-42931f927d",
+    "topic": "Python asyncio event loop",
+    "label": "And further : An event loop runs in a thread and executes all callbacks and tasks in the s",
+    "claim": "And further : An event loop runs in a thread and executes all callbacks and tasks in the same thread.",
+    "status": "active",
+    "confidence": 0.533,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
+    "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
+    "x": -68.00000000000006,
+    "y": -117.77945491468361
+   },
+   {
+    "id": "kc-cc73604a11",
+    "topic": "Python asyncio event loop",
+    "label": "Example: loop.call_soon_threadsafe(callback, *args) Seems to be what we need: import async",
+    "claim": "Example: loop.call_soon_threadsafe(callback, *args) Seems to be what we need: import asyncio from threading import Thread loop = asyncio.get_event_loop() thread = Thread(target=loop.run_forever) thread.start() print('Started!') loop.call_soon_threadsafe(loop.stop) # here print('Requested stop!') thread.join() print('Finished!') Prints: Started!",
+    "status": "active",
+    "confidence": 0.59,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
+    "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
+    "x": -2.4982794702606005e-14,
+    "y": -136.0
+   },
+   {
+    "id": "kc-b49c2f806d",
+    "topic": "Python asyncio event loop",
+    "label": "Thing is - each asyncio task (or any other Python object) can consume different amount of ",
+    "claim": "Thing is - each asyncio task (or any other Python object) can consume different amount of different machine resources.",
+    "status": "active",
+    "confidence": 0.533,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
+    "source_title": "how to measure python asyncio event loop metrics?",
+    "x": 68.00000000000001,
+    "y": -117.77945491468365
+   },
+   {
+    "id": "kc-e4a0ef852a",
+    "topic": "Python asyncio event loop",
+    "label": "If your event loop is blocked by some CPU calculation, asyncio will start to process new c",
+    "claim": "If your event loop is blocked by some CPU calculation, asyncio will start to process new conn",
+    "status": "active",
+    "confidence": 0.59,
+    "source_type": "Stack Overflow",
+    "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
+    "source_title": "how to measure python asyncio event loop metrics?",
+    "x": 117.77945491468361,
+    "y": -68.00000000000006
+   },
+   {
+    "id": "kc-90a600bf18",
+    "topic": "graph neural network advances",
+    "label": "Review for \"Preserving node similarity adversarial learning graph representation with grap",
+    "claim": "Review for \"Preserving node similarity adversarial learning graph representation with graph neural network\"",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1002/eng2.12854/v2/review1",
+    "source_title": "Review for \"Preserving node similarity adversarial learning graph representation with graph neural network\"",
+    "x": 120.0,
+    "y": 0.0
+   },
+   {
+    "id": "kc-58d0feb9bb",
+    "topic": "graph neural network advances",
+    "label": "The advent of graph neural networks (GNNs) has revolutionized computational materials engi",
+    "claim": "The advent of graph neural networks (GNNs) has revolutionized computational materials engineering by enabling sophisticated representations of atomic structures and interactions for property prediction.This review synthesizes key developments in GNN architectures tailored for materials science, focusing on their application in predicting mechanical, electronic, and thermodynamic properties of diverse materials systems, including polycrystals, metalorganic frameworks, and perovskites.Drawing from high-impact studies, we examine the evolution from basic crystal graph convolutional networks to ad",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.68159/e795301159",
+    "source_title": "Graph Neural Networks for Materials Property Prediction: A Decadal Review of Advances and Limits",
+    "x": 108.1162641482903,
+    "y": 52.066048694106975
+   },
+   {
+    "id": "kc-cfb830afc0",
+    "topic": "graph neural network advances",
+    "label": "We begin by introducing the foundational concepts of graph representations and the general",
+    "claim": "We begin by introducing the foundational concepts of graph representations and the general architecture of GNNs, including node embeddings, message passing, and pooling strategies.",
+    "status": "active",
+    "confidence": 0.515,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.20517/jmi.2025.42",
+    "source_title": "Advances in graph neural networks for alloy design and properties predictions: a review",
+    "x": 74.81877622304803,
+    "y": 93.81977789616357
+   },
+   {
+    "id": "kc-54e3070b92",
+    "topic": "graph neural network advances",
+    "label": "Graph neural networks (GNNs) have become a transformative modeling paradigm in materials s",
+    "claim": "Graph neural networks (GNNs) have become a transformative modeling paradigm in materials science, offering a data-efficient and structure-aware approach for learning from complex material systems.",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.20517/jmi.2025.42",
+    "source_title": "Advances in graph neural networks for alloy design and properties predictions: a review",
+    "x": 26.702512074757735,
+    "y": 116.99134946181883
+   },
+   {
+    "id": "kc-774b24955f",
+    "topic": "graph neural network advances",
+    "label": "In recent years, a burgeoning interest has arisen in exploiting the latent capabilities of",
+    "claim": "In recent years, a burgeoning interest has arisen in exploiting the latent capabilities of GNN for healthcare-based applications, capitalizing on their aptitude for modeling complex relationships and unearthing profound insights from graph-structured data.",
+    "status": "active",
+    "confidence": 0.452,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/access.2024.3354809",
+    "source_title": "A Systematic Review of Graph Neural Network in Healthcare-Based Applications: Recent Advances, Trends, and Future Directions",
+    "x": -26.70251207475772,
+    "y": 116.99134946181883
+   },
+   {
+    "id": "kc-f8917c215a",
+    "topic": "graph neural network advances",
+    "label": "Graph neural network (GNN) is a formidable deep learning framework that enables the analys",
+    "claim": "Graph neural network (GNN) is a formidable deep learning framework that enables the analysis and modeling of intricate relationships present in data structured as graphs.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.1109/access.2024.3354809",
+    "source_title": "A Systematic Review of Graph Neural Network in Healthcare-Based Applications: Recent Advances, Trends, and Future Directions",
+    "x": -74.81877622304802,
+    "y": 93.81977789616359
+   },
+   {
+    "id": "kc-00fc58d407",
+    "topic": "graph neural network advances",
+    "label": "Drawing on extensive literature searches across PubMed, IEEE Xplorer, Scopus, and Springer",
+    "claim": "Drawing on extensive literature searches across PubMed, IEEE Xplorer, Scopus, and Springer, we analyze key GNN frameworks and critically evaluate their limitations, challenges, and opportunities for improvement.",
+    "status": "active",
+    "confidence": 0.452,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.3389/fnins.2025.1623141",
+    "source_title": "Graph neural networks in Alzheimer's disease diagnosis: a review of unimodal and multimodal advances",
+    "x": -108.11626414829028,
+    "y": 52.06604869410699
+   },
+   {
+    "id": "kc-609ef7f963",
+    "topic": "graph neural network advances",
+    "label": "Advances in graph neural networks (GNNs) offer promising tools for analyzing multimodal ne",
+    "claim": "Advances in graph neural networks (GNNs) offer promising tools for analyzing multimodal neuroimaging data to improve AD diagnosis.",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.3389/fnins.2025.1623141",
+    "source_title": "Graph neural networks in Alzheimer's disease diagnosis: a review of unimodal and multimodal advances",
+    "x": -120.0,
+    "y": 1.469576158976824e-14
+   },
+   {
+    "id": "kc-3bf9581371",
+    "topic": "graph neural network advances",
+    "label": "GraphMP: Graph Neural Network-based Motion Planning with Efficient Graph Search",
+    "claim": "GraphMP: Graph Neural Network-based Motion Planning with Efficient Graph Search",
+    "status": "active",
+    "confidence": 0.577,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.52202/075280-0138",
+    "source_title": "GraphMP: Graph Neural Network-based Motion Planning with Efficient Graph Search",
+    "x": -108.1162641482903,
+    "y": -52.06604869410696
+   },
+   {
+    "id": "kc-8ad7f1d7f4",
+    "topic": "graph neural network advances",
+    "label": "Geodesic Graph Neural Network for Efficient Graph Representation Learning",
+    "claim": "Geodesic Graph Neural Network for Efficient Graph Representation Learning",
+    "status": "active",
+    "confidence": 0.64,
+    "source_type": "Crossref",
+    "source_url": "https://doi.org/10.52202/068431-0427",
+    "source_title": "Geodesic Graph Neural Network for Efficient Graph Representation Learning",
+    "x": -74.81877622304805,
+    "y": -93.81977789616356
+   },
+   {
+    "id": "kc-0a4e13ce9a",
+    "topic": "graph neural network advances",
+    "label": "Deepmind improves the accuracy of ETAs in Google Maps",
+    "claim": "Deepmind improves the accuracy of ETAs in Google Maps",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://deepmind.com/blog/article/traffic-prediction-with-advanced-graph-neural-networks",
+    "source_title": "Deepmind improves the accuracy of ETAs in Google Maps",
+    "x": -26.70251207475775,
+    "y": -116.99134946181883
+   },
+   {
+    "id": "kc-52e64794c9",
+    "topic": "graph neural network advances",
+    "label": "Traffic Prediction with Advanced Graph Neural Networks",
+    "claim": "Traffic Prediction with Advanced Graph Neural Networks",
+    "status": "active",
+    "confidence": 0.459,
+    "source_type": "Hacker News",
+    "source_url": "https://deepmind.com/blog/article/traffic-prediction-with-advanced-graph-neural-networks",
+    "source_title": "Traffic Prediction with Advanced Graph Neural Networks",
+    "x": 26.7025120747576,
+    "y": -116.99134946181886
+   },
+   {
+    "id": "kc-3a861aa129",
+    "topic": "graph neural network advances",
+    "label": "I&#x27;m Tom, co-founder at Tensil (<a href=\"https:&#x2F;&#x2F;www.tensil.ai&#x2F;\" rel=\"n",
+    "claim": "I&#x27;m Tom, co-founder at Tensil (<a href=\"https:&#x2F;&#x2F;www.tensil.ai&#x2F;\" rel=\"nofollow\">https:&#x2F;&#x2F;www.tensil.ai&#x2F;</a>).",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=30643520",
+    "source_title": "Launch HN: Tensil (YC S19) – Open-Source ML Accelerators",
+    "x": 74.818776223048,
+    "y": -93.81977789616359
+   },
+   {
+    "id": "kc-c90cf66db0",
+    "topic": "graph neural network advances",
+    "label": "We design free and open source machine learning accelerators that anyone can use.<p>A mach",
+    "claim": "We design free and open source machine learning accelerators that anyone can use.<p>A machine learning inference accelerator is a specialized chip that can run the operations used in ML models very quickly and efficiently.",
+    "status": "active",
+    "confidence": 0.36,
+    "source_type": "Hacker News",
+    "source_url": "https://news.ycombinator.com/item?id=30643520",
+    "source_title": "Launch HN: Tensil (YC S19) – Open-Source ML Accelerators",
+    "x": 108.11626414829033,
+    "y": -52.066048694106904
    }
   ],
   "edges": [
    {
-    "source": "kc-02a8fad3cb",
-    "target": "kc-e2a70437e9",
+    "source": "kc-5587a179f6",
+    "target": "kc-f03c909328",
+    "kind": "contradicts"
+   },
+   {
+    "source": "kc-f03c909328",
+    "target": "kc-5587a179f6",
+    "kind": "contradicts"
+   },
+   {
+    "source": "kc-94c6c34b80",
+    "target": "kc-9a86f26ee5",
     "kind": "supports"
    },
    {
-    "source": "kc-02a8fad3cb",
-    "target": "kc-88845a5448",
+    "source": "kc-94c6c34b80",
+    "target": "kc-5f2b708f6f",
     "kind": "supports"
    },
    {
-    "source": "kc-02a8fad3cb",
-    "target": "kc-6ba2e3f702",
+    "source": "kc-94c6c34b80",
+    "target": "kc-e65cebd138",
     "kind": "supports"
    },
    {
-    "source": "kc-02a8fad3cb",
-    "target": "kc-771a8eda61",
+    "source": "kc-94c6c34b80",
+    "target": "kc-aa780fc43f",
     "kind": "supports"
    },
    {
-    "source": "kc-02a8fad3cb",
-    "target": "kc-e3c79148cd",
+    "source": "kc-94c6c34b80",
+    "target": "kc-d08c3713b2",
     "kind": "supports"
    },
    {
-    "source": "kc-02a8fad3cb",
-    "target": "kc-54950ddb54",
+    "source": "kc-94c6c34b80",
+    "target": "kc-3af64b1f05",
     "kind": "supports"
    },
    {
-    "source": "kc-0bff370f8c",
-    "target": "kc-a2c6d35353",
+    "source": "kc-94c6c34b80",
+    "target": "kc-8736732c7d",
     "kind": "supports"
    },
    {
-    "source": "kc-0bff370f8c",
-    "target": "kc-6ba2e3f702",
+    "source": "kc-94c6c34b80",
+    "target": "kc-a774b7c48c",
     "kind": "supports"
    },
    {
-    "source": "kc-0bff370f8c",
-    "target": "kc-d621210711",
+    "source": "kc-94c6c34b80",
+    "target": "kc-1b3a360fa1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-94c6c34b80",
+    "target": "kc-2192758123",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-94c6c34b80",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-94c6c34b80",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-94c6c34b80",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-5f2b708f6f",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-e65cebd138",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-7cfd4be640",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-d08c3713b2",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-8736732c7d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-a774b7c48c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-1b3a360fa1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-f03c909328",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-2192758123",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-a18e455b10",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9a86f26ee5",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5f2b708f6f",
+    "target": "kc-d08c3713b2",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5f2b708f6f",
+    "target": "kc-3af64b1f05",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5f2b708f6f",
+    "target": "kc-8736732c7d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5f2b708f6f",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e65cebd138",
+    "target": "kc-d08c3713b2",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e65cebd138",
+    "target": "kc-3af64b1f05",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e65cebd138",
+    "target": "kc-1b3a360fa1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e65cebd138",
+    "target": "kc-f03c909328",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e65cebd138",
+    "target": "kc-2192758123",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e65cebd138",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e65cebd138",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e65cebd138",
+    "target": "kc-a18e455b10",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e65cebd138",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7cfd4be640",
+    "target": "kc-d08c3713b2",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7cfd4be640",
+    "target": "kc-1b3a360fa1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7cfd4be640",
+    "target": "kc-f03c909328",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7cfd4be640",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7cfd4be640",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-aa780fc43f",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d08c3713b2",
+    "target": "kc-3af64b1f05",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d08c3713b2",
+    "target": "kc-8736732c7d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d08c3713b2",
+    "target": "kc-1b3a360fa1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d08c3713b2",
+    "target": "kc-f03c909328",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d08c3713b2",
+    "target": "kc-2192758123",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d08c3713b2",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d08c3713b2",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d08c3713b2",
+    "target": "kc-a18e455b10",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d08c3713b2",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3af64b1f05",
+    "target": "kc-8736732c7d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3af64b1f05",
+    "target": "kc-7f2cf8b5b7",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3af64b1f05",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-8736732c7d",
+    "target": "kc-1b3a360fa1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-8736732c7d",
+    "target": "kc-2192758123",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-8736732c7d",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-8736732c7d",
+    "target": "kc-a18e455b10",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-8736732c7d",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-456575c107",
+    "target": "kc-04d83d7bb3",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-456575c107",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a774b7c48c",
+    "target": "kc-f03c909328",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a774b7c48c",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7f2cf8b5b7",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-1b3a360fa1",
+    "target": "kc-f03c909328",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-1b3a360fa1",
+    "target": "kc-2192758123",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-1b3a360fa1",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-1b3a360fa1",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-1b3a360fa1",
+    "target": "kc-a18e455b10",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-1b3a360fa1",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f03c909328",
+    "target": "kc-2192758123",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f03c909328",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f03c909328",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f03c909328",
+    "target": "kc-a18e455b10",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f03c909328",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2192758123",
+    "target": "kc-fe79cc687a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2192758123",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2192758123",
+    "target": "kc-a18e455b10",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2192758123",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fe79cc687a",
+    "target": "kc-5587a179f6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fe79cc687a",
+    "target": "kc-a18e455b10",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fe79cc687a",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5587a179f6",
+    "target": "kc-a18e455b10",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5587a179f6",
+    "target": "kc-515fe243a5",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a18e455b10",
+    "target": "kc-515fe243a5",
     "kind": "supports"
    },
    {
@@ -446,6 +1746,31 @@
    },
    {
     "source": "kc-a2c6d35353",
+    "target": "kc-b9a0b6002a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a2c6d35353",
+    "target": "kc-59bd20092f",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a2c6d35353",
+    "target": "kc-d621210711",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a2c6d35353",
+    "target": "kc-299c0b5375",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a2c6d35353",
+    "target": "kc-0bff370f8c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a2c6d35353",
     "target": "kc-e2a70437e9",
     "kind": "supports"
    },
@@ -455,33 +1780,183 @@
     "kind": "supports"
    },
    {
-    "source": "kc-a2c6d35353",
+    "source": "kc-f7b38c74d7",
+    "target": "kc-c886dba568",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f7b38c74d7",
     "target": "kc-d621210711",
     "kind": "supports"
    },
    {
-    "source": "kc-e2a70437e9",
+    "source": "kc-f7b38c74d7",
+    "target": "kc-0bff370f8c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-c886dba568",
+    "target": "kc-e4b8366796",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-59bd20092f",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-f89f4982e3",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-54950ddb54",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-299c0b5375",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-66c269b6c4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-fc34399e20",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-2890aea1c6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-0bff370f8c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
+    "target": "kc-e2a70437e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-b9a0b6002a",
     "target": "kc-88845a5448",
     "kind": "supports"
    },
    {
-    "source": "kc-e2a70437e9",
+    "source": "kc-b9a0b6002a",
     "target": "kc-6ba2e3f702",
     "kind": "supports"
    },
    {
-    "source": "kc-e2a70437e9",
+    "source": "kc-59bd20092f",
+    "target": "kc-f89f4982e3",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-59bd20092f",
     "target": "kc-54950ddb54",
     "kind": "supports"
    },
    {
-    "source": "kc-e2a70437e9",
+    "source": "kc-59bd20092f",
     "target": "kc-d621210711",
     "kind": "supports"
    },
    {
-    "source": "kc-6ba2e3f702",
+    "source": "kc-59bd20092f",
+    "target": "kc-299c0b5375",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-59bd20092f",
+    "target": "kc-66c269b6c4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-59bd20092f",
+    "target": "kc-fc34399e20",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-59bd20092f",
+    "target": "kc-2890aea1c6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-59bd20092f",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-59bd20092f",
+    "target": "kc-0bff370f8c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-59bd20092f",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9087a32610",
+    "target": "kc-e4b8366796",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9087a32610",
+    "target": "kc-eff7db7b8d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-9087a32610",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f89f4982e3",
     "target": "kc-54950ddb54",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f89f4982e3",
+    "target": "kc-299c0b5375",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f89f4982e3",
+    "target": "kc-66c269b6c4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f89f4982e3",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f89f4982e3",
+    "target": "kc-e2a70437e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f89f4982e3",
+    "target": "kc-88845a5448",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f89f4982e3",
+    "target": "kc-6ba2e3f702",
     "kind": "supports"
    },
    {
@@ -493,17 +1968,365 @@
     "source": "kc-771a8eda61",
     "target": "kc-e3c79148cd",
     "kind": "supports"
+   },
+   {
+    "source": "kc-771a8eda61",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e3c79148cd",
+    "target": "kc-e4b8366796",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e3c79148cd",
+    "target": "kc-eff7db7b8d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e3c79148cd",
+    "target": "kc-2890aea1c6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e3c79148cd",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54950ddb54",
+    "target": "kc-299c0b5375",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54950ddb54",
+    "target": "kc-fc34399e20",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54950ddb54",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54950ddb54",
+    "target": "kc-e2a70437e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54950ddb54",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d621210711",
+    "target": "kc-2890aea1c6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d621210711",
+    "target": "kc-5f6a1c83e8",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d621210711",
+    "target": "kc-0bff370f8c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-d621210711",
+    "target": "kc-e2a70437e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-299c0b5375",
+    "target": "kc-66c269b6c4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-299c0b5375",
+    "target": "kc-2890aea1c6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-299c0b5375",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-299c0b5375",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e4b8366796",
+    "target": "kc-57f17750d1",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e4b8366796",
+    "target": "kc-eff7db7b8d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e4b8366796",
+    "target": "kc-66c269b6c4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e4b8366796",
+    "target": "kc-fc34399e20",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-eff7db7b8d",
+    "target": "kc-fc34399e20",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-eff7db7b8d",
+    "target": "kc-2890aea1c6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-eff7db7b8d",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-66c269b6c4",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fc34399e20",
+    "target": "kc-2890aea1c6",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fc34399e20",
+    "target": "kc-02a8fad3cb",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-fc34399e20",
+    "target": "kc-88845a5448",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2890aea1c6",
+    "target": "kc-0bff370f8c",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2890aea1c6",
+    "target": "kc-88845a5448",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-2890aea1c6",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-02a8fad3cb",
+    "target": "kc-e2a70437e9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-02a8fad3cb",
+    "target": "kc-88845a5448",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-02a8fad3cb",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-0bff370f8c",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e2a70437e9",
+    "target": "kc-88845a5448",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-e2a70437e9",
+    "target": "kc-6ba2e3f702",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3cda4380f7",
+    "target": "kc-a9b5005224",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-7745efe221",
+    "target": "kc-ce52db2358",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-ce52db2358",
+    "target": "kc-275c1daaea",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-ce52db2358",
+    "target": "kc-cc73604a11",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5fa4663d51",
+    "target": "kc-a9b5005224",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5fa4663d51",
+    "target": "kc-42931f927d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5fa4663d51",
+    "target": "kc-b49c2f806d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-5fa4663d51",
+    "target": "kc-e4a0ef852a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a9b5005224",
+    "target": "kc-42931f927d",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-a9b5005224",
+    "target": "kc-e4a0ef852a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-275c1daaea",
+    "target": "kc-cc73604a11",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-cc73604a11",
+    "target": "kc-e4a0ef852a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-54e3070b92",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-f8917c215a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-609ef7f963",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-3bf9581371",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-90a600bf18",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-58d0feb9bb",
+    "target": "kc-54e3070b92",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-774b24955f",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-f8917c215a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-609ef7f963",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-54e3070b92",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-774b24955f",
+    "target": "kc-f8917c215a",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-f8917c215a",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-609ef7f963",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-609ef7f963",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3bf9581371",
+    "target": "kc-8ad7f1d7f4",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-3bf9581371",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
+   },
+   {
+    "source": "kc-8ad7f1d7f4",
+    "target": "kc-52e64794c9",
+    "kind": "supports"
    }
   ],
   "topics": [
-   "retrieval augmented generation evaluation"
+   "continual learning catastrophic forgetting",
+   "retrieval augmented generation evaluation",
+   "Python asyncio event loop",
+   "graph neural network advances"
   ]
  },
  "feedback": [],
  "improvements": [],
  "cloud": {
-  "updated": 1793774421.28174,
-  "runner": "local",
+  "updated": 1793774521.3953416,
+  "runner": "41787222475",
   "repo": "zacrisy/open-net-agent"
  }
 }
