@@ -26,8 +26,10 @@ jobs:
           git add docs/cloud_brain.db
           git diff --cached --quiet && exit 0
           git commit -m "cloud brain: import feedback [skip ci]"
-          git clean -fd docs
-          git pull --rebase
+          git add -A
+          git commit -m "cloud brain: feedback refresh [skip ci]" || true
+          git clean -fd docs || true
+          git pull --rebase --autostash
           git push
       - name: Mark processed
         env:
