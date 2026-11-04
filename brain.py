@@ -3,9 +3,9 @@
 import json, os, random, re, sqlite3, threading, time, uuid
 import agent_core
 try:
-    from continual import extract_cards, dedup, build_belief, conflict_type, score, make_questions
+    from continual import extract_cards, dedup, build_belief, conflict_type, score, make_questions, toks
 except Exception:
-    from nbpw.continual import extract_cards, dedup, build_belief, conflict_type, score, make_questions
+    from nbpw.continual import extract_cards, dedup, build_belief, conflict_type, score, make_questions, toks
 
 DB = os.environ.get("BRAIN_DB") or os.path.join(os.path.dirname(os.path.abspath(__file__)), "brain.db")
 LOCK = threading.Lock()
@@ -31,6 +31,7 @@ def init():
         c.execute("CREATE TABLE IF NOT EXISTS feedback (id TEXT PRIMARY KEY, kind TEXT, text TEXT, contact TEXT, topic TEXT, status TEXT, created REAL, updated REAL)")
         c.execute("CREATE TABLE IF NOT EXISTS improvements (id TEXT PRIMARY KEY, feedback_id TEXT, kind TEXT, title TEXT, detail TEXT, status TEXT, created REAL, updated REAL)")
         c.execute("CREATE TABLE IF NOT EXISTS quiz (id TEXT PRIMARY KEY, card_id TEXT, question TEXT, answer TEXT, topic TEXT, correct INTEGER, ts REAL)")
+        c.execute("CREATE TABLE IF NOT EXISTS card_meta (id TEXT PRIMARY KEY, access_count INTEGER DEFAULT 0, last_access REAL DEFAULT 0, tier TEXT DEFAULT 'warm')")
     c.close()
 
 
@@ -75,6 +76,68 @@ def retention():
     total, good = row
     return {"n": total, "correct": good, "rate": round(good / total, 3) if total else 0.0,
             "recent": round(sum(x[0] for x in recent) / len(recent), 3) if recent else 0.0}
+
+
+
+def touch(ids):
+    if not ids:
+        return
+    c = _conn(); now = time.time()
+    with c:
+        for nid in ids:
+            c.execute("INSERT INTO card_meta(id,access_count,last_access,tier) VALUES(?,?,?,'hot') ON CONFLICT(id) DO UPDATE SET access_count=access_count+1,last_access=excluded.last_access,tier='hot'",
+                      (nid, 1, now))
+    c.close()
+
+
+def refresh_tiers():
+    c = _conn(); now = time.time()
+    rows = c.execute("SELECT id,ts FROM cards").fetchall()
+    with c:
+        for nid, ts in rows:
+            tier = "hot" if ts and now - ts < 7 * 86400 else ("cold" if ts and now - ts > 30 * 86400 else "warm")
+            c.execute("INSERT INTO card_meta(id,tier) VALUES(?,?) ON CONFLICT(id) DO UPDATE SET tier=excluded.tier", (nid, tier))
+    c.close()
+
+
+def tier_counts():
+    c = _conn()
+    rows = c.execute("SELECT tier,COUNT(*) FROM card_meta GROUP BY tier").fetchall()
+    c.close()
+    return {t: n for t, n in rows}
+
+def novelty_filter(cards):
+    """Skip near-duplicate cards against history; merge support/confidence."""
+    if not cards:
+        return cards, 0
+    c = _conn()
+    rows = c.execute("SELECT id,topic,claim,evidence,source_json,source_type,confidence,status,support FROM cards").fetchall()
+    existing = []
+    for r in rows:
+        existing.append({"id": r[0], "topic": r[1], "claim": r[2], "evidence": r[3],
+                         "source": json.loads(r[4] or "{}"), "source_type": r[5],
+                         "confidence": r[6], "status": r[7], "support": r[8]})
+    keep, skipped = [], 0
+    with c:
+        for n in cards:
+            hit = None
+            for old in existing:
+                if old.get("topic") != n.get("topic"):
+                    continue
+                if conflict_type(n, old):
+                    continue
+                a, b = toks(n.get("claim", "")), toks(old.get("claim", ""))
+                if a and b and len(a & b) / len(a | b) > .82:
+                    hit = old; break
+            if hit:
+                skipped += 1
+                hit["support"] = int(hit.get("support", 1)) + 1
+                hit["confidence"] = max(float(hit.get("confidence", 0)), float(n.get("confidence", 0)))
+                c.execute("UPDATE cards SET support=?, confidence=? WHERE id=?", (hit["support"], hit["confidence"], hit["id"]))
+            else:
+                keep.append(n)
+    c.close()
+    return keep, skipped
 
 def reconcile(new_cards):
     """Compare new cards against the existing library, mark conflicts with type."""
@@ -146,6 +209,7 @@ def _run(cid, topic):
         _set(cid, "extracting", sources=len(uniq))
         cards = extract_cards(topic, uniq)
         cards = dedup(cards)
+        cards, redundant = novelty_filter(cards)
         _set(cid, "verifying", cards=len(cards))
         build_belief(cards)
         reconciled = reconcile(cards)
@@ -188,6 +252,7 @@ def consolidate():
                       "source_type": r[5], "confidence": r[6], "status": "active", "support": r[8]})
     cards = dedup(cards); build_belief(cards)
     new, conflicts = upsert(cards, cid)
+    refresh_tiers()
     with LOCK:
         AUTO["last"] = time.time(); AUTO["last_kind"] = "evolve"
         CURRENT["stage"] = "complete"; CURRENT["topic"] = "EVOLUTION"; CURRENT["elapsed"] = round(time.time() - CURRENT["started"], 1)
@@ -242,7 +307,8 @@ def status():
                         "avg_confidence": round(sum(x[4] for x in feed) / max(1, len(feed)), 2),
                         "sources": len(srcs), "source_mix": [{"type": t, "count": n} for t, n in mix],
                         "feedback": fb_count, "feedback_open": fb_open, "improvements": imp_count,
-                        "quiz": retention()["n"], "retention": retention()["rate"]},
+                        "quiz": retention()["n"], "retention": retention()["rate"],
+                        "tiers": tier_counts()},
             "cycles": [{"id": r[0], "topic": r[1], "started": r[2], "finished": r[3], "stage": r[4],
                         "sources": r[5], "cards": r[6], "new_cards": r[7], "conflicts": r[8], "status": r[9]} for r in rows],
             "feed": [{"id": r[0], "topic": r[1], "claim": r[2][:260], "source_type": r[3], "confidence": r[4], "status": r[5]} for r in feed]}

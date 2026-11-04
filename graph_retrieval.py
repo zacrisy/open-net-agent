@@ -126,7 +126,24 @@ def ppr(query, cards, graph=None, k=5, alpha=0.35, iters=15):
         c = dict(graph["nodes"][nid])
         c["score"] = round(final.get(nid, 0.0), 5)
         top.append(c)
-    return {"query": query, "cards": top, "seeds": [{"id": i, "score": round(v, 4)} for i, v in sorted(seeds.items(), key=lambda x: x[1], reverse=True)[:3]],
+    def mmr(cands, k=4, lam=0.72):
+        selected = []
+        pool = list(cands)
+        while pool and len(selected) < k:
+            best = None; best_v = -1
+            for c in pool:
+                rel = float(c.get("score", 0))
+                if selected:
+                    a = tokens(c.get("claim", ""))
+                    div = max(len(a & tokens(x.get("claim", ""))) / max(1, len(a | tokens(x.get("claim", "")))) for x in selected)
+                else:
+                    div = 0.0
+                v = lam * rel - (1 - lam) * div
+                if v > best_v: best, best_v = c, v
+            selected.append(best); pool.remove(best)
+        return [{"id": c.get("id"), "claim": (c.get("claim") or "")[:180], "score": c.get("score", 0)} for c in selected]
+    return {"query": query, "cards": top, "workspace": mmr(top, 4),
+            "seeds": [{"id": i, "score": round(v, 4)} for i, v in sorted(seeds.items(), key=lambda x: x[1], reverse=True)[:3]],
             "edges": len(graph["edges"]), "engine": "ppr"}
 
 
@@ -143,4 +160,10 @@ def retrieve(query, k=5):
         rows = c.execute("SELECT src,dst,kind FROM edges").fetchall()
         c.close()
         _CACHE.update({"key": key, "graph": build_graph(cards, rows), "ts": now})
-    return ppr(query, cards, _CACHE["graph"], k=k)
+    result = ppr(query, cards, _CACHE["graph"], k=k)
+    try:
+        import brain
+        brain.touch([c["id"] for c in result.get("cards", [])])
+    except Exception:
+        pass
+    return result

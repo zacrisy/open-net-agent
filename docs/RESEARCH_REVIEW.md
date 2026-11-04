@@ -2,11 +2,13 @@
 
 **日期**：2026-11-04  
 **对象**：OpenNetBrain / `zacrisy/open-net-agent`  
-**线上**：<https://zacrisy.github.io/open-net-agent/brain.html?v=16>  
+**线上**：<https://zacrisy.github.io/open-net-agent/brain.html?v=17>  
 **VPS API**：<https://kids-pcs-attacked-myth.trycloudflare.com>  
 **代码基线**：`main`（v0.5.1 之后）
 
 ---
+
+> **v0.10 实现更新（2026-11-04）**：加入跨批次冗余门控、workspace MMR、记忆 hot/warm/cold 元数据。它们把“预测残差/工作空间/记忆分层”落到工程，但仍是词面级、非真网络。
 
 > **v0.9 实现更新（2026-11-04）**：加入历史库冲突对账（否定/数值/时间/人群/定义）、引用完整性检查、课程自测与 RETENTION 指标。VPS 实测：162 卡、1 个真实 disputed、citation 8 refs/10 sources、retention 1.0（5 题小样本）。这些是管线验证，不是长期效果证明。
 

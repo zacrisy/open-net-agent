@@ -436,7 +436,8 @@ function renderAnswer(d) {
   $('response').innerHTML=`<div class="answer-head"><span class="tag">RESPONSE · ${conf.toFixed(2)} CONF</span><span class="task">${esc(d.mode||'')} · ${esc(d.engine||'')} · ${d.elapsed??'-'}s</span></div><div class="answer">${esc(d.answer)}</div><div class="meta">${(d.trace||[]).map(t=>`<span>${esc(t.step)}: ${esc(t.detail)}</span>`).join(' · ')}</div><div class="srcs">${srcs||'<div class="empty">无外部来源</div>'}</div><div class="feedback"><button data-vote="up" data-id="${esc(d.id||'')}">HELPFUL ↑</button><button data-vote="down" data-id="${esc(d.id||'')}">NOT QUITE ↓</button><span id="fbMsg"></span></div>`;
   document.querySelectorAll('.feedback button').forEach(b=>b.onclick=()=>vote(b.dataset.id,b.dataset.vote));
   if(d.graph){
-    $('graphDetail').innerHTML = `<b>PPR · ${esc(d.graph.engine||'graph')}</b> · ${d.graph.cards.length} activated cards · ${d.graph.edges} edges<br>` + d.graph.cards.map((c,i)=>`${i+1}. ${esc(c.claim)} <span style="color:var(--dim)">(${Number(c.score||0).toFixed(3)})</span>`).join('<br>');
+    const ws=(d.graph.workspace||[]).map((c,i)=>`W${i+1} ${esc(c.claim)}`).join(' · ');
+    $('graphDetail').innerHTML = `<b>PPR · ${esc(d.graph.engine||'graph')}</b> · ${d.graph.cards.length} activated cards · ${d.graph.edges} edges<br>` + d.graph.cards.map((c,i)=>`${i+1}. ${esc(c.claim)} <span style="color:var(--dim)">(${Number(c.score||0).toFixed(3)})</span>`).join('<br>') + (ws ? `<br><b>WORKSPACE</b> ${ws}` : '');
   }
 }
 

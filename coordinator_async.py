@@ -197,7 +197,8 @@ async def _ask_core(d):
                 res["trace"] = (res.get("trace") or []) + [{"step": "graph", "detail": f"PPR {len(g['cards'])} cards / {g.get('edges',0)} edges"}]
                 res["graph"] = {"engine": g.get("engine"), "edges": g.get("edges", 0),
                                 "seeds": g.get("seeds", []),
-                                "cards": [{"id": c.get("id"), "claim": (c.get("claim") or "")[:220], "score": c.get("score", 0)} for c in g["cards"]]}
+                                "cards": [{"id": c.get("id"), "claim": (c.get("claim") or "")[:220], "score": c.get("score", 0)} for c in g["cards"]],
+                                "workspace": g.get("workspace", [])}
                 res["engine"] = (res.get("engine") or "") + "+graph"
         except Exception as e:
             res.setdefault("trace", []).append({"step": "graph", "detail": "skipped: " + str(e)[:80]})
