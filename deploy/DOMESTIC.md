@@ -2,7 +2,17 @@
 
 > 国内云账号需要实名认证，无法自动注册。你提供一台 Ubuntu 22.04 的轻量服务器（2C2G 足够）和 SSH 后，我可以直接部署。
 
-## 方案 A：Docker（推荐）
+## 最快：网页终端一行命令（推荐）
+
+在云控制台点“远程连接/登录”，以 root 粘贴：
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/zacrisy/open-net-agent/main/deploy/vps_bootstrap.sh | bash
+```
+
+脚本会自动安装 Docker、拉代码、构建、启动完整 API、配置 HTTPS（`IP-dashes.sslip.io`），并打印访问地址和 token。安全组需放行 80/443。
+
+## 方案 A：Docker（手动）
 
 ```bash
 git clone https://github.com/zacrisy/open-net-agent.git
