@@ -29,6 +29,7 @@ NODE_TTL = 20
 HITS = defaultdict(list)
 PUBLIC_HITS = defaultdict(list)
 ASK_HITS = defaultdict(list)
+ASK_JOBS = {}
 LEARN_HITS = defaultdict(list)
 db.init()
 
@@ -146,6 +147,34 @@ async def _ask_core(d):
 async def ask(req):
     if not auth(req): return web.json_response({"error": "unauthorized"}, status=401)
     return web.json_response(await _ask_core(await req.json()))
+
+
+async def _run_ask_job(jid, d):
+    try:
+        res = await _ask_core(d)
+        ASK_JOBS[jid] = {"status": "done", "result": res, "ts": time.time()}
+    except Exception as e:
+        ASK_JOBS[jid] = {"status": "error", "error": str(e)[:300], "ts": time.time()}
+
+
+async def public_ask_start(req):
+    if ask_limited(req): return web.json_response({"error": "rate limit"}, status=429)
+    try: d = await req.json()
+    except Exception: d = {}
+    jid = uuid.uuid4().hex[:12]
+    now = time.time()
+    for k, v in list(ASK_JOBS.items()):
+        if now - v.get("ts", now) > 900: ASK_JOBS.pop(k, None)
+    ASK_JOBS[jid] = {"status": "running", "ts": now}
+    asyncio.create_task(_run_ask_job(jid, d))
+    return web.json_response({"job_id": jid, "status": "running"})
+
+
+async def public_ask_result(req):
+    jid = req.query.get("job_id", "")
+    job = ASK_JOBS.get(jid)
+    if not job: return web.json_response({"error": "job not found"}, status=404)
+    return web.json_response(job)
 
 
 async def public_ask(req):
@@ -321,6 +350,8 @@ def app():
     a.router.add_post("/public/query", public_query)
     a.router.add_post("/ask", ask)
     a.router.add_post("/public/ask", public_ask)
+    a.router.add_post("/public/ask/start", public_ask_start)
+    a.router.add_get("/public/ask/result", public_ask_result)
     a.router.add_post("/api/brain/learn", brain_learn)
     a.router.add_post("/api/brain/evolve", brain_evolve)
     a.router.add_get("/api/brain/status", brain_status)

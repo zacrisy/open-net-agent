@@ -304,7 +304,23 @@ function renderAnswer(d) {
   document.querySelectorAll('.feedback button').forEach(b=>b.onclick=()=>vote(b.dataset.id,b.dataset.vote));
 }
 
-async function ask(){ const q=$('q').value.trim(); if(!q&&state.mode!=='verify'){$('q').focus();return;} loading(); try{ const body={query:q,mode:state.mode,doc:$('doc').value,claim:$('claim').value,evidence:$('evidence').value}; const d=await api('/public/ask',{method:'POST',body:JSON.stringify(body)}); renderAnswer(d);}catch(e){renderAnswer({error:String(e)});} }
+async function ask(){
+  const q=$('q').value.trim(); if(!q&&state.mode!=='verify'){$('q').focus();return;}
+  loading();
+  try{
+    const body={query:q,mode:state.mode,doc:$('doc').value,claim:$('claim').value,evidence:$('evidence').value};
+    const s=await api('/public/ask/start',{method:'POST',body:JSON.stringify(body)});
+    if(!s.job_id){ renderAnswer({error:s.error||'无法启动任务'}); return; }
+    for(let i=0;i<90;i++){
+      await new Promise(r=>setTimeout(r,700));
+      const r=await api('/public/ask/result?job_id='+encodeURIComponent(s.job_id));
+      if(r.status==='done'){ renderAnswer(r.result); return; }
+      if(r.status==='error'){ renderAnswer({error:r.error||'任务失败'}); return; }
+      $('response').innerHTML=`<div class="empty">${state.mode.toUpperCase()} · RUNNING ${i+1}s…</div>`;
+    }
+    renderAnswer({error:'任务超时，请重试'});
+  }catch(e){renderAnswer({error:String(e)});}
+}
 async function vote(id,v){ if(!id)return; const r=await api('/feedback',{method:'POST',body:JSON.stringify({id,vote:v})}); if(r.ok){$('fbMsg').textContent='SAVED ✓';} }
 
 $('train').onclick=startLearn; $('evolve').onclick=evolve; $('heroTrain').onclick=()=>{document.querySelector('.panel').scrollIntoView({behavior:'smooth'});startLearn();};
