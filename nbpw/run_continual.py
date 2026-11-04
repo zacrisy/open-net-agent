@@ -128,14 +128,22 @@ def main():
                    "sources": sum(len(v) for v in raw.values())}
     json.dump(res, open(os.path.join(HERE, "continual_results.json"), "w"), ensure_ascii=False, indent=1)
     # figures
-    fig, ax = plt.subplots(figsize=(7, 4.5), dpi=150)
+    import numpy as np
+    fig, ax = plt.subplots(figsize=(8, 4.5), dpi=150)
     names = ["static", "memory", "nbcl"]
-    ax.bar(names, [res[n]["success"] for n in names], color=["#95a5a6", "#e67e22", "#16a085"])
-    ax.set_ylim(0, 1); ax.set_ylabel("question success"); ax.set_title("Knowledge acquisition: static vs memory vs NBCL")
-    for i, n in enumerate(names): ax.text(i, res[n]["success"] + .03, f"{res[n]['success']:.2f}", ha="center")
-    fig.tight_layout(); fig.savefig(os.path.join(HERE, "figs", "learning_acquisition.png")); plt.close(fig)
+    masked = [res[n]["success"] for n in names]
+    concept = [res[n.replace("concept_", "")] if False else res["concept_" + n]["success"] for n in names]
+    x = np.arange(len(names)); w = .36
+    ax.bar(x - w/2, masked, w, label="masked evidence", color="#16a085")
+    ax.bar(x + w/2, concept, w, label="concept question", color="#e67e22")
+    ax.set_xticks(x); ax.set_xticklabels(names); ax.set_ylim(0, 1.08)
+    ax.set_ylabel("success"); ax.set_title("Knowledge acquisition: evidence vs concept")
+    for i, v in enumerate(masked): ax.text(i - w/2, v + .02, f"{v:.2f}", ha="center", fontsize=8)
+    for i, v in enumerate(concept): ax.text(i + w/2, v + .02, f"{v:.2f}", ha="center", fontsize=8)
+    ax.legend(); fig.tight_layout()
+    fig.savefig(os.path.join(HERE, "figs", "learning_acquisition.png")); plt.close(fig)
     fig, ax = plt.subplots(figsize=(6, 4.5), dpi=150)
-    ax.bar(["naive memory", "NBCL"], [res["belief"]["naive"], res["belief"]["nbcl"]], color=["#e67e22", "#16a085"])
+    ax.bar(["append-only", "NBCL"], [res["belief"]["naive"], res["belief"]["nbcl"]], color=["#e67e22", "#16a085"])
     ax.set_ylim(0, 1); ax.set_ylabel("correct active belief"); ax.set_title("Belief revision under contradiction")
     for i, v in enumerate([res["belief"]["naive"], res["belief"]["nbcl"]]): ax.text(i, v + .03, f"{v:.2f}", ha="center")
     fig.tight_layout(); fig.savefig(os.path.join(HERE, "figs", "belief_revision.png")); plt.close(fig)
