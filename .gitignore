@@ -5,3 +5,5 @@ pause
 netagent.db*
 dist/
 brain.db*
+*.db-wal
+*.db-shm

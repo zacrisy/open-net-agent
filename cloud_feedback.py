@@ -23,6 +23,11 @@ def main():
     c = sqlite3.connect(os.environ["BRAIN_DB"])
     c.execute("PRAGMA wal_checkpoint(TRUNCATE)")
     c.close()
+    for suffix in ("-wal", "-shm"):
+        try:
+            os.remove(os.environ["BRAIN_DB"] + suffix)
+        except FileNotFoundError:
+            pass
     print("feedback", r)
 
 
