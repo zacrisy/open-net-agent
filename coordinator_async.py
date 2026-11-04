@@ -115,13 +115,30 @@ def _knowledge_pack():
     return STARTER_DOCS + db.top_experience_docs(30)
 
 
+def _self_intro():
+    s = brain.status(); m = s.get("metrics", {}); a = s.get("auto", {})
+    answer = (f"我是 OpenNetBrain，一个持续学习的网络大脑。\n\n"
+              f"当前状态：{m.get('cards',0)} 张知识卡、{m.get('sources',0)} 个真实来源、{m.get('cycles',0)} 个学习/进化周期；"
+              f"自动循环每 {a.get('interval',90)} 秒在 LEARN / EVOLVE 之间切换。\n\n"
+              f"我能做：Research（多源研究 + 引用）、Docs（文档问答）、Compute（安全计算）、Verify（NLI 核查）、"
+              f"Summarize（摘要）、Translate（翻译）、Extract（事实抽取）。\n\n"
+              f"我的回答优先来自可追溯来源；没有来源时会说明，不会编造。学习发生在知识卡、信念图和课程层，不是改写权重。")
+    return {"answer": answer,
+            "sources": [{"title": "OpenNetBrain internal state", "snippet": f"cards={m.get('cards',0)}, sources={m.get('sources',0)}, cycles={m.get('cycles',0)}", "source": "brain", "url": "", "year": ""}],
+            "trace": [{"step": "self", "detail": "state + capabilities"}, {"step": "cite", "detail": "internal"}],
+            "confidence": 0.99, "engine": "self-model", "elapsed": 0.0}
+
+
 async def _ask_core(d):
     mode = d.get("mode", "research")
     query = str(d.get("query", ""))[:500].strip()
     doc = str(d.get("doc", ""))[:8000]
     claim = str(d.get("claim", ""))[:400].strip()
     evidence = str(d.get("evidence", ""))[:1200].strip()
-    if mode == "verify":
+    SELF = ("介绍", "你是谁", "你能做什么", "你会什么", "介绍一下", "who are you", "what can you do", "about you")
+    if mode == "research" and any(k in (query or "").lower() for k in SELF):
+        res = _self_intro()
+    elif mode == "verify":
         if not claim or not evidence:
             return {"error": "verify 需要 claim 和 evidence"}
         v = await _run_query({"skill": "nli", "query": claim + " || " + evidence, "timeout": 20, "quorum": 1})

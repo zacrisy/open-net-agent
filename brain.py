@@ -187,9 +187,10 @@ def graph():
             ang = 2 * math.pi * i / max(1, len(items))
             rad = 100 + (hash(topic) % 50)
             nodes.append({"id": card["id"], "topic": topic, "label": card["claim"][:90],
-                          "status": card["status"], "confidence": card["confidence"],
-                          "source_type": card["source_type"], "x": math.cos(ang) * rad,
-                          "y": math.sin(ang) * rad})
+                          "claim": card["claim"], "status": card["status"], "confidence": card["confidence"],
+                          "source_type": card["source_type"], "source_url": card.get("source", {}).get("url", ""),
+                          "source_title": card.get("source", {}).get("title", ""),
+                          "x": math.cos(ang) * rad, "y": math.sin(ang) * rad})
     edges = []
     c = _conn()
     for src, dst, kind in c.execute("SELECT src,dst,kind FROM edges").fetchall():
@@ -221,27 +222,31 @@ AUTO_TOPICS = ["GLP-1 weight loss mechanism", "AI agent evaluation", "Python asy
                "LLM agent reliability evaluation", "retrieval augmented generation evaluation"]
 
 
-def auto_start(interval=600):
+def auto_start(interval=90):
     with LOCK:
         AUTO.update({"enabled": True, "interval": interval, "next": time.time() + 4})
     def loop():
         time.sleep(4)
-        with LOCK:
-            busy = CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating")
-        if not busy:
-            start(random.choice(AUTO_TOPICS))
-        while True:
-            with LOCK:
-                AUTO["next"] = time.time() + interval
-            time.sleep(interval)
+        try:
             with LOCK:
                 busy = CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating")
-            if busy:
-                continue
-            if AUTO.get("last_kind") == "learn":
-                consolidate()
-            else:
+            if not busy:
                 start(random.choice(AUTO_TOPICS))
+            while True:
+                with LOCK:
+                    AUTO["next"] = time.time() + interval
+                time.sleep(interval)
+                with LOCK:
+                    busy = CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating")
+                if busy:
+                    continue
+                if AUTO.get("last_kind") == "learn":
+                    consolidate()
+                else:
+                    start(random.choice(AUTO_TOPICS))
+        except Exception as e:
+            print("AUTO LOOP ERROR:", e, flush=True)
+            time.sleep(10)
     threading.Thread(target=loop, daemon=True).start()
 
 

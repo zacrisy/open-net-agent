@@ -58,6 +58,8 @@ textarea,input{background:rgba(3,9,15,.85);border:1px solid var(--line);color:va
 .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.node{display:flex;justify-content:space-between;gap:8px;font:8px/1.5 var(--mono);border-bottom:1px solid rgba(94,242,255,.08);padding:4px 0;color:var(--muted)}.node b{color:var(--text);font-weight:500}
 pre{background:rgba(3,9,15,.9);border:1px solid var(--line);padding:9px;color:var(--cyan);font:8.5px/1.7 var(--mono);white-space:pre-wrap;word-break:normal;overflow-wrap:break-word;margin:0 0 7px}.copy{width:100%;border:1px solid var(--green);background:rgba(77,255,184,.08);color:var(--green);font:8px/1 var(--mono);letter-spacing:.12em;padding:7px;cursor:pointer}
 .modal{position:fixed;inset:0;z-index:300;display:none;place-items:center;background:rgba(2,5,9,.85);backdrop-filter:blur(10px)}.modal.open{display:grid}.modal-card{width:min(420px,92vw);background:#08111b;border:1px solid var(--green);padding:20px}.modal-card h3{font:10px/1 var(--mono);letter-spacing:.2em;color:var(--green);margin:0 0 8px}.modal-card p{color:var(--muted);font-size:11px;margin:0 0 12px}.modal-actions{display:flex;gap:7px;margin-top:10px}.modal-actions button{flex:1;padding:8px;font:8px/1 var(--mono);letter-spacing:.12em;cursor:pointer;border:1px solid var(--green);background:var(--green);color:#021016}.modal-actions .ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.graph-detail{margin-top:8px;border:1px solid rgba(94,242,255,.12);padding:8px 10px;font:9px/1.6 var(--mono);color:var(--muted);min-height:38px;background:rgba(3,9,15,.35)}
+.graph-detail b{color:var(--cyan)}.graph-detail a{color:var(--green)}
 .mix{display:flex;flex-direction:column;gap:7px}
 .mix-row{display:flex;align-items:center;gap:8px;font:9px/1.5 var(--mono);color:var(--muted)}
 .mix-row b{width:90px;color:var(--text);font-weight:500}.mix-bar{flex:1;height:3px;background:rgba(94,242,255,.1);overflow:hidden}.mix-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan))}
@@ -137,6 +139,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
     <div class="panel">
       <div class="head"><span class="tag">02 / KNOWLEDGE GRAPH</span><span class="hint" id="graphInfo">--</span></div>
       <canvas id="graphCanvas"></canvas>
+      <div class="graph-detail" id="graphDetail">点击节点查看知识卡</div>
       <div class="legend"><span><i style="background:#4dffb8"></i>active</span><span><i style="background:#ffc857"></i>disputed</span><span><i style="background:#5ef2ff"></i>support edge</span><span><i style="background:#ffc857"></i>contradict edge</span></div>
     </div>
 
@@ -159,6 +162,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
         <button data-q="GLP-1 减肥药的作用机制是什么？">GLP-1 机制</button>
         <button data-q="最近 AI 领域有什么值得关注的事？">AI 动态</button>
         <button data-q="Python asyncio RuntimeError event loop is closed 怎么解决？">代码报错</button>
+        <button data-q="介绍一下你自己">介绍自己</button>
       </div>
       <div class="response" id="response"><div class="empty">等待信号。学习完成后，可以直接在这里使用新知识。</div></div>
     </div>
@@ -242,7 +246,8 @@ async function refreshBrain() {
     $('statCycles').textContent = m.cycles ?? 0; $('statConf').textContent = (m.avg_confidence ?? 0).toFixed(2);
     $('cardCountTop').textContent = m.cards ?? 0;
     const a = s.auto || {};
-    $('autoState').textContent = a.enabled ? `AUTO ${Math.round((a.interval||600)/60)}m · next ${a.next_in ?? '--'}s` : 'AUTO OFF';
+    const sec = a.interval || 90; const alabel = sec < 120 ? `${sec}s` : `${Math.round(sec/60)}m`;
+    $('autoState').textContent = a.enabled ? `AUTO ${alabel} · next ${a.next_in ?? '--'}s` : 'AUTO OFF';
     $('autoHint').textContent = a.enabled ? `NEXT ${a.next_in ?? '--'}s` : 'AUTO OFF';
     $('linkState').textContent = m.cards ? 'LEARNING' : 'IDLE'; $('dot').classList.toggle('off', !m.cards);
     $('sourceCount').textContent = m.sources ?? 0;
@@ -290,10 +295,18 @@ function drawGraph() {
   (state.graph.edges||[]).forEach(e => { const a=pos[e.source], b=pos[e.target]; if(!a||!b)return; x.beginPath(); x.moveTo(a.x,a.y); x.lineTo(b.x,b.y); x.strokeStyle=e.kind==='contradicts'?'rgba(255,200,87,.35)':'rgba(94,242,255,.14)'; x.stroke(); });
   nodes.forEach(n => { const p=pos[n.id]; x.beginPath(); x.arc(p.x,p.y,4+Math.min(3,(n.confidence||.5)*4),0,7); x.fillStyle=n.status==='disputed'?'#ffc857':'#4dffb8'; x.shadowColor=x.fillStyle; x.shadowBlur=12; x.fill(); x.shadowBlur=0; });
   centers.forEach(c0 => { x.fillStyle='rgba(111,135,155,.8)'; x.font='8px monospace'; x.fillText(c0.t.toUpperCase().slice(0,28), c0.x-40, H-10); });
+  window.__graphPos = pos; window.__graphNodes = nodes;
   c.onclick = ev => {
     const rect=c.getBoundingClientRect(); const mx=ev.clientX-rect.left, my=ev.clientY-rect.top;
     let best=null, bd=1e9; nodes.forEach(n=>{const p=pos[n.id];const d=Math.hypot(p.x-mx,p.y-my);if(d<bd){bd=d;best=n;}});
-    if(best && bd<18){ $('nodeDetail').textContent = `${best.source_type} · ${best.status} · conf ${best.confidence} — ${best.label}`; } else { $('nodeDetail').textContent='点击脑图节点查看知识卡'; }
+    if(best && bd<22){
+      const link = best.source_url ? ` · <a href="${esc(best.source_url)}" target="_blank" rel="noopener">source</a>` : '';
+      $('graphDetail').innerHTML = `<b>${esc(best.source_type||'')}</b> · ${esc(best.status)} · conf ${Number(best.confidence||0).toFixed(2)}${link}<br>${esc(best.claim||best.label)}`;
+      $('nodeDetail').textContent = `${best.source_type} · ${best.status} · ${best.label}`;
+    } else {
+      $('graphDetail').textContent = '点击节点查看知识卡';
+      $('nodeDetail').textContent = '点击脑图节点查看知识卡';
+    }
   };
 }
 
