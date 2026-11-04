@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OpenNetBrain · 网络大脑</title>
+<meta property="og:title" content="OpenNetBrain — the network is learning">
+<meta property="og:description" content="A network brain that learns from real sources, builds knowledge cards, revises beliefs and answers with citations.">
+<meta property="og:image" content="https://zacrisy.github.io/open-net-agent/preview.png">
+<style>
+:root{--bg:#03070c;--card:rgba(9,18,28,.72);--line:rgba(94,242,255,.16);--cyan:#5ef2ff;--green:#4dffb8;--amber:#ffc857;--violet:#9b7bff;--text:#d9e8f4;--muted:#6f879b;--dim:#3b4d5e;--mono:"SF Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.7 var(--sans);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(900px 600px at 20% 8%,rgba(94,242,255,.12),transparent 60%),radial-gradient(800px 600px at 84% 22%,rgba(77,255,184,.09),transparent 60%),radial-gradient(700px 500px at 50% 100%,rgba(155,123,255,.08),transparent 60%)}
+body::after{content:"";position:fixed;inset:0;z-index:-2;background-image:linear-gradient(rgba(94,242,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(94,242,255,.03) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 25%,#000 20%,transparent 78%)}
+#stars{position:fixed;inset:0;z-index:-1;width:100%;height:100%}
+.scan{position:fixed;inset:0;z-index:200;pointer-events:none;opacity:.32;background:repeating-linear-gradient(180deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px)}
+.topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 26px;border-bottom:1px solid var(--line);background:rgba(3,7,12,.78);backdrop-filter:blur(18px)}
+.brand{display:flex;align-items:center;gap:11px}.logo{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--cyan);color:var(--cyan);box-shadow:0 0 26px rgba(94,242,255,.3);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.brand h1{font-size:13px;letter-spacing:.24em;margin:0}.brand h1 span{color:var(--cyan)}.brand p{margin:1px 0 0;font:9px/1.2 var(--mono);letter-spacing:.2em;color:var(--muted)}
+.pills{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid var(--line);font:9px/1 var(--mono);letter-spacing:.12em;color:var(--muted);background:rgba(9,18,28,.55)}.pill b{color:var(--text)}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}.dot.warn{background:var(--amber);box-shadow:0 0 10px var(--amber)}.dot.off{background:#e74c3c;box-shadow:0 0 10px #e74c3c}
+.icon{background:transparent;border:1px solid var(--line);color:var(--muted);width:30px;height:27px;cursor:pointer}.icon:hover{color:var(--cyan);border-color:var(--cyan)}
+.shell{max-width:1360px;margin:0 auto;padding:26px 26px 70px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;min-height:62vh;padding:10px 0 30px}
+.eyebrow{font:9px/1.4 var(--mono);letter-spacing:.32em;color:var(--green);margin:0 0 14px}
+h2{font-size:clamp(38px,5.2vw,70px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px;font-weight:800}h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px var(--green);text-shadow:0 0 34px rgba(77,255,184,.3)}
+.sub{color:var(--muted);max-width:540px;margin:0 0 22px;font-size:13.5px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;text-decoration:none;font:10px/1 var(--mono);letter-spacing:.15em;border:1px solid var(--cyan);color:#021016;background:linear-gradient(90deg,var(--green),var(--cyan));cursor:pointer}.btn.ghost{background:transparent;color:var(--text);border-color:var(--line)}.btn:hover{filter:brightness(1.08)}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;border-top:1px solid var(--line);padding-top:14px;max-width:560px}
+.hero-stats b{display:block;font:600 22px/1.1 var(--mono);color:var(--text)}.hero-stats span{font:8px/1.3 var(--mono);letter-spacing:.14em;color:var(--muted)}
+.visual{position:relative;height:460px;border:1px solid var(--line);background:rgba(5,12,20,.45);overflow:hidden;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px))}
+#brainCanvas{position:relative;z-index:2;width:100%;height:100%;display:block}
+.core{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;font:9px/1.4 var(--mono);letter-spacing:.2em;color:var(--green);text-shadow:0 0 16px rgba(77,255,184,.5)}.core span{font-size:7px;color:var(--muted)}
+.detail{position:absolute;z-index:4;left:12px;right:12px;bottom:10px;font:9px/1.5 var(--mono);color:var(--muted);background:rgba(3,7,12,.72);border:1px solid var(--line);padding:6px 8px}
+.panel{position:relative;background:var(--card);border:1px solid var(--line);backdrop-filter:blur(14px);padding:16px;margin-bottom:14px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.panel::before,.panel::after{content:"";position:absolute;width:12px;height:12px}.panel::before{left:-1px;top:-1px;border-left:2px solid var(--green);border-top:2px solid var(--green)}.panel::after{right:-1px;bottom:-1px;border-right:2px solid var(--green);border-bottom:2px solid var(--green)}
+.head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.tag{font:9px/1 var(--mono);letter-spacing:.18em;color:var(--green)}.hint{font:8px/1 var(--mono);letter-spacing:.1em;color:var(--dim)}
+.learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.topic-row{display:flex;gap:8px;margin-bottom:12px}.topic-row input{flex:1;background:rgba(3,9,15,.85);border:1px solid var(--line);color:var(--text);padding:10px;font:12px/1.5 var(--mono);outline:none}.topic-row input:focus{border-color:var(--green)}
+.stages{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:10px 0}.stage{border:1px solid var(--line);padding:7px 6px;font:8px/1.4 var(--mono);letter-spacing:.08em;color:var(--dim);text-align:center;transition:.2s}.stage.active{border-color:var(--green);color:var(--green);box-shadow:inset 0 0 20px rgba(77,255,184,.1)}.stage.done{color:var(--cyan);border-color:rgba(94,242,255,.4)}
+.progress{height:2px;background:rgba(94,242,255,.1);overflow:hidden;margin-bottom:10px}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--cyan));box-shadow:0 0 10px var(--green);transition:width .5s}
+.feed{display:flex;flex-direction:column;gap:6px;max-height:220px;overflow:auto}.feed-item{display:flex;gap:8px;align-items:baseline;font:9px/1.5 var(--mono);border-bottom:1px dashed rgba(94,242,255,.08);padding:5px 0}.feed-item b{color:var(--cyan);font-weight:500}.feed-item span{color:var(--dim)}.feed-item p{margin:0;color:var(--muted);font-family:var(--sans);font-size:11px;flex:1}
+.cycles{display:flex;flex-direction:column;gap:5px;margin-top:10px}.cycle{display:flex;justify-content:space-between;gap:8px;font:8px/1.5 var(--mono);color:var(--muted);border-bottom:1px solid rgba(94,242,255,.07);padding:4px 0}.cycle b{color:var(--text);font-weight:500}
+.two{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;align-items:start}
+#graphCanvas{width:100%;height:410px;display:block;background:rgba(3,9,15,.35);border:1px solid rgba(94,242,255,.08)}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font:8px/1.5 var(--mono);color:var(--muted)}.legend i{display:inline-block;width:6px;height:6px;margin-right:4px;border-radius:50%}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}.tabs button{flex:1;min-width:80px;background:rgba(3,9,15,.6);border:1px solid var(--line);color:var(--muted);padding:8px 6px;font:8px/1.4 var(--mono);letter-spacing:.06em;cursor:pointer}.tabs button.active{border-color:var(--green);color:var(--green);box-shadow:inset 0 0 18px rgba(77,255,184,.08)}
+textarea,input{background:rgba(3,9,15,.85);border:1px solid var(--line);color:var(--text);padding:10px;font:12px/1.6 var(--sans);outline:none;width:100%}textarea:focus,input:focus{border-color:var(--green)}
+.query{display:flex;gap:7px}.query textarea{flex:1;min-height:58px;resize:vertical}.send{min-width:88px;border:1px solid var(--green);color:var(--green);background:rgba(77,255,184,.08);font:9px/1 var(--mono);letter-spacing:.12em;cursor:pointer}.send:hover{background:rgba(77,255,184,.18)}
+.extra{display:none;margin-top:7px}.extra.show{display:block}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.chips button{background:transparent;border:1px dashed rgba(94,242,255,.2);color:var(--muted);padding:4px 7px;font:8px/1.4 var(--mono);cursor:pointer}.chips button:hover{border-color:var(--green);color:var(--green)}
+.response{min-height:180px;border-top:1px solid var(--line);padding-top:10px;margin-top:6px}.empty{color:var(--dim);font:9px/1.7 var(--mono);padding:14px 0}
+.answer-head{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px}.task{font:8px/1 var(--mono);color:var(--dim)}.answer{white-space:pre-wrap;font-size:13.5px;line-height:1.8}.meta{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;font:8px/1.5 var(--mono);color:var(--dim)}.src{display:flex;gap:6px;align-items:baseline;border-bottom:1px dashed rgba(94,242,255,.08);padding:4px 0;font:9px/1.5 var(--mono);color:var(--muted);text-decoration:none}.src b{color:var(--cyan)}.src span{color:var(--text);flex:1}.src em{color:var(--dim);font-style:normal;font-size:8px}
+.feedback{display:flex;gap:7px;align-items:center;margin-top:9px;border-top:1px solid var(--line);padding-top:8px}.feedback button{background:transparent;border:1px solid var(--line);color:var(--muted);font:8px/1 var(--mono);padding:5px 7px;cursor:pointer}.feedback button:hover{color:var(--green);border-color:var(--green)}.feedback span{font:8px/1 var(--mono);color:var(--green)}
+.apps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:6px}.app{border:1px solid var(--line);background:var(--card);padding:13px;cursor:pointer;transition:.2s}.app:hover{border-color:var(--green);box-shadow:0 0 26px rgba(77,255,184,.08)}.app b{display:block;font:9px/1.4 var(--mono);letter-spacing:.12em;color:var(--cyan);margin-bottom:4px}.app p{margin:0;color:var(--muted);font-size:11.5px}
+.bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.node{display:flex;justify-content:space-between;gap:8px;font:8px/1.5 var(--mono);border-bottom:1px solid rgba(94,242,255,.08);padding:4px 0;color:var(--muted)}.node b{color:var(--text);font-weight:500}
+pre{background:rgba(3,9,15,.9);border:1px solid var(--line);padding:9px;color:var(--cyan);font:8.5px/1.7 var(--mono);white-space:pre-wrap;word-break:normal;overflow-wrap:break-word;margin:0 0 7px}.copy{width:100%;border:1px solid var(--green);background:rgba(77,255,184,.08);color:var(--green);font:8px/1 var(--mono);letter-spacing:.12em;padding:7px;cursor:pointer}
+.modal{position:fixed;inset:0;z-index:300;display:none;place-items:center;background:rgba(2,5,9,.85);backdrop-filter:blur(10px)}.modal.open{display:grid}.modal-card{width:min(420px,92vw);background:#08111b;border:1px solid var(--green);padding:20px}.modal-card h3{font:10px/1 var(--mono);letter-spacing:.2em;color:var(--green);margin:0 0 8px}.modal-card p{color:var(--muted);font-size:11px;margin:0 0 12px}.modal-actions{display:flex;gap:7px;margin-top:10px}.modal-actions button{flex:1;padding:8px;font:8px/1 var(--mono);letter-spacing:.12em;cursor:pointer;border:1px solid var(--green);background:var(--green);color:#021016}.modal-actions .ghost{background:transparent;color:var(--text);border-color:var(--line)}
+footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:8px/1.5 var(--mono);letter-spacing:.1em;color:var(--dim)}footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--green)}
+@media(max-width:1000px){.hero{grid-template-columns:1fr;min-height:auto}.visual{height:340px}.learn-grid,.two,.bottom{grid-template-columns:1fr}.apps{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.shell{padding:16px 14px 56px}.topbar{padding:10px 12px}.hero-stats{grid-template-columns:repeat(2,1fr)}.apps{grid-template-columns:1fr}h2{font-size:42px}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas><div class="scan"></div>
+
+<header class="topbar">
+  <div class="brand"><div class="logo">◈</div><div><h1>OPEN<span>NET</span>BRAIN</h1><p>NETWORK-NATIVE CONTINUAL LEARNING</p></div></div>
+  <div class="pills">
+    <div class="pill"><span class="dot" id="dot"></span><span id="linkState">LINKING</span></div>
+    <div class="pill"><b id="nodeCount">--</b>&nbsp;NODES</div>
+    <div class="pill"><b id="cardCountTop">--</b>&nbsp;CARDS</div>
+    <div class="pill" id="mode">PUBLIC</div>
+    <button class="icon" id="settingsBtn" title="admin">⚙</button>
+  </div>
+</header>
+
+<main class="shell">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">NBCL // PERCEIVE · VERIFY · CONSOLIDATE</p>
+      <h2>THE NETWORK<br><em>IS LEARNING.</em></h2>
+      <p class="sub">不再只是“路由到节点”。这个大脑从真实来源抽取知识卡，建立信念图，检测冲突，生成课程，并把学到的东西固化成可追溯的记忆。每一次学习都留下证据。</p>
+      <div class="actions">
+        <button class="btn" id="heroTrain">启动学习 ↻</button>
+        <a class="btn ghost" href="#workbench">打开工作台</a>
+      </div>
+      <div class="hero-stats">
+        <div><b id="statCards">--</b><span>KNOWLEDGE CARDS</span></div>
+        <div><b id="statActive">--</b><span>ACTIVE BELIEFS</span></div>
+        <div><b id="statCycles">--</b><span>LEARNING CYCLES</span></div>
+        <div><b id="statConf">--</b><span>AVG CONFIDENCE</span></div>
+      </div>
+    </div>
+    <div class="visual">
+      <canvas id="brainCanvas"></canvas>
+      <div class="core">CORE<br><span>WORKSPACE</span></div>
+      <div class="detail" id="nodeDetail">点击脑图节点查看知识卡</div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="head"><span class="tag">01 / LEARNING LOOP</span><span class="hint" id="stageText">IDLE</span></div>
+    <div class="learn-grid">
+      <div>
+        <div class="topic-row"><input id="topic" value="GLP-1 weight loss mechanism"><button class="btn" id="train">START LEARNING</button></div>
+        <div class="stages" id="stages">
+          <div class="stage" data-stage="retrieving">RETRIEVE</div>
+          <div class="stage" data-stage="extracting">EXTRACT</div>
+          <div class="stage" data-stage="verifying">VERIFY</div>
+          <div class="stage" data-stage="consolidating">CONSOLIDATE</div>
+        </div>
+        <div class="progress"><i id="progress"></i></div>
+        <div class="hint" id="learnMsg">输入主题，或直接启动默认主题。学习在真实网络来源上进行。</div>
+        <div class="cycles" id="cycles"></div>
+      </div>
+      <div>
+        <div class="head"><span class="tag">LIVE FEED</span><span class="hint">RECENT CARDS</span></div>
+        <div class="feed" id="feed"><div class="feed-item"><p>等待学习周期…</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="two">
+    <div class="panel">
+      <div class="head"><span class="tag">02 / KNOWLEDGE GRAPH</span><span class="hint" id="graphInfo">--</span></div>
+      <canvas id="graphCanvas"></canvas>
+      <div class="legend"><span><i style="background:#4dffb8"></i>active</span><span><i style="background:#ffc857"></i>disputed</span><span><i style="background:#5ef2ff"></i>support edge</span><span><i style="background:#ffc857"></i>contradict edge</span></div>
+    </div>
+
+    <div class="panel" id="workbench">
+      <div class="head"><span class="tag">03 / WORKBENCH</span><span class="hint" id="hint">LIVE RESEARCH</span></div>
+      <div class="tabs" id="modes">
+        <button data-mode="research" class="active">RESEARCH</button>
+        <button data-mode="docs">DOCS</button>
+        <button data-mode="compute">COMPUTE</button>
+        <button data-mode="verify">VERIFY</button>
+      </div>
+      <div class="query"><textarea id="q" rows="2" placeholder="问一个真实问题…"></textarea><button class="send" id="ask">ASK</button></div>
+      <div class="extra" id="docWrap"><textarea id="doc" rows="3" placeholder="粘贴文档/报告/代码…"></textarea></div>
+      <div class="extra" id="verifyWrap"><input id="claim" placeholder="Claim：待核查说法"><input id="evidence" placeholder="Evidence：证据" style="margin-top:6px"></div>
+      <div class="chips" id="samples">
+        <button data-q="GLP-1 减肥药的作用机制是什么？">GLP-1 机制</button>
+        <button data-q="最近 AI 领域有什么值得关注的事？">AI 动态</button>
+        <button data-q="Python asyncio RuntimeError event loop is closed 怎么解决？">代码报错</button>
+      </div>
+      <div class="response" id="response"><div class="empty">等待信号。学习完成后，可以直接在这里使用新知识。</div></div>
+    </div>
+  </section>
+
+  <section class="apps">
+    <div class="app" data-mode="research" data-q="GLP-1 减肥药的作用机制是什么？"><b>MEDICAL EVIDENCE</b><p>多源医学证据、机制解释、引用。</p></div>
+    <div class="app" data-mode="research" data-q="最近 AI agent 评估有什么值得关注？"><b>TECH RADAR</b><p>技术趋势、论文与社区信号。</p></div>
+    <div class="app" data-mode="research" data-q="Python asyncio RuntimeError event loop is closed 怎么解决？"><b>CODE FIX</b><p>Stack Overflow 高票答案与修复代码。</p></div>
+    <div class="app" data-mode="docs" data-doc="OpenNetAgent 把每台电脑当成节点。节点只建立出站连接，不开放入站端口。默认 lite 模式不需要本地大模型，任何 Python3 电脑都能加入。" data-q="这份文档的核心结论是什么？"><b>DOCUMENT ANALYSIS</b><p>粘贴报告，片段级回答 [Dn]。</p></div>
+  </section>
+
+  <section class="bottom">
+    <div class="panel">
+      <div class="head"><span class="tag">04 / NETWORK NODES</span><button class="hint" id="refresh" style="background:none;border:0;cursor:pointer">SYNC</button></div>
+      <div id="nodeList"><div class="node"><b>waiting</b><span>--</span></div></div>
+      <div class="hint" style="margin-top:8px">节点只出站、nice 19、可暂停；学习由网络大脑协调。</div>
+    </div>
+    <div class="panel">
+      <div class="head"><span class="tag">05 / JOIN THE NETWORK</span></div>
+      <p class="hint" style="margin:0 0 8px">把闲置电脑变成节点：source / verifier / memory / expert。</p>
+      <pre id="joinCmd">COORD=...</pre>
+      <button class="copy" id="copyJoin">COPY COMMAND</button>
+    </div>
+  </section>
+</main>
+
+<footer><div>OPENNETBRAIN // NBCL · <span id="clock">--:--:--</span></div><div><a href="https://github.com/zacrisy/open-net-agent">GITHUB</a> · <a href="https://zacrisy.github.io/open-net-agent/">DOCS</a> · <a href="/share.html">SHARE</a></div></footer>
+
+<div class="modal" id="settings"><div class="modal-card"><h3>ADMIN LINK</h3><p>可选：管理员 token 用于审计/NLI。公共学习与工作台无需 token。</p><input id="token" placeholder="admin token"><div class="modal-actions"><button id="saveToken">SAVE</button><button id="closeSettings" class="ghost">CANCEL</button></div></div></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const REMOTE = 'https://opennetagent.serveousercontent.com';
+const QS = new URLSearchParams(location.search);
+const BACKEND = QS.get('backend') || (location.hostname.endsWith('github.io') ? REMOTE : location.origin);
+const state = { mode: 'research', graph: { nodes: [], edges: [] }, cards: [], learning: null };
+const token = () => $('token').value.trim();
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+async function api(path, opts = {}) {
+  const t = token(); const h = {'Content-Type':'application/json'};
+  if (t) h['X-Auth-Token'] = t;
+  opts.headers = Object.assign(h, opts.headers || {});
+  const r = await fetch(BACKEND + path, opts); const txt = await r.text();
+  try { return JSON.parse(txt); } catch (e) { return { error: 'bad response', raw: txt, status: r.status }; }
+}
+
+function modeText() { $('mode').textContent = token() ? 'ADMIN' : 'PUBLIC'; $('mode').style.color = token() ? 'var(--green)' : 'var(--muted)'; }
+
+function setStage(stage) {
+  const order = ['retrieving','extracting','verifying','consolidating'];
+  const idx = order.indexOf(stage);
+  document.querySelectorAll('.stage').forEach((el,i) => { el.classList.toggle('active', el.dataset.stage === stage); el.classList.toggle('done', idx > i || stage === 'complete'); });
+  $('stageText').textContent = (stage || 'idle').toUpperCase();
+  $('progress').style.width = stage === 'complete' ? '100%' : idx >= 0 ? ((idx + 1) / 4 * 100) + '%' : '0%';
+}
+
+async function refreshBrain() {
+  try {
+    const s = await api('/api/brain/status');
+    state.learning = s.learning;
+    const m = s.metrics || {};
+    $('statCards').textContent = m.cards ?? 0; $('statActive').textContent = m.active ?? 0;
+    $('statCycles').textContent = m.cycles ?? 0; $('statConf').textContent = (m.avg_confidence ?? 0).toFixed(2);
+    $('cardCountTop').textContent = m.cards ?? 0;
+    setStage(s.learning?.stage);
+    $('learnMsg').textContent = s.learning?.stage === 'complete' ? `完成：${s.learning.topic} · ${s.learning.elapsed}s` : (s.learning?.stage ? `当前阶段：${s.learning.stage} · ${s.learning.elapsed}s` : '等待开始学习。');
+    $('feed').innerHTML = (s.feed || []).length ? s.feed.map(c => `<div class="feed-item"><b>${esc(c.source_type)}</b><span>${(c.confidence||0).toFixed(2)}</span><p>${esc(c.claim)}</p></div>`).join('') : '<div class="feed-item"><p>等待学习周期…</p></div>';
+    $('cycles').innerHTML = (s.cycles || []).slice(0,5).map(c => `<div class="cycle"><b>${esc(c.topic)}</b><span>${c.cards||0} cards · ${c.sources||0} src · ${c.status}</span></div>`).join('');
+    await loadGraph();
+  } catch (e) { $('linkState').textContent = 'OFFLINE'; $('dot').classList.add('off'); }
+}
+
+async function loadGraph() {
+  const g = await api('/api/brain/graph');
+  state.graph = g || {nodes:[],edges:[]};
+  $('graphInfo').textContent = `${state.graph.nodes.length} NODES · ${state.graph.edges.length} EDGES`;
+  drawGraph();
+}
+
+async function startLearn() {
+  const topic = ($('topic').value || '').trim();
+  $('train').disabled = true; $('learnMsg').textContent = '启动学习周期…';
+  try { await api('/api/brain/learn', {method:'POST', body: JSON.stringify({topic})}); await refreshBrain(); } catch (e) {}
+  setTimeout(() => $('train').disabled = false, 2500);
+}
+
+function drawGraph() {
+  const c = $('graphCanvas'); if (!c) return; const r = c.getBoundingClientRect(); const dpr = devicePixelRatio || 1;
+  c.width = r.width * dpr; c.height = r.height * dpr; const x = c.getContext('2d'); x.scale(dpr,dpr);
+  const W = r.width, H = r.height; x.clearRect(0,0,W,H);
+  const nodes = state.graph.nodes || []; if (!nodes.length) { x.fillStyle='#3b4d5e'; x.font='10px monospace'; x.fillText('NO CARDS YET — START LEARNING', 20, H/2); return; }
+  const topics = [...new Set(nodes.map(n=>n.topic))];
+  const centers = topics.map((t,i) => ({t, x: W*(i+.5)/topics.length, y: H*.5}));
+  const pos = {};
+  nodes.forEach(n => { const c0 = centers.find(c=>c.t===n.topic) || centers[0]; const list = nodes.filter(m=>m.topic===n.topic); const idx = list.indexOf(n); const a = (idx / Math.max(1,list.length))*Math.PI*2; pos[n.id] = {x:c0.x + Math.cos(a)*Math.min(100,W/topics.length*.3), y:c0.y + Math.sin(a)*Math.min(80,H*.28)}; });
+  (state.graph.edges||[]).forEach(e => { const a=pos[e.source], b=pos[e.target]; if(!a||!b)return; x.beginPath(); x.moveTo(a.x,a.y); x.lineTo(b.x,b.y); x.strokeStyle=e.kind==='contradicts'?'rgba(255,200,87,.35)':'rgba(94,242,255,.14)'; x.stroke(); });
+  nodes.forEach(n => { const p=pos[n.id]; x.beginPath(); x.arc(p.x,p.y,4+Math.min(3,(n.confidence||.5)*4),0,7); x.fillStyle=n.status==='disputed'?'#ffc857':'#4dffb8'; x.shadowColor=x.fillStyle; x.shadowBlur=12; x.fill(); x.shadowBlur=0; });
+  centers.forEach(c0 => { x.fillStyle='rgba(111,135,155,.8)'; x.font='8px monospace'; x.fillText(c0.t.toUpperCase().slice(0,28), c0.x-40, H-10); });
+  c.onclick = ev => {
+    const rect=c.getBoundingClientRect(); const mx=ev.clientX-rect.left, my=ev.clientY-rect.top;
+    let best=null, bd=1e9; nodes.forEach(n=>{const p=pos[n.id];const d=Math.hypot(p.x-mx,p.y-my);if(d<bd){bd=d;best=n;}});
+    if(best && bd<18){ $('nodeDetail').textContent = `${best.source_type} · ${best.status} · conf ${best.confidence} — ${best.label}`; } else { $('nodeDetail').textContent='点击脑图节点查看知识卡'; }
+  };
+}
+
+function drawBrain() {
+  const c=$('brainCanvas'); if(!c) return; const r=c.getBoundingClientRect(); const dpr=devicePixelRatio||1; c.width=r.width*dpr;c.height=r.height*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);
+  const W=r.width,H=r.height; let t=performance.now()/1000; x.clearRect(0,0,W,H);
+  const cx=W*.5, cy=H*.5, R=Math.min(W,H)*.3;
+  x.strokeStyle='rgba(77,255,184,.12)'; [0.55,.8,1].forEach(k=>{x.beginPath();x.arc(cx,cy,R*k,0,7);x.stroke();});
+  const nodes=state.graph.nodes||[]; const n=Math.max(nodes.length,3);
+  for(let i=0;i<n;i++){const a=t*.15+i*Math.PI*2/n, rr=R*(.72+(i%3)*.08); const px=cx+Math.cos(a)*rr, py=cy+Math.sin(a)*rr; x.beginPath();x.moveTo(cx,cy);x.lineTo(px,py);x.strokeStyle='rgba(77,255,184,.08)';x.stroke(); x.beginPath();x.arc(px,py,3,0,7);x.fillStyle=nodes[i]?.status==='disputed'?'#ffc857':'#4dffb8';x.shadowColor=x.fillStyle;x.shadowBlur=12;x.fill();x.shadowBlur=0;}
+  x.beginPath();x.arc(cx,cy,14,0,7);x.fillStyle='rgba(77,255,184,.2)';x.fill();x.beginPath();x.arc(cx,cy,5,0,7);x.fillStyle='#d9fff4';x.shadowColor='#4dffb8';x.shadowBlur=22;x.fill();x.shadowBlur=0;
+  requestAnimationFrame(drawBrain);
+}
+
+async function refreshNodes() {
+  try { const s=await api('/public/status'); const nodes=s.nodes||{}; $('nodeCount').textContent=Object.keys(nodes).length; $('linkState').textContent=Object.keys(nodes).length?'ONLINE':'WAITING'; $('dot').classList.toggle('off',!Object.keys(nodes).length); $('nodeList').innerHTML=Object.entries(nodes).slice(0,8).map(([id,n])=>`<div class="node"><b>${esc(id)}</b><span>${(n.skills||[]).join(' / ')}</span></div>`).join(''); } catch(e){}
+}
+
+function setMode(mode) { state.mode=mode; document.querySelectorAll('#modes button').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode)); $('docWrap').classList.toggle('show',mode==='docs'); $('verifyWrap').classList.toggle('show',mode==='verify'); $('hint').textContent={research:'LIVE RESEARCH',docs:'DOCUMENT ANALYSIS',compute:'SAFE COMPUTE',verify:'NLI VERIFY'}[mode]; }
+
+function loading(){ $('response').innerHTML=`<div class="empty">RUNNING ${state.mode.toUpperCase()}…</div>`; }
+
+function renderAnswer(d) {
+  if(!d || d.error || d.answer==null){ $('response').innerHTML=`<div class="empty">${esc(d?.error||d?.detail||'没有返回结果')}</div>`; return; }
+  const conf=Math.max(0,Math.min(1,Number(d.confidence??0))); const srcs=(d.sources||[]).map((s,i)=>`<a class="src" href="${esc(s.url||'#')}" target="_blank" rel="noopener"><b>${i+1}</b><span>${esc(s.title||'')}</span><em>${esc(s.source||'')} ${esc(s.year||'')}</em></a>`).join('');
+  $('response').innerHTML=`<div class="answer-head"><span class="tag">RESPONSE · ${conf.toFixed(2)} CONF</span><span class="task">${esc(d.mode||'')} · ${esc(d.engine||'')} · ${d.elapsed??'-'}s</span></div><div class="answer">${esc(d.answer)}</div><div class="meta">${(d.trace||[]).map(t=>`<span>${esc(t.step)}: ${esc(t.detail)}</span>`).join(' · ')}</div><div class="srcs">${srcs||'<div class="empty">无外部来源</div>'}</div><div class="feedback"><button data-vote="up" data-id="${esc(d.id||'')}">HELPFUL ↑</button><button data-vote="down" data-id="${esc(d.id||'')}">NOT QUITE ↓</button><span id="fbMsg"></span></div>`;
+  document.querySelectorAll('.feedback button').forEach(b=>b.onclick=()=>vote(b.dataset.id,b.dataset.vote));
+}
+
+async function ask(){ const q=$('q').value.trim(); if(!q&&state.mode!=='verify'){$('q').focus();return;} loading(); try{ const body={query:q,mode:state.mode,doc:$('doc').value,claim:$('claim').value,evidence:$('evidence').value}; const d=await api('/public/ask',{method:'POST',body:JSON.stringify(body)}); renderAnswer(d);}catch(e){renderAnswer({error:String(e)});} }
+async function vote(id,v){ if(!id)return; const r=await api('/feedback',{method:'POST',body:JSON.stringify({id,vote:v})}); if(r.ok){$('fbMsg').textContent='SAVED ✓';} }
+
+$('train').onclick=startLearn; $('heroTrain').onclick=()=>{document.querySelector('.panel').scrollIntoView({behavior:'smooth'});startLearn();};
+$('refresh').onclick=refreshNodes; $('ask').onclick=ask;
+document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+document.querySelectorAll('#samples button').forEach(b=>b.onclick=()=>{setMode('research');$('q').value=b.dataset.q;ask();});
+document.querySelectorAll('.app').forEach(b=>b.onclick=()=>{setMode(b.dataset.mode);$('q').value=b.dataset.q;if(b.dataset.doc)$('doc').value=b.dataset.doc;$('workbench').scrollIntoView({behavior:'smooth'});ask();});
+$('settingsBtn').onclick=()=>$('settings').classList.add('open'); $('closeSettings').onclick=()=>$('settings').classList.remove('open');
+$('saveToken').onclick=()=>{localStorage.setItem('netagent_token',token());$('settings').classList.remove('open');modeText();};
+$('token').value=localStorage.getItem('netagent_token')||'';
+$('copyJoin').onclick=async()=>{try{await navigator.clipboard.writeText($('joinCmd').textContent);$('copyJoin').textContent='COPIED ✓';setTimeout(()=>$('copyJoin').textContent='COPY COMMAND',1400);}catch(e){}};
+$('joinCmd').textContent=`COORD=${BACKEND}\ncurl -fsSL $COORD/install.sh | bash -s -- \\\n  --coordinator $COORD --token <YOUR_TOKEN>`;
+
+/* stars */
+(()=>{const c=$('stars'),x=c.getContext('2d');let W,H,pts=[];const resize=()=>{W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';pts=Array.from({length:Math.min(110,innerWidth/13)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.08,vy:(Math.random()-.5)*.08,r:Math.random()*1.2+.2}));};const draw=()=>{x.clearRect(0,0,W,H);for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,p.r*devicePixelRatio,0,7);x.fillStyle='rgba(77,255,184,.25)';x.fill();}requestAnimationFrame(draw);};resize();addEventListener('resize',resize);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)draw();})();
+
+setInterval(()=>$('clock').textContent=new Date().toLocaleTimeString(),1000);
+setMode('research'); refreshBrain(); refreshNodes(); drawBrain(); setInterval(refreshBrain,4000); setInterval(refreshNodes,12000);
+</script>
+</body>
+</html>

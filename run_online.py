@@ -8,6 +8,7 @@ from aiohttp import web
 import coordinator_async as C
 from node_async import run as node_run
 from skills import SKILLS
+import brain
 
 PORT = int(os.environ.get("PORT", "8080"))
 TOKEN = os.environ.get("TOKEN", "secret")
@@ -36,6 +37,8 @@ async def main():
         except Exception as e:
             print("nli warm failed:", e, flush=True)
     threading.Thread(target=warm, daemon=True).start()
+    brain.maybe_bootstrap()
+    brain.auto_start()
     print(f"OpenNetAgent online: http://127.0.0.1:{PORT}/", flush=True)
     print(f"LAN: http://{lan_ip()}:{PORT}/  token={TOKEN}", flush=True)
     stop = asyncio.Event()

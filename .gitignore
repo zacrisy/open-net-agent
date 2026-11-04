@@ -4,3 +4,4 @@ node.log
 pause
 netagent.db*
 dist/
+brain.db*

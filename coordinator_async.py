@@ -5,6 +5,7 @@ from collections import defaultdict
 from aiohttp import web, WSMsgType
 import db, db_async
 import agent_core
+import brain
 from skills import SKILLS, SKILL_META
 from starter_corpus import DOCS as STARTER_DOCS
 
@@ -167,6 +168,26 @@ async def knowledge_pack(req):
     return web.json_response(_knowledge_pack())
 
 
+async def brain_learn(req):
+    try:
+        d = await req.json()
+    except Exception:
+        d = {}
+    return web.json_response(brain.start(d.get("topic")))
+
+
+async def brain_status(req):
+    return web.json_response(brain.status())
+
+
+async def brain_cards(req):
+    return web.json_response(brain.cards(int(req.query.get("limit", 120))))
+
+
+async def brain_graph(req):
+    return web.json_response(brain.graph())
+
+
 async def ws_handler(req):
     if not auth(req): return web.Response(status=401)
     nid = req.query.get("node_id", ""); ws = web.WebSocketResponse(); await ws.prepare(req)
@@ -230,7 +251,7 @@ async def health(req):
 
 async def index(req):
     import os
-    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dashboard.html")
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brain.html")
     return web.Response(text=open(p, encoding="utf-8").read(), content_type="text/html")
 
 
@@ -284,6 +305,10 @@ def app():
     a.router.add_post("/public/query", public_query)
     a.router.add_post("/ask", ask)
     a.router.add_post("/public/ask", public_ask)
+    a.router.add_post("/api/brain/learn", brain_learn)
+    a.router.add_get("/api/brain/status", brain_status)
+    a.router.add_get("/api/brain/cards", brain_cards)
+    a.router.add_get("/api/brain/graph", brain_graph)
     a.router.add_post("/feedback", feedback)
     a.router.add_get("/evolution/stats", evolution_stats)
     a.router.add_get("/knowledge_pack.json", knowledge_pack)

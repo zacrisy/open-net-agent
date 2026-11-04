@@ -2,7 +2,7 @@
 
 ## 公网访问（已开通）
 
-- **控制台（推荐，无隧道警告）**：<https://zacrisy.github.io/open-net-agent/console.html?v=3>
+- **控制台（推荐，无隧道警告）**：<https://zacrisy.github.io/open-net-agent/brain.html?v=1>
 - **后端 / 一键加入**：<https://opennetagent.serveousercontent.com/>（serveo 固定域名；浏览器直连会看到 Serveo 警告页）
 
 - **公网 URL**：<https://opennetagent.serveousercontent.com/>

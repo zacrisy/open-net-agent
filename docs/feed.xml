@@ -4,6 +4,6 @@
   <link>https://zacrisy.github.io/open-net-agent/</link>
   <description>Evidence-first network agent: research with real sources, docs Q&A, compute, NLI, self-evolving memory.</description>
   <item><title>v0.7.0 — evidence-first network workbench</title><link>https://github.com/zacrisy/open-net-agent/releases/tag/v0.7.0</link><description>Research with real sources and [n] citations, docs Q&A, safe compute, NLI, feedback distillation.</description></item>
-  <item><title>Control deck is live</title><link>https://zacrisy.github.io/open-net-agent/console.html?v=3</link><description>Try research, docs, compute and verify in the browser.</description></item>
+  <item><title>Control deck is live</title><link>https://zacrisy.github.io/open-net-agent/brain.html?v=1</link><description>Try research, docs, compute and verify in the browser.</description></item>
   <item><title>Join a node</title><link>https://github.com/zacrisy/open-net-agent/issues/4</link><description>One command, outbound-only, auto-provisioned memory.</description></item>
 </channel></rss>
