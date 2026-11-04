@@ -38,3 +38,14 @@ curl -fsSL https://raw.githubusercontent.com/your-org/netagent/main/install.sh |
 | 试点 | 10–50 | 单协调者 + SQLite |
 | 成长 | 50–500 | Postgres + 异步队列 |
 | 大规模 | 500+ | 多协调者 + 一致性哈希 + WSS |
+
+
+## Cloudflare Quick Tunnel（当前演示后端）
+
+```bash
+cloudflared tunnel --url http://127.0.0.1:8080 --protocol http2
+```
+
+- 优点：无 serveo 浏览器警告，HTTP/2 对长请求更稳；
+- 缺点：URL 每次重启变化；需要同步 `brain.html` 的 `PRIMARY`；
+- 生产：命名 Cloudflare Tunnel + 自有域名，或 VPS + Caddy。

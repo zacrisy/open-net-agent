@@ -51,6 +51,13 @@ We tested the network-brain design on a synthetic 30-node testbed:
 
 Code: [`nbpw/`](nbpw/) · Design: [`nbpw/DESIGN.md`](nbpw/DESIGN.md) · Report: [`nbpw/REPORT.md`](nbpw/REPORT.md) · Continual: [`nbpw/REPORT_CONTINUAL.md`](nbpw/REPORT_CONTINUAL.md)
 
+## Public hosting（重要）
+
+- **UI**：GitHub Pages，公开可访问（`brain.html?v=5`）。
+- **API**：Cloudflare Quick Tunnel（当前）+ serveo fallback，运行在维护者本机。
+- **不是 24/7 云服务**：Mac 休眠、网络断开或隧道重启会导致 API 不可用；UI 仍能打开，但工作台会显示错误。
+- 生产部署见 `deploy/PUBLIC.md`（VPS + Docker/Caddy 或命名 Cloudflare Tunnel）。
+
 ## 1. 思想
 
 单机模型受内存/算力限制；生物智能不是“一个超大神经元”，而是**大量单元 + 连接 + 活动**。

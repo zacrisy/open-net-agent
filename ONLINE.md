@@ -22,6 +22,12 @@
 | NLI 查询 | `CONTRADICTION -1.0` |
 | 并发 5 请求 | 5/5 成功 |
 
+## 当前后端
+
+- Browser API（primary）：`https://meal-mature-blah-shepherd.trycloudflare.com`（Cloudflare Quick Tunnel，随机地址，重启会变）
+- CLI / fallback：`https://opennetagent2.serveousercontent.com`（serveo 固定子域名）
+- UI：<https://zacrisy.github.io/open-net-agent/brain.html?v=5>
+
 ## 架构
 
 ```
