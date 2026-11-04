@@ -8,6 +8,8 @@
 
 ---
 
+> **v0.9 实现更新（2026-11-04）**：加入历史库冲突对账（否定/数值/时间/人群/定义）、引用完整性检查、课程自测与 RETENTION 指标。VPS 实测：162 卡、1 个真实 disputed、citation 8 refs/10 sources、retention 1.0（5 题小样本）。这些是管线验证，不是长期效果证明。
+
 > **v0.6 实现更新（2026-11-04）**：已加入 typed graph + PPR 关联扩散检索（`graph_retrieval.py`、`/api/brain/retrieve`、research 结果追加图激活卡）。57 卡合成诊断：masked 1.0、multihop 0.95、association 0.20 vs flat 0.20；图扩散已进入生产路径，但尚未在更大 gold benchmark 上证明优势。
 
 ## 0. 执行摘要
