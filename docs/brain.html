@@ -56,6 +56,8 @@ textarea,input{background:rgba(3,9,15,.85);border:1px solid var(--line);color:va
 .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}.node{display:flex;justify-content:space-between;gap:8px;font:8px/1.5 var(--mono);border-bottom:1px solid rgba(94,242,255,.08);padding:4px 0;color:var(--muted)}.node b{color:var(--text);font-weight:500}
 pre{background:rgba(3,9,15,.9);border:1px solid var(--line);padding:9px;color:var(--cyan);font:8.5px/1.7 var(--mono);white-space:pre-wrap;word-break:normal;overflow-wrap:break-word;margin:0 0 7px}.copy{width:100%;border:1px solid var(--green);background:rgba(77,255,184,.08);color:var(--green);font:8px/1 var(--mono);letter-spacing:.12em;padding:7px;cursor:pointer}
 .modal{position:fixed;inset:0;z-index:300;display:none;place-items:center;background:rgba(2,5,9,.85);backdrop-filter:blur(10px)}.modal.open{display:grid}.modal-card{width:min(420px,92vw);background:#08111b;border:1px solid var(--green);padding:20px}.modal-card h3{font:10px/1 var(--mono);letter-spacing:.2em;color:var(--green);margin:0 0 8px}.modal-card p{color:var(--muted);font-size:11px;margin:0 0 12px}.modal-actions{display:flex;gap:7px;margin-top:10px}.modal-actions button{flex:1;padding:8px;font:8px/1 var(--mono);letter-spacing:.12em;cursor:pointer;border:1px solid var(--green);background:var(--green);color:#021016}.modal-actions .ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.boot{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:250;padding:6px 12px;border:1px solid var(--line);background:rgba(3,7,12,.9);color:var(--muted);font:9px/1.4 var(--mono);letter-spacing:.12em}
+.boot.err{border-color:var(--amber);color:var(--amber)}
 footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:8px/1.5 var(--mono);letter-spacing:.1em;color:var(--dim)}footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--green)}
 @media(max-width:1000px){.hero{grid-template-columns:1fr;min-height:auto}.visual{height:340px}.learn-grid,.two,.bottom{grid-template-columns:1fr}.apps{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.shell{padding:16px 14px 56px}.topbar{padding:10px 12px}.hero-stats{grid-template-columns:repeat(2,1fr)}.apps{grid-template-columns:1fr}h2{font-size:42px}}
@@ -63,6 +65,8 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
 </style>
 </head>
 <body>
+<noscript><div style="position:fixed;inset:0;z-index:999;background:#03070c;color:#d9e8f4;padding:40px;font:14px monospace">此界面需要 JavaScript。请启用 JavaScript，或直接访问 API：<br>https://opennetagent2.serveousercontent.com/api/brain/status</div></noscript>
+<div id="bootMsg" class="boot">INITIALIZING NETWORK BRAIN…</div>
 <canvas id="stars"></canvas><div class="scan"></div>
 
 <header class="topbar">
@@ -71,6 +75,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
     <div class="pill"><span class="dot" id="dot"></span><span id="linkState">LINKING</span></div>
     <div class="pill"><b id="nodeCount">--</b>&nbsp;NODES</div>
     <div class="pill"><b id="cardCountTop">--</b>&nbsp;CARDS</div>
+    <div class="pill"><span id="autoState">AUTO</span></div>
     <div class="pill" id="mode">PUBLIC</div>
     <button class="icon" id="settingsBtn" title="admin">⚙</button>
   </div>
@@ -104,7 +109,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
     <div class="head"><span class="tag">01 / LEARNING LOOP</span><span class="hint" id="stageText">IDLE</span></div>
     <div class="learn-grid">
       <div>
-        <div class="topic-row"><input id="topic" value="GLP-1 weight loss mechanism"><button class="btn" id="train">START LEARNING</button></div>
+        <div class="topic-row"><input id="topic" value="GLP-1 weight loss mechanism"><button class="btn" id="train">START LEARNING</button><button class="btn ghost" id="evolve">EVOLVE</button></div>
         <div class="stages" id="stages">
           <div class="stage" data-stage="retrieving">RETRIEVE</div>
           <div class="stage" data-stage="extracting">EXTRACT</div>
@@ -210,6 +215,9 @@ async function refreshBrain() {
     $('statCards').textContent = m.cards ?? 0; $('statActive').textContent = m.active ?? 0;
     $('statCycles').textContent = m.cycles ?? 0; $('statConf').textContent = (m.avg_confidence ?? 0).toFixed(2);
     $('cardCountTop').textContent = m.cards ?? 0;
+    const a = s.auto || {};
+    $('autoState').textContent = a.enabled ? `AUTO ${Math.round((a.interval||600)/60)}m · next ${a.next_in ?? '--'}s` : 'AUTO OFF';
+    window.__brainReady = true; const bm = $('bootMsg'); if (bm) bm.style.display = 'none';
     setStage(s.learning?.stage);
     $('learnMsg').textContent = s.learning?.stage === 'complete' ? `完成：${s.learning.topic} · ${s.learning.elapsed}s` : (s.learning?.stage ? `当前阶段：${s.learning.stage} · ${s.learning.elapsed}s` : '等待开始学习。');
     $('feed').innerHTML = (s.feed || []).length ? s.feed.map(c => `<div class="feed-item"><b>${esc(c.source_type)}</b><span>${(c.confidence||0).toFixed(2)}</span><p>${esc(c.claim)}</p></div>`).join('') : '<div class="feed-item"><p>等待学习周期…</p></div>';
@@ -230,6 +238,12 @@ async function startLearn() {
   $('train').disabled = true; $('learnMsg').textContent = '启动学习周期…';
   try { await api('/api/brain/learn', {method:'POST', body: JSON.stringify({topic})}); await refreshBrain(); } catch (e) {}
   setTimeout(() => $('train').disabled = false, 2500);
+}
+
+async function evolve() {
+  $('evolve').disabled = true;
+  try { await api('/api/brain/evolve', {method:'POST', body:'{}'}); await refreshBrain(); } catch(e) {}
+  setTimeout(() => $('evolve').disabled = false, 2500);
 }
 
 function drawGraph() {
@@ -280,7 +294,7 @@ function renderAnswer(d) {
 async function ask(){ const q=$('q').value.trim(); if(!q&&state.mode!=='verify'){$('q').focus();return;} loading(); try{ const body={query:q,mode:state.mode,doc:$('doc').value,claim:$('claim').value,evidence:$('evidence').value}; const d=await api('/public/ask',{method:'POST',body:JSON.stringify(body)}); renderAnswer(d);}catch(e){renderAnswer({error:String(e)});} }
 async function vote(id,v){ if(!id)return; const r=await api('/feedback',{method:'POST',body:JSON.stringify({id,vote:v})}); if(r.ok){$('fbMsg').textContent='SAVED ✓';} }
 
-$('train').onclick=startLearn; $('heroTrain').onclick=()=>{document.querySelector('.panel').scrollIntoView({behavior:'smooth'});startLearn();};
+$('train').onclick=startLearn; $('evolve').onclick=evolve; $('heroTrain').onclick=()=>{document.querySelector('.panel').scrollIntoView({behavior:'smooth'});startLearn();};
 $('refresh').onclick=refreshNodes; $('ask').onclick=ask;
 document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 document.querySelectorAll('#samples button').forEach(b=>b.onclick=()=>{setMode('research');$('q').value=b.dataset.q;ask();});
@@ -294,6 +308,8 @@ $('joinCmd').textContent=`COORD=${BACKEND}\ncurl -fsSL $COORD/install.sh | bash 
 /* stars */
 (()=>{const c=$('stars'),x=c.getContext('2d');let W,H,pts=[];const resize=()=>{W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';pts=Array.from({length:Math.min(110,innerWidth/13)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.08,vy:(Math.random()-.5)*.08,r:Math.random()*1.2+.2}));};const draw=()=>{x.clearRect(0,0,W,H);for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,p.r*devicePixelRatio,0,7);x.fillStyle='rgba(77,255,184,.25)';x.fill();}requestAnimationFrame(draw);};resize();addEventListener('resize',resize);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)draw();})();
 
+window.addEventListener('error', e => { const b=$('bootMsg'); if(b){b.textContent='JS ERROR: '+e.message; b.classList.add('err'); b.style.display='block';} });
+setTimeout(()=>{ const b=$('bootMsg'); if(b && !window.__brainReady){ b.textContent='INITIALIZATION SLOW / API UNREACHABLE — reload'; b.classList.add('err'); b.style.display='block'; } }, 8000);
 setInterval(()=>$('clock').textContent=new Date().toLocaleTimeString(),1000);
 setMode('research'); refreshBrain(); refreshNodes(); drawBrain(); setInterval(refreshBrain,4000); setInterval(refreshNodes,12000);
 </script>

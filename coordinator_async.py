@@ -186,6 +186,12 @@ async def brain_learn(req):
     return web.json_response(brain.start(d.get("topic")))
 
 
+async def brain_evolve(req):
+    if learn_limited(req):
+        return web.json_response({"error": "evolution rate limit (3/min)"}, status=429)
+    return web.json_response(await asyncio.to_thread(brain.consolidate))
+
+
 async def brain_status(req):
     return web.json_response(brain.status())
 
@@ -316,6 +322,7 @@ def app():
     a.router.add_post("/ask", ask)
     a.router.add_post("/public/ask", public_ask)
     a.router.add_post("/api/brain/learn", brain_learn)
+    a.router.add_post("/api/brain/evolve", brain_evolve)
     a.router.add_get("/api/brain/status", brain_status)
     a.router.add_get("/api/brain/cards", brain_cards)
     a.router.add_get("/api/brain/graph", brain_graph)

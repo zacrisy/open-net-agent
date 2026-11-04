@@ -10,6 +10,7 @@ except Exception:
 DB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "brain.db")
 LOCK = threading.Lock()
 CURRENT = {"cycle_id": None, "topic": None, "stage": "idle", "started": None, "elapsed": 0}
+AUTO = {"enabled": False, "interval": 600, "next": None, "last": None, "last_kind": None}
 DEFAULT_TOPIC = "GLP-1 weight loss mechanism"
 
 
@@ -96,6 +97,32 @@ def _run(cid, topic):
         c.close()
 
 
+def consolidate():
+    with LOCK:
+        if CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating"):
+            return {"status": "busy"}
+        cid = uuid.uuid4().hex[:12]
+        CURRENT.update({"cycle_id": cid, "topic": "EVOLUTION", "stage": "consolidating", "started": time.time(), "elapsed": 0})
+    c = _conn()
+    with c:
+        c.execute("INSERT INTO cycles VALUES (?,?,?,?,?,?,?,?,?,?)", (cid, "EVOLUTION", time.time(), None, "consolidating", 0, 0, 0, 0, "running"))
+        rows = c.execute("SELECT id,topic,claim,evidence,source_json,source_type,confidence,status,support FROM cards").fetchall()
+    c.close()
+    cards = []
+    for r in rows:
+        cards.append({"id": r[0], "topic": r[1], "claim": r[2], "evidence": r[3], "source": json.loads(r[4] or "{}"),
+                      "source_type": r[5], "confidence": r[6], "status": "active", "support": r[8]})
+    cards = dedup(cards); build_belief(cards)
+    new, conflicts = upsert(cards, cid)
+    with LOCK:
+        AUTO["last"] = time.time(); AUTO["last_kind"] = "evolve"
+        CURRENT["stage"] = "complete"; CURRENT["topic"] = "EVOLUTION"; CURRENT["elapsed"] = round(time.time() - CURRENT["started"], 1)
+    c = _conn()
+    with c: c.execute("UPDATE cycles SET stage='complete', status='complete', finished=?, cards=?, conflicts=? WHERE id=?", (time.time(), len(cards), conflicts, cid))
+    c.close()
+    return {"cycle_id": cid, "status": "complete", "topic": "EVOLUTION", "cards": len(cards), "conflicts": conflicts}
+
+
 def start(topic=None):
     topic = (topic or DEFAULT_TOPIC).strip()[:120]
     with LOCK:
@@ -103,6 +130,7 @@ def start(topic=None):
             return {"cycle_id": CURRENT["cycle_id"], "status": "already_running", "topic": CURRENT["topic"]}
         cid = uuid.uuid4().hex[:12]
         CURRENT.update({"cycle_id": cid, "topic": topic, "stage": "queued", "started": time.time(), "elapsed": 0})
+        AUTO["last"] = time.time(); AUTO["last_kind"] = "learn"
     c = _conn()
     with c: c.execute("INSERT INTO cycles VALUES (?,?,?,?,?,?,?,?,?,?)", (cid, topic, time.time(), None, "queued", 0, 0, 0, 0, "running"))
     c.close()
@@ -123,7 +151,9 @@ def status():
     with LOCK:
         cur = dict(CURRENT)
         if cur.get("started"): cur["elapsed"] = round(time.time() - cur["started"], 1)
-    return {"learning": cur,
+    auto = dict(AUTO)
+    if auto.get("next"): auto["next_in"] = max(0, round(auto["next"] - time.time()))
+    return {"learning": cur, "auto": auto,
             "metrics": {"cards": cards, "active": active, "disputed": disputed, "cycles": cycles,
                         "topics": [{"topic": t, "count": n} for t, n in topics],
                         "avg_confidence": round(sum(x[4] for x in feed) / max(1, len(feed)), 2)},
@@ -184,13 +214,26 @@ AUTO_TOPICS = ["GLP-1 weight loss mechanism", "AI agent evaluation", "Python asy
                "LLM agent reliability evaluation", "retrieval augmented generation evaluation"]
 
 
-def auto_start(interval=1200):
+def auto_start(interval=600):
+    with LOCK:
+        AUTO.update({"enabled": True, "interval": interval, "next": time.time() + 4})
     def loop():
+        time.sleep(4)
+        with LOCK:
+            busy = CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating")
+        if not busy:
+            start(random.choice(AUTO_TOPICS))
         while True:
+            with LOCK:
+                AUTO["next"] = time.time() + interval
             time.sleep(interval)
             with LOCK:
                 busy = CURRENT.get("stage") in ("retrieving", "extracting", "verifying", "consolidating")
-            if not busy:
+            if busy:
+                continue
+            if AUTO.get("last_kind") == "learn":
+                consolidate()
+            else:
                 start(random.choice(AUTO_TOPICS))
     threading.Thread(target=loop, daemon=True).start()
 
