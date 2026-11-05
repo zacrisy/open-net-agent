@@ -138,6 +138,12 @@ brain.html ── CORS ──> coordinator_async.py
 - **不是 24/7 云服务**：机器休眠/断网/隧道重启会暂停问答与 AUTO；
 - 生产部署见 [`deploy/PUBLIC.md`](deploy/PUBLIC.md)。
 
+## Intelligence roadmap
+
+Why the current system is a memory/knowledge system rather than an intelligent agent, and the path to goals, world models, action, abstraction, metacognition, and evaluation:
+
+- [`docs/INTELLIGENCE_ROADMAP.md`](docs/INTELLIGENCE_ROADMAP.md)
+
 ## Research review
 
 Full evaluation of the project against the original NBPW/NBCL thesis, literature review (2024–2026), maturity scorecard, and a 90-day roadmap:
