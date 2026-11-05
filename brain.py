@@ -17,8 +17,9 @@ DEFAULT_TOPIC = "GLP-1 weight loss mechanism"
 
 
 def _conn():
-    c = sqlite3.connect(DB, check_same_thread=False)
+    c = sqlite3.connect(DB, check_same_thread=False, timeout=30)
     c.execute("PRAGMA journal_mode=WAL")
+    c.execute("PRAGMA busy_timeout=30000")
     return c
 
 
@@ -82,7 +83,10 @@ def retention():
 def touch(ids):
     if not ids:
         return
-    c = _conn(); now = time.time()
+    # non-blocking best effort: retrieval must not wait for a writer
+    c = sqlite3.connect(DB, check_same_thread=False, timeout=1)
+    c.execute("PRAGMA busy_timeout=800")
+    now = time.time()
     with c:
         for nid in ids:
             c.execute("INSERT INTO card_meta(id,access_count,last_access,tier) VALUES(?,?,?,'hot') ON CONFLICT(id) DO UPDATE SET access_count=access_count+1,last_access=excluded.last_access,tier='hot'",

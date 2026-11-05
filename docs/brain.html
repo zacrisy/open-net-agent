@@ -569,10 +569,13 @@ function renderAgent(s){
   $('agentOut').innerHTML = ans+meta+(skills?`<div class="hint">SKILLS ${skills}</div>`:'') || '<div class="empty">运行中…</div>';
 }
 async function loadCurriculum(){
-  const tasks=await api('/api/agent/curriculum?n=3',{},6000);
-  if(!Array.isArray(tasks)||!tasks.length){$('agentState').textContent='NO CURRICULUM';return;}
-  $('agentQ').value=tasks[0].question; $('agentBudget').value=4;
-  $('agentState').textContent='CURRICULUM · '+tasks[0].topic;
+  $('agentState').textContent='LOADING CURRICULUM…'; $('agentNext').disabled=true;
+  try {
+    const tasks=await api('/api/agent/curriculum?n=3',{},8000);
+    if(!Array.isArray(tasks)||!tasks.length){$('agentState').textContent='NO CURRICULUM';return;}
+    $('agentQ').value=tasks[0].question.slice(0,500); $('agentBudget').value=4;
+    $('agentState').textContent='CURRICULUM · '+tasks[0].topic;
+  } finally { $('agentNext').disabled=false; }
 }
 async function runAgent(){
   const q=$('agentQ').value.trim(); const budget=Number($('agentBudget').value||6);
