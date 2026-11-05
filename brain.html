@@ -160,7 +160,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
 
   <section class="panel">
     <div class="head"><span class="tag">07 / MISSION CONTROL</span><span class="hint" id="agentState">IDLE</span></div>
-    <div class="topic-row"><input id="agentQ" value="How does semaglutide affect gastric emptying?"><input id="agentBudget" type="number" min="3" max="12" value="6" style="max-width:72px"><button class="btn" id="agentRun">RUN AGENT</button></div>
+    <div class="topic-row"><input id="agentQ" value="How does semaglutide affect gastric emptying?"><input id="agentBudget" type="number" min="3" max="12" value="6" style="max-width:72px"><button class="btn" id="agentRun">RUN AGENT</button><button class="btn ghost" id="agentNext">NEXT TASK</button></div>
     <div class="agent-grid">
       <div><div class="hint">ACTIONS / PREDICTIONS</div><div class="agent-steps" id="agentSteps"><div class="empty">等待任务…</div></div></div>
       <div><div class="hint">ANSWER / REFLECTION</div><div class="agent-out" id="agentOut"><div class="empty">Agent 会先规划，再搜索/图检索/验证，最后综合。</div></div></div>
@@ -568,6 +568,12 @@ function renderAgent(s){
   const skills=(s.skills||[]).slice(0,5).map(x=>`${esc(x.name)}:${x.uses}`).join(' · ');
   $('agentOut').innerHTML = ans+meta+(skills?`<div class="hint">SKILLS ${skills}</div>`:'') || '<div class="empty">运行中…</div>';
 }
+async function loadCurriculum(){
+  const tasks=await api('/api/agent/curriculum?n=3',{},6000);
+  if(!Array.isArray(tasks)||!tasks.length){$('agentState').textContent='NO CURRICULUM';return;}
+  $('agentQ').value=tasks[0].question; $('agentBudget').value=4;
+  $('agentState').textContent='CURRICULUM · '+tasks[0].topic;
+}
 async function runAgent(){
   const q=$('agentQ').value.trim(); const budget=Number($('agentBudget').value||6);
   if(!q) return;
@@ -583,7 +589,7 @@ async function runAgent(){
 }
 async function vote(id,v){ if(!id)return; const r=await api('/feedback',{method:'POST',body:JSON.stringify({id,vote:v})}); if(r.ok){$('fbMsg').textContent='SAVED ✓';} }
 
-$('train').onclick=startLearn; $('evolve').onclick=evolve; $('agentRun').onclick=runAgent;
+$('train').onclick=startLearn; $('evolve').onclick=evolve; $('agentRun').onclick=runAgent; $('agentNext').onclick=loadCurriculum;
 $('feedbackBtn').onclick=openFeedback; $('feedbackBtn2').onclick=openFeedback; $('closeFeedback').onclick=closeFeedback; $('feedbackModal').onclick=e=>{if(e.target.id==='feedbackModal')closeFeedback();}; $('fbSubmit').onclick=submitFeedback;
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFeedback();});
 $('closeCard').onclick=closeCard; $('cardModal').onclick=e=>{if(e.target.id==='cardModal')closeCard();}; document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCard();});

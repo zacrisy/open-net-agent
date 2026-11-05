@@ -38,7 +38,14 @@ goal → predict → act → observe → compare → reflect → synthesize
 
 5 任务：agent 0.884 vs fixed 0.727（rubric 不完全对等，样本小）。
 
-## 3.2 ARC 抽象测试
+## 3.2 元认知与自动课程（v0.13）
+
+- `metacognition.py`：ECE、abstain 阈值；
+- `curriculum.py`：低保留卡生成下一题；
+- API：`/api/agent/calibration`、`/api/agent/curriculum`；
+- UI：NEXT TASK。
+
+## 3.3 ARC 抽象测试
 
 12 个玩具网格任务，程序合成 12/12；见 [`ARC.md`](ARC.md)。这是玩具 DSL，不是 ARC-AGI。
 

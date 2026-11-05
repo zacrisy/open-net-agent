@@ -2,11 +2,13 @@
 
 **日期**：2026-11-04  
 **对象**：OpenNetBrain / `zacrisy/open-net-agent`  
-**线上**：<https://zacrisy.github.io/open-net-agent/brain.html?v=18>  
+**线上**：<https://zacrisy.github.io/open-net-agent/brain.html?v=19>  
 **VPS API**：<https://kids-pcs-attacked-myth.trycloudflare.com>  
 **代码基线**：`main`（v0.5.1 之后）
 
 ---
+
+> **v0.13 实现更新（2026-11-05）**：加入元认知校准/abstain 阈值与低保留自动课程；Mission Control 增加 NEXT TASK。校准样本仍很小，不能证明长期校准。
 
 > **v0.12 实现更新（2026-11-05）**：世界模型从历史均值升级为 kNN，策略升级为 UCB bandit；加入 12 个 ARC 风格玩具任务与 DSL 程序合成（12/12）。5 任务 agent 0.884 vs fixed 0.727，但样本/rubric 仍弱；ARC 是玩具 DSL，不是 ARC-AGI。
 

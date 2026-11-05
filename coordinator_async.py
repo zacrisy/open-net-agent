@@ -8,6 +8,8 @@ import agent_core
 import brain
 import graph_retrieval
 import agent_loop
+import metacognition
+import curriculum
 from skills import SKILLS, SKILL_META
 from starter_corpus import DOCS as STARTER_DOCS
 
@@ -346,6 +348,14 @@ async def agent_run(req):
     return web.json_response(agent_loop.start(d.get("question", ""), d.get("budget", 6)))
 
 
+async def agent_calibration(req):
+    return web.json_response(metacognition.calibration())
+
+
+async def agent_curriculum(req):
+    return web.json_response(curriculum.next_tasks(int(req.query.get("n", 5))))
+
+
 async def agent_status(req):
     tid = req.query.get("task_id", "")
     s = agent_loop.task_status(tid) if tid else None
@@ -504,6 +514,8 @@ def app():
     a.router.add_post("/api/agent/run", agent_run)
     a.router.add_get("/api/agent/status", agent_status)
     a.router.add_get("/api/agent/tasks", agent_tasks)
+    a.router.add_get("/api/agent/calibration", agent_calibration)
+    a.router.add_get("/api/agent/curriculum", agent_curriculum)
     a.router.add_post("/feedback", feedback)
     a.router.add_get("/evolution/stats", evolution_stats)
     a.router.add_get("/knowledge_pack.json", knowledge_pack)

@@ -2,7 +2,7 @@
 
 **日期**：2026-11-05  
 **对象**：OpenNetBrain / `zacrisy/open-net-agent`  
-**线上**：<https://zacrisy.github.io/open-net-agent/brain.html?v=18>  
+**线上**：<https://zacrisy.github.io/open-net-agent/brain.html?v=19>  
 **VPS**：<https://kids-pcs-attacked-myth.trycloudflare.com>
 
 ---
