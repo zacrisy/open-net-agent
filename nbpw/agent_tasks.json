@@ -1,0 +1,7 @@
+[
+ {"id":"t1","question":"How does semaglutide affect gastric emptying?","budget":5},
+ {"id":"t2","question":"What is the mechanism of GLP-1 receptor agonists for weight loss?","budget":5},
+ {"id":"t3","question":"How should AI agent evaluation be designed?","budget":5},
+ {"id":"t4","question":"Python asyncio RuntimeError event loop is closed 怎么解决？","budget":5},
+ {"id":"t5","question":"What metrics are used to evaluate retrieval augmented generation?","budget":5}
+]

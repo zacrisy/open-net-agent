@@ -5,7 +5,7 @@
 > 一个持续学习的网络大脑：从真实来源抽取知识卡，建立信念图，检测冲突，自动学习/进化，并根据使用者意见改进。
 
 [![CI](https://github.com/zacrisy/open-net-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/zacrisy/open-net-agent/actions)
-[![Pages](https://img.shields.io/badge/live-GitHub%20Pages-blue)](https://zacrisy.github.io/open-net-agent/brain.html?v=17)
+[![Pages](https://img.shields.io/badge/live-GitHub%20Pages-blue)](https://zacrisy.github.io/open-net-agent/brain.html?v=18)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 
@@ -13,8 +13,8 @@
 
 ## Live
 
-- **Brain console**: <https://zacrisy.github.io/open-net-agent/brain.html?v=17>
-- **Feedback window**: 控制台右上角 **✎ 提意见**，或 <https://zacrisy.github.io/open-net-agent/brain.html?v=17&feedback=1>
+- **Brain console**: <https://zacrisy.github.io/open-net-agent/brain.html?v=18>
+- **Feedback window**: 控制台右上角 **✎ 提意见**，或 <https://zacrisy.github.io/open-net-agent/brain.html?v=18&feedback=1>
 - **Landing**: <https://zacrisy.github.io/open-net-agent/>
 - **GitHub**: <https://github.com/zacrisy/open-net-agent>
 - **Release v0.8.0**: <https://github.com/zacrisy/open-net-agent/releases/tag/v0.8.0>
@@ -51,7 +51,16 @@ RETRIEVE → EXTRACT → VERIFY → CONSOLIDATE → EVOLVE
 - 冲突/引用/保留验证：[`nbpw/VERIFICATION.md`](nbpw/VERIFICATION.md)；
 - 记忆生命周期/workspace：[`nbpw/MEMORY_WORKSPACE.md`](nbpw/MEMORY_WORKSPACE.md)。
 
-### 3. Workbench
+### 3. MISSION CONTROL（Level-2 研究智能体）
+
+- 目标：问题 + 预算；
+- 闭环：`goal → predict → act → observe → compare → reflect → synthesize`；
+- 动作：search / graph / verify / synthesize / abstain；
+- 每一步记录预测、观察、surprise、反思；
+- 技能使用统计、评分、引用检查；
+- 文档：[`nbpw/AGENT.md`](nbpw/AGENT.md)。
+
+### 4. Workbench
 
 | Tool | Function |
 |---|---|
@@ -63,7 +72,7 @@ RETRIEVE → EXTRACT → VERIFY → CONSOLIDATE → EVOLVE
 | TRANSLATE | 中英互译 |
 | EXTRACT | 数字/结论/关键事实抽取 |
 
-### 4. Community feedback → self-improvement
+### 5. Community feedback → self-improvement
 
 - 用户在 **✎ 提意见** 窗口提交意见；
 - 大脑自动分类：`bug / feature / knowledge / style / other`；

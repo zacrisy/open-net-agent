@@ -22,6 +22,11 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;background-image:linear
 .icon{background:transparent;border:1px solid var(--line);color:var(--muted);width:30px;height:27px;cursor:pointer}.icon:hover{color:var(--cyan);border-color:var(--cyan)}
 .shell{max-width:1360px;margin:0 auto;padding:26px 26px 70px}
 .cloud-banner{display:flex;gap:8px;flex-wrap:wrap;align-items:center;border:1px solid rgba(255,200,87,.35);background:rgba(255,200,87,.06);padding:7px 10px;margin:0 0 8px;font:9px/1.5 var(--mono);color:var(--amber)}.cloud-banner a{color:var(--amber)}
+.agent-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.agent-steps,.agent-out{max-height:230px;overflow:auto;border:1px solid rgba(94,242,255,.1);background:rgba(3,9,15,.35);padding:8px}
+.agent-step{border-bottom:1px solid rgba(94,242,255,.08);padding:5px 0;font:9px/1.6 var(--mono);color:var(--muted)}
+.agent-step b{color:var(--green)}.agent-step em{font-style:normal;color:var(--amber);font-size:8px}.agent-step span{display:block;color:var(--dim);font-size:8px}
+.agent-out .answer{font-size:12px;max-height:150px;overflow:auto}.agent-out .meta{margin:6px 0}
 .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:center;min-height:62vh;padding:10px 0 30px}
 .eyebrow{font:9px/1.4 var(--mono);letter-spacing:.32em;color:var(--green);margin:0 0 14px}
 h2{font-size:clamp(38px,5.2vw,70px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px;font-weight:800}h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px var(--green);text-shadow:0 0 34px rgba(77,255,184,.3)}
@@ -150,6 +155,15 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
         <div class="head"><span class="tag">LIVE FEED</span><span class="hint">RECENT CARDS</span></div>
         <div class="feed" id="feed"><div class="feed-item"><p>等待学习周期…</p></div></div>
       </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="head"><span class="tag">07 / MISSION CONTROL</span><span class="hint" id="agentState">IDLE</span></div>
+    <div class="topic-row"><input id="agentQ" value="How does semaglutide affect gastric emptying?"><input id="agentBudget" type="number" min="3" max="12" value="6" style="max-width:72px"><button class="btn" id="agentRun">RUN AGENT</button></div>
+    <div class="agent-grid">
+      <div><div class="hint">ACTIONS / PREDICTIONS</div><div class="agent-steps" id="agentSteps"><div class="empty">等待任务…</div></div></div>
+      <div><div class="hint">ANSWER / REFLECTION</div><div class="agent-out" id="agentOut"><div class="empty">Agent 会先规划，再搜索/图检索/验证，最后综合。</div></div></div>
     </div>
   </section>
 
@@ -545,9 +559,31 @@ async function ask(){
     renderAnswer({error:'任务超时，请重试'});
   }catch(e){renderAnswer({error:String(e)});}
 }
+let agentTimer=null;
+function renderAgent(s){
+  $('agentState').textContent = (s.status||'').toUpperCase() + (s.score!=null?` · SCORE ${Number(s.score).toFixed(2)}`:'');
+  $('agentSteps').innerHTML = (s.steps||[]).length ? s.steps.map(x=>`<div class="agent-step"><b>${x.step+1}. ${esc(x.action)}</b> <em>surprise ${Number(x.surprise||0).toFixed(2)}</em><span>PREDICT ${esc(JSON.stringify(x.prediction))}</span><span>OBSERVE ${esc(JSON.stringify(x.observation))}</span></div>`).join('') : '<div class="empty">还没有步骤。</div>';
+  const ans = s.answer ? `<div class="answer">${esc(s.answer)}</div>` : '';
+  const meta = `<div class="meta"><span>CONF ${Number(s.confidence||0).toFixed(2)}</span><span>SCORE ${Number(s.score||0).toFixed(2)}</span><span>${esc(s.reflection||'')}</span></div>`;
+  const skills=(s.skills||[]).slice(0,5).map(x=>`${esc(x.name)}:${x.uses}`).join(' · ');
+  $('agentOut').innerHTML = ans+meta+(skills?`<div class="hint">SKILLS ${skills}</div>`:'') || '<div class="empty">运行中…</div>';
+}
+async function runAgent(){
+  const q=$('agentQ').value.trim(); const budget=Number($('agentBudget').value||6);
+  if(!q) return;
+  $('agentRun').disabled=true; $('agentState').textContent='STARTING…';
+  const r=await api('/api/agent/run',{method:'POST',body:JSON.stringify({question:q,budget})},10000);
+  if(r.error){$('agentOut').innerHTML=`<div class="empty">${esc(r.error)}</div>`;$('agentRun').disabled=false;return;}
+  if(agentTimer) clearInterval(agentTimer);
+  agentTimer=setInterval(async()=>{
+    const s=await api('/api/agent/status?task_id='+encodeURIComponent(r.task_id),{},6000);
+    if(s && !s.error) renderAgent(s);
+    if(s && (s.status==='complete'||s.status==='error')){clearInterval(agentTimer);agentTimer=null;$('agentRun').disabled=false;}
+  },1200);
+}
 async function vote(id,v){ if(!id)return; const r=await api('/feedback',{method:'POST',body:JSON.stringify({id,vote:v})}); if(r.ok){$('fbMsg').textContent='SAVED ✓';} }
 
-$('train').onclick=startLearn; $('evolve').onclick=evolve;
+$('train').onclick=startLearn; $('evolve').onclick=evolve; $('agentRun').onclick=runAgent;
 $('feedbackBtn').onclick=openFeedback; $('feedbackBtn2').onclick=openFeedback; $('closeFeedback').onclick=closeFeedback; $('feedbackModal').onclick=e=>{if(e.target.id==='feedbackModal')closeFeedback();}; $('fbSubmit').onclick=submitFeedback;
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFeedback();});
 $('closeCard').onclick=closeCard; $('cardModal').onclick=e=>{if(e.target.id==='cardModal')closeCard();}; document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCard();});

@@ -2,11 +2,13 @@
 
 **日期**：2026-11-04  
 **对象**：OpenNetBrain / `zacrisy/open-net-agent`  
-**线上**：<https://zacrisy.github.io/open-net-agent/brain.html?v=17>  
+**线上**：<https://zacrisy.github.io/open-net-agent/brain.html?v=18>  
 **VPS API**：<https://kids-pcs-attacked-myth.trycloudflare.com>  
 **代码基线**：`main`（v0.5.1 之后）
 
 ---
+
+> **v0.11 实现更新（2026-11-05）**：Level-2 研究智能体 MVP 上线（goal→predict→act→observe→reflect→synthesize），含启发式世界模型、动作策略、技能使用、episode 记录、Mission Control UI。5 任务小样本 0.971 vs fixed 0.835，但 rubric 不对等、样本极小，不能作为强结论。
 
 > **v0.10 实现更新（2026-11-04）**：加入跨批次冗余门控、workspace MMR、记忆 hot/warm/cold 元数据。它们把“预测残差/工作空间/记忆分层”落到工程，但仍是词面级、非真网络。
 

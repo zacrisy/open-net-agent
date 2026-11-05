@@ -7,6 +7,7 @@ import db, db_async
 import agent_core
 import brain
 import graph_retrieval
+import agent_loop
 from skills import SKILLS, SKILL_META
 from starter_corpus import DOCS as STARTER_DOCS
 
@@ -327,6 +328,36 @@ async def brain_status(req):
     return web.json_response(brain.status())
 
 
+AGENT_HITS = defaultdict(list)
+
+
+def agent_limited(req):
+    ip = req.headers.get("X-Forwarded-For", req.remote or "?").split(",")[0].strip()
+    now = time.time(); AGENT_HITS[ip] = [t for t in AGENT_HITS[ip] if now - t < 60]
+    if len(AGENT_HITS[ip]) >= 3: return True
+    AGENT_HITS[ip].append(now); return False
+
+
+async def agent_run(req):
+    if agent_limited(req):
+        return web.json_response({"error": "agent rate limit (3/min)"}, status=429)
+    try: d = await req.json()
+    except Exception: d = {}
+    return web.json_response(agent_loop.start(d.get("question", ""), d.get("budget", 6)))
+
+
+async def agent_status(req):
+    tid = req.query.get("task_id", "")
+    s = agent_loop.task_status(tid) if tid else None
+    if not s:
+        return web.json_response({"error": "task not found"}, status=404)
+    return web.json_response(s)
+
+
+async def agent_tasks(req):
+    return web.json_response(agent_loop.list_tasks(int(req.query.get("limit", 10))))
+
+
 async def brain_retrieve(req):
     q = req.query.get("q", "")
     k = int(req.query.get("k", 5))
@@ -470,6 +501,9 @@ def app():
     a.router.add_get("/api/brain/cards", brain_cards)
     a.router.add_get("/api/brain/graph", brain_graph)
     a.router.add_get("/api/brain/retrieve", brain_retrieve)
+    a.router.add_post("/api/agent/run", agent_run)
+    a.router.add_get("/api/agent/status", agent_status)
+    a.router.add_get("/api/agent/tasks", agent_tasks)
     a.router.add_post("/feedback", feedback)
     a.router.add_get("/evolution/stats", evolution_stats)
     a.router.add_get("/knowledge_pack.json", knowledge_pack)
