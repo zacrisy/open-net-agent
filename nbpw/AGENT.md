@@ -27,7 +27,22 @@ goal → predict → act → observe → compare → reflect → synthesize
 5. 否则 synthesize；
 6. 无证据 → abstain。
 
-## 3. 世界模型 v0
+## 3. 世界模型 v0（v0.12 升级）
+
+- `world_model.py`：对历史 `agent_steps` 做 kNN（按 action + step 距离）；
+- `bandit.py`：UCB 在允许动作中选择；
+- reward = coverage 增益 + 新来源/卡数 - 成本；
+- 这仍不是神经网络世界模型，但已经从“固定规则”变成“从 episode 学习”。
+
+## 3.1 世界模型/策略评估
+
+5 任务：agent 0.884 vs fixed 0.727（rubric 不完全对等，样本小）。
+
+## 3.2 ARC 抽象测试
+
+12 个玩具网格任务，程序合成 12/12；见 [`ARC.md`](ARC.md)。这是玩具 DSL，不是 ARC-AGI。
+
+## 3.3 世界模型 v0（旧）
 
 `predict(action)` 用历史 `agent_steps` 中该 action 的平均观察值：
 

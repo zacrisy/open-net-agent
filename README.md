@@ -58,7 +58,8 @@ RETRIEVE → EXTRACT → VERIFY → CONSOLIDATE → EVOLVE
 - 动作：search / graph / verify / synthesize / abstain；
 - 每一步记录预测、观察、surprise、反思；
 - 技能使用统计、评分、引用检查；
-- 文档：[`nbpw/AGENT.md`](nbpw/AGENT.md)。
+- 文档：[`nbpw/AGENT.md`](nbpw/AGENT.md)；
+- 抽象测试：[`nbpw/ARC.md`](nbpw/ARC.md)（12 个玩具任务，12/12；不是 ARC-AGI）。
 
 ### 4. Workbench
 

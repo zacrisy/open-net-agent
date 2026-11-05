@@ -11,6 +11,8 @@ import json, re, threading, time, uuid
 import agent_core
 import brain
 import graph_retrieval
+import world_model
+import bandit
 
 LOCK = threading.Lock()
 CURRENT = {"task_id": None, "status": "idle"}
@@ -62,21 +64,8 @@ def _lexical_nli(claim, evidence):
     return "UNCERTAIN", .35
 
 
-def predict(action):
-    c = _conn()
-    rows = c.execute("SELECT observation FROM agent_steps WHERE action=? ORDER BY id DESC LIMIT 30", (action,)).fetchall()
-    c.close()
-    vals = []
-    for (raw,) in rows:
-        try:
-            d = json.loads(raw)
-            if "sources" in d: vals.append(float(d["sources"]))
-            elif "cards" in d: vals.append(float(d["cards"]))
-            elif "confidence" in d: vals.append(float(d["confidence"]))
-        except Exception:
-            pass
-    v = sum(vals) / len(vals) if vals else {"search": 4.0, "graph": 4.0, "verify": .6, "synthesize": 1.0}.get(action, 1.0)
-    return {"expected": round(v, 3), "n": len(vals)}
+def predict(action, state=None):
+    return world_model.predict(action, state or {})
 
 
 def _store_step(tid, step, action, inp, pred, obs, surprise):
@@ -93,17 +82,21 @@ def _choose(state):
         return "done"
     if state["step"] >= state["budget"]:
         return "synthesize" if state["evidence"] else "abstain"
-    if not state["evidence"] and state["queries"]:
-        return "search"
+    allowed = []
+    if state["queries"]:
+        allowed.append("search")
     if not state["graph_done"]:
-        return "graph"
-    if state["evidence"] and not state["verified"]:
-        return "verify"
-    if state["evidence"] and state["queries"] and state["coverage"] < .35:
-        return "search"
+        allowed.append("graph")
     if state["evidence"]:
-        return "synthesize"
-    return "abstain"
+        if not state["verified"]:
+            allowed.append("verify")
+        allowed.append("synthesize")
+    if not allowed:
+        return "abstain"
+    # force search on a cold start; bandit controls the rest
+    if not state["evidence"] and "search" in allowed:
+        return "search"
+    return bandit.choose(allowed)
 
 
 def _observe(state, action):
@@ -177,10 +170,15 @@ def run_task(question, budget=6, tid=None):
             action = _choose(state)
             if action == "done":
                 break
-            pred = predict(action)
+            pred = predict(action, state)
+            before_cov = state.get("coverage", 0.0)
+            before_n = len(state.get("evidence", [])) + len(state.get("graph", []))
             obs = _observe(state, action)
             actual = obs.get("sources", obs.get("cards", obs.get("confidence", 1.0)))
             surprise = round(abs(float(actual) - float(pred["expected"])) / max(1.0, float(pred["expected"])), 3)
+            after_n = len(state.get("evidence", [])) + len(state.get("graph", []))
+            gain = max(0.0, state.get("coverage", 0.0) - before_cov) + 0.08 * max(0, after_n - before_n)
+            bandit.update(action, gain - 0.02 if action != "synthesize" else 0.0)
             _store_step(tid, i, action, {"question": question}, pred, obs, surprise)
             state["step"] = i + 1
             if action in ("synthesize", "abstain"):
@@ -191,6 +189,7 @@ def run_task(question, budget=6, tid=None):
         graph_as_sources = [{"title": c.get("claim", ""), "snippet": c.get("evidence", "")} for c in state.get("graph", [])]
         total_coverage = _coverage(state["question"], state["evidence"] + graph_as_sources)
         score = round(0.3 * cite_ok + 0.3 * min(1, total_sources / 4) + 0.2 * total_coverage + 0.2 * (1 if state["verified"] else 0), 3)
+        bandit.update("synthesize", score)
         reflection = f"steps={state['step']} sources={total_sources} coverage={total_coverage:.2f} verify={len(state['verified'])} cite_ok={bool(cite_ok)}"
         c = _conn()
         with c:

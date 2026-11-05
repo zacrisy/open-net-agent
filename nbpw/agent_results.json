@@ -1,7 +1,7 @@
 {
  "n": 5,
- "agent_mean": 0.971,
- "fixed_mean": 0.835,
+ "agent_mean": 0.884,
+ "fixed_mean": 0.727,
  "rows": [
   {
    "id": "t1",
@@ -9,7 +9,7 @@
    "agent": {
     "score": 0.933,
     "confidence": 0.9,
-    "steps": 4
+    "steps": 5
    },
    "fixed": {
     "score": 0.746,
@@ -22,22 +22,22 @@
    "id": "t2",
    "question": "What is the mechanism of GLP-1 receptor agonists for weight loss?",
    "agent": {
-    "score": 1.0,
-    "confidence": 0.9,
+    "score": 0.756,
+    "confidence": 0.83,
     "steps": 4
    },
    "fixed": {
-    "score": 0.92,
-    "sources": 4,
+    "score": 0.38,
+    "sources": 0,
     "citation_ok": true,
-    "elapsed": 0.0
+    "elapsed": 0.6
    }
   },
   {
    "id": "t3",
    "question": "How should AI agent evaluation be designed?",
    "agent": {
-    "score": 1.0,
+    "score": 0.96,
     "confidence": 0.9,
     "steps": 4
    },
@@ -45,14 +45,14 @@
     "score": 0.92,
     "sources": 6,
     "citation_ok": true,
-    "elapsed": 0.0
+    "elapsed": 2.0
    }
   },
   {
    "id": "t4",
    "question": "Python asyncio RuntimeError event loop is closed 怎么解决？",
    "agent": {
-    "score": 0.971,
+    "score": 0.771,
     "confidence": 0.9,
     "steps": 4
    },
@@ -67,15 +67,15 @@
    "id": "t5",
    "question": "What metrics are used to evaluate retrieval augmented generation?",
    "agent": {
-    "score": 0.95,
+    "score": 1.0,
     "confidence": 0.9,
-    "steps": 4
+    "steps": 5
    },
    "fixed": {
     "score": 0.92,
     "sources": 6,
     "citation_ok": true,
-    "elapsed": 1.4
+    "elapsed": 0.0
    }
   }
  ]

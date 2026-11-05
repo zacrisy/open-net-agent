@@ -8,6 +8,8 @@
 
 ---
 
+> **v0.12 实现更新（2026-11-05）**：世界模型从历史均值升级为 kNN，策略升级为 UCB bandit；加入 12 个 ARC 风格玩具任务与 DSL 程序合成（12/12）。5 任务 agent 0.884 vs fixed 0.727，但样本/rubric 仍弱；ARC 是玩具 DSL，不是 ARC-AGI。
+
 > **v0.11 实现更新（2026-11-05）**：Level-2 研究智能体 MVP 上线（goal→predict→act→observe→reflect→synthesize），含启发式世界模型、动作策略、技能使用、episode 记录、Mission Control UI。5 任务小样本 0.971 vs fixed 0.835，但 rubric 不对等、样本极小，不能作为强结论。
 
 > **v0.10 实现更新（2026-11-04）**：加入跨批次冗余门控、workspace MMR、记忆 hot/warm/cold 元数据。它们把“预测残差/工作空间/记忆分层”落到工程，但仍是词面级、非真网络。
