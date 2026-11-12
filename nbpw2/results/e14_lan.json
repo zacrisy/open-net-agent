@@ -1,0 +1,45 @@
+{
+  "config": {
+    "nodes": 5,
+    "latency_ms": 30.0,
+    "loss": 0.05,
+    "nq": 25,
+    "budget": 2
+  },
+  "results": {
+    "direct_rtt_ms": 12.4,
+    "proxied_rtt_ms": 95.7,
+    "proxy_failures": 0,
+    "proxy_success_rate": 1.0,
+    "random": {
+      "both@2": 0.0,
+      "both@5": 0.0,
+      "latency": 0.0435,
+      "queries": 2
+    },
+    "all": {
+      "both@2": 0.08,
+      "both@5": 0.08,
+      "latency": 0.2096,
+      "queries": 2
+    },
+    "learned": {
+      "both@2": 0.0,
+      "both@5": 0.0,
+      "latency": 0.0429,
+      "queries": 2
+    },
+    "oracle_shard": {
+      "both@2": 0.0,
+      "both@5": 0.0,
+      "latency": 0.0778,
+      "queries": 1.88
+    },
+    "routed_single_shard": {
+      "both@2": 0.0,
+      "both@5": 0.0,
+      "latency": 0.0245,
+      "queries": 1
+    }
+  }
+}

@@ -8,3 +8,5 @@ brain.db*
 *.db-wal
 *.db-shm
 nbpw2/data/dmqa_1000.jsonl
+nbpw2/results/lan/
+nbpw2/results/e14_lan.json

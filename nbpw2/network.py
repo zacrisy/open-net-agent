@@ -62,6 +62,11 @@ def score_candidates(ep, verifier, n_nodes=5, use_agreement=True):
     if not cands:
         return []
     max_local = max([c["local_score"] for c in cands] + [1e-6])
+    scores = [c.get("local_score", 0.0) for c in cands]
+    lo, hi = min(scores), max(scores)
+    span = (hi - lo) or 1.0
+    for c in cands:
+        c["local_z"] = (c.get("local_score", 0.0) - lo) / span
     X = []
     for c in cands:
         X.append(candidate_features(c, ep["question"], cands, n_nodes, max_local, c.get("node_rel", 0.5), use_agreement))

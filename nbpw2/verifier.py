@@ -39,15 +39,22 @@ def candidate_features(c, query, all_cands, n_nodes, max_local, node_rel=0.5, us
     local_norm = float(c.get("local_score", 0.0)) / max(1e-6, max_local)
     rank_norm = 1.0 - squash_rank(c.get("rank", 0)) / 5.0
     len_norm = min(1.0, len(dt) / 120.0)
+    # entity bridge: a capitalised span from the query that also appears in the
+    # candidate (or, for the second hop, the title is a capitalised noun the
+    # query refers back to).  Keep a weak bonus so it cannot swamp retrieval.
     ent = len(qcap & tcap) / max(1, len(qcap))
+    ent = 0.5 * ent + 0.5 * (1.0 if (tcap and (tcap & qcap or tt & qt)) else 0.0)
     title_in_query = 1.0 if tt and tt <= qt else 0.0
     agreement = float(c.get("agreement", 0.0)) if use_agreement else 0.0
     # novelty against other candidates
     sims = [_jacc(dt, set(tokens(o.get("text", "")))) for o in all_cands if o is not c]
     nov = 1.0 - (max(sims) if sims else 0.0)
     has_num = 1.0 if re.search(r"\d", c.get("text", "")) else 0.0
+    # absolute z-score of the local retrieval score (the only signal that keeps
+    # gold near rank 0 when the shortlist is mostly gold-absent)
+    z = float(c.get("local_z", 0.0))
     return [overlap, title_overlap, local_norm, rank_norm, len_norm, ent,
-            title_in_query, agreement, nov, has_num, float(node_rel)]
+            title_in_query, agreement, nov, has_num, float(node_rel), z]
 
 class Verifier:
     def __init__(self, l2=1e-3, lr=0.15, epochs=500):

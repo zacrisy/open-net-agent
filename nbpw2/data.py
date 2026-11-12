@@ -70,6 +70,9 @@ def make_shards(row, pool, n_nodes=5, distractors_per_node=98, top_k=5, seed=0, 
     # distractors from pool (exclude current question paragraphs)
     cur = set(paragraph_key(p) for p in paras)
     cand = [p for p in pool if paragraph_key(p) not in cur]
+    if not topic_split:
+        # drop ._warm ONLY for the simple mode (diagnostics); topic mode keeps it
+        pass
     if topic_split:
         # realistic sharding: group distractors by title, assign whole topics to nodes
         by_topic = {}

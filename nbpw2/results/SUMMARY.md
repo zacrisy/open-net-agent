@@ -271,3 +271,39 @@ selector; the oracle gap remains (profile signals are still weak).
   the LAN pilot.
 - Remaining gap to oracle is a **node-profile / recall** problem, not a
   workspace problem: feed per-node recall scores and topic metadata.
+
+## E14: real LAN transport (in progress, blocked)
+
+Goal: 5 separate node processes, 30 ms RTT + 5% loss through `netproxy.py`,
+compare all-nodes / random / learned selection under a real latency budget.
+
+What works and is verified:
+
+- `nbpw2/lan.py` serves real HTTP `/query` + `/health` + `/raw` + `/stats`.
+- `nbpw2/lan_client.py` measures real RTT; direct ~12 ms, through netproxy
+  ~80–100 ms with the configured 30 ms one-way delay + 5% loss.
+- Node processes start and serve (health OK, raw recall returns hits).
+
+What is blocked:
+
+- In the multi-process run, the long query
+  (`Július Satinský was born in a city that has a current population of what?`)
+  returns hits that do not match the in-process result for the same shard file
+  (in-process: gold title rank 0 score 0.176; subprocess: no gold in top-20,
+  max 0.073). Short queries behave identically.
+- Reproduced with both `bm25` and `dense` recall; `PYTHONHASHSEED=0` did not
+  change it. Suspected per-process environment/dependency difference, not an
+  algorithm issue.
+- Therefore **no LAN numbers are reported**. E14 is marked blocked, not failed.
+
+Next: run the nodes from the same interpreter/venv that runs the driver, log
+the doc sha256 per node at startup, and re-run before drawing any conclusion
+about latency-aware selection.
+
+## Round 3 status
+
+| Item | Status |
+|---|---|
+| Topic-split sharding (E12) | done, strong positive |
+| 10 nodes x topic split (E13) | done, positive |
+| Real LAN transport (E14) | blocked on a reproducibility bug; documented |

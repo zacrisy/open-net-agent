@@ -52,6 +52,7 @@ $PY -m nbpw2.run_e10      # 10-node simulation
 $PY -m nbpw2.run_e11      # learned node scorer (P1)
 $PY -m nbpw2.run_e12      # topic-split sharding (realistic network)
 $PY -m nbpw2.run_e13      # 10 nodes x topic split
+$PY -m nbpw2.run_e14      # real LAN transport (blocked, see SUMMARY)
 ```
 
 Or run everything:
