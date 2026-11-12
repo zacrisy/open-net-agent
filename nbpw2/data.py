@@ -77,9 +77,15 @@ def make_shards(row, pool, n_nodes=5, distractors_per_node=98, top_k=5, seed=0, 
             by_topic.setdefault(p["title"], []).append(p)
         topics = list(by_topic)
         rng.shuffle(topics)
+        per_node_topics = max(4, (distractors_per_node // 6) + 4)
         buckets = [[] for _ in range(n_nodes)]
-        for i, t in enumerate(topics):
-            buckets[i % n_nodes].extend(by_topic[t])
+        cursor = 0
+        for nid in range(n_nodes):
+            taken = 0
+            while cursor < len(topics) and taken < per_node_topics:
+                t = topics[cursor]; cursor += 1
+                buckets[nid].extend(by_topic[t])
+                taken += 1
         for n in nodes:
             n["topic_pool"] = buckets[n["id"]]
     for n in nodes:

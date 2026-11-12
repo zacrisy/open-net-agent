@@ -50,6 +50,8 @@ $PY -m nbpw2.run_e8       # active evidence gathering (100 test)
 $PY -m nbpw2.run_e9       # larger replication (1000 questions)
 $PY -m nbpw2.run_e10      # 10-node simulation
 $PY -m nbpw2.run_e11      # learned node scorer (P1)
+$PY -m nbpw2.run_e12      # topic-split sharding (realistic network)
+$PY -m nbpw2.run_e13      # 10 nodes x topic split
 ```
 
 Or run everything:

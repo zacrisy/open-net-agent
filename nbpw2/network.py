@@ -27,9 +27,10 @@ def _agreement(cands, n_nodes):
     for c in cands:
         c["agreement"] = counts[c["title"]] / max(1, n_nodes)
 
-def collect(row, pool, n_nodes=5, distractors=98, top_k=None, replicas=1, killed=(), seed=0, include_central=False, gold_nodes=None):
+def collect(row, pool, n_nodes=5, distractors=98, top_k=None, replicas=1, killed=(), seed=0, include_central=False, gold_nodes=None, topic_split=False):
     nodes, gold = make_shards(row, pool, n_nodes=n_nodes, distractors_per_node=distractors,
-                              top_k=top_k or 5, seed=seed, replicas=replicas, gold_nodes=gold_nodes)
+                              top_k=top_k or 5, seed=seed, replicas=replicas, gold_nodes=gold_nodes,
+                              topic_split=topic_split)
     per_node, cands = [], []
     for n in nodes:
         if n["id"] in killed:

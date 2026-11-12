@@ -35,6 +35,19 @@ Key results (see `nbpw2/results/SUMMARY.md`):
 - Shapley vs counterfactual credit: Spearman 0.555.
 - Skill-aware routing: 100% coverage vs 34.6% random.
 
+### Round 2 (E12–E13): topic-split sharding
+
+- New `topic_split` sharding mode: whole topics assigned to nodes (~22 titles
+  per node instead of 100 random paragraphs), matching how a real federated
+  network is partitioned.
+- Learned node scorer under topic split: B=2 **0.445 vs 0.116 random**
+  (+0.364, CI [0.288, 0.436]); B=3 0.645 vs 0.264. All-node ceiling rises from
+  0.58 to 0.83 because candidate dilution drops.
+- 10 nodes x topic split: B=4 gets 0.645 vs 0.120 random with 39% of the
+  all-node bytes (all-10 = 0.850).
+- Conclusion: node selection is a real lever; the remaining oracle gap is a
+  node-profile/recall problem, not a workspace problem.
+
 Honest limits: paragraph-level retrieval only, 100–250 test questions, lexical
 verifier (no LLM/embeddings yet), synthetic routing/world-model tasks, no real
 LAN/WAN deployment. The 50-node WAN stage remains gated.

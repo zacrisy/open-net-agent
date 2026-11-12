@@ -221,3 +221,53 @@ workspace; don't raise the budget blindly.
   (E11: +10 points at B=2, statistically clear).
 - Next: feed richer node signals (BM25 scores per node, dense-retrieval
   similarity, topic sharding) into the scorer; then a real 10-node LAN run.
+
+## E12: topic-split sharding (realistic network) — 1000q, 250 test
+
+Distractors are grouped by title and whole topics are assigned to nodes
+(~22 titles x ~5 docs per node instead of 100 random paragraphs), so a node is
+a topical shard rather than a random sample.
+
+| Budget | Policy | both@2 | both@5 | recall@5 | MRR | bytes |
+|---|---:|---:|---:|---:|---:|---:|
+| 2 | random | 0.085 | 0.116 | 0.413 | 0.639 | 5,594 |
+| 2 | profile heuristic | 0.312 | 0.376 | 0.675 | 0.920 | 5,521 |
+| 2 | **learned scorer** | **0.365** | **0.445** | **0.709** | **0.923** | **5,435** |
+| 2 | oracle | 0.747 | 0.975 | 0.987 | 0.976 | 5,388 |
+| 3 | random | 0.179 | 0.264 | 0.579 | 0.800 | 8,372 |
+| 3 | profile heuristic | 0.407 | 0.517 | 0.747 | 0.922 | 8,335 |
+| 3 | **learned scorer** | **0.504** | **0.645** | **0.819** | **0.939** | **8,196** |
+| 3 | oracle | 0.681 | 0.915 | 0.957 | 0.963 | 8,237 |
+| 5 | all nodes | 0.604 | 0.832 | 0.914 | 0.939 | 13,958 |
+
+Paired bootstrap, learned − random at B=2: **+0.364, 95% CI [0.288, 0.436]**.
+
+**Reading**: when nodes are topical shards, node choice matters much more.
+At B=2 learned gets 0.445 vs 0.116 random (3.8x) and 54% of the all-node
+both@5 with 39% of the bytes. Topic sharding also raises the all-node ceiling
+from 0.58 to 0.83 (less candidate dilution).
+
+## E13: 10 nodes x topic-split (100 test, 2 seeds)
+
+| Budget | Policy | both@2 | both@5 | bytes |
+|---|---:|---:|---:|---:|
+| 2 | random | 0.010 | 0.015 | 5,654 |
+| 2 | **learned scorer** | **0.325** | **0.345** | **5,497** |
+| 2 | oracle | 0.825 | 0.985 | 5,525 |
+| 4 | random | 0.100 | 0.120 | 11,518 |
+| 4 | **learned scorer** | **0.470** | **0.645** | **11,080** |
+| 4 | oracle | 0.700 | 0.950 | 11,300 |
+| 10 | all nodes | 0.530 | 0.850 | 28,490 |
+
+**Reading**: at 40% of nodes (B=4) learned gets 0.645 vs 0.120 random and 76%
+of the all-node 0.850 at 39% of the bytes. Scaling nodes does not hurt the
+selector; the oracle gap remains (profile signals are still weak).
+
+## Decision after E11-E13
+
+- Selector quality is the top lever and it now has two independent wins
+  (+0.108 topic-free, +0.364 under topic split vs random).
+- Topic sharding is the realistic deployment mode and should be the default in
+  the LAN pilot.
+- Remaining gap to oracle is a **node-profile / recall** problem, not a
+  workspace problem: feed per-node recall scores and topic metadata.

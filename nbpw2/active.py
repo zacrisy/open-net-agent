@@ -13,14 +13,15 @@ def gold_nodes_for(row, n_nodes=5, seed=0):
     return tuple(rng.sample(range(n_nodes), 2))
 
 class ActiveEnv:
-    def __init__(self, row, pool, n_nodes=5, distractors=100, top_k=5, seed=0, gold_nodes=None, scorer=None):
+    def __init__(self, row, pool, n_nodes=5, distractors=100, top_k=5, seed=0, gold_nodes=None, scorer=None, topic_split=False):
         self.row = row
         self.scorer = scorer
         self.n_nodes = n_nodes
         self.top_k = top_k
         self.nodes, self.gold = make_shards(
             row, pool, n_nodes=n_nodes, distractors_per_node=distractors,
-            top_k=top_k, seed=seed, replicas=1, gold_nodes=gold_nodes)
+            top_k=top_k, seed=seed, replicas=1, gold_nodes=gold_nodes,
+            topic_split=topic_split)
         self.idx = {}
         self.profile = {}
         self.title_profile = {}
@@ -194,12 +195,12 @@ def update_stats(stats, ctx_stats, env, nid):
     ok, fail = ctx_stats.get((typ, nid), (1, 1))
     ctx_stats[(typ, nid)] = (ok + (1 if gold_hit else 0), fail + (0 if gold_hit else 1))
 
-def run_policy(rows, pool, verifier, policy, budget=2, seed=0, n_nodes=5, scorer=None):
+def run_policy(rows, pool, verifier, policy, budget=2, seed=0, n_nodes=5, scorer=None, topic_split=False):
     rng = random.Random(seed)
     stats, ctx_stats = {}, {}
     ms = []
     for t, row in enumerate(rows):
-        env = ActiveEnv(row, pool, n_nodes=n_nodes, gold_nodes=gold_nodes_for(row, n_nodes=n_nodes, seed=seed), scorer=scorer)
+        env = ActiveEnv(row, pool, n_nodes=n_nodes, gold_nodes=gold_nodes_for(row, n_nodes=n_nodes, seed=seed), scorer=scorer, topic_split=topic_split)
         while len(env.queried) < budget:
             nid = choose(policy, env, rng, stats, ctx_stats, t)
             if nid is None:
@@ -212,10 +213,10 @@ def run_policy(rows, pool, verifier, policy, budget=2, seed=0, n_nodes=5, scorer
         ms.append(env.finish(verifier))
     return ms
 
-def run_all_nodes(rows, pool, verifier, n_nodes=5):
+def run_all_nodes(rows, pool, verifier, n_nodes=5, topic_split=False):
     ms = []
     for row in rows:
-        env = ActiveEnv(row, pool, n_nodes=n_nodes, gold_nodes=gold_nodes_for(row, n_nodes=n_nodes))
+        env = ActiveEnv(row, pool, n_nodes=n_nodes, gold_nodes=gold_nodes_for(row, n_nodes=n_nodes), topic_split=topic_split)
         for i in range(env.n_nodes):
             env.query(i)
         ms.append(env.finish(verifier))

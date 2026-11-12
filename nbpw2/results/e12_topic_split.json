@@ -1,0 +1,73 @@
+{
+  "topic,B=2,random": {
+    "both@2": 0.0853,
+    "both@5": 0.116,
+    "recall@5": 0.4127,
+    "mrr": 0.6393,
+    "bytes": 5593.7467
+  },
+  "topic,B=2,active": {
+    "both@2": 0.312,
+    "both@5": 0.376,
+    "recall@5": 0.6747,
+    "mrr": 0.9195,
+    "bytes": 5521.3747
+  },
+  "topic,B=2,learned_node": {
+    "both@2": 0.3653,
+    "both@5": 0.4453,
+    "recall@5": 0.7093,
+    "mrr": 0.9225,
+    "bytes": 5435.3213
+  },
+  "topic,B=2,oracle": {
+    "both@2": 0.7467,
+    "both@5": 0.9747,
+    "recall@5": 0.9873,
+    "mrr": 0.9764,
+    "bytes": 5387.7213
+  },
+  "topic,B=3,random": {
+    "both@2": 0.1787,
+    "both@5": 0.264,
+    "recall@5": 0.5787,
+    "mrr": 0.7999,
+    "bytes": 8372.12
+  },
+  "topic,B=3,active": {
+    "both@2": 0.4067,
+    "both@5": 0.5173,
+    "recall@5": 0.7473,
+    "mrr": 0.922,
+    "bytes": 8335.0293
+  },
+  "topic,B=3,learned_node": {
+    "both@2": 0.504,
+    "both@5": 0.6453,
+    "recall@5": 0.8187,
+    "mrr": 0.9391,
+    "bytes": 8195.796
+  },
+  "topic,B=3,oracle": {
+    "both@2": 0.6813,
+    "both@5": 0.9147,
+    "recall@5": 0.9573,
+    "mrr": 0.9627,
+    "bytes": 8237.4373
+  },
+  "bootstrap_topic_B2_learned_minus_random": {
+    "diff": 0.364,
+    "ci95": [
+      0.288,
+      0.436
+    ],
+    "n": 250
+  },
+  "topic,all5": {
+    "both@2": 0.604,
+    "both@5": 0.832,
+    "recall@5": 0.914,
+    "mrr": 0.9387,
+    "bytes": 13957.88
+  }
+}

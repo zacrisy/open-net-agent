@@ -1,0 +1,51 @@
+{
+  "n10,topic,B=2,random": {
+    "both@2": 0.01,
+    "both@5": 0.015,
+    "recall@5": 0.205,
+    "mrr": 0.3654,
+    "bytes": 5653.885
+  },
+  "n10,topic,B=2,learned_node": {
+    "both@2": 0.325,
+    "both@5": 0.345,
+    "recall@5": 0.6275,
+    "mrr": 0.8733,
+    "bytes": 5497.39
+  },
+  "n10,topic,B=2,oracle": {
+    "both@2": 0.825,
+    "both@5": 0.985,
+    "recall@5": 0.9925,
+    "mrr": 0.9867,
+    "bytes": 5524.83
+  },
+  "n10,topic,B=4,random": {
+    "both@2": 0.1,
+    "both@5": 0.12,
+    "recall@5": 0.37,
+    "mrr": 0.5571,
+    "bytes": 11518.2
+  },
+  "n10,topic,B=4,learned_node": {
+    "both@2": 0.47,
+    "both@5": 0.645,
+    "recall@5": 0.81,
+    "mrr": 0.9183,
+    "bytes": 11080.44
+  },
+  "n10,topic,B=4,oracle": {
+    "both@2": 0.7,
+    "both@5": 0.95,
+    "recall@5": 0.975,
+    "mrr": 0.9675,
+    "bytes": 11299.685
+  },
+  "n10,topic,all10": {
+    "both@2": 0.53,
+    "both@5": 0.85,
+    "recall@5": 0.92,
+    "mrr": 0.9333,
+    "bytes": 28490.29
+  }
+}
