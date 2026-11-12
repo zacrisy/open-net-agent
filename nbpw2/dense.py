@@ -88,7 +88,7 @@ class DenseIndex:
 def recall(question, docs, k=None, mode=None):
     """The default recall path.  Returns hits carrying `rank` (raw) + `local_score`."""
     mode = mode or os.environ.get("NBPW2_RECALL", "dense")
-    k = int(k if k is not None else os.environ.get("NBPW2_RECALL_K", 20))
+    k = int(k if k is not None else os.environ.get("NBPW2_RECALL_K", 10))
     if mode == "bm25":
         from .retrieval import Index
         return Index(docs).search(question, k)

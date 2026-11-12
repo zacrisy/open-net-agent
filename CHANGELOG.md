@@ -65,6 +65,34 @@ Honest limits: paragraph-level retrieval only, 100–250 test questions, lexical
 verifier (no LLM/embeddings yet), synthetic routing/world-model tasks, LAN
 transport reproducibility bug unresolved. The 50-node WAN stage remains gated.
 
+### Round 4 (E16–E17): dense default depth k=10 + node-route diagnosis
+
+- Default recall depth is now **k=10** (`NBPW2_RECALL_K`, was 20), i.e. 20
+  candidates at B=2 instead of 40. Measured through the real `recall()` entry
+  point: set .720 / ws .670 / ceiling .780. Same-head paired comparison against
+  k=20 (.730 set) is **−.01 [−.04, .02]** — no readout loss, ~94 ms saved at
+  4.7 ms/candidate readout. k=20 stays available as a high-budget setting.
+- Additive decomposition at the new default: hit .780 / node-not-queried .110 /
+  in-node depth .110. The depth term is what dense retrieval fixed; the .11
+  routing term is unchanged from BM25 and is now the largest structural gap.
+- E17 route diagnosis on the 11 questions with a gold node never queried:
+  **10/11 are distinct-node misrankings** (both golds live in different nodes,
+  `bridge_hop` ranks the missing one 3rd), **1/11 is same-node-unroutable**
+  (both golds in one node; no B=2 policy can recover it — it needs B>=3 or a
+  node merge). Query signal exists: the missing node is rank 1–3 by dense
+  max-cosine in every case.
+- Variants (recall fixed at k=10, shipped verifier/head, only routing changes):
+  - D1 dense node score, independent top-2: ceiling .780 -> .880, node recall
+    .940 -> .995, set **.720 -> .790, +.07 [.02, .13]**, ws .670 -> .730.
+  - D2 dense bridge from the hop-1 anchor paragraph: set .770, +.05 [0, .10].
+  - D3 D2 + adaptive third hop when the hop-2 bridge is weak: set .760,
+    +.04 [−.01, .10] at 2.19 node queries — adaptivity does not pay at K=3.
+- D1 is not wired as the default yet; it needs the query embedding passed into
+  `active.choose`, which is a separate change. Reported as the next candidate.
+- Same 100 test questions, K=3, B=2; paired question-cluster bootstrap; ±.07
+  half-width rule unchanged. Raw numbers: `nbpw2/results/e16_dense_default.json`,
+  `e16b_k10_default.json`, `e17_node_route.json`.
+
 ## 0.7.0
 
 - Evidence-first workbench: `/public/ask` with research / docs / compute / verify

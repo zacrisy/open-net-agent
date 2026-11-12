@@ -1,0 +1,223 @@
+{
+ "config": {
+  "n_nodes": 3,
+  "B_nodes": 2,
+  "n_test": 100,
+  "ks": [
+   5,
+   8,
+   10,
+   12,
+   15,
+   20
+  ],
+  "encoder": "BAAI/bge-small-en-v1.5",
+  "default": "dense@20, rerank off (NBPW2_RERANK=0)",
+  "latency_ms": {
+   "query_encode": 52.45,
+   "dense_scan_per_node": 5.91,
+   "bm25_scan_per_node": 8.88,
+   "readout_per_candidate": 4.7,
+   "rerank_per_50": 3.45
+  }
+ },
+ "results": {
+  "bm25@20+rerank": {
+   "ceiling": 0.74,
+   "ws": 0.48,
+   "ws_ci95": [
+    0.38,
+    0.58
+   ],
+   "set": 0.63,
+   "set_ci95": [
+    0.54,
+    0.72
+   ],
+   "n_cand": 40,
+   "total_ms": 217.8
+  },
+  "dense@5": {
+   "ceiling": 0.69,
+   "ws": 0.67,
+   "ws_ci95": [
+    0.58,
+    0.76
+   ],
+   "set": 0.68,
+   "set_ci95": [
+    0.59,
+    0.77
+   ],
+   "n_cand": 10,
+   "total_ms": 123.3,
+   "d_set_vs_bm25rerank": 0.05,
+   "d_set_ci95": [
+    -0.02,
+    0.13
+   ]
+  },
+  "dense@8": {
+   "ceiling": 0.76,
+   "ws": 0.66,
+   "ws_ci95": [
+    0.57,
+    0.76
+   ],
+   "set": 0.71,
+   "set_ci95": [
+    0.62,
+    0.8
+   ],
+   "n_cand": 16,
+   "total_ms": 151.5,
+   "d_set_vs_bm25rerank": 0.08,
+   "d_set_ci95": [
+    0.01,
+    0.15
+   ]
+  },
+  "dense@10": {
+   "ceiling": 0.78,
+   "ws": 0.66,
+   "ws_ci95": [
+    0.56,
+    0.75
+   ],
+   "set": 0.72,
+   "set_ci95": [
+    0.63,
+    0.81
+   ],
+   "n_cand": 20,
+   "total_ms": 170.3,
+   "d_set_vs_bm25rerank": 0.09,
+   "d_set_ci95": [
+    0.02,
+    0.16
+   ]
+  },
+  "dense@12": {
+   "ceiling": 0.8,
+   "ws": 0.65,
+   "ws_ci95": [
+    0.56,
+    0.74
+   ],
+   "set": 0.72,
+   "set_ci95": [
+    0.63,
+    0.81
+   ],
+   "n_cand": 24,
+   "total_ms": 189.1,
+   "d_set_vs_bm25rerank": 0.09,
+   "d_set_ci95": [
+    0.02,
+    0.16
+   ]
+  },
+  "dense@15": {
+   "ceiling": 0.8,
+   "ws": 0.65,
+   "ws_ci95": [
+    0.56,
+    0.74
+   ],
+   "set": 0.72,
+   "set_ci95": [
+    0.63,
+    0.81
+   ],
+   "n_cand": 30,
+   "total_ms": 217.3,
+   "d_set_vs_bm25rerank": 0.09,
+   "d_set_ci95": [
+    0.02,
+    0.16
+   ]
+  },
+  "dense@20": {
+   "ceiling": 0.81,
+   "ws": 0.65,
+   "ws_ci95": [
+    0.56,
+    0.74
+   ],
+   "set": 0.71,
+   "set_ci95": [
+    0.63,
+    0.8
+   ],
+   "n_cand": 40,
+   "total_ms": 264.3,
+   "d_set_vs_bm25rerank": 0.08,
+   "d_set_ci95": [
+    0.0,
+    0.15
+   ],
+   "decomp": {
+    "hit": 0.81,
+    "node_not_queried": 0.11,
+    "depth": 0.08,
+    "n": 100
+   }
+  },
+  "squash_on_dense": {
+   "with_squash": {
+    "ws": 0.65,
+    "set": 0.71,
+    "ws_ci95": [
+     0.56,
+     0.74
+    ],
+    "set_ci95": [
+     0.63,
+     0.8
+    ]
+   },
+   "without_squash_retrained": {
+    "ws": 0.67,
+    "set": 0.74,
+    "ws_ci95": [
+     0.57,
+     0.76
+    ],
+    "set_ci95": [
+     0.66,
+     0.82
+    ]
+   },
+   "d_ws": -0.02,
+   "d_ws_ci95": [
+    -0.06,
+    0.02
+   ],
+   "d_set": -0.03,
+   "d_set_ci95": [
+    -0.07,
+    0.0
+   ]
+  },
+  "dense@20+rerank": {
+   "ceiling": 0.81,
+   "ws": 0.62,
+   "ws_ci95": [
+    0.52,
+    0.72
+   ],
+   "set": 0.69,
+   "set_ci95": [
+    0.6,
+    0.78
+   ],
+   "n_cand": 40,
+   "d_vs_dense20": -0.02,
+   "d_ci95": [
+    -0.07,
+    0.02
+   ],
+   "total_ms": 436.8
+  }
+ }
+}

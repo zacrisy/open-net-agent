@@ -1,0 +1,451 @@
+{
+ "config": {
+  "K": 3,
+  "B": 2,
+  "recall_k": 10
+ },
+ "diag": [
+  {
+   "id": "5a8db19d5542994ba4e3dd00",
+   "gold_nodes": [
+    1
+   ],
+   "queried": [
+    0,
+    2
+   ],
+   "missing": [
+    1
+   ],
+   "same_node": true,
+   "dense_max_rank_of_missing": [
+    1
+   ],
+   "dense_top3_rank_of_missing": [
+    1
+   ],
+   "lex_rank_of_missing": [
+    3
+   ],
+   "bridge_score_missing": {
+    "1": 0.58
+   },
+   "bridge_score_queried": {
+    "0": 1.0,
+    "2": 0.675
+   },
+   "dense_gap_1_2": 0.181
+  },
+  {
+   "id": "5a77724455429972597f153e",
+   "gold_nodes": [
+    0,
+    1
+   ],
+   "queried": [
+    0,
+    2
+   ],
+   "missing": [
+    1
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    2
+   ],
+   "dense_top3_rank_of_missing": [
+    2
+   ],
+   "lex_rank_of_missing": [
+    2
+   ],
+   "bridge_score_missing": {
+    "1": 0.728
+   },
+   "bridge_score_queried": {
+    "0": 1.0,
+    "2": 0.657
+   },
+   "dense_gap_1_2": 0.054
+  },
+  {
+   "id": "5a85ab905542994c784ddb35",
+   "gold_nodes": [
+    1,
+    2
+   ],
+   "queried": [
+    0,
+    2
+   ],
+   "missing": [
+    1
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    1
+   ],
+   "dense_top3_rank_of_missing": [
+    1
+   ],
+   "lex_rank_of_missing": [
+    1
+   ],
+   "bridge_score_missing": {
+    "1": 0.623
+   },
+   "bridge_score_queried": {
+    "0": 1.0,
+    "2": 0.631
+   },
+   "dense_gap_1_2": 0.015
+  },
+  {
+   "id": "5ab5ed505542997d4ad1f255",
+   "gold_nodes": [
+    1,
+    2
+   ],
+   "queried": [
+    2,
+    0
+   ],
+   "missing": [
+    1
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    2
+   ],
+   "dense_top3_rank_of_missing": [
+    2
+   ],
+   "lex_rank_of_missing": [
+    3
+   ],
+   "bridge_score_missing": {
+    "1": 0.57
+   },
+   "bridge_score_queried": {
+    "2": 1.0,
+    "0": 0.596
+   },
+   "dense_gap_1_2": 0.112
+  },
+  {
+   "id": "5a80ad7c5542992097ad3018",
+   "gold_nodes": [
+    0,
+    2
+   ],
+   "queried": [
+    0,
+    1
+   ],
+   "missing": [
+    2
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    2
+   ],
+   "dense_top3_rank_of_missing": [
+    2
+   ],
+   "lex_rank_of_missing": [
+    3
+   ],
+   "bridge_score_missing": {
+    "2": 0.632
+   },
+   "bridge_score_queried": {
+    "0": 1.0,
+    "1": 0.567
+   },
+   "dense_gap_1_2": 0.153
+  },
+  {
+   "id": "5a77cb5e55429967ab1052a7",
+   "gold_nodes": [
+    0,
+    2
+   ],
+   "queried": [
+    0,
+    1
+   ],
+   "missing": [
+    2
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    1
+   ],
+   "dense_top3_rank_of_missing": [
+    2
+   ],
+   "lex_rank_of_missing": [
+    2
+   ],
+   "bridge_score_missing": {
+    "2": 0.67
+   },
+   "bridge_score_queried": {
+    "0": 1.0,
+    "1": 0.566
+   },
+   "dense_gap_1_2": 0.022
+  },
+  {
+   "id": "5a90843c5542995651fb517e",
+   "gold_nodes": [
+    0,
+    2
+   ],
+   "queried": [
+    2,
+    1
+   ],
+   "missing": [
+    0
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    2
+   ],
+   "dense_top3_rank_of_missing": [
+    2
+   ],
+   "lex_rank_of_missing": [
+    2
+   ],
+   "bridge_score_missing": {
+    "0": 0.724
+   },
+   "bridge_score_queried": {
+    "2": 1.0,
+    "1": 0.585
+   },
+   "dense_gap_1_2": 0.074
+  },
+  {
+   "id": "5a734bb65542994cef4bc50f",
+   "gold_nodes": [
+    1,
+    2
+   ],
+   "queried": [
+    1,
+    0
+   ],
+   "missing": [
+    2
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    2
+   ],
+   "dense_top3_rank_of_missing": [
+    2
+   ],
+   "lex_rank_of_missing": [
+    3
+   ],
+   "bridge_score_missing": {
+    "2": 0.62
+   },
+   "bridge_score_queried": {
+    "1": 1.0,
+    "0": 0.586
+   },
+   "dense_gap_1_2": 0.035
+  },
+  {
+   "id": "5ae6050f55429929b0807a5e",
+   "gold_nodes": [
+    0,
+    2
+   ],
+   "queried": [
+    0,
+    1
+   ],
+   "missing": [
+    2
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    2
+   ],
+   "dense_top3_rank_of_missing": [
+    2
+   ],
+   "lex_rank_of_missing": [
+    3
+   ],
+   "bridge_score_missing": {
+    "2": 0.669
+   },
+   "bridge_score_queried": {
+    "0": 1.0,
+    "1": 0.698
+   },
+   "dense_gap_1_2": 0.072
+  },
+  {
+   "id": "5a87ab905542996e4f3088c1",
+   "gold_nodes": [
+    0,
+    1
+   ],
+   "queried": [
+    1,
+    2
+   ],
+   "missing": [
+    0
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    2
+   ],
+   "dense_top3_rank_of_missing": [
+    2
+   ],
+   "lex_rank_of_missing": [
+    2
+   ],
+   "bridge_score_missing": {
+    "0": 0.708
+   },
+   "bridge_score_queried": {
+    "1": 1.0,
+    "2": 0.582
+   },
+   "dense_gap_1_2": 0.069
+  },
+  {
+   "id": "5ade908b55429975fa854f13",
+   "gold_nodes": [
+    0,
+    1
+   ],
+   "queried": [
+    1,
+    2
+   ],
+   "missing": [
+    0
+   ],
+   "same_node": false,
+   "dense_max_rank_of_missing": [
+    3
+   ],
+   "dense_top3_rank_of_missing": [
+    3
+   ],
+   "lex_rank_of_missing": [
+    2
+   ],
+   "bridge_score_missing": {
+    "0": 0.657
+   },
+   "bridge_score_queried": {
+    "1": 1.0,
+    "2": 0.822
+   },
+   "dense_gap_1_2": 0.065
+  }
+ ],
+ "diag_counts": {
+  "n_gold_missing": 11,
+  "same_node_unroutable": 1,
+  "distinct_nodes_misranked": 10
+ },
+ "variants": {
+  "base": {
+   "ceiling": 0.78,
+   "ws": 0.67,
+   "ws_ci95": [
+    0.57,
+    0.76
+   ],
+   "set": 0.72,
+   "set_ci95": [
+    0.63,
+    0.81
+   ],
+   "n_cand": 20,
+   "node_recall": 0.94,
+   "avg_nodes": 2,
+   "d_set_vs_base": 0.0,
+   "d_set_ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "D1": {
+   "ceiling": 0.88,
+   "ws": 0.73,
+   "ws_ci95": [
+    0.64,
+    0.82
+   ],
+   "set": 0.79,
+   "set_ci95": [
+    0.71,
+    0.87
+   ],
+   "n_cand": 20,
+   "node_recall": 0.995,
+   "avg_nodes": 2,
+   "d_set_vs_base": 0.07,
+   "d_set_ci95": [
+    0.02,
+    0.13
+   ]
+  },
+  "D2": {
+   "ceiling": 0.86,
+   "ws": 0.71,
+   "ws_ci95": [
+    0.62,
+    0.8
+   ],
+   "set": 0.77,
+   "set_ci95": [
+    0.69,
+    0.85
+   ],
+   "n_cand": 20,
+   "node_recall": 0.985,
+   "avg_nodes": 2,
+   "d_set_vs_base": 0.05,
+   "d_set_ci95": [
+    0.0,
+    0.1
+   ]
+  },
+  "D3": {
+   "ceiling": 0.86,
+   "ws": 0.7,
+   "ws_ci95": [
+    0.61,
+    0.79
+   ],
+   "set": 0.76,
+   "set_ci95": [
+    0.68,
+    0.84
+   ],
+   "n_cand": 21.9,
+   "node_recall": 0.985,
+   "avg_nodes": 2.19,
+   "d_set_vs_base": 0.04,
+   "d_set_ci95": [
+    -0.01,
+    0.1
+   ]
+  }
+ }
+}

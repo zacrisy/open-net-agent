@@ -1,0 +1,30 @@
+{
+ "default_k": 10,
+ "recall_only_ms_median": 135.8,
+ "ceiling": 0.78,
+ "ws": 0.67,
+ "ws_ci95": [
+  0.57,
+  0.76
+ ],
+ "set": 0.72,
+ "set_ci95": [
+  0.63,
+  0.81
+ ],
+ "n_cand": 20,
+ "decomp": {
+  "hit": 0.78,
+  "node_not_queried": 0.11,
+  "depth": 0.11,
+  "n": 100
+ },
+ "vs_dense20_same_head": {
+  "set20": 0.73,
+  "d_set": -0.01,
+  "d_set_ci95": [
+   -0.04,
+   0.02
+  ]
+ }
+}

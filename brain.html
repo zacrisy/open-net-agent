@@ -339,8 +339,8 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
           <div style="display:flex;align-items:stretch;gap:5px;flex-wrap:wrap;font:8px/1.5 var(--mono)">
             <div style="flex:1 1 130px;min-width:120px;border:1px solid rgba(255,184,77,.35);background:rgba(255,184,77,.05);padding:6px 7px">
               <div style="color:#ffb84d;letter-spacing:.1em">① 加深 DEPTH</div>
-              <div style="color:var(--muted);margin-top:3px">每节点 k=20</div>
-              <div style="color:var(--dim)">NBPW2_RECALL_K · B=2 → 40 候选</div>
+              <div style="color:var(--muted);margin-top:3px">每节点 k=10（默认）</div>
+              <div style="color:var(--dim)">NBPW2_RECALL_K · B=2 → 20 候选；k=20 为高预算档</div>
             </div>
             <div style="align-self:center;color:var(--cyan)">→</div>
             <div style="flex:1 1 130px;min-width:120px;border:1px solid rgba(77,255,184,.35);background:rgba(77,255,184,.05);padding:6px 7px">
@@ -1351,10 +1351,10 @@ const DEPTH_DENSE_DATA = {
     {cfg:"bm25@20+rerank",     ceil:.740, rec:.850, ws:.480, set:.630, d:0,    ci:[0,0],         cand:40,  ms:220, tag:"旧金标 · 现可选"},
     {cfg:"dense@5",            ceil:.690, rec:.840, ws:.670, set:.680, d:.050, ci:[-.02,.13],   cand:10,  ms:67,  tag:"10 段即超金标"},
     {cfg:"dense@8",            ceil:.760, rec:null, ws:.660, set:.710, d:.080, ci:[.01,.15],    cand:16,  ms:95,  tag:"+8pt 区间显著"},
-    {cfg:"dense@10",           ceil:.780, rec:.885, ws:.660, set:.720, d:.090, ci:[.02,.16],    cand:20,  ms:114, tag:"拐点 · 推荐默认"},
+    {cfg:"dense@10",           ceil:.780, rec:.885, ws:.660, set:.720, d:.090, ci:[.02,.16],    cand:20,  ms:114, tag:"默认（k=10）"},
     {cfg:"dense@12",           ceil:.800, rec:null, ws:.650, set:.720, d:.090, ci:[.02,.16],    cand:24,  ms:133, tag:"平台"},
     {cfg:"dense@15",           ceil:.800, rec:null, ws:.650, set:.720, d:.090, ci:[.02,.16],    cand:30,  ms:161, tag:"平台"},
-    {cfg:"dense@20",           ceil:.810, rec:.900, ws:.650, set:.710, d:.080, ci:[0,.15],      cand:40,  ms:208, tag:"当前默认 · 不再增长"},
+    {cfg:"dense@20",           ceil:.810, rec:.900, ws:.650, set:.710, d:.080, ci:[0,.15],      cand:40,  ms:208, tag:"高预算档 · 不再增长"},
     {cfg:"dense@20+rerank",    ceil:.810, rec:null, ws:.620, set:.690, d:-.020, ci:[-.07,.02],  cand:40,  ms:215, tag:"可选 · 反而 −2pt"}
   ],
   curve: [
@@ -1365,7 +1365,7 @@ const DEPTH_DENSE_DATA = {
     {k:15, bm25:null, dense:.800, set:.720},
     {k:20, bm25:.650, dense:.810, set:.710}
   ],
-  note: "默认召回已切到稠密（NBPW2_RECALL=dense，k=NBPW2_RECALL_K=20），句级 rerank 从默认链路下线、保留为 NBPW2_RERANK=1 可选。端到端点：dense@20 set .710 / ws .650，对旧金标 bm25@20+rerank .630 / .480，Δ +.08 [0,.15]（跨 0，方向一致不算显著）。稠密在 k=5 就以 .680 超过金标的 .630，k=8–10 进入 .710–.720，k=10 之后完全平台：k=10 与 k=20 的 set 差 −.01（噪声），池上限却从 .780 升到 .810 —— 多召回的 20 个候选只抬高上限、不改善选择。代价是每个候选 4.7ms 的 readout，k=10→20 多花 94ms 换 0pt。延迟重测（空载）：query 编码 8.1ms、稠密扫描 0.04ms/节点，检索本身几乎免费，成本全在选择器；此前 .213s 的金标读数漏算了 rerank 阶段，含 rerank 后是 ~220ms，与 dense@20 的 208ms 基本同价。",
+  note: "默认召回已切到稠密（NBPW2_RECALL=dense，k=NBPW2_RECALL_K=10），句级 rerank 从默认链路下线、保留为 NBPW2_RERANK=1 可选。默认切换后重跑：dense@10 set .720 / ws .660，与切换前的 dense@20（.710 / .650）同区间，读数没掉而候选从 40 降到 20。对旧金标 bm25@20+rerank（.630 / .480）是 +.09 [.02,.16]；稠密在 k=5 就以 .680 超过金标，k=8–10 进入 .710–.720，k=10 之后完全平台：k=10 与 k=20 的 set 差 −.01（噪声），池上限却从 .780 升到 .810 —— 多召回的候选只抬高上限、不改善选择。代价是每个候选 4.7ms 的 readout，k=10→20 多花 94ms 换 0pt，故默认取 k=10、k=20 留作高预算档。延迟重测（空载）：query 编码 8.1ms、稠密扫描 0.04ms/节点，检索本身几乎免费，成本全在选择器；此前 .213s 的金标读数漏算了 rerank 阶段，含 rerank 后是 ~220ms。",
   decomp: "三项可加总分解（dense@20）：命中 .810 / 节点未查 .110 / 节点内深度不足 .080；BM25 时代是 .650 / .110 / .240。深度损失被砍掉三分之二，剩下的 .11 全是 B=2 节点路由，深度已不是瓶颈。注意池上限 .810 ≠ 接近 oracle：上限高只说明两篇 gold 在 40 个候选里，端到端仍丢 10pt 给选择器。ranksquash 在稠密候选上方向反转：with .710 vs 重训 raw .740（Δ −.03 [−.07,0]），与 BM25 上的 +4~5pt 相反；故默认链路目前带着它只为不破坏 BM25 可选档，稠密档本身不需要（在 ±.07 内，未改）。"
 };
 
