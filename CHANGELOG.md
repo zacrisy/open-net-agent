@@ -48,9 +48,22 @@ Key results (see `nbpw2/results/SUMMARY.md`):
 - Conclusion: node selection is a real lever; the remaining oracle gap is a
   node-profile/recall problem, not a workspace problem.
 
+### Round 3 (E15): multi-round selection + stopping criteria
+
+- Multi-round active selection: learned 0.772 vs random 0.504 both@5 at 4 node
+  queries (250 questions).
+- Stopping criteria: coverage>=0.6 reaches 0.524 both@5 with **2.11 queries**
+  (random needs 4 queries to get 0.504). Per-query efficiency 0.248 vs 0.126.
+- NEGATIVE: "stop when top-2 verifier scores are high" collapses accuracy
+  (0.772 -> 0.280); a confident paragraph is not evidence of coverage.
+- Real LAN transport (E14) is implemented but **blocked**: 5 node processes +
+  netproxy (30 ms RTT, 5% loss, measured 12 ms -> ~90 ms) work, but long
+  queries return different top-20 in subprocess vs in-process on the same
+  shard file. No LAN numbers are reported until this is fixed.
+
 Honest limits: paragraph-level retrieval only, 100–250 test questions, lexical
-verifier (no LLM/embeddings yet), synthetic routing/world-model tasks, no real
-LAN/WAN deployment. The 50-node WAN stage remains gated.
+verifier (no LLM/embeddings yet), synthetic routing/world-model tasks, LAN
+transport reproducibility bug unresolved. The 50-node WAN stage remains gated.
 
 ## 0.7.0
 
