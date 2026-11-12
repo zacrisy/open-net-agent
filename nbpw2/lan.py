@@ -133,7 +133,7 @@ def serve(port, docs_path, limit=200):
     with open(docs_path, encoding="utf-8") as f:
         data = json.load(f)
     # docs_path may be a list of paragraphs (a shard)
-    DOCS = data[:limit]
+    DOCS = data[:limit] if limit else data
     if os.environ.get("LAN_VERIFIER"):
         VERIFIER[0] = _load_verifier() or "fail"
     srv = ThreadingHTTPServer(("127.0.0.1", port), Handler)
@@ -144,6 +144,6 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=9001)
     ap.add_argument("--docs", required=True)
-    ap.add_argument("--limit", type=int, default=200)
+    ap.add_argument("--limit", type=int, default=0)
     a = ap.parse_args()
     serve(a.port, a.docs, a.limit)

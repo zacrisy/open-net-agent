@@ -7,38 +7,50 @@
     "budget": 2
   },
   "results": {
-    "direct_rtt_ms": 12.4,
-    "proxied_rtt_ms": 95.7,
-    "proxy_failures": 0,
-    "proxy_success_rate": 1.0,
+    "direct_rtt_ms": 34.0,
+    "proxied_rtt_ms": 93.6,
+    "proxy_failures": 1,
+    "proxy_success_rate": 0.875,
     "random": {
       "both@2": 0.0,
       "both@5": 0.0,
-      "latency": 0.0435,
+      "latency": 0.0,
       "queries": 2
     },
     "all": {
-      "both@2": 0.08,
-      "both@5": 0.08,
-      "latency": 0.2096,
+      "both@2": 0.4,
+      "both@5": 0.48,
+      "latency": 0.6343,
       "queries": 2
     },
     "learned": {
+      "both@2": 0.4,
+      "both@5": 0.6,
+      "latency": 0.1204,
+      "queries": 2
+    },
+    "learned_scorer": {
+      "both@2": 0.4,
+      "both@5": 0.6,
+      "latency": 0.1196,
+      "queries": 2
+    },
+    "entity": {
       "both@2": 0.0,
       "both@5": 0.0,
-      "latency": 0.0429,
+      "latency": 0.0,
       "queries": 2
     },
     "oracle_shard": {
-      "both@2": 0.0,
-      "both@5": 0.0,
-      "latency": 0.0778,
+      "both@2": 0.44,
+      "both@5": 0.64,
+      "latency": 0.2211,
       "queries": 1.88
     },
     "routed_single_shard": {
-      "both@2": 0.0,
-      "both@5": 0.0,
-      "latency": 0.0245,
+      "both@2": 0.48,
+      "both@5": 0.8,
+      "latency": 0.0606,
       "queries": 1
     }
   }

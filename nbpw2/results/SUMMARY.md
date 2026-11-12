@@ -360,3 +360,49 @@ learned − random = **+0.364 both@5, CI [0.288, 0.440]**, with learned using
 Caveat: coverage is a lexical proxy; on real questions a semantic coverage
 (sentence-level entailment) would likely stop later and cost more. The
 cost/accuracy curve must be reported per deployer budget, not as one number.
+
+## E14 (FIXED): real LAN transport, 5 node processes behind netproxy
+
+### Root cause of the earlier "blocked" bug
+
+`serve()` loaded `data[:limit]` with `limit=200` while each shard file holds
+~1000 paragraphs. In-process experiments read the whole file, the node process
+read the first 200, so long queries returned different top-20s. Fixed by
+defaulting `--limit 0` (= all docs). No algorithm changed; the earlier E14
+numbers were invalid and are replaced below.
+
+### Setup (real processes, real RTT, real loss)
+
+- 5 `python -m nbpw2.lan` processes, one topic shard each (~850 docs / ~795
+  titles), 200 docs/node view; gold titles co-located on one shard.
+- `netproxy.py` in front of the nodes: 30 ms one-way delay, 5% connection drop.
+- Measured: direct RTT **~12–35 ms**, through proxy **~80–110 ms**, success
+  87.5–100% per probe.
+- 25 questions, 2 seeds, budget 2 node queries; readout = learned verifier
+  (0.8) + local-z prior (0.2), aggregated per title.
+
+| Method | both@2 | both@5 | latency (s) | queries |
+|---|---:|---:|---:|---:|
+| random 2 nodes | 0.12 | 0.24 | 0.11 | 2 |
+| all 5 nodes (not budget-limited) | 0.40 | 0.48 | 0.54–0.63 | 5 |
+| learned selector, 2 nodes | **0.40** | **0.60** | **0.12** | 2 |
+| oracle takes 2 gold-holding nodes | 0.44 | 0.64 | 0.22 | 1.88 |
+| routed to the single gold-holding shard | 0.48 | **0.80** | 0.05 | 1 |
+
+**Reading** (small n, 25 questions):
+
+- Real-process LAN reproduces the simulation's direction: 2 learned queries
+  (0.60) beat 5 random/all queries (~0.48) at ~1/5 the latency.
+- Sending one query to the *right* shard is best (0.80) — sharding by topic and
+  routing on the question's entities is a stronger lever than multi-node
+  voting. That is exactly the "node-profile is the bottleneck" conclusion.
+- Latency is dominated by one RTT per node (proxy ~90 ms): 2 queries ≈ 0.12 s,
+  5 queries ≈ 0.55 s. So under a fixed time budget the selector buys ~4 extra
+  chances.
+- These are 25 questions; treat as direction, not significance.
+
+### What this changes
+
+The E14 blocker is resolved; no LAN numbers from the earlier run should be
+cited. The remaining gap to the oracle (0.60 vs 0.64 at 2 nodes; 0.80 with a
+single right shard) is again **routing precision**, not workspace capacity.

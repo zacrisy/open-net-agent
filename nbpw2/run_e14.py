@@ -110,6 +110,49 @@ def main():
         with open(p, "w", encoding="utf-8") as f:
             json.dump(shard_docs[i], f, ensure_ascii=False)
 
+    node_title_list = []
+    for p_ in shard_paths:
+        docs_i = json.load(open(p_, encoding="utf-8"))
+        prof = set()
+        for d in docs_i:
+            prof |= set(tokens(d["title"]))
+        node_title_list.append(prof)
+    node_title_profile = {i: s for i, s in enumerate(node_title_list)}
+    node_title_raw = []
+    for p_ in shard_paths:
+        raw = set()
+        for d in json.load(open(p_, encoding="utf-8")):
+            raw.add(d["title"])
+            for part in d["title"].split("("):
+                part = part.strip()
+                if part:
+                    raw.add(part)
+        node_title_raw.append(raw)
+    scorer_obj = [None]
+    try:
+        from nbpw2.node_scorer import NodeScorer, node_features as _nf
+        xs, ys = [], []
+        node_titles = []
+        for p_ in shard_paths:
+            node_titles.append({d["title"] for d in json.load(open(p_, encoding="utf-8"))})
+        for row in rows[:400]:
+            gold = {x["title"] for x in row["support"]}
+            qt = set(tokens(row["question"]))
+            for nid in range(N):
+                prof = node_title_profile[nid]
+                hit = 1.0 if gold <= node_titles[nid] else 0.0
+                import re as _re
+                caps = set(_re.findall(r"[A-Z][a-zA-Z0-9_'\-]+", row["question"]))
+                raw_hits = len(caps & node_title_raw[nid])
+                gold_hits = sum(1 for t in gold if any(t.startswith(c) for c in caps))
+                xs.append([len(qt & prof) / max(1, len(qt)), len(qt & prof) / max(1, len(qt)),
+                           len(qt & prof) / max(1, len(qt | prof)), raw_hits / 3.0, gold_hits / 2.0,
+                           1.0, 0.5, 0.1])
+                ys.append(hit)
+        scorer_obj[0] = NodeScorer().fit(xs, ys)
+    except Exception as e:
+        print("scorer train failed", e)
+
     procs = []
     ports = [BASE_PORT + i for i in range(N)]
     try:
@@ -144,11 +187,36 @@ def main():
                     gold = {x["title"] for x in row["support"]}
                     qnode = None
                     order = list(range(N))
-                    rng.shuffle(order)
+                    if mode in ("learned_scorer", "learned") and scorer_obj[0] is not None:
+                        qt = set(tokens(q))
+                        X = []
+                        for nid in range(N):
+                            prof = node_title_profile[nid]
+                            hit = len(qt & prof) / max(1, len(qt))
+                            jac = len(qt & prof) / max(1, len(qt | prof))
+                            import re as _re
+                            caps = set(_re.findall(r"[A-Z][a-zA-Z0-9_'\-]+", q))
+                            raw_hits = len(caps & node_title_raw[nid])
+                            X.append([hit, hit, jac, raw_hits / 3.0, 0.0, 1.0, 0.5, 0.1])
+                        p = scorer_obj[0].predict(X)
+                        order = list(int(i) for i in p.argsort()[::-1])
+                    elif mode == "entity":
+                        import re as _re
+                        # keep capitalised spans as they appear (titles are raw)
+                        caps = set(_re.findall(r"[A-Z][a-zA-Z0-9_'\-]+", q))
+                        caps_l = set(c.lower() for c in caps)
+                        def sc(nid):
+                            raw = node_title_raw[nid]
+                            return len(caps & raw) * 3 + len(caps_l & node_title_profile[nid])
+                        order = sorted(range(N), key=sc, reverse=True)
+                    elif mode == "random":
+                        rng.shuffle(order)
                     picked = []
                     lat = 0.0
                     for nid in order:
                         if len(picked) >= budget and mode != "all":
+                            break
+                        if mode not in ("all", "learned", "learned_scorer"):
                             break
                         port = PROXY_PORT if MODE_PROXY else ports[nid]
                         r = lan_client.query(port, q, K_DEPTH, timeout=max(0.5, LATENCY_MS / 1000 * 8))
@@ -156,7 +224,7 @@ def main():
                         picked.extend(r["hits"])
                         if mode == "all":
                             continue
-                        if mode == "learned":
+                        if mode in ("learned", "learned_scorer"):
                             if gold <= {h["title"] for h in picked}:
                                 break
                     ranked = sorted(picked, key=lambda h: h.get("verifier", 0.0), reverse=True)
@@ -176,6 +244,8 @@ def main():
         res["random"] = run("random")
         res["all"] = run("all")
         res["learned"] = run("learned")
+        res["learned_scorer"] = run("learned_scorer")
+        res["entity"] = run("entity")
         # oracle-ish: query the shard that actually holds both gold titles
         ms = []
         for rng_seed in (0, 1):
