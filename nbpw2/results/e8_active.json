@@ -1,0 +1,154 @@
+{
+  "B=1,random": {
+    "both@2": 0.0,
+    "both@5": 0.0,
+    "recall@5": 0.1617,
+    "mrr": 0.2748,
+    "bytes": 2879.0433,
+    "latency": 0.0298
+  },
+  "B=1,round_robin": {
+    "both@2": 0.0,
+    "both@5": 0.0,
+    "recall@5": 0.1967,
+    "mrr": 0.3622,
+    "bytes": 2686.51,
+    "latency": 0.0298
+  },
+  "B=1,ucb": {
+    "both@2": 0.0,
+    "both@5": 0.0,
+    "recall@5": 0.1983,
+    "mrr": 0.3448,
+    "bytes": 2905.92,
+    "latency": 0.0298
+  },
+  "B=1,context_ucb": {
+    "both@2": 0.0,
+    "both@5": 0.0,
+    "recall@5": 0.19,
+    "mrr": 0.3336,
+    "bytes": 2947.5367,
+    "latency": 0.0298
+  },
+  "B=1,active": {
+    "both@2": 0.0,
+    "both@5": 0.0,
+    "recall@5": 0.3967,
+    "mrr": 0.7561,
+    "bytes": 2814.43,
+    "latency": 0.0299
+  },
+  "B=1,oracle": {
+    "both@2": 0.0,
+    "both@5": 0.0,
+    "recall@5": 0.4667,
+    "mrr": 0.8526,
+    "bytes": 2686.1733,
+    "latency": 0.0299
+  },
+  "B=2,random": {
+    "both@2": 0.0467,
+    "both@5": 0.09,
+    "recall@5": 0.375,
+    "mrr": 0.5624,
+    "bytes": 5763.1567,
+    "latency": 0.0597
+  },
+  "B=2,round_robin": {
+    "both@2": 0.0733,
+    "both@5": 0.0967,
+    "recall@5": 0.3983,
+    "mrr": 0.6039,
+    "bytes": 5461.6467,
+    "latency": 0.0595
+  },
+  "B=2,ucb": {
+    "both@2": 0.05,
+    "both@5": 0.07,
+    "recall@5": 0.35,
+    "mrr": 0.5219,
+    "bytes": 5692.9667,
+    "latency": 0.0596
+  },
+  "B=2,context_ucb": {
+    "both@2": 0.0333,
+    "both@5": 0.06,
+    "recall@5": 0.345,
+    "mrr": 0.5261,
+    "bytes": 5676.88,
+    "latency": 0.0596
+  },
+  "B=2,active": {
+    "both@2": 0.16,
+    "both@5": 0.2467,
+    "recall@5": 0.58,
+    "mrr": 0.8183,
+    "bytes": 5656.94,
+    "latency": 0.0597
+  },
+  "B=2,oracle": {
+    "both@2": 0.4967,
+    "both@5": 0.7833,
+    "recall@5": 0.8883,
+    "mrr": 0.9297,
+    "bytes": 5452.5733,
+    "latency": 0.0598
+  },
+  "B=3,random": {
+    "both@2": 0.14,
+    "both@5": 0.2167,
+    "recall@5": 0.515,
+    "mrr": 0.6723,
+    "bytes": 8582.6433,
+    "latency": 0.0895
+  },
+  "B=3,round_robin": {
+    "both@2": 0.19,
+    "both@5": 0.2633,
+    "recall@5": 0.555,
+    "mrr": 0.711,
+    "bytes": 8377.1633,
+    "latency": 0.0893
+  },
+  "B=3,ucb": {
+    "both@2": 0.15,
+    "both@5": 0.2367,
+    "recall@5": 0.5417,
+    "mrr": 0.7226,
+    "bytes": 8378.04,
+    "latency": 0.0893
+  },
+  "B=3,context_ucb": {
+    "both@2": 0.1167,
+    "both@5": 0.1933,
+    "recall@5": 0.505,
+    "mrr": 0.7007,
+    "bytes": 8673.6767,
+    "latency": 0.0894
+  },
+  "B=3,active": {
+    "both@2": 0.2533,
+    "both@5": 0.3667,
+    "recall@5": 0.6367,
+    "mrr": 0.8128,
+    "bytes": 8524.01,
+    "latency": 0.0895
+  },
+  "B=3,oracle": {
+    "both@2": 0.4367,
+    "both@5": 0.6733,
+    "recall@5": 0.8283,
+    "mrr": 0.902,
+    "bytes": 8399.1667,
+    "latency": 0.0896
+  },
+  "all5": {
+    "both@2": 0.38,
+    "both@5": 0.53,
+    "recall@5": 0.75,
+    "mrr": 0.8703,
+    "bytes": 14281.64,
+    "latency": 0.149
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "flat_local": {
+    "both@2": 0.22,
+    "both@5": 0.4,
+    "recall@5": 0.645,
+    "mrr": 0.7678
+  },
+  "flat_verifier": {
+    "both@2": 0.4,
+    "both@5": 0.53,
+    "recall@5": 0.76,
+    "mrr": 0.869
+  },
+  "nbpw": {
+    "both@2": 0.39,
+    "both@5": 0.54,
+    "recall@5": 0.76,
+    "mrr": 0.8773
+  },
+  "no_coalition": {
+    "both@2": 0.4,
+    "both@5": 0.53,
+    "recall@5": 0.755,
+    "mrr": 0.8765
+  },
+  "no_novelty": {
+    "both@2": 0.41,
+    "both@5": 0.52,
+    "recall@5": 0.755,
+    "mrr": 0.8785
+  },
+  "no_coverage": {
+    "both@2": 0.37,
+    "both@5": 0.53,
+    "recall@5": 0.75,
+    "mrr": 0.8607
+  },
+  "no_verifier": {
+    "both@2": 0.23,
+    "both@5": 0.46,
+    "recall@5": 0.7,
+    "mrr": 0.7933
+  }
+}

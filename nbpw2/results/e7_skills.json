@@ -1,0 +1,17 @@
+{
+  "random": {
+    "success": 0.346,
+    "latency": 0.0876,
+    "success_sd": 0.0348
+  },
+  "greedy": {
+    "success": 1,
+    "latency": 0.0372,
+    "success_sd": 0.0
+  },
+  "learned": {
+    "success": 1,
+    "latency": 0.0407,
+    "success_sd": 0.0
+  }
+}

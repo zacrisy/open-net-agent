@@ -1,0 +1,30 @@
+{
+  "random": {
+    "success": 0.0228,
+    "facts": 0.7024,
+    "steps": 2.9944,
+    "verify_rate": 0.2144,
+    "success_sd": 0.0071
+  },
+  "fixed": {
+    "success": 0.9508,
+    "facts": 4.7708,
+    "steps": 8.65,
+    "verify_rate": 1,
+    "success_sd": 0.0037
+  },
+  "world_model": {
+    "success": 0.9796,
+    "facts": 3.99,
+    "steps": 7.484,
+    "verify_rate": 0.9796,
+    "success_sd": 0.0029
+  },
+  "ucb": {
+    "success": 0.972,
+    "facts": 4.842,
+    "steps": 9.8932,
+    "verify_rate": 0.9892,
+    "success_sd": 0.0061
+  }
+}

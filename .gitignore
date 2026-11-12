@@ -7,3 +7,4 @@ dist/
 brain.db*
 *.db-wal
 *.db-shm
+nbpw2/data/dmqa_1000.jsonl

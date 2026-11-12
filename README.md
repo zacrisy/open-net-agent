@@ -125,6 +125,16 @@ python3 run_continual.py        # knowledge cards / belief revision / pruning
 - [`nbpw/REPORT.md`](nbpw/REPORT.md)
 - [`nbpw/REPORT_CONTINUAL.md`](nbpw/REPORT_CONTINUAL.md)
 
+## NBPW-2 pilot（2026-11-06）
+
+按 [`../网络大脑实现方案.md`](../网络大脑实现方案.md) 实现的首轮参考骨架：共享工作空间、预测编码、学习验证器、路由、世界模型策略、版本化记忆、技能注册、信用分配。
+
+- 说明：[`nbpw2/README.md`](nbpw2/README.md)
+- 结果汇总：[`nbpw2/results/SUMMARY.md`](nbpw2/results/SUMMARY.md)
+- 复现：`cd network_agent && python3.12 -m nbpw2.run_all`
+
+一句话结论：**聚合/验证显著优于单节点，但工作空间只带来 +0.02 的弱增益；预测编码未达 2×/≤2% 目标；路由、技能路由、世界模型策略为正；不应急于扩到 50 节点。**
+
 ## Architecture
 
 ```

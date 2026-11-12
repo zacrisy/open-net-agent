@@ -229,6 +229,198 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
     <div class="improvements" id="improvements"></div>
     <div class="hint" style="margin-top:8px">知识类意见进入 AUTO 学习队列；Bug / 功能 / 回答风格生成可审计的改进提案。公开意见不会直接改代码。</div>
   </section>
+
+  <section class="panel" style="margin-top:14px">
+    <div class="head"><span class="tag">08 / RESEARCH AUDIT · 2026-11-09</span><button class="btn ghost" id="auditToggle">展开/收起</button></div>
+    <div id="auditBody" style="display:block">
+      <!-- 架构四层 -->
+      <div class="head" style="margin-top:10px"><span class="tag">ARCHITECTURE · 四层</span><span class="hint">联想 → 推理 → 网络 → 持续学习</span></div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0">
+        <div style="border:1px solid rgba(94,242,255,.2);padding:10px;background:rgba(3,9,15,.4);min-height:90px">
+          <div style="font:9px/1 var(--mono);letter-spacing:.18em;color:var(--cyan);margin-bottom:4px">L1 · ASSOCIATION</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--muted)">TCA · CPM · CMCP</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--dim);margin-top:4px">query → context activations</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--green);margin-top:4px">LOOM R@10 0.991</div>
+        </div>
+        <div style="border:1px solid rgba(77,255,184,.2);padding:10px;background:rgba(3,9,15,.4);min-height:90px">
+          <div style="font:9px/1 var(--mono);letter-spacing:.18em;color:var(--green);margin-bottom:4px">L2 · REASONING</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--muted)">Retriever → NLI → Bridge → Multi-round</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--dim);margin-top:4px">evidence → verdict + confidence</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--green);margin-top:4px">HotpotQA both@5 0.881</div>
+        </div>
+        <div style="border:1px solid rgba(155,123,255,.2);padding:10px;background:rgba(3,9,15,.4);min-height:90px">
+          <div style="font:9px/1 var(--mono);letter-spacing:.18em;color:var(--violet);margin-bottom:4px">L3 · NETWORK</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--muted)">NBPW · Active Sel · Verifier</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--dim);margin-top:4px">B nodes → top-K cards</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--green);margin-top:4px">hybrid B=2 both@5 0.397</div>
+        </div>
+        <div style="border:1px solid rgba(255,200,87,.2);padding:10px;background:rgba(3,9,15,.4);min-height:90px">
+          <div style="font:9px/1 var(--mono);letter-spacing:.18em;color:var(--amber);margin-bottom:4px">L4 · CONTINUAL</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--muted)">Cards · Belief graph · Evolution</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--dim);margin-top:4px">learn → consolidate → evolve</div>
+          <div style="font:8px/1.4 var(--mono);color:var(--green);margin-top:4px">Retention 0.80+</div>
+        </div>
+      </div>
+
+      <!-- Active selection 对比 -->
+      <div class="head" style="margin-top:16px"><span class="tag">POSITIVE RESULT · Active Evidence Selection</span><span class="hint">random vs active vs oracle</span></div>
+      <div id="activeResultTable" style="margin:8px 0"></div>
+
+      <!-- Gap 条形图 -->
+      <div class="head" style="margin-top:16px"><span class="tag">GAP ANALYSIS · random vs active vs oracle (both@5)</span><span class="hint">dmqa_dev 100q × 3 seeds</span></div>
+      <canvas id="gapChart" style="width:100%;height:200px;background:rgba(3,9,15,.35);border:1px solid rgba(94,242,255,.08)"></canvas>
+      <div class="legend" style="margin-top:6px"><span><i style="background:#e74c3c"></i>random</span><span><i style="background:#5ef2ff"></i>active</span><span><i style="background:#4dffb8"></i>oracle</span></div>
+      <div class="hint" style="margin-top:6px">hybrid 拿到 oracle 的 50.4% (B=2) / 74.0% (B=3)。但 oracle 在 B=3 反而更低（0.680 &lt; 0.787）→ 不要加大预算。</div>
+
+      <!-- Gap 详情表格 -->
+      <div id="gapTable" style="margin:10px 0"></div>
+
+      <!-- 三段分解 2026-11-09 -->
+      <div class="head" style="margin-top:18px"><span class="tag">GAP DECOMPOSITION · 2026-11-09</span><span class="hint">1 − both@5 = pool + selector + readout</span></div>
+      <div id="decompTable" style="margin:6px 0"></div>
+      <canvas id="decompChart" style="width:100%;height:250px;background:rgba(3,9,15,.35);border:1px solid rgba(94,242,255,.08)"></canvas>
+      <div class="legend" style="margin-top:6px"><span><i style="background:#ffb84d"></i>证据池上限</span><span><i style="background:#e74c3c"></i>选择器误差</span><span><i style="background:#9b7bff"></i>读出/验证</span></div>
+      <div id="verdictLine" class="hint" style="margin-top:8px"></div>
+
+      <!-- Verifier A/B 2026-11-09 -->
+      <div class="head" style="margin-top:18px"><span class="tag">VERIFIER A/B · 2026-11-09</span>
+        <span class="hint" id="verToggle" style="display:flex;gap:5px">
+          <button class="btn ghost" data-v="both">新旧对比</button>
+          <button class="btn ghost" data-v="old">只看旧</button>
+          <button class="btn ghost" data-v="new">只看新</button>
+        </span></div>
+      <div id="verifierTable" style="margin:6px 0"></div>
+      <canvas id="verifierChart" style="width:100%;height:220px;background:rgba(3,9,15,.35);border:1px solid rgba(94,242,255,.08)"></canvas>
+      <div class="legend" style="margin-top:6px" id="verifierLegend"></div>
+      <div id="verifierNote" class="hint" style="margin-top:6px"></div>
+
+      <!-- Selector A/B 2026-11-10 -->
+      <div class="head" style="margin-top:18px"><span class="tag">SELECTOR A/B · 2026-11-10</span>
+        <span class="hint" id="selToggle" style="display:flex;gap:5px">
+          <button class="btn ghost" data-v="all">workspace / pair / set</button>
+          <button class="btn ghost" data-v="pair">只看 pair</button>
+          <button class="btn ghost" data-v="set">只看 set</button>
+        </span></div>
+      <div id="selectorTable" style="margin:6px 0"></div>
+      <canvas id="selectorChart" style="width:100%;height:220px;background:rgba(3,9,15,.35);border:1px solid rgba(94,242,255,.08)"></canvas>
+      <div class="legend" style="margin-top:6px" id="selectorLegend"></div>
+      <div id="selectorNote" class="hint" style="margin-top:6px"></div>
+
+      <!-- Multi-node 2026-11-10 -->
+      <div class="head" style="margin-top:18px"><span class="tag">MULTI-NODE · 2026-11-10</span><span class="hint">topic split · exclusive vs replica · fast vs fusion</span></div>
+      <div id="multiTable" style="margin:6px 0"></div>
+      <div id="multiNote" class="hint" style="margin-top:6px"></div>
+
+      <!-- Retrieval depth 2026-11-10 -->
+      <div class="head" style="margin-top:18px"><span class="tag">RETRIEVAL DEPTH · 2026-11-10</span>
+        <span class="hint" id="depthToggle" style="display:flex;gap:5px">
+          <button class="btn ghost" data-v="curve">召回-深度曲线</button>
+          <button class="btn ghost" data-v="ab">增强方案 A/B</button>
+          <button class="btn ghost" data-v="head">Head 重训</button>
+          <button class="btn ghost" data-v="dense">稠密/混合 2026-11-11</button>
+        </span></div>
+      <div id="depthDiag" style="margin:6px 0"></div>
+      <div id="depthCurveWrap">
+        <canvas id="depthChart" style="width:100%;height:230px;background:rgba(3,9,15,.35);border:1px solid rgba(94,242,255,.08)"></canvas>
+        <div class="legend" style="margin-top:6px"><span><i style="background:#ffb84d"></i>池上限 BM25</span><span><i style="background:#ffcf6b"></i>池上限 + rerank</span><span><i style="background:#9b7bff"></i>端到端 set</span><span><i style="background:#5ef2ff"></i>端到端 workspace</span></div>
+        <div id="depthNote" class="hint" style="margin-top:6px"></div>
+      </div>
+      <div id="depthAbWrap" style="display:none">
+        <div id="depthTable" style="margin:6px 0"></div>
+        <div id="depthAbNote" class="hint" style="margin-top:6px"></div>
+      </div>
+      <div id="depthHeadWrap" style="display:none">
+        <div id="depthHeadTable" style="margin:6px 0"></div>
+        <div id="depthHeadNote" class="hint" style="margin-top:6px"></div>
+      </div>
+      <div id="depthDenseWrap" style="display:none">
+        <div id="depthChain" style="margin:8px 0 10px;padding:9px 10px;border:1px solid rgba(94,242,255,.16);background:rgba(94,242,255,.03)">
+          <div style="font:8px/1 var(--mono);letter-spacing:.14em;color:var(--green);margin-bottom:9px">DEFAULT CHAIN · 2026-11-11</div>
+          <div style="display:flex;align-items:stretch;gap:5px;flex-wrap:wrap;font:8px/1.5 var(--mono)">
+            <div style="flex:1 1 130px;min-width:120px;border:1px solid rgba(255,184,77,.35);background:rgba(255,184,77,.05);padding:6px 7px">
+              <div style="color:#ffb84d;letter-spacing:.1em">① 加深 DEPTH</div>
+              <div style="color:var(--muted);margin-top:3px">每节点 k=20</div>
+              <div style="color:var(--dim)">NBPW2_RECALL_K · B=2 → 40 候选</div>
+            </div>
+            <div style="align-self:center;color:var(--cyan)">→</div>
+            <div style="flex:1 1 130px;min-width:120px;border:1px solid rgba(77,255,184,.35);background:rgba(77,255,184,.05);padding:6px 7px">
+              <div style="color:var(--green);letter-spacing:.1em">② 稠密召回</div>
+              <div style="color:var(--muted);margin-top:3px">bge-small-en-v1.5 · CLS · cosine</div>
+              <div style="color:var(--dim)">0.04 ms/节点 · 编码 8.1 ms/query</div>
+            </div>
+            <div style="align-self:center;color:var(--cyan)">→</div>
+            <div style="flex:1 1 130px;min-width:120px;border:1px solid rgba(94,242,255,.35);background:rgba(94,242,255,.05);padding:6px 7px">
+              <div style="color:var(--cyan);letter-spacing:.1em">③ READOUT</div>
+              <div style="color:var(--muted);margin-top:3px">11 维 numpy logistic</div>
+              <div style="color:var(--dim)">fast 档 · 4.7 ms/候选（瓶颈）</div>
+            </div>
+            <div style="align-self:center;color:var(--cyan)">→</div>
+            <div style="flex:1 1 130px;min-width:120px;border:1px solid rgba(155,123,255,.35);background:rgba(155,123,255,.05);padding:6px 7px">
+              <div style="color:#9b7bff;letter-spacing:.1em">④ 选择器</div>
+              <div style="color:var(--muted);margin-top:3px">workspace / pair-set 贪心</div>
+              <div style="color:var(--dim)">选 5 篇 · both@5</div>
+            </div>
+          </div>
+          <div style="margin-top:7px;border:1px dashed rgba(255,184,77,.45);padding:5px 7px;font:8px/1.5 var(--mono);color:var(--amber)">
+            旁路 · sentence rerank（0.55 句 + 0.30 覆盖 + 0.15 标题）· 默认关，NBPW2_RERANK=1 开启 · 稠密候选上 −2pt（Δ −.02 [−.07,.02]），仅 bm25 金标需要
+          </div>
+        </div>
+        <div id="depthDenseTable" style="margin:6px 0"></div>
+        <canvas id="depthDenseChart" style="width:100%;height:210px;background:rgba(3,9,15,.35);border:1px solid rgba(94,242,255,.08)"></canvas>
+        <div class="legend" style="margin-top:6px"><span><i style="background:#ffb84d"></i>BM25 池上限</span><span><i style="background:#4dffb8"></i>稠密 池上限</span><span><i style="background:#9b7bff"></i>端到端 set（稠密）</span><span><i style="background:#ffc857"></i>拐点</span></div>
+        <div id="depthDenseNote" class="hint" style="margin-top:6px"></div>
+      </div>
+
+      <!-- Readout mode opt-in -->
+      <div class="head" style="margin-top:18px"><span class="tag">READOUT MODE · opt-in</span><span class="hint">默认快速档，融合档需显式开启</span></div>
+      <div id="readoutMode" style="margin:6px 0"></div>
+
+      <!-- 下一步 -->
+      <div class="head" style="margin-top:16px"><span class="tag">NEXT STEPS</span><span class="hint">可测量改进</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0">
+        <div style="border:1px solid rgba(77,255,184,.25);padding:10px;background:rgba(77,255,184,.04)">
+          <div style="font:9px/1 var(--mono);letter-spacing:.18em;color:var(--green);margin-bottom:4px">P1 · NODE SCORER（现在是绑定约束）</div>
+          <div style="font:11px/1.6 var(--sans);color:var(--muted);margin-bottom:4px">BM25 hybrid 已把 0.280 → 0.397。融合读出只让 B=2 端到端 +1.3pt（0.390→0.403），选择器占比反而 74.9%→76.5%——B=2 的瓶颈已回到选择器（池内可达仅 0.423）。完美选择器仍可多拿 +0.390。B=3 递减，不要加预算。</div>
+          <div style="font:8px/1.5 var(--mono);color:var(--dim)">measures: B=2 both@5; 判定线 = 是否越过 0.45</div>
+        </div>
+        <div style="border:1px solid rgba(255,200,87,.25);padding:10px;background:rgba(255,200,87,.04)">
+          <div style="font:9px/1 var(--mono);letter-spacing:.18em;color:var(--amber);margin-bottom:4px">P2 · VERIFIER READOUT（B=2 已接近饱和）</div>
+          <div style="font:11px/1.6 var(--sans);color:var(--muted);margin-bottom:4px">融合读出（旧 11 维 + NLI 蕴含 + 抽取式 QA/投票）把全节点 both@5 从 0.517 推到 0.677（+16.0pt，达成率 58.7%→76.9%），oracle 地板 0.220→0.173。但 B=2 池内可达仅 0.423，读出已吃掉 95.3%——端到端只 +1.3pt。继续投读出的边际已很小。</div>
+          <div style="font:8px/1.5 var(--mono);color:var(--dim)">measures: all-nodes 0.517→0.677；B=2 端到端 +1.3pt；代价 126.8 ms/对（131×）</div>
+        </div>
+      </div>
+
+      <!-- 真实场景 -->
+      <div class="head" style="margin-top:16px"><span class="tag">REAL-WORLD RESULTS</span><span class="hint">PubMed + Stack Overflow</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0">
+        <div style="border:1px solid rgba(94,242,255,.2);padding:10px;background:rgba(3,9,15,.4)">
+          <div style="font:9px/1 var(--mono);color:var(--cyan);margin-bottom:4px">PubMed 87 claims</div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <div><b style="color:var(--green);font:600 18px var(--mono)">0.977</b><div style="font:8px var(--mono);color:var(--muted)">sentence NLI support</div></div>
+            <div><b style="color:var(--green);font:600 18px var(--mono)">1.00</b><div style="font:8px var(--mono);color:var(--muted)">retrieval Hit@1</div></div>
+          </div>
+        </div>
+        <div style="border:1px solid rgba(94,242,255,.2);padding:10px;background:rgba(3,9,15,.4)">
+          <div style="font:9px/1 var(--mono);color:var(--cyan);margin-bottom:4px">Stack Overflow 50 问</div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <div><b style="color:var(--green);font:600 18px var(--mono)">0.620</b><div style="font:8px var(--mono);color:var(--muted)">Hit@1</div></div>
+            <div><b style="color:var(--green);font:600 18px var(--mono)">0.840</b><div style="font:8px var(--mono);color:var(--muted)">Hit@5</div></div>
+            <div><b style="color:var(--green);font:600 18px var(--mono)">0.728</b><div style="font:8px var(--mono);color:var(--muted)">MRR</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 已知限制 -->
+      <div class="head" style="margin-top:16px"><span class="tag">KNOWN LIMITATIONS</span><span class="hint">如实列出</span></div>
+      <div style="display:flex;flex-direction:column;gap:4px;margin:8px 0">
+        <div class="imp"><b>WS GAIN</b><span>NBPW workspace reranking 仅 +0.01-0.02，verifier 才是杠杆</span><em>weak</em></div>
+        <div class="imp"><b>PRED CODING</b><span>theta>0 在 2x 节省预算时损失 >2%，未达理论期望</span><em>tbd</em></div>
+        <div class="imp"><b>HOTPOT QA</b><span>comparison 类型 both@2=0.199 vs bridge 0.547</span><em>domain gap</em></div>
+        <div class="imp"><b>REAL NETWORK</b><span>仅 3 节点，单机运行，无真实 LAN/WAN</span><em>scale-up</em></div>
+        <div class="imp"><b>DATA SCALE</b><span>DMQA 100 test questions, 合成 shards</span><em>need real</em></div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <footer><div>OPENNETBRAIN // NBCL · <span id="clock">--:--:--</span></div><div><a href="https://github.com/zacrisy/open-net-agent">GITHUB</a> · <a href="https://zacrisy.github.io/open-net-agent/">DOCS</a></div></footer>
@@ -612,6 +804,791 @@ window.addEventListener('error', e => { const b=$('bootMsg'); if(b){b.textConten
 setTimeout(()=>{ const b=$('bootMsg'); if(b && !window.__brainReady){ b.textContent='INITIALIZATION SLOW / API UNREACHABLE — reload'; b.classList.add('err'); b.style.display='block'; } }, 8000);
 setInterval(()=>$('clock').textContent=new Date().toLocaleTimeString(),1000);
 setMode('research'); refreshBrain(); drawBrain(); loadImprovements(); if(QS.get('feedback')==='1') setTimeout(openFeedback,600); setInterval(refreshBrain,4000);
+
+/* === Research Audit Panel === */
+const AUDIT_DATA = {
+  active: [
+    {exp:"GAP 2026-11-09", B:2, random:0.103, active_orig:0.280, active_hybrid:0.397, oracle:0.787, delta_orig:"+0.177", delta_hybrid:"+0.294", ci:"hybrid CI [.323,.473]"},
+    {exp:"GAP 2026-11-09", B:3, random:0.157, active_orig:0.423, active_hybrid:0.503, oracle:0.680, delta_orig:"+0.266", delta_hybrid:"+0.346", ci:"hybrid CI [.413,.593]"},
+    {exp:"E9 (250q)", B:2, random:0.095, active_orig:0.287, oracle:0.819, delta_orig:"+0.192", ci:"[0.156,0.292]", win:"71/15"},
+    {exp:"E9 (250q)", B:3, random:0.195, active_orig:0.381, oracle:0.669, delta_orig:"+0.186", ci:"[0.164,0.308]", win:"80/21"},
+    {exp:"E10 (10n)", B:2, random:0.013, active_orig:0.183, oracle:0.843, delta_orig:"+0.170"},
+    {exp:"E10 (10n)", B:4, random:0.113, active_orig:0.303, oracle:0.757, delta_orig:"+0.190"},
+  ],
+  gap: [
+    {label:"hybrid B=2", random:0.103, active:0.397, oracle:0.787, activeOverOracle:50.4},
+    {label:"hybrid B=3", random:0.157, active:0.503, oracle:0.680, activeOverOracle:74.0},
+    {label:"orig B=2", random:0.103, active:0.280, oracle:0.787, activeOverOracle:35.6},
+    {label:"orig B=3", random:0.157, active:0.423, oracle:0.680, activeOverOracle:62.2},
+  ],
+  decomp: [
+    {cfg:"random B=2", both5:0.103, pool:0.120, selector:0.770, readout:0.007, selShare:85.9},
+    {cfg:"orig B=2",   both5:0.280, pool:0.120, selector:0.590, readout:0.010, selShare:81.9},
+    {cfg:"hybrid B=2", both5:0.397, pool:0.120, selector:0.457, readout:0.027, selShare:75.7},
+    {cfg:"oracle B=2", both5:0.787, pool:0.120, selector:0.000, readout:0.093, selShare:0.0},
+    {cfg:"random B=3", both5:0.157, pool:0.120, selector:0.637, readout:0.087, selShare:75.5},
+    {cfg:"orig B=3",   both5:0.423, pool:0.120, selector:0.383, readout:0.073, selShare:66.5},
+    {cfg:"hybrid B=3", both5:0.503, pool:0.120, selector:0.237, readout:0.140, selShare:47.6},
+    {cfg:"oracle B=3", both5:0.680, pool:0.120, selector:0.000, readout:0.200, selShare:0.0},
+  ],
+  verdict: "B=2：选择器占剩余误差 75.7%，完美选择器可多拿 +0.390（64.6%）→ 还有一次投入价值，但天花板仅 0.787，地板 0.213 碰不到。B=3：选择器降到 47.6%，读出升到 0.140，oracle 反降 → 不要加大预算。换融合读出后全节点 0.517→0.677，但 B=2 选择器占比反升到 76.5%、读出降到 3.4% → 瓶颈已从 verifier 转到选择器。",
+  verifier: {
+    cAll: 0.880,
+    costOld: "0.97 ms/候选对",
+    costNew: "126.8 ms/候选对（131×）",
+    conditions: [
+      {cfg:"all-nodes", pool:0.880, old:0.517, neu:0.677, ci:"新 CI [.620,.727]"},
+      {cfg:"hybrid B=2", pool:0.423, old:0.390, neu:0.403, ci:"新 CI [.347,.457]"},
+      {cfg:"hybrid B=3", pool:0.643, old:0.503, neu:0.557, ci:"新 CI [.500,.613]"},
+      {cfg:"oracle B=2", pool:0.880, old:0.780, neu:0.827, ci:"新 CI [.780,.867]"},
+    ],
+    note: "新读出 = 旧 11 维 + NLI 蕴含 + 抽取式 QA/答案投票（26 维 logistic），选择器与预算完全不变。all-nodes 0.517→0.677（+16.0pt，达成率 58.7%→76.9%），oracle 地板 0.220→0.173。但 B=2 端到端只 +1.3pt：池内可达仅 0.423，读出已吃掉 95.3%。分解显示选择器占比 74.9%→76.5%、读出 5.5%→3.4% → 下一轮应投选择器，不是读出。单路均失败：NLI 0.477（问句当 hypothesis，方向反）、答案侧 0.380（丢桥接段）。",
+  },
+  hybrid_improvement: {
+    formula: "active_hybrid = 0.35*title_gain + 0.25*content_gain + 0.40*bm25_node_local + 0.15*ctx_prior - 0.02",
+    vs_orig: "orig_active = 0.70*title_gain + 0.30*content_gain + 0.15*ctx_prior - 0.02 (无 BM25)",
+    files: ["active.py", "bm25_variant_compare.json", "gap_decomposition.json"],
+    measured: "dmqa_dev 100q×3s: B=2 +0.117 (0.280→0.397), B=3 +0.080 (0.423→0.503)"
+  }
+};
+
+function renderAuditTable() {
+  const rows = AUDIT_DATA.active.map(r => {
+    const ci = r.ci ? ` <em style="color:var(--dim)">CI ${r.ci}</em>` : '';
+    const win = r.win ? ` <em style="color:var(--dim)">${r.win}</em>` : '';
+    const hy = r.active_hybrid !== undefined ? r.active_hybrid.toFixed(3) : '—';
+    const dh = r.delta_hybrid !== undefined ? r.delta_hybrid : r.delta_orig;
+    return `<div style="display:grid;grid-template-columns:1fr 45px 45px 55px 55px 55px 65px;gap:4px;padding:4px 0;border-bottom:1px solid rgba(94,242,255,.08);font:8px/1.5 var(--mono)">
+      <span style="color:var(--muted)">${esc(r.exp)}</span>
+      <span style="color:var(--dim)">B=${r.B}</span>
+      <span style="color:#e74c3c">${r.random.toFixed(3)}</span>
+      <span style="color:var(--violet)">${r.active_orig.toFixed(3)}</span>
+      <span style="color:var(--cyan);font-weight:600">${hy}${ci}${win}</span>
+      <span style="color:var(--green)">${r.oracle.toFixed(3)}</span>
+      <span style="color:var(--amber);font-weight:600">${dh}</span>
+    </div>`;
+  }).join('');
+  const header = `<div style="display:grid;grid-template-columns:1fr 45px 45px 55px 55px 55px 65px;gap:4px;padding:4px 0;font:8px/1 var(--mono);letter-spacing:.1em;color:var(--dim);border-bottom:1px solid var(--line)">
+    <span>EXP</span><span>B</span><span style="color:#e74c3c">RAND</span><span style="color:var(--violet)">ORIG</span><span style="color:var(--cyan);font-weight:600">HYBRID</span><span style="color:var(--green)">ORCL</span><span style="color:var(--amber)">Δ HYBRID</span>
+  </div>`;
+  $('activeResultTable').innerHTML = header + rows;
+
+  const gapRows = AUDIT_DATA.gap.map(g => `<div style="display:grid;grid-template-columns:120px 70px 70px 100px;gap:6px;padding:4px 0;border-bottom:1px solid rgba(94,242,255,.07);font:8px/1.5 var(--mono)">
+    <span style="color:var(--muted)">${esc(g.label)}</span>
+    <span style="color:#e74c3c">${g.random.toFixed(3)}</span>
+    <span style="color:var(--cyan);font-weight:600">${g.active.toFixed(3)}</span>
+    <span style="color:${g.activeOverOracle<40?'#e74c3c':g.activeOverOracle<60?'var(--amber)':'var(--green)'};font-weight:600">${g.activeOverOracle.toFixed(1)}% of oracle</span>
+  </div>`).join('');
+  const gapHeader = `<div style="display:grid;grid-template-columns:120px 70px 70px 100px;gap:6px;padding:4px 0;font:8px/1 var(--mono);letter-spacing:.1em;color:var(--dim);border-bottom:1px solid var(--line)">
+    <span>METRIC</span><span style="color:#e74c3c">RANDOM</span><span style="color:var(--cyan);font-weight:600">ACTIVE</span><span>ACTIVE/ORACLE</span>
+  </div>`;
+  $('gapTable').innerHTML = gapHeader + gapRows;
+}
+
+function drawGapChart() {
+  const c = $('gapChart'); if(!c) return;
+  const r = c.getBoundingClientRect(); const dpr = devicePixelRatio || 1;
+  c.width = r.width * dpr; c.height = r.height * dpr;
+  const x = c.getContext('2d'); x.scale(dpr, dpr);
+  const W = r.width, H = r.height;
+  x.clearRect(0, 0, W, H);
+  const padding = {l: 80, r: 16, t: 28, b: 32};
+  const chartW = W - padding.l - padding.r;
+  const chartH = H - padding.t - padding.b;
+  const groups = AUDIT_DATA.gap.length;
+  const barW = chartW / groups;
+  const colors = {random: '#e74c3c', active: '#5ef2ff', oracle: '#4dffb8'};
+  const maxV = 0.9;
+
+  // Y axis
+  x.strokeStyle = 'rgba(94,242,255,.1)';
+  x.font = '8px monospace';
+  for(let v = 0; v <= 0.9; v += 0.3) {
+    const y = padding.t + chartH - (v / maxV) * chartH;
+    x.beginPath(); x.moveTo(padding.l, y); x.lineTo(W - padding.r, y); x.stroke();
+    x.fillStyle = '#6f879b'; x.fillText(v.toFixed(1), 16, y + 3);
+  }
+
+  // Bars
+  const barWidth = barW * 0.22;
+  AUDIT_DATA.gap.forEach((g, i) => {
+    const cx = padding.l + i * barW + barW / 2;
+    ['random', 'active', 'oracle'].forEach((kind, ki) => {
+      const v = g[kind];
+      const h = (v / maxV) * chartH;
+      const bx = cx - barWidth * 1.5 + ki * barWidth;
+      const by = padding.t + chartH - h;
+      x.fillStyle = colors[kind];
+      x.globalAlpha = 0.85;
+      x.fillRect(bx, by, barWidth, h);
+      x.globalAlpha = 1;
+      x.fillStyle = '#d9e8f4';
+      x.font = '7px monospace';
+      x.textAlign = 'center';
+      x.fillText(v.toFixed(2), bx + barWidth / 2, by - 2);
+    });
+    // label
+    x.fillStyle = '#6f879b';
+    x.font = '8px monospace';
+    x.textAlign = 'center';
+    x.fillText(g.label, cx, H - 10);
+  });
+}
+
+function renderDecompTable() {
+  const rows = AUDIT_DATA.decomp.map(r => `<div style="display:grid;grid-template-columns:90px 55px 60px 65px 60px 60px;gap:5px;padding:4px 0;border-bottom:1px solid rgba(94,242,255,.07);font:8px/1.5 var(--mono)">
+    <span style="color:var(--muted)">${esc(r.cfg)}</span>
+    <span style="color:var(--cyan);font-weight:600">${r.both5.toFixed(3)}</span>
+    <span style="color:#ffb84d">${r.pool.toFixed(3)}</span>
+    <span style="color:#e74c3c">${r.selector.toFixed(3)}</span>
+    <span style="color:#9b7bff">${r.readout.toFixed(3)}</span>
+    <span style="color:${r.selShare>60?'#e74c3c':r.selShare>45?'var(--amber)':'var(--green)'};font-weight:600">${r.selShare.toFixed(1)}%</span>
+  </div>`).join('');
+  const header = `<div style="display:grid;grid-template-columns:90px 55px 60px 65px 60px 60px;gap:5px;padding:4px 0;font:8px/1 var(--mono);letter-spacing:.1em;color:var(--dim);border-bottom:1px solid var(--line)">
+    <span>CONFIG</span><span>BOTH@5</span><span style="color:#ffb84d">POOL</span><span style="color:#e74c3c">SELECTOR</span><span style="color:#9b7bff">READOUT</span><span>SEL SHARE</span>
+  </div>`;
+  $('decompTable').innerHTML = header + rows;
+  $('verdictLine').textContent = AUDIT_DATA.verdict;
+}
+
+function drawDecompChart() {
+  const c = $('decompChart'); if(!c) return;
+  const r = c.getBoundingClientRect(); const dpr = devicePixelRatio || 1;
+  c.width = r.width * dpr; c.height = r.height * dpr;
+  const x = c.getContext('2d'); x.scale(dpr, dpr);
+  const W = r.width, H = r.height;
+  x.clearRect(0, 0, W, H);
+  const pad = {l: 92, r: 68, t: 20, b: 14};
+  const rows = AUDIT_DATA.decomp;
+  const rowH = (H - pad.t - pad.b) / rows.length;
+  const chartW = W - pad.l - pad.r;
+  const scale = 0.9;
+  const seg = [['pool', '#ffb84d'], ['selector', '#e74c3c'], ['readout', '#9b7bff']];
+  // axis
+  x.strokeStyle = 'rgba(94,242,255,.1)'; x.font = '8px monospace';
+  for (let v = 0; v <= 0.9; v += 0.3) {
+    const px = pad.l + (v / scale) * chartW;
+    x.beginPath(); x.moveTo(px, pad.t); x.lineTo(px, H - pad.b); x.stroke();
+    x.fillStyle = '#6f879b'; x.textAlign = 'center'; x.fillText(v.toFixed(1), px, pad.t - 6);
+  }
+  rows.forEach((row, i) => {
+    const y = pad.t + i * rowH + 3;
+    const bh = Math.max(6, rowH - 8);
+    let acc = 0;
+    x.textAlign = 'right'; x.font = '8px monospace'; x.fillStyle = '#6f879b';
+    x.fillText(row.cfg, pad.l - 8, y + bh * 0.78);
+    seg.forEach(([k, color]) => {
+      const w = (row[k] / scale) * chartW;
+      x.fillStyle = color; x.globalAlpha = 0.85;
+      x.fillRect(pad.l + acc, y, w, bh);
+      x.globalAlpha = 1;
+      acc += w;
+    });
+    x.textAlign = 'left'; x.fillStyle = '#d9e8f4'; x.font = '8px monospace';
+    x.fillText((1 - row.both5).toFixed(2), pad.l + acc + 6, y + bh * 0.78);
+  });
+}
+
+
+let VER_MODE = 'both';
+
+function renderVerifier() {
+  const D = AUDIT_DATA.verifier;
+  const both = VER_MODE === 'both';
+  const cols = both ? '86px 52px 50px 50px 48px 104px' : '86px 58px 66px 116px';
+  const show = r => `${(r / D.cAll * 100).toFixed(1)}%`;
+  const rows = D.conditions.map(c => {
+    const d = (c.neu - c.old) * 100;
+    const dcol = d > 1 ? 'var(--green)' : d > -1 ? 'var(--dim)' : '#e74c3c';
+    const at = both ? `${show(c.old)} → <b style="color:var(--green)">${show(c.neu)}</b>`
+      : VER_MODE === 'old' ? show(c.old) : `<b style="color:var(--green)">${show(c.neu)}</b>`;
+    const mid = both
+      ? `<span style="color:var(--violet)">${c.old.toFixed(3)}</span>
+         <span style="color:var(--green);font-weight:600">${c.neu.toFixed(3)}</span>
+         <span style="color:${dcol};font-weight:600">${d >= 0 ? '+' : ''}${d.toFixed(1)}pt</span>`
+      : VER_MODE === 'old'
+        ? `<span style="color:var(--violet);font-weight:600">${c.old.toFixed(3)}</span>`
+        : `<span style="color:var(--green);font-weight:600">${c.neu.toFixed(3)}</span>`;
+    return `<div style="display:grid;grid-template-columns:${cols};gap:5px;padding:4px 0;border-bottom:1px solid rgba(94,242,255,.07);font:8px/1.5 var(--mono)">
+      <span style="color:var(--muted)">${esc(c.cfg)}</span>
+      <span style="color:#ffb84d">${c.pool.toFixed(3)}</span>
+      ${mid}
+      <span style="color:var(--dim)">${at}</span>
+    </div>`;
+  }).join('');
+  const header = `<div style="display:grid;grid-template-columns:${cols};gap:5px;padding:4px 0;font:8px/1 var(--mono);letter-spacing:.1em;color:var(--dim);border-bottom:1px solid var(--line)">
+    <span>CONFIG</span><span style="color:#ffb84d">POOL</span>
+    ${both ? '<span style="color:var(--violet)">OLD</span><span style="color:var(--green)">NEW</span><span>Δ</span>'
+            : VER_MODE === 'old' ? '<span style="color:var(--violet)">OLD</span>'
+            : '<span style="color:var(--green)">NEW</span>'}
+    <span>达成率 / C_all=.88</span>
+  </div>`;
+  $('verifierTable').innerHTML = header + rows;
+  $('verifierLegend').innerHTML = (VER_MODE !== 'new' ? '<span><i style="background:#9b7bff"></i>旧 heuristic</span>' : '')
+    + (VER_MODE !== 'old' ? '<span><i style="background:#4dffb8"></i>新读出 C（融合）</span>' : '')
+    + `<span><i style="background:rgba(255,184,77,.35)"></i>该条件池内可达</span>`
+    + `<span style="color:var(--dim)">旧 ${D.costOld} → 新 ${D.costNew}</span>`;
+  $('verifierNote').textContent = D.note;
+  drawVerifierChart();
+}
+
+function drawVerifierChart() {
+  const c = $('verifierChart'); if (!c) return;
+  const r = c.getBoundingClientRect(); const dpr = devicePixelRatio || 1;
+  c.width = r.width * dpr; c.height = r.height * dpr;
+  const x = c.getContext('2d'); x.scale(dpr, dpr);
+  const W = r.width, H = r.height;
+  x.clearRect(0, 0, W, H);
+  const pad = {l: 34, r: 10, t: 18, b: 26};
+  const rows = AUDIT_DATA.verifier.conditions;
+  const scale = 1.0;
+  const chartH = H - pad.t - pad.b;
+  const gw = (W - pad.l - pad.r) / rows.length;
+  // y axis
+  x.strokeStyle = 'rgba(94,242,255,.1)'; x.font = '8px monospace';
+  for (let v = 0; v <= 1.0; v += 0.25) {
+    const py = pad.t + chartH * (1 - v / scale);
+    x.beginPath(); x.moveTo(pad.l, py); x.lineTo(W - pad.r, py); x.stroke();
+    x.fillStyle = '#6f879b'; x.textAlign = 'right'; x.fillText(v.toFixed(2), pad.l - 4, py + 3);
+  }
+  rows.forEach((row, i) => {
+    const gx = pad.l + i * gw;
+    const series = [];
+    if (VER_MODE !== 'new') series.push(['old', row.old, '#9b7bff']);
+    if (VER_MODE !== 'old') series.push(['new', row.neu, '#4dffb8']);
+    const bw = Math.min(26, (gw - 18) / Math.max(1, series.length) - 4);
+    const totalW = series.length * bw + (series.length - 1) * 4;
+    let bx = gx + (gw - totalW) / 2;
+    // pool marker
+    const py = pad.t + chartH * (1 - row.pool / scale);
+    x.strokeStyle = 'rgba(255,184,77,.55)'; x.setLineDash([3, 3]);
+    x.beginPath(); x.moveTo(gx + 6, py); x.lineTo(gx + gw - 6, py); x.stroke();
+    x.setLineDash([]);
+    series.forEach(([k, v, color]) => {
+      const bh = chartH * (v / scale);
+      x.fillStyle = color; x.globalAlpha = .85;
+      x.fillRect(bx, pad.t + chartH - bh, bw, bh);
+      x.globalAlpha = 1;
+      x.fillStyle = '#d9e8f4'; x.font = '8px monospace'; x.textAlign = 'center';
+      x.fillText(v.toFixed(3), bx + bw / 2, pad.t + chartH - bh - 4);
+      bx += bw + 4;
+    });
+    x.fillStyle = '#6f879b'; x.font = '8px monospace'; x.textAlign = 'center';
+    x.fillText(row.cfg, gx + gw / 2, H - 10);
+  });
+}
+
+$('verToggle').onclick = (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  VER_MODE = b.dataset.v;
+  [...$('verToggle').children].forEach(x => x.style.opacity = x.dataset.v === VER_MODE ? 1 : .45);
+  renderVerifier();
+};
+[...$('verToggle').children].forEach(x => x.style.opacity = x.dataset.v === VER_MODE ? 1 : .45);
+renderVerifier();
+
+/* === Selector A/B 2026-11-10 === */
+const SEL_DATA = {
+  protocol: "读出固定 fast(11维)，节点策略 active_hybrid，100 题 × 3 seeds；pair/set 头只在 300 道 train 上拟合",
+  conditions: [
+    {cfg:"all-nodes", cAll:0.880, secondMed:3, secondTop5:0.591,
+     workspace:{v:0.520,ci:[0.420,0.627]}, pair:{v:0.753,ci:[0.670,0.833]},
+     set:{v:0.763,ci:[0.680,0.843]}, notitle:0.447},
+    {cfg:"hybrid B=2", cAll:0.423, secondMed:2, secondTop5:0.898,
+     workspace:{v:0.390,ci:[0.310,0.467]}, pair:{v:0.410,ci:[0.337,0.487]},
+     set:{v:0.417,ci:[0.340,0.493]}, notitle:0.380},
+    {cfg:"hybrid B=3", cAll:0.643, secondMed:2, secondTop5:0.741,
+     workspace:{v:0.503,ci:[0.413,0.590]}, pair:{v:0.590,ci:[0.507,0.673]},
+     set:{v:0.617,ci:[0.533,0.700]}, notitle:0.457},
+    {cfg:"oracle B=2", cAll:0.880, secondMed:2, secondTop5:0.875,
+     workspace:{v:0.780,ci:[0.700,0.853]}, pair:{v:0.847,ci:[0.783,0.910]},
+     set:{v:0.860,ci:[0.800,0.920]}, notitle:0.763},
+  ],
+  note: "联合选择（pair=条件于第一跳 anchor，set=对全部已选段取 max 桥接 + 覆盖增益 − 冗余惩罚）在all-nodes +23~24pt、oracle B=2 +7~8pt、hybrid B=3 +9~11pt；hybrid B=2 只 +2~3pt，CI 全重叠。全部收益来自 bridge 题型（workspace .377 → set .675）；去掉桥接特征后 all-nodes 回落到 .540，说明不是其他特征在偷分。title_in_query 捷径：fast verifier 权重 +0.891，gold 命中 303/575 vs 非 gold 135/6798，去掉后 all-nodes .520→.447 —— 它在抄第一跳，但去掉后 B=2 只 −1pt，故选择器保留该特征、不单独修。",
+  paired: "all-nodes 逐题配对：set 胜 23 / 负 0 / 平 77（+0.23）。"
+};
+
+let SEL_MODE = 'all';
+
+function renderSelector() {
+  const D = SEL_DATA;
+  const cols = SEL_MODE === 'all'
+    ? '86px 48px 58px 68px 68px 68px' : SEL_MODE === 'pair'
+      ? '86px 48px 58px 78px 62px' : '86px 48px 58px 78px 62px';
+  const rows = D.conditions.map(c => {
+    const ws = `<span style="color:var(--violet)">${c.workspace.v.toFixed(3)}</span>`;
+    const pr = `<span style="color:var(--cyan);font-weight:600">${c.pair.v.toFixed(3)}</span>`;
+    const st = `<span style="color:var(--green);font-weight:600">${c.set.v.toFixed(3)}</span>`;
+    const dd = (c.set.v - c.workspace.v) * 100;
+    const mid = SEL_MODE === 'all' ? ws + pr + st
+      : SEL_MODE === 'pair' ? `${ws} ${pr}` : `${ws} ${st}`;
+    return `<div style="display:grid;grid-template-columns:${cols};gap:5px;padding:4px 0;border-bottom:1px solid rgba(94,242,255,.07);font:8px/1.5 var(--mono)">
+      <span style="color:var(--muted)">${esc(c.cfg)}</span>
+      <span style="color:#ffb84d">${c.cAll.toFixed(3)}</span>
+      <span style="color:var(--dim)">${c.secondMed} / ${c.secondTop5.toFixed(2)}</span>
+      ${mid}
+      <span style="color:${dd >= 7 ? 'var(--green)' : dd > 2 ? 'var(--amber)' : 'var(--dim)'};font-weight:600">${dd >= 0 ? '+' : ''}${dd.toFixed(1)}pt</span>
+    </div>`;
+  }).join('');
+  const header = `<div style="display:grid;grid-template-columns:${cols};gap:5px;padding:4px 0;font:8px/1 var(--mono);letter-spacing:.1em;color:var(--dim);border-bottom:1px solid var(--line)">
+    <span>CONFIG</span><span style="color:#ffb84d">C_ALL</span><span>2nd med/top5</span>
+    ${SEL_MODE === 'all' ? '<span style="color:var(--violet)">WS</span><span style="color:var(--cyan)">PAIR</span><span style="color:var(--green)">SET</span>'
+      : SEL_MODE === 'pair' ? '<span style="color:var(--violet)">WS</span><span style="color:var(--cyan)">PAIR</span>'
+      : '<span style="color:var(--violet)">WS</span><span style="color:var(--green)">SET</span>'}
+    <span>SET−WS</span>
+  </div>`;
+  $('selectorTable').innerHTML = header + rows;
+  $('selectorLegend').innerHTML = '<span><i style="background:#9b7bff"></i>workspace（逐候选打分）</span>'
+    + '<span><i style="background:#5ef2ff"></i>pair（条件于第一跳）</span>'
+    + '<span><i style="background:#4dffb8"></i>set（max-over-selected + 覆盖 − 冗余）</span>'
+    + '<span style="color:var(--dim)">CI 为题目聚类 bootstrap，半宽 ≈0.07 内不解读</span>';
+  $('selectorNote').textContent = D.note + ' ' + D.paired;
+  drawSelectorChart();
+}
+
+function drawSelectorChart() {
+  const c = $('selectorChart'); if (!c) return;
+  const r = c.getBoundingClientRect(); const dpr = devicePixelRatio || 1;
+  c.width = r.width * dpr; c.height = r.height * dpr;
+  const x = c.getContext('2d'); x.scale(dpr, dpr);
+  const W = r.width, H = r.height;
+  x.clearRect(0, 0, W, H);
+  const pad = {l: 34, r: 10, t: 18, b: 26};
+  const rows = SEL_DATA.conditions;
+  const chartH = H - pad.t - pad.b;
+  const gw = (W - pad.l - pad.r) / rows.length;
+  x.strokeStyle = 'rgba(94,242,255,.1)'; x.font = '8px monospace';
+  for (let v = 0; v <= 1.0; v += 0.25) {
+    const py = pad.t + chartH * (1 - v);
+    x.beginPath(); x.moveTo(pad.l, py); x.lineTo(W - pad.r, py); x.stroke();
+    x.fillStyle = '#6f879b'; x.textAlign = 'right'; x.fillText(v.toFixed(2), pad.l - 4, py + 3);
+  }
+  rows.forEach((row, i) => {
+    const gx = pad.l + i * gw;
+    const series = [['ws', row.workspace.v, '#9b7bff']];
+    if (SEL_MODE !== 'set') series.push(['pair', row.pair.v, '#5ef2ff']);
+    if (SEL_MODE !== 'pair') series.push(['set', row.set.v, '#4dffb8']);
+    const bw = Math.min(24, (gw - 18) / series.length - 4);
+    const totalW = series.length * bw + (series.length - 1) * 4;
+    let bx = gx + (gw - totalW) / 2;
+    const py = pad.t + chartH * (1 - row.cAll);
+    x.strokeStyle = 'rgba(255,184,77,.55)'; x.setLineDash([3, 3]);
+    x.beginPath(); x.moveTo(gx + 6, py); x.lineTo(gx + gw - 6, py); x.stroke();
+    x.setLineDash([]);
+    series.forEach(([k, v, color]) => {
+      const bh = chartH * v;
+      x.fillStyle = color; x.globalAlpha = .85;
+      x.fillRect(bx, pad.t + chartH - bh, bw, bh);
+      x.globalAlpha = 1;
+      x.fillStyle = '#d9e8f4'; x.font = '8px monospace'; x.textAlign = 'center';
+      x.fillText(v.toFixed(3), bx + bw / 2, pad.t + chartH - bh - 4);
+      bx += bw + 4;
+    });
+    x.fillStyle = '#6f879b'; x.font = '8px monospace'; x.textAlign = 'center';
+    x.fillText(row.cfg, gx + gw / 2, H - 10);
+  });
+}
+
+$('selToggle').onclick = (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  SEL_MODE = b.dataset.v;
+  [...$('selToggle').children].forEach(x => x.style.opacity = x.dataset.v === SEL_MODE ? 1 : .45);
+  renderSelector();
+};
+[...$('selToggle').children].forEach(x => x.style.opacity = x.dataset.v === SEL_MODE ? 1 : .45);
+renderSelector();
+
+/* === Retrieval depth 2026-11-10 === */
+const DEPTH_DATA = {
+  diag: {hit:0.665, coverage:0.000, redundant:0.000, crowded:0.315, unscored:0.020,
+         median:2, p90:27, gt10:0.23, gt20:0.13, gt50:0.04, sameQ:0.324, other:0.676},
+  curve: [
+    {k:5,  ceiling:0.370, rerank:0.420, ws:0.360, set:0.360, cand:10,  ro:16},
+    {k:10, ceiling:0.480, rerank:null,  ws:0.410, set:0.450, cand:20,  ro:36},
+    {k:20, ceiling:0.650, rerank:0.740, ws:0.420, set:0.550, cand:40,  ro:82},
+    {k:50, ceiling:0.800, rerank:null,  ws:0.420, set:0.560, cand:100, ro:227}
+  ],
+  ab: [
+    {cfg:"bm25@5",             ceil:0.370, ws:0.360, set:0.360, d:0.000, ci:[0,0],         cand:10,  ms:16,  tag:"基线"},
+    {cfg:"bm25@10",            ceil:0.480, ws:0.410, set:0.450, d:0.090, ci:[0.04,0.15],   cand:20,  ms:36,  tag:"+9pt 显著"},
+    {cfg:"bm25@20",            ceil:0.650, ws:0.420, set:0.550, d:0.190, ci:[0.12,0.27],   cand:40,  ms:82,  tag:"+19pt 显著"},
+    {cfg:"bm25@50",            ceil:0.800, ws:0.420, set:0.560, d:0.200, ci:[0.13,0.28],   cand:100, ms:227, tag:"+20pt 饱和"},
+    {cfg:"rerank@5",           ceil:0.420, ws:0.410, set:0.420, d:0.060, ci:[0.01,0.12],   cand:10,  ms:15,  tag:"+6pt 噪声内"},
+    {cfg:"rerank@20",          ceil:0.740, ws:0.470, set:0.610, d:0.250, ci:[0.17,0.34],   cand:40,  ms:82,  tag:"+25pt 最佳性价比"},
+    {cfg:"hybrid@5",           ceil:0.370, ws:0.360, set:0.370, d:0.010, ci:[-0.03,0.06],  cand:10,  ms:22,  tag:"无效"},
+    {cfg:"hybrid@20",          ceil:0.580, ws:0.430, set:0.470, d:0.110, ci:[0.05,0.18],   cand:40,  ms:120, tag:"+11pt 弱于纯 BM25"},
+    {cfg:"bridgeq@5",          ceil:0.400, ws:0.400, set:0.400, d:0.040, ci:[0.01,0.08],   cand:10,  ms:16,  tag:"+4pt 噪声内"},
+    {cfg:"bridgeq@20",         ceil:0.660, ws:0.460, set:0.560, d:0.200, ci:[0.13,0.28],   cand:40,  ms:80,  tag:"+20pt 与加深重叠"},
+    {cfg:"bm25@50+ranksquash", ceil:0.800, ws:0.480, set:0.630, d:0.270, ci:[0.19,0.36],   cand:100, ms:217, tag:"+27pt 最佳"}
+  ],
+  note: "诊断：单段本节点 top-5 命中 .665。拆开后 (a) 切分/覆盖丢失 0.0%、(b) 同文档邻近段挤占 0.0%（HotpotQA 每题每标题只有 1 段，结构上不可能）、(c) 其他内容占位 31.5%，另有 2.0% 词面完全不匹配（BM25 得分为 0）。被超越的文档里 32.4% 是本题自带的干扰段、67.6% 是其他主题段。gold 在本节点的排名中位 2、p90 27；23% 掉出 top10、13% 掉出 top20、4% 掉出 top50。",
+  cost: "延迟：BM25 扫描 2.98 ms/节点（与 k 无关，本实现是穷举打分），rerank +1.94 ms/50 段，稠密 +4.81 ms/节点。真正的代价在读出：候选 10→40→100，读出 16→82→227 ms（约 2.2 ms/候选）。",
+  sat: "饱和点：端到端 set 在 k=20 触顶（.550 → k=50 .560），workspace 在 k=10 触顶（.410 → .420）。池上限仍从 .650 涨到 .800，但选择器吃不下——k=20 时池上限 .650 只兑现 .550，k=50 时 .800 只兑现 .560，选择损失从 .10 扩大到 .24。",
+  verdict: "结论：加深检索确实把池损失从 .63 压到 .35（k=20）/.20（k=50），但端到端只兑现到 .55~.63，瓶颈转移到选择器。rerank@20 是当前性价比最高的一档（.610，40 候选、82 ms）；稠密融合用本地未训练检索的编码器，反而降召回，不能据此否定真正的稠密检索。"
+};
+
+function renderDepthDiag(){
+  const D = DEPTH_DATA.diag;
+  const box = (title, big, sub, color) => `<div style="border:1px solid var(--line);padding:7px;background:rgba(3,9,15,.4)">
+      <div style="font:8px/1 var(--mono);color:var(--dim)">${title}</div>
+      <div style="font:600 13px/1.4 var(--mono);color:${color}">${big}</div>
+      <div style="font:8px/1.4 var(--mono);color:var(--dim)">${sub}</div>
+    </div>`;
+  $('depthDiag').innerHTML = `<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0">
+    ${box("三类流失 · 覆盖 / 同文档 / 占位", `0% / 0% / ${(D.crowded*100).toFixed(1)}%`,
+          `另有 ${(D.unscored*100).toFixed(1)}% 无词面匹配`, "var(--amber)")}
+    ${box("gold 本节点排名", `中位 ${D.median} · p90 ${D.p90}`,
+          `>10 ${Math.round(D.gt10*100)}% · >20 ${Math.round(D.gt20*100)}% · >50 ${Math.round(D.gt50*100)}%`, "var(--text)")}
+    ${box("谁在挤 · 被超越文档构成", `${(D.sameQ*100).toFixed(1)}% / ${(D.other*100).toFixed(1)}%`,
+          `本题自带干扰段 / 其他主题段`, "var(--cyan)")}
+    ${box("B=2 池损失 · k=5→20→50", ".63 → .35 → .20",
+          `单段召回 .665→.85→.94`, "var(--green)")}
+  </div>`;
+}
+
+function drawDepthChart(){
+  const c = $('depthChart'); if(!c) return;
+  const r = c.getBoundingClientRect(); const dpr = devicePixelRatio || 1;
+  c.width = r.width * dpr; c.height = r.height * dpr;
+  const x = c.getContext('2d'); x.scale(dpr, dpr);
+  const W = r.width, H = r.height; x.clearRect(0,0,W,H);
+  const pad = {l:46, r:14, t:24, b:42}, cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
+  const lo = 0.30, hi = 0.85;
+  const Y = v => pad.t + ch - ((v-lo)/(hi-lo))*ch;
+  const D = DEPTH_DATA.curve;
+  const X = i => pad.l + (cw/(D.length-1))*i;
+
+  x.strokeStyle = 'rgba(94,242,255,.10)'; x.font = '8px monospace'; x.textAlign = 'left';
+  for(let v=0.3; v<=0.85; v+=0.1){
+    const y = Y(v);
+    x.beginPath(); x.moveTo(pad.l,y); x.lineTo(W-pad.r,y); x.stroke();
+    x.fillStyle = '#6f879b'; x.fillText(v.toFixed(1), 8, y+3);
+  }
+  // saturation marker at k=20
+  x.setLineDash([3,3]); x.strokeStyle = 'rgba(155,123,255,.45)';
+  x.beginPath(); x.moveTo(X(2),pad.t); x.lineTo(X(2),pad.t+ch); x.stroke(); x.setLineDash([]);
+  x.fillStyle = '#9b7bff'; x.font = '8px monospace'; x.textAlign = 'center';
+  x.fillText('set 饱和点 k=20', X(2), pad.t-8);
+
+  const series = [
+    {key:'ceiling', color:'#ffb84d', dash:[]},
+    {key:'rerank',  color:'#ffcf6b', dash:[4,3]},
+    {key:'set',     color:'#9b7bff', dash:[]},
+    {key:'ws',      color:'#5ef2ff', dash:[]}
+  ];
+  series.forEach(s => {
+    x.strokeStyle = s.color; x.lineWidth = 1.6; x.setLineDash(s.dash);
+    let started = false;
+    D.forEach((row,i) => {
+      const v = row[s.key];
+      if(v === null || v === undefined){ started = false; return; }
+      if(!started){ x.beginPath(); x.moveTo(X(i),Y(v)); started = true; }
+      else x.lineTo(X(i),Y(v));
+    });
+    x.stroke(); x.setLineDash([]); x.lineWidth = 1;
+    D.forEach((row,i) => {
+      const v = row[s.key]; if(v === null || v === undefined) return;
+      x.fillStyle = s.color; x.beginPath(); x.arc(X(i),Y(v),2.6,0,7); x.fill();
+      if(s.key === 'ceiling' || s.key === 'set'){
+        x.fillStyle = '#d9e8f4'; x.font = '7px monospace'; x.textAlign = 'center';
+        x.fillText(v.toFixed(3), X(i), Y(v) - 6);
+      }
+    });
+  });
+  D.forEach((row,i) => {
+    x.fillStyle = '#6f879b'; x.font = '8px monospace'; x.textAlign = 'center';
+    x.fillText(`top-${row.k}`, X(i), H-24);
+    x.fillStyle = '#4a6275'; x.font = '7px monospace';
+    x.fillText(`${row.cand}候选 · ${row.ro}ms`, X(i), H-13);
+  });
+}
+
+function renderDepthTable(){
+  const cols = '136px 50px 50px 50px 74px 44px 46px 132px';
+  const color = r => r.ci[0] >= 0.05 ? 'var(--green)' : r.d > 0 ? 'var(--amber)'
+                     : r.d < 0 ? '#e74c3c' : 'var(--dim)';
+  const rows = DEPTH_DATA.ab.map(r => `<div style="display:grid;grid-template-columns:${cols};gap:4px;padding:4px 0;border-bottom:1px solid rgba(94,242,255,.07);font:8px/1.5 var(--mono)">
+    <span style="color:var(--muted)">${esc(r.cfg)}</span>
+    <span style="color:#ffb84d">${r.ceil.toFixed(3)}</span>
+    <span style="color:var(--cyan)">${r.ws.toFixed(3)}</span>
+    <span style="color:#9b7bff;font-weight:600">${r.set.toFixed(3)}</span>
+    <span style="color:${color(r)}">${r.d>=0?'+':''}${r.d.toFixed(3)} [${r.ci[0].toFixed(2)},${r.ci[1].toFixed(2)}]</span>
+    <span style="color:var(--dim)">${r.cand}</span>
+    <span style="color:var(--dim)">${r.ms}ms</span>
+    <span style="color:${color(r)}">${esc(r.tag)}</span>
+  </div>`).join('');
+  const header = `<div style="display:grid;grid-template-columns:${cols};gap:4px;padding:4px 0;font:8px/1 var(--mono);letter-spacing:.1em;color:var(--dim);border-bottom:1px solid var(--line)">
+    <span>CONFIG</span><span style="color:#ffb84d">池上限</span><span style="color:var(--cyan)">WS</span>
+    <span style="color:#9b7bff">SET</span><span>Δ SET vs @5 [CI]</span><span>候选</span><span>延迟</span><span>判定</span>
+  </div>`;
+  $('depthTable').innerHTML = header + rows;
+}
+
+/* === Head retrain + dense retrieval 2026-11-11 === */
+const DEPTH_HEAD_DATA = {
+  rows: [
+    {cfg:"rerank@20 old-head/raw",     ceil:.740, ws:.470, set:.610, d:0,     ci:[0,0],        cand:40, tag:"原 .610 复现"},
+    {cfg:"rerank@20 old-head/squash",  ceil:.740, ws:.490, set:.650, d:.040,  ci:[-.01,.09],   cand:40, tag:"改编码 +4pt"},
+    {cfg:"rerank@20 new-head/raw",     ceil:.740, ws:.470, set:.590, d:-.020, ci:[-.05,0],     cand:40, tag:"重训无效"},
+    {cfg:"rerank@20 new-head/squash",  ceil:.740, ws:.490, set:.660, d:.050,  ci:[.01,.10],    cand:40, tag:"本轮最好"},
+    {cfg:"rerank@20 new+ver-refit",    ceil:.740, ws:.500, set:.620, d:.010,  ci:[-.04,.06],   cand:40, tag:"读出重训只抬 ws"},
+    {cfg:"rerank@40 old-head/raw",     ceil:.800, ws:.480, set:.610, d:0,     ci:[0,0],        cand:80, tag:"基线"},
+    {cfg:"rerank@40 old-head/squash",  ceil:.800, ws:.500, set:.660, d:.050,  ci:[0,.10],      cand:80, tag:"改编码 +5pt"},
+    {cfg:"rerank@40 new-head/raw",     ceil:.800, ws:.480, set:.540, d:-.070, ci:[-.12,-.02],  cand:80, tag:"显著变差"},
+    {cfg:"rerank@40 new-head/squash",  ceil:.800, ws:.500, set:.620, d:.010,  ci:[-.04,.06],   cand:80, tag:"平"},
+    {cfg:"bm25@20 old-head/raw",       ceil:.650, ws:.420, set:.550, d:0,     ci:[0,0],        cand:40, tag:"基线"},
+    {cfg:"bm25@20 new-head/squash",    ceil:.650, ws:.460, set:.560, d:.010,  ci:[-.04,.05],   cand:40, tag:"平"},
+    {cfg:"bm25@20 new+ver-refit",      ceil:.650, ws:.480, set:.510, d:-.040, ci:[-.10,.01],   cand:40, tag:"ws +6pt / set -4pt"}
+  ],
+  note: "在评测同分布的 B=2 bridge_hop 候选上重训 head：k=20 时 set 从 .610 → .590（Δ -.02，CI 跨 0），k=40 时 .610 → .540（Δ -.07，CI [-.12,-.02]），重训本身没有收益、在 40 上显著更差。.610 原样复现，说明它不是 head 外推的假象。真正的缺陷是 rank 特征编码：4r/(r+4) 把排名压进可比区间，旧 head 不动就 +4~5pt，重训后再加 squash 到 .660。读出重训（verifier@20）只把 workspace 抬 +3~6pt。"
+};
+
+const DEPTH_DENSE_DATA = {
+  model: "BAAI/bge-small-en-v1.5 · 33M · 384d · CLS pooling · cosine",
+  rows: [
+    {cfg:"bm25@5",             ceil:.370, rec:.640, ws:.360, set:.360, d:null, ci:null,          cand:10,  ms:67,  tag:"旧链基线"},
+    {cfg:"bm25@20",            ceil:.650, rec:.795, ws:.460, set:.560, d:null, ci:null,          cand:40,  ms:208, tag:"无 rerank · 已下线"},
+    {cfg:"bm25@20+rerank",     ceil:.740, rec:.850, ws:.480, set:.630, d:0,    ci:[0,0],         cand:40,  ms:220, tag:"旧金标 · 现可选"},
+    {cfg:"dense@5",            ceil:.690, rec:.840, ws:.670, set:.680, d:.050, ci:[-.02,.13],   cand:10,  ms:67,  tag:"10 段即超金标"},
+    {cfg:"dense@8",            ceil:.760, rec:null, ws:.660, set:.710, d:.080, ci:[.01,.15],    cand:16,  ms:95,  tag:"+8pt 区间显著"},
+    {cfg:"dense@10",           ceil:.780, rec:.885, ws:.660, set:.720, d:.090, ci:[.02,.16],    cand:20,  ms:114, tag:"拐点 · 推荐默认"},
+    {cfg:"dense@12",           ceil:.800, rec:null, ws:.650, set:.720, d:.090, ci:[.02,.16],    cand:24,  ms:133, tag:"平台"},
+    {cfg:"dense@15",           ceil:.800, rec:null, ws:.650, set:.720, d:.090, ci:[.02,.16],    cand:30,  ms:161, tag:"平台"},
+    {cfg:"dense@20",           ceil:.810, rec:.900, ws:.650, set:.710, d:.080, ci:[0,.15],      cand:40,  ms:208, tag:"当前默认 · 不再增长"},
+    {cfg:"dense@20+rerank",    ceil:.810, rec:null, ws:.620, set:.690, d:-.020, ci:[-.07,.02],  cand:40,  ms:215, tag:"可选 · 反而 −2pt"}
+  ],
+  curve: [
+    {k:5,  bm25:.370, dense:.690, set:.680},
+    {k:8,  bm25:null, dense:.760, set:.710},
+    {k:10, bm25:.480, dense:.780, set:.720},
+    {k:12, bm25:null, dense:.800, set:.720},
+    {k:15, bm25:null, dense:.800, set:.720},
+    {k:20, bm25:.650, dense:.810, set:.710}
+  ],
+  note: "默认召回已切到稠密（NBPW2_RECALL=dense，k=NBPW2_RECALL_K=20），句级 rerank 从默认链路下线、保留为 NBPW2_RERANK=1 可选。端到端点：dense@20 set .710 / ws .650，对旧金标 bm25@20+rerank .630 / .480，Δ +.08 [0,.15]（跨 0，方向一致不算显著）。稠密在 k=5 就以 .680 超过金标的 .630，k=8–10 进入 .710–.720，k=10 之后完全平台：k=10 与 k=20 的 set 差 −.01（噪声），池上限却从 .780 升到 .810 —— 多召回的 20 个候选只抬高上限、不改善选择。代价是每个候选 4.7ms 的 readout，k=10→20 多花 94ms 换 0pt。延迟重测（空载）：query 编码 8.1ms、稠密扫描 0.04ms/节点，检索本身几乎免费，成本全在选择器；此前 .213s 的金标读数漏算了 rerank 阶段，含 rerank 后是 ~220ms，与 dense@20 的 208ms 基本同价。",
+  decomp: "三项可加总分解（dense@20）：命中 .810 / 节点未查 .110 / 节点内深度不足 .080；BM25 时代是 .650 / .110 / .240。深度损失被砍掉三分之二，剩下的 .11 全是 B=2 节点路由，深度已不是瓶颈。注意池上限 .810 ≠ 接近 oracle：上限高只说明两篇 gold 在 40 个候选里，端到端仍丢 10pt 给选择器。ranksquash 在稠密候选上方向反转：with .710 vs 重训 raw .740（Δ −.03 [−.07,0]），与 BM25 上的 +4~5pt 相反；故默认链路目前带着它只为不破坏 BM25 可选档，稠密档本身不需要（在 ±.07 内，未改）。"
+};
+
+function renderDepthHead(){
+  const cols = '178px 50px 46px 46px 96px 44px 96px';
+  const color = r => r.ci && r.ci[0] >= 0.05 ? 'var(--green)' : r.d > 0 ? 'var(--amber)'
+                     : r.d < 0 ? '#e74c3c' : 'var(--dim)';
+  const head = `<div style="display:grid;grid-template-columns:${cols};gap:4px;padding:4px 0;font:8px/1 var(--mono);letter-spacing:.1em;color:var(--dim);border-bottom:1px solid var(--line)">
+    <span>配置（候选生成 / head）</span><span style="color:#ffb84d">池上限</span><span style="color:var(--cyan)">WS</span>
+    <span style="color:#9b7bff">SET</span><span>ΔSET vs 旧head [CI]</span><span>候选</span><span>判定</span></div>`;
+  const rows = DEPTH_HEAD_DATA.rows.map(r => `<div style="display:grid;grid-template-columns:${cols};gap:4px;padding:4px 0;border-bottom:1px solid rgba(94,242,255,.07);font:8px/1.5 var(--mono)">
+    <span style="color:var(--muted)">${esc(r.cfg)}</span>
+    <span style="color:#ffb84d">${r.ceil.toFixed(3)}</span>
+    <span style="color:var(--cyan)">${r.ws.toFixed(3)}</span>
+    <span style="color:#9b7bff;font-weight:600">${r.set.toFixed(3)}</span>
+    <span style="color:${color(r)}">${r.d>=0?'+':''}${r.d.toFixed(3)} [${r.ci[0].toFixed(2)},${r.ci[1].toFixed(2)}]</span>
+    <span style="color:var(--dim)">${r.cand}</span>
+    <span style="color:${color(r)}">${esc(r.tag)}</span></div>`).join('');
+  $('depthHeadTable').innerHTML = head + rows;
+  $('depthHeadNote').textContent = DEPTH_HEAD_DATA.note;
+}
+
+function drawDenseChart(){
+  const c = $('depthDenseChart'); if(!c) return;
+  const r = c.getBoundingClientRect(); const dpr = devicePixelRatio || 1;
+  c.width = r.width * dpr; c.height = r.height * dpr;
+  const x = c.getContext('2d'); x.scale(dpr, dpr);
+  const W = r.width, H = r.height; x.clearRect(0,0,W,H);
+  const pad = {l:46, r:14, t:22, b:40}, cw = W-pad.l-pad.r, ch = H-pad.t-pad.b;
+  const lo = 0.30, hi = 0.90;
+  const Y = v => pad.t + ch - ((v-lo)/(hi-lo))*ch;
+  const D = DEPTH_DENSE_DATA.curve;
+  const X = i => pad.l + (cw/(D.length-1))*i;
+  x.strokeStyle = 'rgba(94,242,255,.10)'; x.font = '8px monospace'; x.textAlign = 'left';
+  for(let v=0.3; v<=0.9; v+=0.1){
+    const y = Y(v);
+    x.beginPath(); x.moveTo(pad.l,y); x.lineTo(W-pad.r,y); x.stroke();
+    x.fillStyle = '#6f879b'; x.fillText(v.toFixed(1), 8, y+3);
+  }
+  x.setLineDash([3,3]); x.strokeStyle = 'rgba(255,200,87,.55)';
+  x.beginPath(); x.moveTo(X(2),pad.t); x.lineTo(X(2),pad.t+ch); x.stroke(); x.setLineDash([]);
+  x.fillStyle = '#ffc857'; x.font = '8px monospace'; x.textAlign = 'center';
+  x.fillText('拐点 k=10', X(2), pad.t-7);
+  [{key:'bm25', color:'#ffb84d', dash:[4,3]}, {key:'dense', color:'#4dffb8', dash:[]},
+   {key:'set', color:'#9b7bff', dash:[]}].forEach(s => {
+    x.strokeStyle = s.color; x.lineWidth = 1.6; x.setLineDash(s.dash);
+    let started = false;
+    D.forEach((row,i) => {
+      const v = row[s.key];
+      if(v === null || v === undefined){ started = false; return; }
+      if(!started){ x.beginPath(); x.moveTo(X(i),Y(v)); started = true; }
+      else x.lineTo(X(i),Y(v));
+    });
+    x.stroke(); x.setLineDash([]); x.lineWidth = 1;
+    D.forEach((row,i) => {
+      const v = row[s.key]; if(v === null || v === undefined) return;
+      x.fillStyle = s.color; x.beginPath(); x.arc(X(i),Y(v),2.6,0,7); x.fill();
+      if(s.key === 'dense' || s.key === 'set'){
+        x.fillStyle = '#d9e8f4'; x.font = '7px monospace'; x.textAlign = 'center';
+        x.fillText(v.toFixed(3), X(i), Y(v) - 6);
+      }
+    });
+  });
+  D.forEach((row,i) => {
+    x.fillStyle = '#6f879b'; x.font = '8px monospace'; x.textAlign = 'center';
+    x.fillText(`k=${row.k}/节点`, X(i), H-22);
+  });
+}
+
+function renderDepthDense(){
+  const cols = '150px 50px 54px 46px 46px 96px 44px 54px 118px';
+  const color = r => r.d === null ? 'var(--dim)'
+                     : r.ci && r.ci[0] >= 0.05 ? 'var(--green)' : r.d > 0 ? 'var(--amber)'
+                     : r.d < 0 ? '#e74c3c' : 'var(--dim)';
+  const head = `<div style="display:grid;grid-template-columns:${cols};gap:4px;padding:4px 0;font:8px/1 var(--mono);letter-spacing:.08em;color:var(--dim);border-bottom:1px solid var(--line)">
+    <span>CONFIG</span><span style="color:#ffb84d">池上限</span><span>GOLD 召回</span>
+    <span style="color:var(--cyan)">WS</span><span style="color:#9b7bff">SET</span>
+    <span>ΔSET vs 金标 [CI]</span><span>候选</span><span>总延迟</span><span>判定</span></div>`;
+  const rows = DEPTH_DENSE_DATA.rows.map(r => `<div style="display:grid;grid-template-columns:${cols};gap:4px;padding:4px 0;border-bottom:1px solid rgba(94,242,255,.07);font:8px/1.5 var(--mono)">
+    <span style="color:var(--muted)">${esc(r.cfg)}</span>
+    <span style="color:#ffb84d">${r.ceil.toFixed(3)}</span>
+    <span style="color:#6f879b">${r.rec === null ? '—' : r.rec.toFixed(3)}</span>
+    <span style="color:var(--cyan)">${r.ws.toFixed(3)}</span>
+    <span style="color:#9b7bff;font-weight:600">${r.set.toFixed(3)}</span>
+    <span style="color:${color(r)}">${r.d === null ? '—' : (r.d>=0?'+':'')+r.d.toFixed(3)+' ['+r.ci[0].toFixed(2)+','+r.ci[1].toFixed(2)+']'}</span>
+    <span style="color:var(--dim)">${r.cand}</span>
+    <span style="color:var(--dim)">${r.ms}ms</span>
+    <span style="color:${color(r)}">${esc(r.tag)}</span></div>`).join('');
+  $('depthDenseTable').innerHTML =
+    `<div style="font:8px/1.5 var(--mono);color:var(--green);margin:6px 0 4px">ENCODER · ${esc(DEPTH_DENSE_DATA.model)}</div>`
+    + head + rows;
+  $('depthDenseNote').textContent = DEPTH_DENSE_DATA.note + ' ' + DEPTH_DENSE_DATA.decomp;
+  drawDenseChart();
+}
+
+function renderDepth(){
+  renderDepthDiag();
+  renderDepthTable();
+  renderDepthHead();
+  renderDepthDense();
+  drawDepthChart();
+  $('depthNote').textContent = DEPTH_DATA.note + ' ' + DEPTH_DATA.sat;
+  $('depthAbNote').textContent = DEPTH_DATA.cost + ' ' + DEPTH_DATA.verdict;
+}
+
+let DEPTH_MODE = 'curve';
+$('depthToggle').onclick = (e) => {
+  const b = e.target.closest('button'); if(!b) return;
+  DEPTH_MODE = b.dataset.v;
+  [...$('depthToggle').children].forEach(x => x.style.opacity = x.dataset.v === DEPTH_MODE ? 1 : .45);
+  $('depthCurveWrap').style.display = DEPTH_MODE === 'curve' ? 'block' : 'none';
+  $('depthAbWrap').style.display = DEPTH_MODE === 'ab' ? 'block' : 'none';
+  $('depthHeadWrap').style.display = DEPTH_MODE === 'head' ? 'block' : 'none';
+  $('depthDenseWrap').style.display = DEPTH_MODE === 'dense' ? 'block' : 'none';
+  if(DEPTH_MODE === 'curve') drawDepthChart();
+  if(DEPTH_MODE === 'dense') drawDenseChart();
+};
+[...$('depthToggle').children].forEach(x => x.style.opacity = x.dataset.v === DEPTH_MODE ? 1 : .45);
+renderDepth();
+
+/* === Readout mode opt-in === */
+function renderReadoutMode() {
+  const D = AUDIT_DATA.verifier;
+  $('readoutMode').innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+    <div style="border:1px solid rgba(77,255,184,.25);padding:8px;background:rgba(77,255,184,.04)">
+      <div style="font:9px/1 var(--mono);letter-spacing:.14em;color:var(--green)">DEFAULT · fast</div>
+      <div style="font:8px/1.6 var(--mono);color:var(--muted);margin-top:5px">11 维 numpy logistic（原 verifier）</div>
+      <div style="font:8px/1.6 var(--mono);color:var(--dim)">${D.costOld} · ~10 ms/query</div>
+      <div style="font:8px/1.6 var(--mono);color:var(--green)">无需缓存，直接跑</div>
+    </div>
+    <div style="border:1px solid rgba(255,200,87,.3);padding:8px;background:rgba(255,200,87,.05)">
+      <div style="font:9px/1 var(--mono);letter-spacing:.14em;color:var(--amber)">OPT-IN · fusion</div>
+      <div style="font:8px/1.6 var(--mono);color:var(--muted);margin-top:5px">26 维 = 11 旧 + 8 NLI 蕴含 + 7 答案侧</div>
+      <div style="font:8px/1.6 var(--mono);color:var(--dim)">${D.costNew} · B=2 ≈1.27 s/query</div>
+      <div style="font:8px/1.6 var(--mono);color:var(--amber)">离线/高预算档，不是默认</div>
+    </div>
+    <div style="border:1px solid var(--line);padding:8px;background:rgba(3,9,15,.4)">
+      <div style="font:9px/1 var(--mono);letter-spacing:.14em;color:var(--cyan)">SWITCH</div>
+      <div style="font:8px/1.7 var(--mono);color:var(--muted);margin-top:5px">NBPW2_READOUT=fast|fusion<br>NBPW2_SIGNAL_CACHE=…<br>NBPW2_FUSION_HEAD=…</div>
+      <div style="font:8px/1.6 var(--mono);color:var(--dim);margin-top:4px">不设环境变量 = fast，行为与旧路径逐位一致</div>
+    </div>
+  </div>
+  <div class="hint" style="margin-top:6px">降为可选档的原因：单机 B=2 端到端只 +1.3pt（0.390→0.403），131× 的推理开销换来的是噪声内的收益；它在 all-nodes 的 +16pt 只在池内候选全部可取时成立，不是默认路径该付的价钱。</div>`;
+}
+renderReadoutMode();
+
+/* === Multi-node 2026-11-10 === */
+const MULTI_DATA = {
+  split: "词表按 TF-IDF cosine k-means 聚成 3 个主题节点（1971 / 918 / 1086 段）；gold 段落按主题落节点，所以两道 gold 可能同节点也可能跨节点。",
+  reach: {c1:0.400, cAll:0.400, same:0.67, sameHit:0.418, crossHit:0.364, docRecall:0.665,
+          repC1:0.340, repCAll:0.360, repSameHit:0.388, repCrossHit:0.242},
+  rows: [
+    {cfg:"exclusive · all-nodes · top5", cAll:0.400, cands:15, same:0.418, cross:0.364,
+     fast:{ws:0.380, pair:0.400, set:0.380}, fus:{ws:0.370, pair:0.400, set:0.400}},
+    {cfg:"exclusive · all-nodes · top10", cAll:0.540, cands:30, same:null, cross:null,
+     fast:{ws:0.440, pair:0.520, set:0.500}, fus:{ws:0.440, pair:0.520, set:0.520}},
+    {cfg:"exclusive · hybrid B=2", cAll:0.370, cands:10, same:0.403, cross:0.242,
+     fast:{ws:0.360, pair:0.370, set:0.360}, fus:{ws:0.360, pair:0.370, set:0.370}},
+    {cfg:"replica · all-nodes · top5", cAll:0.360, cands:15, same:0.388, cross:0.242,
+     fast:{ws:0.320, pair:0.350, set:0.360}, fus:{ws:0.090, pair:0.220, set:0.200}, bad:true},
+  ],
+  note: "跨节点差 5.4pt（.418 vs .364），但跨节点只有 33 题，落在噪声内。exclusive 下 C1==C_all 是结构性必然（每段只在一个节点），真正被测到的是同节点/跨节点差异；replica 让 C_all 超过 C1，但只多找回 +2pt，且节点选择整体失效（random .33 ≈ oracle .34）。多节点下选择器收益 +2~3pt，CI 全重叠 → 不成立。融合档：多节点没有兑现 +16pt（最好也只 +2pt），且用 topic-exclusive 训练出的 head（正样本仅约 140 对）在 replica 上直接崩到 .09 —— 换成 5 节点/in-distribution head 后回到 .36，与 fast 持平。结论：融合档维持可选，不转入默认。",
+  gap: "新瓶颈：单段本节点 top-5 召回只有 .665，池损失 .60（5-node 是 .12）→ 多节点下要补的是每节点检索深度，不是选择器。"
+};
+
+function renderMulti() {
+  const D = MULTI_DATA;
+  const cols = '128px 42px 44px 44px 96px 96px';
+  const f = x => x === null ? '—' : x.toFixed(3);
+  const rows = D.rows.map(r => {
+    const fusW = r.bad
+      ? `<span style="color:#e74c3c">${r.fus.ws.toFixed(3)}</span>`
+      : `<span style="color:${r.fus.ws - r.fast.ws > 0.04 ? 'var(--green)' : 'var(--muted)'}">${r.fus.ws.toFixed(3)}</span>`;
+    return `<div style="display:grid;grid-template-columns:${cols};gap:4px;padding:4px 0;border-bottom:1px solid rgba(94,242,255,.07);font:8px/1.5 var(--mono)">
+      <span style="color:var(--muted)">${esc(r.cfg)}</span>
+      <span style="color:#ffb84d">${r.cAll.toFixed(3)}</span>
+      <span style="color:var(--dim)">${f(r.same)}</span>
+      <span style="color:var(--dim)">${f(r.cross)}</span>
+      <span style="color:var(--cyan)">${r.fast.ws.toFixed(3)}/${r.fast.pair.toFixed(3)}/${r.fast.set.toFixed(3)}</span>
+      <span style="color:var(--dim)">${fusW}/${r.fus.pair.toFixed(3)}/${r.fus.set.toFixed(3)}</span>
+    </div>`;
+  }).join('');
+  const header = `<div style="display:grid;grid-template-columns:${cols};gap:4px;padding:4px 0;font:8px/1 var(--mono);letter-spacing:.1em;color:var(--dim);border-bottom:1px solid var(--line)">
+    <span>CONFIG</span><span style="color:#ffb84d">C_ALL</span><span>同节点</span><span>跨节点</span>
+    <span style="color:var(--cyan)">FAST ws/pair/set</span><span>FUSION ws/pair/set</span>
+  </div>`;
+  const R = D.reach;
+  const reach = `<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:8px 0">
+    <div style="border:1px solid var(--line);padding:7px;background:rgba(3,9,15,.4)">
+      <div style="font:8px/1 var(--mono);color:var(--dim)">EXCLUSIVE · C1 / C_all</div>
+      <div style="font:600 13px/1.4 var(--mono);color:var(--text)">${R.c1.toFixed(2)} / ${R.cAll.toFixed(2)}</div>
+      <div style="font:8px/1.4 var(--mono);color:var(--dim)">C1==C_all 是分区结构决定的</div>
+    </div>
+    <div style="border:1px solid var(--line);padding:7px;background:rgba(3,9,15,.4)">
+      <div style="font:8px/1 var(--mono);color:var(--dim)">同节点 / 跨节点命中</div>
+      <div style="font:600 13px/1.4 var(--mono);color:var(--text)">${R.sameHit.toFixed(3)} / ${R.crossHit.toFixed(3)}</div>
+      <div style="font:8px/1.4 var(--mono);color:var(--dim)">差 5.4pt，跨节点仅 33 题</div>
+    </div>
+    <div style="border:1px solid var(--line);padding:7px;background:rgba(3,9,15,.4)">
+      <div style="font:8px/1 var(--mono);color:var(--dim)">REPLICA · C1 → C_all</div>
+      <div style="font:600 13px/1.4 var(--mono);color:var(--text)">${R.repC1.toFixed(2)} → ${R.repCAll.toFixed(2)}</div>
+      <div style="font:8px/1.4 var(--mono);color:var(--dim)">跨节点 .242，同节点 .388</div>
+    </div>
+    <div style="border:1px solid rgba(255,200,87,.25);padding:7px;background:rgba(255,200,87,.04)">
+      <div style="font:8px/1 var(--mono);color:var(--amber)">单段本节点 top-5</div>
+      <div style="font:600 13px/1.4 var(--mono);color:var(--text)">${R.docRecall.toFixed(3)}</div>
+      <div style="font:8px/1.4 var(--mono);color:var(--dim)">新瓶颈：池损失 .60</div>
+    </div>
+  </div>`;
+  $('multiTable').innerHTML = reach + header + rows;
+  $('multiNote').textContent = D.split + ' ' + D.note + ' ' + D.gap;
+}
+renderMulti();
+
+$('auditToggle').onclick = () => {
+  const body = $('auditBody');
+  body.style.display = body.style.display === 'none' ? 'block' : 'none';
+};
+
+renderAuditTable();
+drawGapChart();
+renderDecompTable();
+drawDecompChart();
 </script>
 </body>
 </html>

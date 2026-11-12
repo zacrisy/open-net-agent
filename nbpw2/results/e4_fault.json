@@ -1,0 +1,56 @@
+{
+  "replicas=1,kill=0/5": {
+    "both@2": 0.4,
+    "both@5": 0.55,
+    "recall@5": 0.765,
+    "mrr": 0.879
+  },
+  "replicas=1,kill=1/5": {
+    "both@2": 0.32,
+    "both@5": 0.4,
+    "recall@5": 0.665,
+    "mrr": 0.849
+  },
+  "replicas=1,kill=2/5": {
+    "both@2": 0.23,
+    "both@5": 0.28,
+    "recall@5": 0.58,
+    "mrr": 0.777
+  },
+  "replicas=2,kill=0/5": {
+    "both@2": 0.4,
+    "both@5": 0.5,
+    "recall@5": 0.74,
+    "mrr": 0.889
+  },
+  "replicas=2,kill=1/5": {
+    "both@2": 0.43,
+    "both@5": 0.55,
+    "recall@5": 0.775,
+    "mrr": 0.9173
+  },
+  "replicas=2,kill=2/5": {
+    "both@2": 0.36,
+    "both@5": 0.52,
+    "recall@5": 0.745,
+    "mrr": 0.9092
+  },
+  "replicas=3,kill=0/5": {
+    "both@2": 0.65,
+    "both@5": 0.79,
+    "recall@5": 0.89,
+    "mrr": 0.985
+  },
+  "replicas=3,kill=1/5": {
+    "both@2": 0.48,
+    "both@5": 0.66,
+    "recall@5": 0.83,
+    "mrr": 0.9473
+  },
+  "replicas=3,kill=2/5": {
+    "both@2": 0.48,
+    "both@5": 0.67,
+    "recall@5": 0.83,
+    "mrr": 0.9408
+  }
+}

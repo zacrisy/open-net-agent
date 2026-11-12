@@ -1,0 +1,83 @@
+{
+  "config": {
+    "n_train": 300,
+    "n_test": 100,
+    "nodes": 5,
+    "distractors_per_node": 100,
+    "top_k_local": 5,
+    "workspace_k": 5
+  },
+  "results": {
+    "best_node": {
+      "both@2": 0.0,
+      "both@5": 0.0,
+      "recall@5": 0.5,
+      "mrr": 0.9,
+      "n": 100
+    },
+    "central": {
+      "both@2": 0.2,
+      "both@5": 0.39,
+      "recall@5": 0.66,
+      "mrr": 0.8077,
+      "n": 100
+    },
+    "central_oracle": {
+      "both@2": 0.29,
+      "both@5": 0.52,
+      "recall@5": 0.745,
+      "mrr": 0.8252,
+      "n": 100
+    },
+    "flat_local": {
+      "both@2": 0.22,
+      "both@5": 0.4,
+      "recall@5": 0.645,
+      "mrr": 0.7678,
+      "n": 100
+    },
+    "flat_verifier": {
+      "both@2": 0.39,
+      "both@5": 0.53,
+      "recall@5": 0.755,
+      "mrr": 0.8662,
+      "n": 100
+    },
+    "nbpw": {
+      "both@2": 0.4,
+      "both@5": 0.55,
+      "recall@5": 0.765,
+      "mrr": 0.879,
+      "n": 100
+    },
+    "no_verifier": {
+      "both@2": 0.23,
+      "both@5": 0.46,
+      "recall@5": 0.7,
+      "mrr": 0.7933,
+      "n": 100
+    },
+    "no_coalition": {
+      "both@2": 0.39,
+      "both@5": 0.52,
+      "recall@5": 0.75,
+      "mrr": 0.8777,
+      "n": 100
+    },
+    "no_novelty": {
+      "both@2": 0.42,
+      "both@5": 0.53,
+      "recall@5": 0.76,
+      "mrr": 0.8798,
+      "n": 100
+    },
+    "no_coverage": {
+      "both@2": 0.39,
+      "both@5": 0.53,
+      "recall@5": 0.75,
+      "mrr": 0.8573,
+      "n": 100
+    }
+  },
+  "seconds": 80.6
+}
