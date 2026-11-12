@@ -307,3 +307,30 @@ about latency-aware selection.
 | Topic-split sharding (E12) | done, strong positive |
 | 10 nodes x topic split (E13) | done, positive |
 | Real LAN transport (E14) | blocked on a reproducibility bug; documented |
+
+## E15: multi-round active selection (query → look → decide again)
+
+1000 questions (250 test), max 4 node queries, topic-free sharding, learned
+node scorer.
+
+| Policy | early stop | both@2 | both@5 | recall@5 | MRR | mean queries |
+|---|---|---:|---:|---:|---:|---:|
+| random | no | 0.388 | 0.504 | 0.734 | 0.895 | 4.00 |
+| random | yes | 0.092 | 0.100 | 0.382 | 0.606 | 1.92 |
+| learned | no | **0.596** | **0.772** | **0.882** | **0.934** | 4.00 |
+| learned | yes | 0.252 | 0.280 | 0.608 | 0.886 | 1.66 |
+
+- learned − random at B=4: both@5 +0.268 (0.772 vs 0.504), same query count.
+- With my first "stop when top-2 titles are confident" rule, accuracy collapses
+  (learned 0.772 → 0.280) while saving only 2.3 queries. Paired diff at the
+  early-stop setting: +0.180, CI [0.128, 0.240], but that gap is mostly the
+  stop rule hurting everyone.
+- **Negative result**: a high per-candidate verifier score is *not* a usable
+  stopping signal for evidence gathering — it fires after one node because one
+  confident paragraph is enough to look "solved". Stopping needs a
+  *coverage*-style or *marginal-gain* criterion, not a max-score threshold.
+
+Note: the first version of the early-stop curve also revealed a bootstrap bug
+in the paired-difference helper (it resampled a single element). Fixed in
+`analyze_e1.py` and `run_e15.py`; all CIs above are recomputed with the correct
+n-of-n resampling.

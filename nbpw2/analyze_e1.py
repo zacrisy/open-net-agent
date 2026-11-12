@@ -22,6 +22,7 @@ def main():
         idx = [rng.randrange(len(diffs)) for _ in diffs]
         boots.append(statistics.mean(diffs[i] for i in idx))
     boots.sort()
+    boots.sort()
     out = {"n": len(diffs), "nbpw": round(statistics.mean(a), 4), "flat": round(statistics.mean(b), 4),
            "diff": round(statistics.mean(diffs), 4), "ci95": [round(boots[125], 4), round(boots[4875], 4)],
            "win": sum(1 for d in diffs if d > 0), "loss": sum(1 for d in diffs if d < 0)}
