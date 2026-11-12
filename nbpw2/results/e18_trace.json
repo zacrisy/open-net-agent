@@ -1,0 +1,456 @@
+{
+ "meta": {
+  "generated_at": "2026-11-12 15:43:46",
+  "harness": "dmqa_dev test split, frozen bridge_hop node choices B=2",
+  "config": {
+   "n_nodes": 3,
+   "B": 2,
+   "recall": "dense",
+   "recall_k": 10,
+   "selector": "pair head, set-level greedy, K=5",
+   "encoder": "bge-small-en-v1.5"
+  },
+  "nodes": [
+   {
+    "id": 0,
+    "name": "节点 A",
+    "keywords": [
+     "film",
+     "battle",
+     "list",
+     "series",
+     "school",
+     "new",
+     "park",
+     "tv"
+    ]
+   },
+   {
+    "id": 1,
+    "name": "节点 B",
+    "keywords": [
+     "football",
+     "song",
+     "team",
+     "album",
+     "cup",
+     "season",
+     "world",
+     "tech"
+    ]
+   },
+   {
+    "id": 2,
+    "name": "节点 C",
+    "keywords": [
+     "united",
+     "john",
+     "states",
+     "election",
+     "james",
+     "earl",
+     "richard",
+     "st"
+    ]
+   }
+  ],
+  "selection_rule": "test 集中两段 gold 都被选进 top-5、且分属两个节点、问题较短的题；是展示样例，不是随机抽样",
+  "answer_method": "抽取式：优先桥接段落（锚点段落里的实体，正是另一段落的标题），段内按 idf 词面重合选句、按答案类型抽数字/日期/实体 span；未经 LLM 改写，也不是训练过的 QA 头",
+  "n_showcase_candidates": 16
+ },
+ "trace": {
+  "question": "Július Satinský was born in a city that has a current population of what?",
+  "id": "5a756fa15542996c70cfaefb",
+  "type": "bridge",
+  "level": "hard",
+  "gold_answer": "about 450,000",
+  "gold_titles": [
+   "Bratislava",
+   "Július Satinský"
+  ],
+  "gold_nodes": [
+   0,
+   2
+  ],
+  "route": [
+   {
+    "hop": 1,
+    "chosen": 2,
+    "anchor": null,
+    "anchor_entities": [],
+    "scores": [
+     {
+      "node": 2,
+      "name": "节点 C",
+      "title_gain": 0.7143,
+      "content_gain": 1.0,
+      "bm25": 0.319,
+      "prior": 0.5,
+      "bridge": 0.0,
+      "bridge_entities": [],
+      "total": 0.6824
+     },
+     {
+      "node": 0,
+      "name": "节点 A",
+      "title_gain": 0.5714,
+      "content_gain": 0.7143,
+      "bm25": 0.244,
+      "prior": 0.5,
+      "bridge": 0.0,
+      "bridge_entities": [],
+      "total": 0.531
+     },
+     {
+      "node": 1,
+      "name": "节点 B",
+      "title_gain": 0.2857,
+      "content_gain": 0.5714,
+      "bm25": 0.227,
+      "prior": 0.5,
+      "bridge": 0.0,
+      "bridge_entities": [],
+      "total": 0.3887
+     }
+    ]
+   },
+   {
+    "hop": 2,
+    "chosen": 0,
+    "anchor": "Július Satinský",
+    "anchor_entities": [
+     "august",
+     "bratislava",
+     "december",
+     "he",
+     "lasica",
+     "milan"
+    ],
+    "scores": [
+     {
+      "node": 0,
+      "name": "节点 A",
+      "title_gain": 0.1429,
+      "content_gain": 0.1429,
+      "bm25": 0.244,
+      "prior": 0.5,
+      "bridge": 0.0,
+      "bridge_entities": [],
+      "total": 0.2382
+     },
+     {
+      "node": 1,
+      "name": "节点 B",
+      "title_gain": 0.0,
+      "content_gain": 0.1429,
+      "bm25": 0.227,
+      "prior": 0.5,
+      "bridge": 0.0,
+      "bridge_entities": [],
+      "total": 0.1816
+     }
+    ]
+   }
+  ],
+  "recall": [
+   {
+    "node": 2,
+    "name": "节点 C",
+    "hits": [
+     {
+      "rank": 0,
+      "score": 0.7225,
+      "title": "Július Satinský",
+      "gold": true,
+      "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"
+     },
+     {
+      "rank": 1,
+      "score": 0.5055,
+      "title": "Valentina Tereshkova",
+      "gold": false,
+      "snippet": "Valentina Vladimirovna Tereshkova (Russian: Валенти́на Влади́мировна Терешко́ва ; ] ; born 6 March 1937) is a retired Russian cosmonaut, engineer, and politician.  She is the first woman to "
+     },
+     {
+      "rank": 2,
+      "score": 0.4918,
+      "title": "Alexander Kerensky",
+      "gold": false,
+      "snippet": "Alexander Fyodorovich Kerensky (Russian: Алекса́ндр Фёдорович Ке́ренский , ] ; 4 May 1881 – 11 June 1970) was a Russian lawyer and key political figure in the Russian Revolution of 1917.  Af"
+     },
+     {
+      "rank": 3,
+      "score": 0.4884,
+      "title": "Mikhail Gorbachev",
+      "gold": false,
+      "snippet": "Mikhail Sergeyevich Gorbachev, ( ; Russian: Михаи́л Серге́евич Горбачёв ; ] ; born 2 March 1931) is a former Soviet statesman.  He was the eighth and last leader of the Soviet Union, having "
+     },
+     {
+      "rank": 4,
+      "score": 0.4869,
+      "title": "Orbis Pictus (film)",
+      "gold": false,
+      "snippet": "Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"
+     },
+     {
+      "rank": 5,
+      "score": 0.4848,
+      "title": "Columbia University",
+      "gold": false,
+      "snippet": "Columbia University (Columbia; officially Columbia University in the City of New York), established in 1754, is a private Ivy League research university in Upper Manhattan, New York City, of"
+     },
+     {
+      "rank": 6,
+      "score": 0.4842,
+      "title": "Andrei Kirilenko (politician)",
+      "gold": false,
+      "snippet": "Andrei Pavlovich Kirilenko (Russian: Андре́й Па́влович Кириле́нко ; ] ; 8 September [O.S. 26 August] 1906 – 12 May 1990) was a Soviet statesman from the start to the end of the Cold War.  In"
+     },
+     {
+      "rank": 7,
+      "score": 0.481,
+      "title": "Ralph Giannini",
+      "gold": false,
+      "snippet": "Ralph \"Toddy\" Giannini (1917–1996), known to many as \"Hot Toddy,\" was a member of the 1940 All-American basketball team representing Santa Clara University.  He and his other teammates were "
+     },
+     {
+      "rank": 8,
+      "score": 0.4809,
+      "title": "Dzvinia Orlowsky",
+      "gold": false,
+      "snippet": "Dzvinia Orlowsky is a Ukrainian American poet, translator, editor, and professor.  She is author of five poetry collections including \"Convertible Night, Flurry of Stones\" (Carnegie Mellon U"
+     },
+     {
+      "rank": 9,
+      "score": 0.4796,
+      "title": "Ferdi Taygan",
+      "gold": false,
+      "snippet": "Ferdi Taygan (born December 5, 1956), is a former professional tennis player from the United States.  He is of Turkish descent."
+     }
+    ],
+    "gold_in_top10": true
+   },
+   {
+    "node": 0,
+    "name": "节点 A",
+    "hits": [
+     {
+      "rank": 0,
+      "score": 0.6353,
+      "title": "Bratislava",
+      "gold": true,
+      "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"
+     },
+     {
+      "rank": 1,
+      "score": 0.5891,
+      "title": "Strasbourg",
+      "gold": false,
+      "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"
+     },
+     {
+      "rank": 2,
+      "score": 0.5528,
+      "title": "Addis Ababa",
+      "gold": false,
+      "snippet": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"
+     },
+     {
+      "rank": 3,
+      "score": 0.5445,
+      "title": "Chernivtsi",
+      "gold": false,
+      "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"
+     },
+     {
+      "rank": 4,
+      "score": 0.5423,
+      "title": "Worcester, Massachusetts",
+      "gold": false,
+      "snippet": "Worcester ( , ] ) is a city and the county seat of Worcester County, Massachusetts, United States.  Named after Worcester, England, as of the 2010 Census the city's population was 181,045, m"
+     },
+     {
+      "rank": 5,
+      "score": 0.5408,
+      "title": "Boston, Lincolnshire",
+      "gold": false,
+      "snippet": "Boston ( ) is a town and small port in Lincolnshire, on the east coast of England.  It is the largest town of the wider Borough of Boston local government district.  The borough had a total "
+     },
+     {
+      "rank": 6,
+      "score": 0.5257,
+      "title": "Pune district",
+      "gold": false,
+      "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"
+     },
+     {
+      "rank": 7,
+      "score": 0.5256,
+      "title": "Biratnagar",
+      "gold": false,
+      "snippet": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."
+     },
+     {
+      "rank": 8,
+      "score": 0.5243,
+      "title": "The Current War",
+      "gold": false,
+      "snippet": "The Current War is a 2017 American biographical historical film directed by Alfonso Gomez-Rejon and written by Michael Mitnick.  The film stars Benedict Cumberbatch, Michael Shannon, Nichola"
+     },
+     {
+      "rank": 9,
+      "score": 0.5214,
+      "title": "Parma Airport",
+      "gold": false,
+      "snippet": "Parma Airport (Italian: \"Aeroporto di Parma\" , IATA: PMF, ICAO: LIMP ) is located 1.3 NM northwest of Parma, a city in the Emilia-Romagna region of Italy.  The airport was opened on 5 May 19"
+     }
+    ],
+    "gold_in_top10": true
+   }
+  ],
+  "recall_ms": 15.6,
+  "shortlist": [
+   {
+    "title": "Július Satinský",
+    "node": 2,
+    "name": "节点 C",
+    "rank": 0,
+    "verifier": 0.9933,
+    "gold": true,
+    "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"
+   },
+   {
+    "title": "Addis Ababa",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 2,
+    "verifier": 0.7111,
+    "gold": false,
+    "snippet": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"
+   },
+   {
+    "title": "Chernivtsi",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 3,
+    "verifier": 0.6888,
+    "gold": false,
+    "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"
+   },
+   {
+    "title": "Biratnagar",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 7,
+    "verifier": 0.6846,
+    "gold": false,
+    "snippet": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."
+   },
+   {
+    "title": "Bratislava",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 0,
+    "verifier": 0.681,
+    "gold": true,
+    "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"
+   },
+   {
+    "title": "Pune district",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 6,
+    "verifier": 0.6391,
+    "gold": false,
+    "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"
+   },
+   {
+    "title": "Strasbourg",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 1,
+    "verifier": 0.5786,
+    "gold": false,
+    "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"
+   },
+   {
+    "title": "Orbis Pictus (film)",
+    "node": 2,
+    "name": "节点 C",
+    "rank": 4,
+    "verifier": 0.4979,
+    "gold": false,
+    "snippet": "Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"
+   }
+  ],
+  "selected": [
+   {
+    "n": 1,
+    "title": "Július Satinský",
+    "node": 2,
+    "name": "节点 C",
+    "rank": 0,
+    "verifier": 0.9933,
+    "gold": true,
+    "text": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Satinský, however his scope of interest was wide."
+   },
+   {
+    "n": 2,
+    "title": "Biratnagar",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 7,
+    "verifier": 0.6846,
+    "gold": false,
+    "text": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu.  Biratnagar is the industrial capital of Nepal and has a total area of 40.108 mi² (103.88 km²).  Its geographical location is 26°28'60\"N 87°16'60\"E.  The city is located in Morang District in the Kosi Zone of the eastern Terai region of Nepal.  It lies 399 km east of Nepal's capital, Kathmandu, and 6 km north of the border of the Indian state of Bihar.  It lies in the Province No. 1, as per the new Constitution of Nepal 2015.  It was declared as a Metropolitan city on 22nd of May, 2017 along with Birgunj"
+   },
+   {
+    "n": 3,
+    "title": "Bratislava",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 0,
+    "verifier": 0.681,
+    "gold": true,
+    "text": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is in southwestern Slovakia, occupying both banks of the River Danube and the left bank of the River Morava.  Bordering Austria and Hungary, it is the only national capital that borders two sovereign states."
+   },
+   {
+    "n": 4,
+    "title": "Pune district",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 6,
+    "verifier": 0.6391,
+    "gold": false,
+    "text": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India (out of 640).  Urban population comprises 58.08% of the total population.  The current population of Pune urban agglomerate is over 5 million."
+   },
+   {
+    "n": 5,
+    "title": "Addis Ababa",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 2,
+    "verifier": 0.7111,
+    "gold": false,
+    "text": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is the capital and largest city of Ethiopia.  It has a population of 3,384,569 according to the 2007 population census, with annual growth rate of 3.8%.  This number has been increased from the originally published 2,738,248 figure and appears to be still largely underestimated."
+   }
+  ],
+  "answer": {
+   "span": "450,000",
+   "sentence": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.",
+   "cite": 3,
+   "coverage": 0.236,
+   "focus_coverage": 0.442,
+   "qtype": "number",
+   "bridge_paragraph": 2
+  },
+  "select_ms": 472.1,
+  "both_at_5": 1.0
+ },
+ "latency": {
+  "route_median_ms": 1478.5,
+  "recall_median_ms": 30.3,
+  "select_median_ms": 559.8,
+  "note": "本机 5 次中位数；路由含 3 个节点 BM25 预览建索引，读段含 verifier + 集合选择"
+ }
+}

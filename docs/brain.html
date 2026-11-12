@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OpenNetBrain · 网络大脑</title>
-<meta property="og:title" content="OpenNetBrain — the network is learning">
-<meta property="og:description" content="A network brain that learns from real sources, builds knowledge cards, revises beliefs and answers with citations.">
+<title>OpenNetBrain · 跨节点证据检索</title>
+<meta property="og:title" content="OpenNetBrain — 跨多个节点找证据，给出有出处的答案">
+<meta property="og:description" content="多节点召回 → 段落选择 → 抽取式答案与引用。页面内含一道真实多跳题的完整 trace、能力边界与全部实验证据。">
 <meta property="og:image" content="https://zacrisy.github.io/open-net-agent/preview.png">
 <style>
 :root{--bg:#03070c;--card:rgba(9,18,28,.72);--line:rgba(94,242,255,.16);--cyan:#5ef2ff;--green:#4dffb8;--amber:#ffc857;--violet:#9b7bff;--text:#d9e8f4;--muted:#6f879b;--dim:#3b4d5e;--mono:"SF Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;--sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",sans-serif}
@@ -17,8 +17,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;background-image:linear
 .scan{position:fixed;inset:0;z-index:200;pointer-events:none;opacity:.32;background:repeating-linear-gradient(180deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px)}
 .topbar{position:sticky;top:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 26px;border-bottom:1px solid var(--line);background:rgba(3,7,12,.78);backdrop-filter:blur(18px)}
 .brand{display:flex;align-items:center;gap:11px}.logo{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--cyan);color:var(--cyan);box-shadow:0 0 26px rgba(94,242,255,.3);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
-.brand h1{font-size:13px;letter-spacing:.24em;margin:0}.brand h1 span{color:var(--cyan)}.brand p{margin:1px 0 0;font:9px/1.2 var(--mono);letter-spacing:.2em;color:var(--muted)}
-.pills{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid var(--line);font:9px/1 var(--mono);letter-spacing:.12em;color:var(--muted);background:rgba(9,18,28,.55)}.pill b{color:var(--text)}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}.dot.warn{background:var(--amber);box-shadow:0 0 10px var(--amber)}.dot.off{background:#e74c3c;box-shadow:0 0 10px #e74c3c}
+.brand h1{font-size:13px;letter-spacing:.24em;margin:0}.brand h1 span{color:var(--cyan)}.brand p{margin:1px 0 0;font:9px/1.2 var(--mono);letter-spacing:.2em;color:var(--muted)}.pills{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid var(--line);font:9px/1 var(--mono);letter-spacing:.12em;color:var(--muted);background:rgba(9,18,28,.55)}.pill b{color:var(--text)}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}.dot.warn{background:var(--amber);box-shadow:0 0 10px var(--amber)}.dot.off{background:#e74c3c;box-shadow:0 0 10px #e74c3c}
 .icon{background:transparent;border:1px solid var(--line);color:var(--muted);width:30px;height:27px;cursor:pointer}.icon:hover{color:var(--cyan);border-color:var(--cyan)}
 .shell{max-width:1360px;margin:0 auto;padding:26px 26px 70px}
 .cloud-banner{display:flex;gap:8px;flex-wrap:wrap;align-items:center;border:1px solid rgba(255,200,87,.35);background:rgba(255,200,87,.06);padding:7px 10px;margin:0 0 8px;font:9px/1.5 var(--mono);color:var(--amber)}.cloud-banner a{color:var(--amber)}
@@ -86,6 +85,79 @@ pre{background:rgba(3,9,15,.9);border:1px solid var(--line);padding:9px;color:va
 .boot{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:250;padding:6px 12px;border:1px solid var(--line);background:rgba(3,7,12,.9);color:var(--muted);font:9px/1.4 var(--mono);letter-spacing:.12em}
 .boot.err{border-color:var(--amber);color:var(--amber)}
 footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font:8px/1.5 var(--mono);letter-spacing:.1em;color:var(--dim)}footer a{color:var(--muted);text-decoration:none}footer a:hover{color:var(--green)}
+/* ---------- product-first hero ---------- */
+.hero2{display:grid;grid-template-columns:1.06fr .94fr;gap:28px;align-items:start;padding:10px 0 22px}
+.hero2 h2{font-size:clamp(32px,4.3vw,54px);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px}
+.hero2 h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px var(--green);text-shadow:0 0 34px rgba(77,255,184,.28)}
+.lead{font-size:14.5px;line-height:1.8;color:var(--text);max-width:640px;margin:0}
+.lead b{color:var(--green);font-weight:600}
+.lead .dim{color:var(--muted)}
+.cap-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.cap{border:1px solid var(--line);background:rgba(9,18,28,.5);padding:11px 12px}
+.cap b{display:block;font:600 13px/1.4 var(--sans);color:var(--text)}
+.cap span{display:block;font:11.5px/1.7 var(--sans);color:var(--muted);margin-top:4px}
+.cap em{display:block;font:9px/1.6 var(--mono);color:var(--green);margin-top:6px;font-style:normal;letter-spacing:.03em}
+.cred{border-left:2px solid var(--green);padding:2px 0 2px 14px;display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.cred div{display:flex;align-items:baseline;gap:12px}
+.cred b{font:600 27px/1 var(--mono);color:var(--green);min-width:96px;letter-spacing:-.02em}
+.cred span{font:11.5px/1.6 var(--sans);color:var(--muted)}
+.cred small{display:block;font:8.5px/1.4 var(--mono);color:var(--dim);letter-spacing:.06em;margin-top:2px}
+.aside-note{border:1px dashed rgba(94,242,255,.22);padding:10px 12px;margin-top:18px;font:10.5px/1.75 var(--sans);color:var(--muted)}
+.jump{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.jump .btn{font-size:9px}
+.section-title{margin:34px 0 12px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:8px}
+.section-title h3{margin:0;font:700 21px/1.25 var(--sans);letter-spacing:-.01em}
+.section-title span{font:9px/1.4 var(--mono);letter-spacing:.14em;color:var(--dim);text-align:right}
+/* ---------- real trace demo ---------- */
+.demo{border:1px solid var(--line);background:var(--card);padding:16px;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.demo-q{font:600 17px/1.55 var(--sans);margin:0 0 4px}
+.demo-meta{font:9px/1.7 var(--mono);color:var(--dim)}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:14px 0 12px}
+.steps button{background:rgba(3,9,15,.6);border:1px solid var(--line);color:var(--muted);padding:8px 7px;font:9px/1.4 var(--mono);cursor:pointer;text-align:left}
+.steps button b{display:block;color:var(--dim);font-size:8px;letter-spacing:.1em}
+.steps button.active{border-color:var(--green);color:var(--green);background:rgba(77,255,184,.06)}
+.steps button.done{border-color:rgba(94,242,255,.45);color:var(--cyan)}
+.demo-body{min-height:250px;border-top:1px solid var(--line);padding-top:12px}
+.demo-nav{display:flex;gap:8px;align-items:center;margin-top:12px}
+.demo-nav .grow{flex:1;text-align:center}
+.node-card{border:1px solid var(--line);padding:8px 10px;margin-bottom:6px;background:rgba(3,9,15,.35)}
+.node-card.hit{border-color:rgba(77,255,184,.55);background:rgba(77,255,184,.04)}
+.nhead{display:flex;justify-content:space-between;gap:8px;font:9.5px/1.5 var(--mono);color:var(--muted)}
+.nhead b{color:var(--text)}
+.bar{height:3px;background:rgba(94,242,255,.08);margin-top:5px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--green),var(--cyan))}
+.hitrow{display:flex;gap:8px;font:10px/1.55 var(--mono);padding:3px 0;border-bottom:1px dashed rgba(94,242,255,.08);color:var(--muted)}
+.hitrow b{color:var(--cyan);min-width:20px}
+.hitrow.gold b,.hitrow.gold span{color:var(--green)}
+.hitrow .sc{color:var(--dim);min-width:52px;text-align:right}
+.snippet{color:var(--dim);font:10px/1.55 var(--mono);margin-top:2px}
+.selrow{border:1px solid rgba(94,242,255,.14);padding:8px 9px;margin-bottom:6px;background:rgba(3,9,15,.3)}
+.selrow.gold{border-color:rgba(77,255,184,.5);background:rgba(77,255,184,.045)}
+.selrow .shead{display:flex;justify-content:space-between;gap:8px;font:9.5px/1.5 var(--mono);color:var(--muted)}
+.selrow .shead b{color:var(--text)}
+.ansbox{border:1px solid rgba(77,255,184,.5);background:rgba(77,255,184,.06);padding:12px}
+.ansbig{font:700 30px/1.1 var(--mono);color:var(--green);margin:6px 0 8px;letter-spacing:-.02em}
+.cite{font:9.5px/1.7 var(--mono);color:var(--muted)}
+.warnbox{border:1px solid rgba(255,200,87,.4);background:rgba(255,200,87,.06);padding:10px 12px;font:11px/1.75 var(--sans);color:var(--amber)}
+/* ---------- boundaries ---------- */
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bcard{border:1px solid var(--line);padding:12px;background:rgba(3,9,15,.35)}
+.bcard b{font:9px/1 var(--mono);letter-spacing:.16em;color:var(--cyan);display:block;margin-bottom:7px}
+.bcard p{margin:0 0 6px;font:11.5px/1.75 var(--sans);color:var(--muted)}
+.bcard p:last-child{margin:0}
+.bcard strong{color:var(--text);font-weight:600}
+.bcard.honest{border-color:rgba(255,200,87,.35)}
+.bcard.honest b{color:var(--amber)}
+/* ---------- research evidence ---------- */
+details.evidence{margin-top:34px}
+details.evidence>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid rgba(255,200,87,.3);padding:12px 14px;background:rgba(255,200,87,.04)}
+details.evidence>summary::-webkit-details-marker{display:none}
+details.evidence>summary b{font:9px/1.4 var(--mono);letter-spacing:.2em;color:var(--amber)}
+details.evidence>summary span{font:9px/1.4 var(--mono);color:var(--dim);text-align:right}
+details.evidence[open]>summary{border-color:rgba(255,200,87,.55)}
+.ev-body{padding:14px 0 0}
+@media(max-width:1000px){.hero2{grid-template-columns:1fr;gap:18px}.bgrid{grid-template-columns:1fr}.cred{max-width:560px}}
+@media(max-width:600px){.cap-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.hero2 h2{font-size:31px}.cred b{font-size:22px;min-width:76px}.demo{padding:12px}.section-title{flex-direction:column;align-items:flex-start}.section-title span{text-align:left}}
 @media(max-width:1000px){.hero{grid-template-columns:1fr;min-height:auto}.visual{height:340px}.learn-grid,.two,.bottom{grid-template-columns:1fr}.apps{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.shell{padding:16px 14px 56px}.topbar{padding:10px 12px}.hero-stats{grid-template-columns:repeat(2,1fr)}.apps{grid-template-columns:1fr}h2{font-size:42px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.001s!important;transition-duration:.001s!important}}
@@ -97,7 +169,7 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
 <canvas id="stars"></canvas><div class="scan"></div>
 
 <header class="topbar">
-  <div class="brand"><div class="logo">◈</div><div><h1>OPEN<span>NET</span>BRAIN</h1><p>NETWORK-NATIVE CONTINUAL LEARNING</p></div></div>
+  <div class="brand"><div class="logo">◈</div><div><h1>OPEN<span>NET</span>BRAIN</h1><p>MULTI-NODE EVIDENCE RETRIEVAL</p></div></div>
   <div class="pills">
     <div class="pill"><span class="dot" id="dot"></span><span id="linkState">LINKING</span></div>
     <div class="pill"><b id="sourceCount">--</b>&nbsp;SOURCES</div>
@@ -111,28 +183,95 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
 
 <main class="shell">
   <div class="cloud-banner" id="cloudBanner" style="display:none">CLOUD SNAPSHOT · GitHub Actions · <span id="cloudTime">--</span> · <a href="https://github.com/zacrisy/open-net-agent/actions/workflows/cloud_brain.yml" target="_blank" rel="noopener">RUN ON GITHUB ↗</a></div>
-  <section class="hero">
+  <section class="hero2">
     <div>
-      <p class="eyebrow">NBCL // PERCEIVE · VERIFY · CONSOLIDATE</p>
-      <h2>THE NETWORK<br><em>IS LEARNING.</em></h2>
-      <p class="sub">不再只是一个问答框。这个大脑从真实来源抽取知识卡，建立信念图，检测冲突，生成课程，并把学到的东西固化成可追溯的记忆。每一次学习都留下证据。</p>
-      <div class="actions">
-        <button class="btn" id="heroTrain">启动学习 ↻</button>
-        <a class="btn ghost" href="#workbench">打开工作台</a>
+      <p class="eyebrow">OPEN-NET-AGENT // 多节点证据检索</p>
+      <h2>跨多个节点找证据，<br><em>再给出有出处的答案。</em></h2>
+      <p class="lead">你问一个问题，它先决定<b>去哪些节点找</b>（每个节点只持有一部分资料），在各节点召回段落，挑出能互相接上的那几段，读出答案，并标出用了哪几段。<span class="dim">不是另一个聊天框，也不要求把所有资料塞进同一个上下文。</span></p>
+      <div class="cap-grid">
+        <div class="cap"><b>跨节点取证</b><span>资料分散在不同节点/分片时，先路由、再分头召回。</span><em>场景：A 院有病历、B 院有检验报告，问“有没有用药禁忌”</em></div>
+        <div class="cap"><b>多跳接链</b><span>第一段只给出桥梁实体，第二跳带着它去另一节点找属性。</span><em>场景：“这位作曲家的出生城市现在人口多少” → 作曲家 → 城市 → 人口</em></div>
+        <div class="cap"><b>答案带出处</b><span>每条结论都落到具体段落：标题 + 所在节点 + 候选排名。</span><em>场景：合规/审计要求每个结论都能回到原文核对</em></div>
+        <div class="cap"><b>可评测、可比较</b><span>同一口径（both@5、题目聚类 bootstrap CI，即按题重采样估区间）量化每次改动。</span><em>场景：换检索深度/路由策略前后，跑同一批题看差值</em></div>
       </div>
-      <div class="hero-stats">
-        <div><b id="statCards">--</b><span>KNOWLEDGE CARDS</span></div>
-        <div><b id="statActive">--</b><span>ACTIVE BELIEFS</span></div>
-        <div><b id="statCycles">--</b><span>LEARNING CYCLES</span></div>
-        <div><b id="statConf">--</b><span>AVG CONFIDENCE</span></div>
+      <div class="jump">
+        <a class="btn" href="#demo">看一道真题怎么跑 ↓</a>
+        <a class="btn ghost" href="#boundary">它不擅长什么</a>
+        <a class="btn ghost" href="#workbench">自己问一题</a>
       </div>
     </div>
-    <div class="visual">
-      <canvas id="brainCanvas"></canvas>
-      <div class="core">CORE<br><span>WORKSPACE</span></div>
-      <div class="detail" id="nodeDetail">点击脑图节点查看知识卡</div>
+    <div>
+      <div class="cred">
+        <div><b>0.72</b><span>100 道多跳题里，两段标注证据都进了 top-5<small>set-level both@5 · 95% CI [.63,.81] · dmqa_dev test</small></span></div>
+        <div><b>0.78</b><span>候选池上限：池里没有的选不出来，当前离它 6 个点<small>pool ceiling · 剩下 22 点丢在“选错/读出”</small></span></div>
+        <div><b>0.14s</b><span>单题检索耗时（k=10，含查询编码）<small>本机中位数 · 不含后端网络与生成</small></span></div>
+      </div>
+      <div class="aside-note">这三个数不是营销数字：每个都能在页面底部「研究证据」里找到对应实验、置信区间和失败案例。演示用的是一道<b style="color:var(--green)">真跑过</b>的题，不是手写样例。</div>
     </div>
   </section>
+
+  <script id="traceData" type="application/json">{"meta":{"generated_at":"2026-11-12 15:43:46","harness":"dmqa_dev test split, frozen bridge_hop node choices B=2","config":{"n_nodes":3,"B":2,"recall":"dense","recall_k":10,"selector":"pair head, set-level greedy, K=5","encoder":"bge-small-en-v1.5"},"nodes":[{"id":0,"name":"节点 A","keywords":["film","battle","list","series","school","new","park","tv"]},{"id":1,"name":"节点 B","keywords":["football","song","team","album","cup","season","world","tech"]},{"id":2,"name":"节点 C","keywords":["united","john","states","election","james","earl","richard","st"]}],"selection_rule":"test 集中两段 gold 都被选进 top-5、且分属两个节点、问题较短的题；是展示样例，不是随机抽样","answer_method":"抽取式：优先桥接段落（锚点段落里的实体，正是另一段落的标题），段内按 idf 词面重合选句、按答案类型抽数字/日期/实体 span；未经 LLM 改写，也不是训练过的 QA 头","n_showcase_candidates":16},"trace":{"question":"Július Satinský was born in a city that has a current population of what?","id":"5a756fa15542996c70cfaefb","type":"bridge","level":"hard","gold_answer":"about 450,000","gold_titles":["Bratislava","Július Satinský"],"gold_nodes":[0,2],"route":[{"hop":1,"chosen":2,"anchor":null,"anchor_entities":[],"scores":[{"node":2,"name":"节点 C","title_gain":0.7143,"content_gain":1.0,"bm25":0.319,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.6824},{"node":0,"name":"节点 A","title_gain":0.5714,"content_gain":0.7143,"bm25":0.244,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.531},{"node":1,"name":"节点 B","title_gain":0.2857,"content_gain":0.5714,"bm25":0.227,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.3887}]},{"hop":2,"chosen":0,"anchor":"Július Satinský","anchor_entities":["august","bratislava","december","he","lasica","milan"],"scores":[{"node":0,"name":"节点 A","title_gain":0.1429,"content_gain":0.1429,"bm25":0.244,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.2382},{"node":1,"name":"节点 B","title_gain":0.0,"content_gain":0.1429,"bm25":0.227,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.1816}]}],"recall":[{"node":2,"name":"节点 C","hits":[{"rank":0,"score":0.7225,"title":"Július Satinský","gold":true,"snippet":"Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"},{"rank":1,"score":0.5055,"title":"Valentina Tereshkova","gold":false,"snippet":"Valentina Vladimirovna Tereshkova (Russian: Валенти́на Влади́мировна Терешко́ва ; ] ; born 6 March 1937) is a retired Russian cosmonaut, engineer, and politician.  She is the first woman to "},{"rank":2,"score":0.4918,"title":"Alexander Kerensky","gold":false,"snippet":"Alexander Fyodorovich Kerensky (Russian: Алекса́ндр Фёдорович Ке́ренский , ] ; 4 May 1881 – 11 June 1970) was a Russian lawyer and key political figure in the Russian Revolution of 1917.  Af"},{"rank":3,"score":0.4884,"title":"Mikhail Gorbachev","gold":false,"snippet":"Mikhail Sergeyevich Gorbachev, ( ; Russian: Михаи́л Серге́евич Горбачёв ; ] ; born 2 March 1931) is a former Soviet statesman.  He was the eighth and last leader of the Soviet Union, having "},{"rank":4,"score":0.4869,"title":"Orbis Pictus (film)","gold":false,"snippet":"Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"},{"rank":5,"score":0.4848,"title":"Columbia University","gold":false,"snippet":"Columbia University (Columbia; officially Columbia University in the City of New York), established in 1754, is a private Ivy League research university in Upper Manhattan, New York City, of"},{"rank":6,"score":0.4842,"title":"Andrei Kirilenko (politician)","gold":false,"snippet":"Andrei Pavlovich Kirilenko (Russian: Андре́й Па́влович Кириле́нко ; ] ; 8 September [O.S. 26 August] 1906 – 12 May 1990) was a Soviet statesman from the start to the end of the Cold War.  In"},{"rank":7,"score":0.481,"title":"Ralph Giannini","gold":false,"snippet":"Ralph \"Toddy\" Giannini (1917–1996), known to many as \"Hot Toddy,\" was a member of the 1940 All-American basketball team representing Santa Clara University.  He and his other teammates were "},{"rank":8,"score":0.4809,"title":"Dzvinia Orlowsky","gold":false,"snippet":"Dzvinia Orlowsky is a Ukrainian American poet, translator, editor, and professor.  She is author of five poetry collections including \"Convertible Night, Flurry of Stones\" (Carnegie Mellon U"},{"rank":9,"score":0.4796,"title":"Ferdi Taygan","gold":false,"snippet":"Ferdi Taygan (born December 5, 1956), is a former professional tennis player from the United States.  He is of Turkish descent."}],"gold_in_top10":true},{"node":0,"name":"节点 A","hits":[{"rank":0,"score":0.6353,"title":"Bratislava","gold":true,"snippet":"Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"},{"rank":1,"score":0.5891,"title":"Strasbourg","gold":false,"snippet":"Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"},{"rank":2,"score":0.5528,"title":"Addis Ababa","gold":false,"snippet":"Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"},{"rank":3,"score":0.5445,"title":"Chernivtsi","gold":false,"snippet":"Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"},{"rank":4,"score":0.5423,"title":"Worcester, Massachusetts","gold":false,"snippet":"Worcester ( , ] ) is a city and the county seat of Worcester County, Massachusetts, United States.  Named after Worcester, England, as of the 2010 Census the city's population was 181,045, m"},{"rank":5,"score":0.5408,"title":"Boston, Lincolnshire","gold":false,"snippet":"Boston ( ) is a town and small port in Lincolnshire, on the east coast of England.  It is the largest town of the wider Borough of Boston local government district.  The borough had a total "},{"rank":6,"score":0.5257,"title":"Pune district","gold":false,"snippet":"Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"},{"rank":7,"score":0.5256,"title":"Biratnagar","gold":false,"snippet":"Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."},{"rank":8,"score":0.5243,"title":"The Current War","gold":false,"snippet":"The Current War is a 2017 American biographical historical film directed by Alfonso Gomez-Rejon and written by Michael Mitnick.  The film stars Benedict Cumberbatch, Michael Shannon, Nichola"},{"rank":9,"score":0.5214,"title":"Parma Airport","gold":false,"snippet":"Parma Airport (Italian: \"Aeroporto di Parma\" , IATA: PMF, ICAO: LIMP ) is located 1.3 NM northwest of Parma, a city in the Emilia-Romagna region of Italy.  The airport was opened on 5 May 19"}],"gold_in_top10":true}],"recall_ms":15.6,"shortlist":[{"title":"Július Satinský","node":2,"name":"节点 C","rank":0,"verifier":0.9933,"gold":true,"snippet":"Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"},{"title":"Addis Ababa","node":0,"name":"节点 A","rank":2,"verifier":0.7111,"gold":false,"snippet":"Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"},{"title":"Chernivtsi","node":0,"name":"节点 A","rank":3,"verifier":0.6888,"gold":false,"snippet":"Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"},{"title":"Biratnagar","node":0,"name":"节点 A","rank":7,"verifier":0.6846,"gold":false,"snippet":"Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."},{"title":"Bratislava","node":0,"name":"节点 A","rank":0,"verifier":0.681,"gold":true,"snippet":"Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"},{"title":"Pune district","node":0,"name":"节点 A","rank":6,"verifier":0.6391,"gold":false,"snippet":"Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"},{"title":"Strasbourg","node":0,"name":"节点 A","rank":1,"verifier":0.5786,"gold":false,"snippet":"Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"},{"title":"Orbis Pictus (film)","node":2,"name":"节点 C","rank":4,"verifier":0.4979,"gold":false,"snippet":"Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"}],"selected":[{"n":1,"title":"Július Satinský","node":2,"name":"节点 C","rank":0,"verifier":0.9933,"gold":true,"text":"Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Satinský, however his scope of interest was wide."},{"n":2,"title":"Biratnagar","node":0,"name":"节点 A","rank":7,"verifier":0.6846,"gold":false,"text":"Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu.  Biratnagar is the industrial capital of Nepal and has a total area of 40.108 mi² (103.88 km²).  Its geographical location is 26°28'60\"N 87°16'60\"E.  The city is located in Morang District in the Kosi Zone of the eastern Terai region of Nepal.  It lies 399 km east of Nepal's capital, Kathmandu, and 6 km north of the border of the Indian state of Bihar.  It lies in the Province No. 1, as per the new Constitution of Nepal 2015.  It was declared as a Metropolitan city on 22nd of May, 2017 along with Birgunj"},{"n":3,"title":"Bratislava","node":0,"name":"节点 A","rank":0,"verifier":0.681,"gold":true,"text":"Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is in southwestern Slovakia, occupying both banks of the River Danube and the left bank of the River Morava.  Bordering Austria and Hungary, it is the only national capital that borders two sovereign states."},{"n":4,"title":"Pune district","node":0,"name":"节点 A","rank":6,"verifier":0.6391,"gold":false,"text":"Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India (out of 640).  Urban population comprises 58.08% of the total population.  The current population of Pune urban agglomerate is over 5 million."},{"n":5,"title":"Addis Ababa","node":0,"name":"节点 A","rank":2,"verifier":0.7111,"gold":false,"text":"Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is the capital and largest city of Ethiopia.  It has a population of 3,384,569 according to the 2007 population census, with annual growth rate of 3.8%.  This number has been increased from the originally published 2,738,248 figure and appears to be still largely underestimated."}],"answer":{"span":"450,000","sentence":"Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.","cite":3,"coverage":0.236,"focus_coverage":0.442,"qtype":"number","bridge_paragraph":2},"select_ms":472.1,"both_at_5":1.0},"latency":{"route_median_ms":1478.5,"recall_median_ms":30.3,"select_median_ms":559.8,"note":"本机 5 次中位数；路由含 3 个节点 BM25 预览建索引，读段含 verifier + 集合选择"}}</script>
+
+  <div class="section-title" id="demo"><h3>一道真实多跳题，从头跑到尾</h3><span>REAL TRACE · 浏览器内可展开 / 可跳步 · 非示意</span></div>
+  <section class="demo">
+    <p class="demo-q" id="demoQ">加载 trace…</p>
+    <div class="demo-meta" id="demoMeta"></div>
+    <div class="steps" id="demoSteps"></div>
+    <div class="demo-body" id="demoBody"></div>
+    <div class="demo-nav">
+      <button class="btn ghost" id="demoPrev">← 上一步</button>
+      <span class="grow hint" id="demoPos">1 / 5</span>
+      <button class="btn" id="demoNext">下一步 →</button>
+    </div>
+    <div class="hint" id="demoFoot" style="margin-top:10px"></div>
+  </section>
+
+  <div class="section-title" id="boundary"><h3>能力边界：什么情况下别用它</h3><span>诚实优先 · 限制也写进来</span></div>
+  <section class="bgrid">
+    <div class="bcard">
+      <b>擅长 · WHAT IT IS GOOD AT</b>
+      <p>需要跨节点/跨分片找证据、且有明确段落可引用的多跳问题。答案能指到“第几段、哪个节点”。</p>
+      <p><strong>已验证：</strong>dmqa_dev 100 道多跳题、3 个合成分片节点，both@5 = 0.72；PubMed 87 条 claim 的检索 Hit@1 = 1.00。</p>
+    </div>
+    <div class="bcard">
+      <b>不适用 · NOT A FIT</b>
+      <p>单跳事实、闲聊、写作生成：普通搜索或 LLM 更快更便宜。需要“比较两段数值再下结论”的比较题也弱（Hotpot comparison both@2 = .199，bridge = .547）。</p>
+      <p><strong>读出限制：</strong>本页答案是抽取式（选句 + 抽 span），不做改写；需要综合多段写成一段话时，它不是生成器。</p>
+    </div>
+    <div class="bcard">
+      <b>延迟与预算 · LATENCY</b>
+      <p>单题召回 ~0.14s（k=10，含查询编码，本机）；本页 trace 的读段（20 候选 → top-5）约 0.5s，单线程 Python、未优化。端到端还要加后端与网络。</p>
+      <p><strong>预算：</strong>B=3 已测过，递增收益不足，默认不加；k=20 是可选高预算档，不是默认。</p>
+    </div>
+    <div class="bcard honest">
+      <b>离 oracle 多远 · DISTANCE TO ORACLE</b>
+      <p>候选池上限 .78 → 实际选中 .72，差 6 个点卡在“选错/读出”。三项可加总分解：命中 .78 / 节点未查 .11 / 深度不足 .11。</p>
+      <p><strong>样本不足：</strong>跨节点只有 33 题，bootstrap CI 半宽约 ±.07，不能支持“节点更多更好”这类结论；多节点 33 题样本不足，D1 路由改进（.720→.790）仍只是实验结论、未改默认。</p>
+    </div>
+  </section>
+
+  <div class="section-title" id="product"><h3>产品面板 · 实时</h3><span>需要后端在线 · 不可达时显示最近快照</span></div>
+  <section class="panel">
+    <div class="head"><span class="tag">LIVE / 脑图与运行状态</span><span class="hint" id="offlineHint">BACKEND CHECK…</span></div>
+    <div class="two">
+      <div class="visual">
+        <canvas id="brainCanvas"></canvas>
+        <div class="core">CORE<br><span>WORKSPACE</span></div>
+        <div class="detail" id="nodeDetail">点击脑图节点查看知识卡</div>
+      </div>
+      <div>
+        <div class="hero-stats" style="grid-template-columns:repeat(2,1fr);max-width:none;margin-bottom:12px">
+          <div><b id="statCards">--</b><span>KNOWLEDGE CARDS</span></div>
+          <div><b id="statActive">--</b><span>ACTIVE BELIEFS</span></div>
+          <div><b id="statCycles">--</b><span>LEARNING CYCLES</span></div>
+          <div><b id="statConf">--</b><span>AVG CONFIDENCE</span></div>
+        </div>
+        <div class="warnbox" id="offlineNote" style="display:none">实时问答需要本机后端在线（隧道或 <code>run_online.py</code>）。当前未连接：上面的真实 trace 演示和底部研究证据不受影响；工作台会退到公开元数据的轻量检索，不会卡在转圈。</div>
+        <div class="hint" style="margin-top:10px">脑图来自当前知识卡；卡片会随学习周期增长。没有后端时这里保留上次快照。</div>
+      </div>
+    </div>
+  </section>
+
 
   <section class="panel">
     <div class="head"><span class="tag">01 / LEARNING LOOP</span><span class="hint" id="stageText">IDLE</span></div>
@@ -230,9 +369,10 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
     <div class="hint" style="margin-top:8px">知识类意见进入 AUTO 学习队列；Bug / 功能 / 回答风格生成可审计的改进提案。公开意见不会直接改代码。</div>
   </section>
 
-  <section class="panel" style="margin-top:14px">
-    <div class="head"><span class="tag">08 / RESEARCH AUDIT · 2026-11-09</span><button class="btn ghost" id="auditToggle">展开/收起</button></div>
-    <div id="auditBody" style="display:block">
+  <details class="evidence" id="researchEvidence">
+    <summary><b>研究证据 · 实验面板与原始读数</b><span>GAP · 三项可加总分解 · VERIFIER A/B · SELECTOR A/B · MULTINODE · RETRIEVAL DEPTH<br>点击展开 · 所有曲线、切换与旧数据都保留</span></summary>
+    <div class="ev-body">
+    <div id="auditBody">
       <!-- 架构四层 -->
       <div class="head" style="margin-top:10px"><span class="tag">ARCHITECTURE · 四层</span><span class="hint">联想 → 推理 → 网络 → 持续学习</span></div>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:8px 0">
@@ -420,7 +560,8 @@ footer{max-width:1360px;margin:0 auto;padding:0 26px 34px;display:flex;justify-c
         <div class="imp"><b>DATA SCALE</b><span>DMQA 100 test questions, 合成 shards</span><em>need real</em></div>
       </div>
     </div>
-  </section>
+    </div>
+  </details>
 </main>
 
 <footer><div>OPENNETBRAIN // NBCL · <span id="clock">--:--:--</span></div><div><a href="https://github.com/zacrisy/open-net-agent">GITHUB</a> · <a href="https://zacrisy.github.io/open-net-agent/">DOCS</a></div></footer>
@@ -453,7 +594,7 @@ const STABLE = 'https://opennetagent2.serveousercontent.com';
 const QS = new URLSearchParams(location.search);
 const REMOTE = PRIMARY;
 const BACKEND = QS.get('backend') || (location.hostname.endsWith('github.io') ? PRIMARY : location.origin);
-const state = { mode: 'research', graph: { nodes: [], edges: [] }, cards: [], learning: null, cloud: false, cloudData: null };
+const state = { mode: 'research', graph: { nodes: [], edges: [] }, cards: [], learning: null, cloud: false, cloudData: null, offline: false };
 const token = () => $('token').value.trim();
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
@@ -487,11 +628,22 @@ function setStage(stage) {
 
 async function refreshBrain() {
   let s = null, cloud = false;
-  try { s = await api('/api/brain/status', {}, 4000); } catch (e) {}
+  const pages = location.hostname.endsWith('github.io') && !QS.get('backend');
+  const snap = async () => {
+    try { const r = await fetch('cloud_brain.json?ts=' + Date.now()); if (r.ok) { const d = await r.json(); if (d && d.metrics) { s = d; cloud = true; } } } catch (e) {}
+  };
+  if (pages) await snap();                                   // Pages: snapshot first, no dead-tunnel wait
+  if (!s || !s.metrics) { try { s = await api('/api/brain/status', {}, 4000); } catch (e) {} }
+  if ((!s || !s.metrics) && !cloud) await snap();
   if (!s || !s.metrics) {
-    try { const r = await fetch('cloud_brain.json?ts=' + Date.now()); if (r.ok) { s = await r.json(); cloud = true; } } catch (e) {}
+    state.offline = true;
+    $('linkState').textContent = '未连接后端'; $('dot').classList.add('warn');
+    if ($('offlineHint')) $('offlineHint').textContent = 'BACKEND OFFLINE · 快照不可用';
+    if ($('offlineNote')) $('offlineNote').style.display = 'block';
+    const bm = $('bootMsg'); if (bm) bm.style.display = 'none';
+    window.__brainReady = true;
+    return;
   }
-  if (!s || !s.metrics) { $('linkState').textContent = 'OFFLINE'; $('dot').classList.add('off'); return; }
   state.cloud = cloud; state.cloudData = s; state.learning = s.learning;
   const m = s.metrics || {};
   $('statCards').textContent = m.cards ?? 0; $('statActive').textContent = m.active ?? 0;
@@ -501,8 +653,10 @@ async function refreshBrain() {
   if (cloud) {
     $('autoState').textContent = 'CLOUD · ' + timeAgo(s.cloud?.updated);
     $('autoHint').textContent = 'GITHUB ACTIONS';
-    $('linkState').textContent = 'CLOUD'; $('dot').classList.remove('off');
+    $('linkState').textContent = '快照'; $('dot').classList.add('warn');
     $('cloudBanner').style.display = 'flex'; $('cloudTime').textContent = timeAgo(s.cloud?.updated);
+    if ($('offlineHint')) $('offlineHint').textContent = 'SNAPSHOT · 实时问答需后端在线';
+    if ($('offlineNote')) $('offlineNote').style.display = 'block';
   } else {
     const sec = a.interval || 20; const alabel = sec < 120 ? `${sec}s` : `${Math.round(sec/60)}m`;
     $('autoState').textContent = a.enabled ? `AUTO ${alabel} · next ${a.next_in ?? '--'}s` : 'AUTO OFF';
@@ -726,11 +880,11 @@ async function clientAnswer(body){
 
 async function ask(){
   const q=$('q').value.trim();
-  if(state.cloud){
+  if(state.cloud || state.offline){
     if(!q && !['docs','summarize','translate','extract','verify'].includes(state.mode)){ $('q').focus(); return; }
     loading();
     try{ const d=await clientAnswer({query:q,mode:state.mode,doc:$('doc').value,claim:$('claim').value,evidence:$('evidence').value,target:$('target').value}); renderAnswer(d); }
-    catch(e){ renderAnswer({error:'云端轻量工具失败：'+e.message}); }
+    catch(e){ $('response').innerHTML='<div class="empty">实时问答需要本机后端在线。当前未连接：可以先看上方「真实 trace 演示」，它不依赖后端；也可以把资料粘进来用文档模式。</div>'; }
     return;
   }
   const docModes=['docs','summarize','translate','extract'];
@@ -788,7 +942,7 @@ $('train').onclick=startLearn; $('evolve').onclick=evolve; $('agentRun').onclick
 $('feedbackBtn').onclick=openFeedback; $('feedbackBtn2').onclick=openFeedback; $('closeFeedback').onclick=closeFeedback; $('feedbackModal').onclick=e=>{if(e.target.id==='feedbackModal')closeFeedback();}; $('fbSubmit').onclick=submitFeedback;
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFeedback();});
 $('closeCard').onclick=closeCard; $('cardModal').onclick=e=>{if(e.target.id==='cardModal')closeCard();}; document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCard();});
-$('brainCanvas').onclick=ev=>{const c=$('brainCanvas'),r=c.getBoundingClientRect(),mx=ev.clientX-r.left,my=ev.clientY-r.top;let best=null,bd=1e9;(window.__brainNodes||[]).forEach(n=>{const p=(window.__brainPos||{})[n.id];if(!p)return;const d=Math.hypot(p.x-mx,p.y-my);if(d<bd){bd=d;best=n;}});if(best&&bd<18){$('nodeDetail').textContent=`${best.source_type} · ${best.status} · ${best.label}`;openCard(best);}}; $('heroTrain').onclick=()=>{document.querySelector('.panel').scrollIntoView({behavior:'smooth'});startLearn();};
+$('brainCanvas').onclick=ev=>{const c=$('brainCanvas'),r=c.getBoundingClientRect(),mx=ev.clientX-r.left,my=ev.clientY-r.top;let best=null,bd=1e9;(window.__brainNodes||[]).forEach(n=>{const p=(window.__brainPos||{})[n.id];if(!p)return;const d=Math.hypot(p.x-mx,p.y-my);if(d<bd){bd=d;best=n;}});if(best&&bd<18){$('nodeDetail').textContent=`${best.source_type} · ${best.status} · ${best.label}`;openCard(best);}};
 $('ask').onclick=ask;
 document.querySelectorAll('#modes button').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 document.querySelectorAll('#samples button').forEach(b=>b.onclick=()=>{setMode('research');$('q').value=b.dataset.q;ask();});
@@ -801,9 +955,102 @@ $('token').value=localStorage.getItem('netagent_token')||'';
 (()=>{const c=$('stars'),x=c.getContext('2d');let W,H,pts=[];const resize=()=>{W=c.width=innerWidth*devicePixelRatio;H=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';pts=Array.from({length:Math.min(110,innerWidth/13)},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.08,vy:(Math.random()-.5)*.08,r:Math.random()*1.2+.2}));};const draw=()=>{x.clearRect(0,0,W,H);for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;x.beginPath();x.arc(p.x,p.y,p.r*devicePixelRatio,0,7);x.fillStyle='rgba(77,255,184,.25)';x.fill();}requestAnimationFrame(draw);};resize();addEventListener('resize',resize);if(!matchMedia('(prefers-reduced-motion: reduce)').matches)draw();})();
 
 window.addEventListener('error', e => { const b=$('bootMsg'); if(b){b.textContent='JS ERROR: '+e.message; b.classList.add('err'); b.style.display='block';} });
-setTimeout(()=>{ const b=$('bootMsg'); if(b && !window.__brainReady){ b.textContent='INITIALIZATION SLOW / API UNREACHABLE — reload'; b.classList.add('err'); b.style.display='block'; } }, 8000);
+setTimeout(()=>{ const b=$('bootMsg'); if(b && !window.__brainReady){ b.textContent='后端未连接 · 上方演示与底部证据不依赖后端'; b.classList.remove('err'); b.style.display='block'; } }, 8000);
 setInterval(()=>$('clock').textContent=new Date().toLocaleTimeString(),1000);
-setMode('research'); refreshBrain(); drawBrain(); loadImprovements(); if(QS.get('feedback')==='1') setTimeout(openFeedback,600); setInterval(refreshBrain,4000);
+setMode('research'); refreshBrain(); drawBrain(); loadImprovements(); if(QS.get('feedback')==='1') setTimeout(openFeedback,600); setInterval(()=>{ if(!state.cloud && !state.offline) refreshBrain(); },4000);
+
+/* === Real trace demo (data from nbpw2/results/e18_trace.json) === */
+(() => {
+  let TR = null;
+  try { TR = JSON.parse(document.getElementById('traceData').textContent); } catch (e) {}
+  const elQ=$('demoQ'), elM=$('demoMeta'), elS=$('demoSteps'), elB=$('demoBody'), elP=$('demoPos'), elF=$('demoFoot');
+  if(!TR || !TR.trace){ if(elQ) elQ.textContent='演示数据未加载（traceData 缺失）'; return; }
+  const T=TR.trace, M=TR.meta||{}, L=TR.latency||{};
+  const STEPS=[['01','问题'],['02','节点路由'],['03','每节点召回'],['04','段落选择'],['05','读出答案']];
+  const NAME=i=>'节点 '+(['A','B','C'][i]||i);
+  const KW=i=>{const m=(M.nodes||[]).find(x=>x.id===i); return m?m.keywords.slice(0,6).join(' · '):'';};
+  const f3=n=>Number(n).toFixed(3);
+  let cur=0;
+
+  elQ.textContent=T.question;
+  elM.innerHTML=`REAL TRACE · ${esc(T.id)} · ${esc(T.type||'')} / ${esc(T.level||'')} · 由 e18_trace.py 在 ${esc(M.generated_at||'')} 落盘 · 默认链路（dense k=${esc((M.config||{}).recall_k)} / B=${esc((M.config||{}).B)} / set K=5）`;
+  elS.innerHTML=STEPS.map((s,i)=>`<button data-i="${i}"><b>${s[0]}</b>${s[1]}</button>`).join('');
+  elS.querySelectorAll('button').forEach(b=>b.onclick=()=>go(+b.dataset.i));
+  elF.innerHTML=`题面与段落来自 dmqa_dev test split，trace 落盘于 ${esc(M.generated_at||'')}。这是<b>展示样例</b>：挑选条件是“两段 gold 都被选进 top-5、分属两个节点、问题较短”，不是随机抽样。答案读法是抽取式（选句 + 抽 span），没有 LLM 改写；评测口径只看段落 both@5。`;
+
+  function go(i){
+    cur=Math.max(0,Math.min(4,i));
+    elS.querySelectorAll('button').forEach((b,k)=>{b.classList.toggle('active',k===cur);b.classList.toggle('done',k<cur);});
+    elB.innerHTML=[stepQ,stepRoute,stepRecall,stepSel,stepAns][cur]();
+    elP.textContent=(cur+1)+' / 5';
+    $('demoPrev').disabled=cur===0; $('demoNext').disabled=cur===4;
+    $('demoPrev').style.opacity=cur===0?.45:1; $('demoNext').style.opacity=cur===4?.45:1;
+  }
+  $('demoPrev').onclick=()=>go(cur-1);
+  $('demoNext').onclick=()=>go(cur+1);
+
+  function stepQ(){
+    return `<div class="node-card"><div class="nhead"><b>问题</b><span>${esc(T.type)} · ${esc(T.level||'')}</span></div>
+      <div style="font:600 15px/1.7 var(--sans);margin-top:4px">${esc(T.question)}</div></div>
+      <div class="node-card"><div class="nhead"><b>为什么算多跳</b><span>两段标注证据不在同一节点</span></div>
+        <div class="snippet">标注证据：${T.gold_titles.map(esc).join(' ＋ ')} —— 分别落在 ${T.gold_nodes.map(NAME).join(' 和 ')}。只查一个节点拿不到完整证据链，所以必须先路由再召回。</div></div>
+      <div class="warnbox">标注答案（gold）先不显示，留到最后一步做对照。这一步只确认：问题需要两段证据、且分属两个节点。</div>`;
+  }
+
+  function stepRoute(){
+    const hops=(T.route||[]).map(h=>{
+      const cards=h.scores.map(s=>{
+        const pct=Math.min(100,Math.max(3,s.total/0.72*100));
+        const chosen=s.node===h.chosen;
+        return `<div class="node-card ${chosen?'hit':''}">
+          <div class="nhead"><b>${NAME(s.node)}${chosen?' ✓ 选中':''}</b><span>复合分 ${f3(s.total)}</span></div>
+          <div class="bar"><i style="width:${pct}%"></i></div>
+          <div class="snippet">${esc(KW(s.node))}</div>
+          <div class="snippet">标题增益 ${f3(s.title_gain)} · 内容增益 ${f3(s.content_gain)} · BM25 ${f3(s.bm25)} · 类型先验 ${f3(s.prior)} · 桥接 ${f3(s.bridge)}${s.bridge_entities.length?' ('+s.bridge_entities.map(esc).join(', ')+')':''}</div>
+        </div>`;
+      }).join('');
+      const anchor=h.anchor?`<div class="snippet">上一跳锚点段落：${esc(h.anchor)}${h.anchor_entities.length?' · 可桥接实体：'+h.anchor_entities.map(esc).join(', '):''}</div>`:'';
+      const why=h.hop===1?'第一跳只用问题本身打分：标题/内容里有多少问题词、BM25 词面分、以及问题类型的历史可靠性。':'第二跳带着上一跳段落里的实体去比；本题没有触发桥接加分（bridge=0），是靠基础分选中的——这点如实保留。';
+      return `<div style="margin-bottom:10px"><div class="nhead" style="margin-bottom:4px"><b>第 ${h.hop} 跳</b><span>选中 ${NAME(h.chosen)}</span></div>${anchor}${cards}<div class="snippet" style="margin-top:4px">${why}</div></div>`;
+    }).join('');
+    return `<div class="snippet" style="margin-bottom:8px">节点 = 只持有一部分资料的分片。B=2 表示预算两跳、最多查两个节点。BM25 = 词面匹配分；先验 = 该问题类型过去在这个节点上的命中率。</div>${hops}`;
+  }
+
+  function stepRecall(){
+    return (T.recall||[]).map(n=>{
+      const rows=n.hits.map(h=>`<div class="hitrow ${h.gold?'gold':''}"><b>#${h.rank+1}</b><span style="flex:1">${esc(h.title)}${h.gold?' ● gold':''}</span><span class="sc">${f3(h.score)}</span></div>${h.gold?`<div class="snippet">${esc(h.snippet)}…</div>`:''}`).join('');
+      return `<div class="node-card ${n.gold_in_top10?'hit':''}"><div class="nhead"><b>${NAME(n.node)} · top ${n.hits.length}</b><span>${n.gold_in_top10?'gold 在池内':'gold 不在池内'}</span></div>
+        <div class="snippet">${esc(KW(n.node))}</div>${rows}</div>`;
+    }).join('') + `<div class="snippet">召回用 bge-small-en-v1.5 的向量余弦（dense），每个节点各取前 10 段，不共享索引。本机召回中位数 ${esc(L.recall_median_ms||'--')} ms（不含查询编码）。</div>`;
+  }
+
+  function stepSel(){
+    const short=(T.shortlist||[]).map(c=>`<div class="hitrow ${c.gold?'gold':''}"><b>${c.node===undefined?'':NAME(c.node)}</b><span style="flex:1">${esc(c.title)}${c.gold?' ● gold':''}</span><span class="sc">verifier ${f3(c.verifier)}</span></div>`).join('');
+    const sel=(T.selected||[]).map(s=>`<div class="selrow ${s.gold?'gold':''}"><div class="shead"><b>#${s.n} ${esc(s.title)}</b><span>${NAME(s.node)} · 候选排名 ${s.rank+1} · verifier ${f3(s.verifier)}${s.gold?' · gold':''}</span></div></div>`).join('');
+    return `<div class="snippet" style="margin-bottom:6px">verifier = 一个小模型给“问题 × 候选段落”打相关性分；集合选择在候选里贪心挑 5 段，尽量覆盖两跳需要的信息。</div>
+      <div class="node-card"><div class="nhead"><b>候选打分（前 8）</b><span>${(T.shortlist||[]).length} 条</span></div>${short}</div>
+      <div class="nhead" style="margin:10px 0 4px"><b>最终选中 top-5</b><span>gold 命中 ${(T.selected||[]).filter(s=>s.gold).length} / 2</span></div>${sel}
+      <div class="snippet">注意：按 verifier 单分排序时 Bratislava 只排第 5，集合选择把它提到第 3 —— 这是“覆盖两跳”而不是“单段最相关”。本机读段中位数 ${esc(L.select_median_ms||'--')} ms。</div>`;
+  }
+
+  function stepAns(){
+    const A=T.answer||{};
+    const cite=T.selected.find(s=>s.n===A.cite)||{};
+    const norm=x=>String(x==null?'':x).toLowerCase().replace(/[^0-9a-z\u4e00-\u9fa5.]/g,'');
+    const match=norm(A.span)&&norm(A.span)===norm(T.gold_answer);
+    return `<div class="ansbox"><div class="cite">系统答案 · 抽取式（无 LLM 改写）</div>
+        <div class="ansbig">${A.span?esc(A.span):'—'}</div>
+        <div class="cite">证据句：${esc(A.sentence||'（未抽到句子）')}</div>
+        <div class="cite" style="margin-top:6px">引用：段落 #${esc(A.cite||'-')}《${esc(cite.title||'')}》 · ${NAME(cite.node)} · 候选排名 ${(cite.rank??0)+1} · verifier ${f3(cite.verifier||0)}</div>
+        <div class="cite" style="margin-top:4px;color:var(--dim)">段落原文保留了数据集的维基解析残留（如 “ ] ,” ），未做清洗——展示的是模型实际读到的文本。</div></div>
+      <div class="node-card" style="margin-top:8px"><div class="nhead"><b>与数据集标注对照</b><span>${match?'数字/字符串一致':'见下'}</span></div>
+        <div class="snippet">标注答案：${esc(T.gold_answer)}${match?' · 抽取结果与标注一致':''}。标注来自 dmqa_dev，只用于对照；评测口径看段落 both@5，不评答案字符串。</div></div>
+      <div class="warnbox" style="margin-top:8px">这是抽取式读出：选句 + 抽数字/日期/实体 span。它能证明证据链闭合，但不等于生成式问答；需要综合改写时，它不是强项。</div>`;
+  }
+
+  const start = Math.max(0, Math.min(4, parseInt(QS.get('demo') || '1', 10) - 1));
+  go(start);
+})();
 
 /* === Research Audit Panel === */
 const AUDIT_DATA = {
@@ -1580,15 +1827,24 @@ function renderMulti() {
 }
 renderMulti();
 
-$('auditToggle').onclick = () => {
+$('auditToggle') && ($('auditToggle').onclick = () => {
   const body = $('auditBody');
   body.style.display = body.style.display === 'none' ? 'block' : 'none';
-};
+});
+const evDetails = $('researchEvidence');
+if (evDetails) evDetails.addEventListener('toggle', () => {
+  if (!evDetails.open) return;
+  try { renderVerifier(); renderSelector(); renderDepth(); renderMulti(); drawGapChart(); drawDecompChart(); } catch (e) {}
+});
 
 renderAuditTable();
 drawGapChart();
 renderDecompTable();
 drawDecompChart();
+if (QS.get('evidence') === '1' && evDetails) {
+  evDetails.open = true;
+  try { renderVerifier(); renderSelector(); renderDepth(); renderMulti(); drawGapChart(); drawDecompChart(); } catch (e) {}
+}
 </script>
 </body>
 </html>
