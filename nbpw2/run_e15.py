@@ -54,17 +54,33 @@ def satisfied(env, verifier, k=2, thresh=0.6):
         cov = len(seen) / max(1, len(qt))
     return min(c["verifier"] for c in top) >= thresh and cov >= 0.45
 
-def run(rows, pool, verifier, scorer, policy, max_budget=4, n_nodes=5, seed=0, early_stop=True):
+def coverage(env):
+    from .data import tokens
+    qt = set(tokens(env.row["question"]))
+    seen = set()
+    for c in env.candidates:
+        seen |= (qt & set(tokens(c.get("text", ""))))
+    return len(seen) / max(1, len(qt))
+
+def run(rows, pool, verifier, scorer, policy, max_budget=4, n_nodes=5, seed=0, early_stop=True,
+        stop_mode="coverage", cov_target=0.6, min_queries=2, eps=0.02):
     rng = random.Random(seed)
     ms = []
     for row in rows:
         env = ActiveEnv(row, pool, n_nodes=n_nodes, gold_nodes=gold_nodes_for(row, n_nodes=n_nodes, seed=seed), scorer=scorer)
+        prev_cov = 0.0
         while len(env.queried) < max_budget:
-            if early_stop and len(env.queried) >= 1 and satisfied(env, verifier):
-                break
+            if early_stop and len(env.queried) >= min_queries:
+                if stop_mode == "coverage" and coverage(env) >= cov_target:
+                    break
+                if stop_mode == "marginal" and prev_cov and (coverage(env) - prev_cov) < eps:
+                    break
+                if stop_mode == "confident" and satisfied(env, verifier):
+                    break
             nid = next_node(env, scorer, policy, rng)
             if nid is None:
                 break
+            prev_cov = coverage(env)
             hits = env.query(nid)
             gold_hit = any(h["title"] in env.gold for h in hits)
             env.ok[nid] = env.ok.get(nid, 1) + (1 if gold_hit else 0)
@@ -86,14 +102,14 @@ def main():
     scorer = collect_training(train[:400], pool)
     out = {}
     for policy in ["random", "learned"]:
-        for stop in [False, True]:
-            ms = run(test, pool, ver, scorer, policy, max_budget=4, early_stop=stop)
-            key = f"{policy},early_stop={stop}"
+        for stop, mode in [(False, "none"), (True, "coverage"), (True, "marginal"), (True, "confident")]:
+            ms = run(test, pool, ver, scorer, policy, max_budget=4, early_stop=stop, stop_mode=mode)
+            key = f"{policy},stop={mode}"
             out[key] = {k: round(statistics.mean(m[k] for m in ms), 4) for k in ("both@2", "both@5", "recall@5", "mrr", "queries")}
             out[key]["queries_p50"] = sorted(m["queries"] for m in ms)[len(ms) // 2]
             print(key, out[key])
-    a = run(test, pool, ver, scorer, "learned", early_stop=True)
-    b = run(test, pool, ver, scorer, "random", early_stop=True)
+    a = run(test, pool, ver, scorer, "learned", early_stop=True, stop_mode="coverage")
+    b = run(test, pool, ver, scorer, "random", early_stop=True, stop_mode="coverage")
     d = [x["both@5"] - y["both@5"] for x, y in zip(a, b)]
     out["bootstrap_learned_minus_random"] = {"diff": round(statistics.mean(d), 4), "ci95": bootstrap(d), "n": len(d)}
     print(out["bootstrap_learned_minus_random"])

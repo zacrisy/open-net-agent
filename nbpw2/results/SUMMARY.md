@@ -334,3 +334,29 @@ Note: the first version of the early-stop curve also revealed a bootstrap bug
 in the paired-difference helper (it resampled a single element). Fixed in
 `analyze_e1.py` and `run_e15.py`; all CIs above are recomputed with the correct
 n-of-n resampling.
+
+### E15b: stopping criteria (same 250 test questions)
+
+| Policy | stopping | both@5 | mean queries | both@5 per query |
+|---|---|---:|---:|---:|
+| random | none (4) | 0.504 | 4.00 | 0.126 |
+| random | coverage≥0.6 | 0.160 | 2.24 | 0.071 |
+| random | marginal<0.02 | 0.256 | 2.88 | 0.089 |
+| random | confident top-2 | 0.160 | 2.48 | 0.065 |
+| learned | none (4) | **0.772** | 4.00 | 0.193 |
+| learned | coverage≥0.6 | 0.524 | **2.11** | **0.248** |
+| learned | marginal<0.02 | 0.604 | 2.72 | 0.222 |
+| learned | confident top-2 | 0.552 | 2.20 | 0.251 |
+
+**Reading**: at equal accuracy, early stopping is a real efficiency win —
+learned + coverage gets 0.524 both@5 with *half* the queries, which is above
+random's 4-query 0.504. Per-query efficiency: 0.248 vs 0.126 (random/4) and
+0.193 (learned/4).
+
+Forcing the same stopping rule on both policies keeps the selection gap:
+learned − random = **+0.364 both@5, CI [0.288, 0.440]**, with learned using
+*slightly fewer* queries (−0.128).
+
+Caveat: coverage is a lexical proxy; on real questions a semantic coverage
+(sentence-level entailment) would likely stop later and cost more. The
+cost/accuracy curve must be reported per deployer budget, not as one number.
