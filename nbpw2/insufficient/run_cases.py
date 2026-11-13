@@ -120,8 +120,13 @@ def _ask_vps(question, timeout=45):
 
 def _metrics(raw, pool):
     ans = raw.get("answer") or {}
+    status = raw.get("status") or ans.get("status")
     span = (ans.get("span") or "").strip()
     sent = (ans.get("sentence") or "").strip()
+    rej = ans.get("rejected") or {}
+    rej_span = (rej.get("span") or "").strip()
+    options = ans.get("options") or []
+    probe = span or rej_span
     selected = raw.get("selected") or []
     titles = [s.get("title", "") for s in selected]
     nodes = sorted({int(s.get("node", -1)) for s in selected})
@@ -135,15 +140,19 @@ def _metrics(raw, pool):
         top_cos is not None and second_cos is not None) else None
 
     source_title, source_node, source_snippet = None, None, ""
+    source_title = rej.get("source_title")
+    source_node = rej.get("source_node")
     for s in selected:
-        if span and span.lower() in (s.get("snippet") or "").lower():
-            source_title, source_node = s.get("title"), s.get("node")
-            source_snippet = s.get("snippet") or ""
-            break
-    if source_title is None and span:
+        if probe and probe.lower() in (s.get("snippet") or "").lower():
+            if source_title is None:
+                source_title, source_node = s.get("title"), s.get("node")
+            if (s.get("title") == source_title):
+                source_snippet = s.get("snippet") or ""
+                break
+    if source_title is None and probe:
         for s in selected:
             for p in pool:
-                if p["title"] == s.get("title") and span.lower() in p["text"].lower():
+                if p["title"] == s.get("title") and probe.lower() in p["text"].lower():
                     source_title, source_node = s.get("title"), s.get("node")
                     source_snippet = s.get("snippet") or ""
                     break
@@ -154,6 +163,7 @@ def _metrics(raw, pool):
     verifiers = [float(s["verifier"]) for s in selected if "verifier" in s]
 
     return {
+        "status": status,
         "route_nodes": [int(h.get("chosen", -1)) for h in route],
         "route_hop1_scores": [
             {"node": s.get("node"), "max_cos": s.get("max_cos"),
@@ -169,13 +179,17 @@ def _metrics(raw, pool):
         if verifiers else None,
         "answer_span": span,
         "answer_sentence": sent,
+        "rejected_span": rej_span,
+        "rejected_source_title": rej.get("source_title"),
+        "rejected_source_node": rej.get("source_node"),
+        "conflict_options": options,
         "answer_cite": ans.get("cite"),
         "answer_qtype": ans.get("qtype"),
         "answer_coverage": ans.get("coverage"),
         "answer_focus_coverage": ans.get("focus_coverage"),
         "answer_bridge_paragraph": ans.get("bridge_paragraph"),
-        "answer_in_corpus": bool(span) and any(
-            span.lower() in p["text"].lower() for p in pool),
+        "answer_in_corpus": bool(probe) and any(
+            probe.lower() in p["text"].lower() for p in pool),
         "answer_source_title": source_title,
         "answer_source_node": source_node,
         "answer_source_snippet": source_snippet,
@@ -187,25 +201,34 @@ def _metrics(raw, pool):
 
 def _judge(case, m):
     exp = case["expected_behavior"]
+    status = m["status"]
     span = m["answer_span"]
     sent = m["answer_sentence"]
     text = (span + " " + sent).lower()
     refusal = any(k in text for k in REFUSAL)
 
     if exp == "answer":
-        ok = case.get("expected_answer", "").lower() in span.lower()
-        return "correct" if ok else "wrong"
+        ok = status == "answered" and \
+            case.get("expected_answer", "").lower() in span.lower()
+        if ok:
+            return "correct"
+        return "abstained" if status != "answered" else "wrong"
 
     if exp == "expose_conflict":
         values = case["source"]["verification"]["conflict_values"]
-        both_selected = all(m["selected_text_has_values"].get(v, False) for v in values)
-        both_in_answer = all(v in (span + " " + sent) for v in values)
-        if both_selected and both_in_answer:
-            return "exposed_conflict"
-        if both_selected:
-            return "picked_one_side"
-        return "missed_conflict"
+        if status == "conflict":
+            found = [str(o.get("value") or "") for o in m["conflict_options"]]
+            if all(v in found for v in values):
+                return "exposed_conflict"
+            return "conflict_incomplete"
+        if status == "insufficient":
+            return "declared_insufficient"
+        return "picked_one_side"
 
+    if status == "insufficient":
+        return "declared_insufficient"
+    if status == "conflict":
+        return "conflict_instead"
     if refusal:
         return "honest_refusal"
     if not span:
@@ -214,7 +237,7 @@ def _judge(case, m):
 
 
 def _fabrication_note(case, m):
-    if m["answer_span"] == "":
+    if not m["answer_span"]:
         return None
     return {
         "answer_span": m["answer_span"],

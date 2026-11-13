@@ -4,18 +4,20 @@
 链路：线上未改动的 D1 默认链路（dense 召回 k=10 → 每节点 top-10 → shipping verifier → pair head 贪心 K=5 → 抽取式读出）
 测试集：[cases.json](cases.json)（7 例，4 类 + 1 对照组）
 原始结果：[insufficient_cases.json](../results/insufficient_cases.json)
-abstain 影响评估：[abstain_analysis.json](../results/abstain_analysis.json)
+三态影响评估：[abstain_analysis.json](../results/abstain_analysis.json)
+弃答构成拆分：[abstain_decomposition.json](../results/abstain_decomposition.json)
 
 ## 结论
 
-1. **没有任何一例“老实拒答”。** 7 例中 `honest_refusal = 0`。系统没有“无法回答”这个动作。
-2. **2 例明确编造**：`bb_bratislava_population` 给出 `240,000`，`fp_fictional_person` 给出 `153,746`。两个数字都真实存在于语料中，但都不回答所问的关系。
-3. **2 例空跨度**：`bb_zanardi_sport`、`am_polar_bears_voice` 返回空 `span`，但响应里没有“证据不足”声明，界面也没有对应状态。
-4. **2 例证据冲突全部二选一**：同 title 版本在 selector 的 title 去重阶段丢掉第二源；不同 title 版本虽然两个源都进了候选，verifier/selector 只保留节点 0 的 `450,000`。
-5. **结构性缺陷成立**：`ask()` 的返回结构没有 `status` / `abstain` 字段；`_extract()` 在无合适候选时仍返回 best row（空跨度也带 sentence/cite）。因此“证据不足”只能表现为空字符串或无关跨度。
-6. **coverage / verifier / route top1 不能单独做弃答阈值**：编造例 `bb_bratislava` 的 coverage 0.374 高于正确对照 0.236，verifier 0.9933 与对照完全相同，route top1 0.7225 也完全相同。
-7. **grounding 判据效果最好**：答案来源段必须与问题实体或其他选中段落有 title/entity 连接。它在 98 道可问的 test 题上 **0 次误弃正确答案**（8 道答对全部保留），弃答 50%，留下的答案准确率从 8.2% 升到 16.3%。
-8. **冲突判据（route margin）有区分度**：两个冲突例 margin 为 0.0039 / 0.0063，对照 0.0872。98 题上弃答 4 例（1 例为正确答案，占答对题的 12.5%）。
+1. **弃答构成：(b) 占 100%。** 46 道 `insufficient` 中，(a) 语料没有答案 = 0，(c) 判据误杀 = 0，(b) 抽取/检索失败 = 46。用户担心的“把抽取弱点包装成诚实的不知道”成立。
+2. **(b) 内部也不是检索问题。** 27/46（58.7%）的 gold 答案**字面就在选中的段落里**，只是读出不支持该答案形式（19 道 qtype 被判 `other` 无输出分支，8 道 yes/no）；再加 10 道 span 抽偏，共 37/46（80.4%）的答案已在选中全文里而读出失败。只有 9/46（19.6%）是支撑段没进 K=5（b2）。
+3. **三态已进入默认链路。** `online_ask.ask()` 直接返回 `status`（`answered` / `insufficient` / `conflict`）、`route_margin`、`answer.rejected`、`answer.options`；不再是脚本分支。
+4. **三组数（98 题）**：弃答 46（46.9%）+ 冲突 4（4.1%），answered 48；**answered 子集准确率 7/48 = 14.6%**；**98 题整体 7/98 = 7.1%**。旧链路是 8/98 = 8.2%。覆盖率减半、精确率翻倍，但绝对答对数 8→7，**整体准确率反而下降 1.1 个百分点**。
+5. **降级规模**：原来 58 道有跨度的题里，9 道（15.5%）被降为 `insufficient`，其中原本答对 0 道；另有 1 道转 `conflict`（`Teen Titans`，旧口径按子串匹配算“对”）。所以 answered 从 58 变成 48。
+6. **7 例重跑全部按预期**：4 例 `insufficient`（含 2 个原编造例）、2 例 `conflict` 双源、1 例对照 `answered`；`fabricated = 0`。
+7. **conflict 不是免费的**：它把 1 道原本算对的题移出 answered。但 4 道 conflict 中没有一道能证明“并列值中哪个正确”，并列展示比默认选一个更诚实。
+8. **单阈值 gate 仍不能用**：coverage / focus / verifier / route top1 在 98 题上要么误伤正确对照，要么区分不了编造（详见第七节）。
+9. **界面三态已上线**：insufficient 琥珀块、不显示大号数字；conflict 两个值并排、中性色、不默认高亮；空跨度不渲染成“答案：”。
 
 ## 一、测试集构造
 
@@ -63,7 +65,7 @@ abstain 影响评估：[abstain_analysis.json](../results/abstain_analysis.json)
 | `cf_bratislava_distinct_titles` | 证据冲突 | [2, 0] | 20 / 5 | `450,000` | #1 Bratislava（节点 0） | 0.724 / 0.498 | 0.9892 | 0.8045 / 0.0063 | True | 131.7 ms | 未暴露冲突 |
 | `ctl_bratislava_population` | 对照 | [2, 0] | 20 / 5 | `450,000` | #3 Bratislava（节点 0） | 0.236 / 0.442 | 0.9933 | 0.7225 / 0.0872 | True | 143.1 ms（wall 1017 ms） | 正确 |
 
-汇总：`fabricated 2 / vague_no_answer 2 / missed_conflict 2 / correct 1 / honest_refusal 0`。
+汇总（**上线前三态的历史判定**）：`fabricated 2 / vague_no_answer 2 / missed_conflict 2 / correct 1 / honest_refusal 0`。上线后同一批用例的重跑结果见第七节：4 例 `insufficient`、2 例 `conflict`、1 例 `answered`，`fabricated 0`。
 
 ## 四、编造具体编在哪里
 
@@ -92,74 +94,175 @@ abstain 影响评估：[abstain_analysis.json](../results/abstain_analysis.json)
 5. 冲突处理不存在：selector 按 title 去重（same-title 冲突直接少一个源）；不同 title 时 verifier/selector 仍只保留得分更高的一个，没有“同实体多值”检测。
 6. 因此 7 例中 0 次拒答不是提示词或阈值问题，而是**链路里没有这个动作**。
 
-## 六、abstain 方案与影响预估（未改默认）
+## 六、弃答构成拆分（生产三态口径）
+
+上线前的 49 是这个 gate 的估算值（240 字符 snippet grounding）。生产三态用整段文本做 grounding，并把低 margin 单列为 `conflict`，因此在同一批 98 题上得到：**`insufficient` 46 道 + `conflict` 4 道 = 50 道非 answered**。下面拆的是这 46 道 `insufficient`；4 道 `conflict` 见第七节。
+
+| 类别 | 数量 | 占弃答 | 说明 |
+|---|---|---|---|
+| (a) 语料里确实没有答案 | **0** | 0% | 46 道的 gold 支撑段全部在 pool 中（`support_in_pool = True`） |
+| (b) 有答案但抽取失败 | **46** | **100%** | |
+| ├ b1a：qtype=`other`，读出不产生 span | 19 | 41.3% | gold 字面在选中段落全文里，但 `_extract` 没有 `other` 分支 |
+| ├ b1b：有 span 分支但空/抽偏 | 10 | 21.7% | 3 道空 span，7 道抽到别的值 |
+| ├ b2：支撑段没进 K=5 | 9 | 19.6% | gold 在支撑段全文里，但支撑段未被选中 |
+| └ b3：yes/no 不可抽取 | 8 | 17.4% | 抽取式读出不支持 yes/no |
+| (c) 判据误杀 | **0** | 0% | 46 道里 `correct = 0`，没有“抽对了却被拦” |
+
+qtype 分布：`other` 33、`date` 5、`entity` 4、`number` 3、`person` 1。`other` 占 71.7%。
+
+**关键结论：**
+
+- **(b) 占比 100%，(a) 与 (c) 都是 0。** 这批弃答不是“语料里没有”，而是抽取/读出失败。
+- **37/46（80.4%）的 gold 答案已经在选中的段落全文里**（b1a 19 + b1b 10 + b3 8），读出仍然没给出来。
+- **27/46（58.7%）是“读出器没有这种答案形式的分支”**（b1a 19 + b3 8）。把这类标成“证据不足”，等于把读出的结构性缺陷包装成“诚实的不知道”。
+- 真正属于检索/选择失败（b2）只有 9 道，19.6%。
+
+### 抽样人工核对（12 例）
+
+| id（前 10 位） | 类 | qtype | gold | 旧 span | 逐例判据与理由 |
+|---|---|---|---|---|---|
+| `5ab48c3255` | b1a | other | `Essex` | 空 | 问“Harold Godwinson 葬在哪个 county”。选中含 `Waltham Abbey Church`，其全文有 `Essex`；问句被判 `other`，读出直接返回空。答案在选中文本里，读出不取。 |
+| `5ab3306a55` | b1a | other | `Walt Disney Productions` | 空 | 两部电影的共同制片公司。选中含 `The Boatniks`、`The Great Locomotive Chase`，两段全文都写了 `Walt Disney Productions`；`other` 无分支，返回空。 |
+| `5a7b46e555` | b1a | other | `Ordos City` | 空 | 选中含 `Spaceware Sky Vision II` 与 `Ordos City`，答案字面在段内；问句是“which subsidiary…”，被判 `other`，不产生 span。 |
+| `5a8eea4a55` | b1b | date | `between the 8th and 16th centuries` | 空 | qtype=date 有分支，但正则只认 4 位年份，`between the 8th and 16th centuries` 这种世纪区间抽不出来；gold 就在选中段 `Old Frisian` 里。属于**答案格式不匹配**。 |
+| `5aba9e2455` | b1b | date | `1909` | 空 | 选中含 `Ann Wigmore`，段内有人物生年 1909，但 date 分支在打分时输给了别的句子，返回空；不是缺语料。 |
+| `5a87ab9055` | b1b | number | `3,677 seated` | `1,400` | 选中含 `Androscoggin Bank Colisée`，也含 `Dwyer Arena`；读出从错误段落抽了 `1,400`。**典型 span 抽偏**，两种数字格式本身可归一化，不是格式问题。 |
+| `5a77cb5e55` | b2 | other | `Kodos` | 空 | 支撑段 `Kang and Kodos` 没进 K=5（选中是 `Dan Castellaneta`、`Krusty the Clown` 等）；答案在支撑段全文里，但读出候选文本里没有。 |
+| `5a8e3ea955` | b2 | other | `Greenwich Village, New York City` | 空 | 支撑段 `Adriana Trigiani` 未入选，选中只有 `Big Stone Gap (film)` 等；答案在未入选段落里。 |
+| `5a7bae2055` | b2 | other | `Ryan Seacrest` | 空 | 支撑段 `American Idol (season 12)` 未入选，选中含 `Nicki Minaj` 等；答案在未入选段落里。 |
+| `5a8c556955` | b3 | other | `yes` | 空 | 两段人物页都在选中里（`Gerry Marsden`、`Daryl Hall`），共享“音乐人”属性成立；读出没有 yes/no 分支。 |
+| `5ae25ed155` | b3 | other | `no` | 空 | `Sorbaria` 与 `Goldenrod` 都在选中里，但一个是属、一个不是同一属；需要判断，读出没有 yes/no 分支。 |
+| `5ab9812d55` | b3 | other | `no` | 空 | `Mauritz Stiller` 与 `Johannes Grenzfurthner` 都在选中里，国籍不同；同样卡在答案形式上。 |
+
+关于 (c)=0：数字格式差异（如 `1,462` vs `1462`）在 `_correct` 里先做非数字剥离再比较，因此不会被误判为错；这批里也没有“抽对却被 gate 拦下”的样本。gate 的误杀代价不在这里，而在第七节的降级统计（9 道有跨度题被降级，原本答对 0 道）。
+
+## 七、三态实现与验证数据
 
 评估口径：98 道长度 ≤180 字符的 test 题（线上接口拒绝 >180 字符，本次跳过 2 题）。这里的“correct”是**抽取答案串与 gold 精确匹配**，不是集合召回 .790；后者衡量“两个 gold 段是否都进了 K=5”，与读出正确率是两件事。
 
-baseline：有跨度 58/98，grounded 49/98，答案正确 8/98（8.2%）。
+### 三组数
+
+| 指标 | 值 |
+|---|---|
+| `answered` | 48 |
+| `insufficient` | 46（46.9%） |
+| `conflict` | 4（4.1%） |
+| 非 answered 合计 | 50（51.0%） |
+| **answered 子集准确率** | **7/48 = 14.6%** |
+| **98 题整体准确率** | **7/98 = 7.1%** |
+| 旧链路（无三态）整体 | 8/98 = 8.2% |
+| 58 道有跨度题 → `insufficient` | 9（15.5%），原本答对 0 |
+| 58 道有跨度题 → `conflict` | 1（原按子串匹配算“对”） |
+
+把三组数放在一起看：弃答率 46.9%，answered 子集 14.6%，整体 7.1%。**只报 14.6% 会掩盖覆盖率下降**；只报 7.1% 会掩盖“剩下的输出更干净”。两个都必须报。整体准确率比旧链路低 1.1 个百分点，原因是 conflict 把 `Teen Titans` 那道移出了 answered；如果只算 insufficient 的影响，整体仍是 8/98，因为 9 道降级题里没有一道原本答对。
+
+同时必须承认：**三态没有提升绝对答对数**。48 道 answered 里仍有 41 道是错的，这些是读出能力问题（span 抽偏、问句类型判错），三态只是不再把 46 道无依据输出当成答案。
+
+### 三态判据（已进 `online_ask.ask()` 默认返回）
+
+1. **`answered`**：有 span，且通过 grounding。
+2. **`insufficient`**：span 为空，**或**答案未 grounding。grounding 判据不是只看 span 是否为空，而是要求来源段与问题/其他选中段存在连接：
+   - 来源 title 出现在问题里；或
+   - 来源 title 出现在另一个选中段的正文里；或
+   - 另一个选中的 title 出现在来源段正文里；或
+   - 问题中的大写实体出现在来源段正文里。
+3. **`conflict`**：route margin < 0.02，且能取到前两名节点的证据。对 top-2 路由节点，各取 recall 里 title 与答案来源 title 相交的最高排名段，用同一 `_extract` 抽值，两个值并列返回，不默认高亮其一。
+
+返回结构：
+
+```json
+{
+  "status": "answered | insufficient | conflict",
+  "route_margin": 0.0868,
+  "answer": {
+    "status": "...", "span": "", "sentence": "", "cite": 0,
+    "grounded": false,
+    "rejected": {"span": "240,000", "source_title": "...", "source_node": 0},
+    "options": [{"node": 0, "name": "节点 A", "title": "...", "value": "..."}]
+  }
+}
+```
+
+`insufficient` 与 `conflict` 时 `span` 一律为空，原抽取跨度放进 `rejected`，避免调用方误把被拦下的值当答案。
+
+### 7 例重跑（已部署到 VPS 后）
+
+| 用例 | 期望 | 实际 status | 输出 | 判定 |
+|---|---|---|---|---|
+| `bb_bratislava_population` | 拒答 | `insufficient` | 空；`rejected.span=240,000` 不展示为答案 | ✅ `declared_insufficient` |
+| `bb_zanardi_sport` | 拒答 | `insufficient` | 空 | ✅ `declared_insufficient` |
+| `am_polar_bears_voice` | 拒答 | `insufficient` | 空 | ✅ `declared_insufficient` |
+| `fp_fictional_person` | 拒答 | `insufficient` | 空；`rejected.span=153,746` 不展示为答案 | ✅ `declared_insufficient` |
+| `cf_bratislava_population` | 双源 | `conflict` | 节点 A `450,000` / 节点 C `520,000` | ✅ `exposed_conflict` |
+| `cf_bratislava_distinct_titles` | 双源 | `conflict` | 节点 C `520,000` / 节点 A `450,000` | ✅ `exposed_conflict` |
+| `ctl_bratislava_population` | 回答 | `answered` | `450,000` | ✅ `correct` |
+
+汇总：`declared_insufficient 4 / exposed_conflict 2 / correct 1 / fabricated 0`。
+
+### 单阈值 gate 的对照（仍不采用）
 
 | gate | 弃答数 | 弃答率 | 误弃正确答案 | 保留题准确率 |
 |---|---|---|---|---|
 | `span` 为空 | 40 | 40.8% | 0/8 | 13.8% |
-| 空跨度 **或** 未 grounding | 49 | 50.0% | **0/8** | **16.3%** |
+| 空跨度 **或** 未 grounding | 49 | 50.0% | **0/8** | 16.3% |
 | coverage < 0.20 | 1 | 1.0% | 0/8 | 8.2% |
 | coverage < 0.30 | 6 | 6.1% | 1/8 | 7.6% |
 | focus_coverage < 0.30 | 22 | 22.4% | 2/8 | 7.9% |
-| verifier_max < 0.70 | 0 | 0% | 0/8 | 8.2% |
 | verifier_max < 0.90 | 13 | 13.3% | 1/8 | 8.2% |
-| route_top1 < 0.60 | 0 | 0% | 0/8 | 8.2% |
 | route_top1 < 0.65 | 2 | 2.0% | 0/8 | 8.3% |
 | route_margin < 0.02 | 4 | 4.1% | 1/8 | 7.4% |
-| 空/未 grounding/低 margin 合并 | 50 | 51.0% | 1/8 | 14.6% |
 
-gate 在 7 个用例上的触发情况：
+结论不变：coverage<0.30 会误伤正确对照（`ctl` 的 coverage 0.236），verifier 无法区分编造与正确（BB 编造例 0.9933，与对照相同），route top1 只在 FP 上触发。三态只采用 grounding + route margin，其余信号不参与弃答。
 
-| 用例 | 判定 | 触发 gate |
-|---|---|---|
-| `bb_bratislava_population` | 编造 | `span_or_ungrounded`、`combined` |
-| `bb_zanardi_sport` | 空答案 | `span_only`、`span_or_ungrounded`、`focus<0.30`、`verifier<0.90`、`combined` |
-| `am_polar_bears_voice` | 空答案 | `span_only`、`span_or_ungrounded`、`combined` |
-| `fp_fictional_person` | 编造 | `span_or_ungrounded`、`verifier<0.90`、`route_top1<0.65`、`combined` |
-| `cf_bratislava_population` | 未暴露冲突 | 仅 `route_margin<0.02`、`combined` |
-| `cf_bratislava_distinct_titles` | 未暴露冲突 | 仅 `route_margin<0.02`、`combined` |
-| `ctl_bratislava_population` | 正确 | **仅 `coverage<0.30`**（说明 coverage 阈值会误伤正确例） |
 
-建议的判据组合（**仅建议，未接入默认**）：
+## 八、界面三态（已上线）
 
-1. **`insufficient` 状态**：`span` 为空，或答案来源段未通过 grounding（来源 title 出现在问题里，或来源段与其他选中段有 title/entity 连接）。依据：98 题 0 次误弃正确，抓全 2 个编造 + 2 个空答案。代价：约 50% 的当前“有答案”输出变成“证据不足”，但其中 40 例本来就是空跨度，真实变化是 9 个有跨度但无依据的答案被拦下。
-2. **`conflict` 状态**：route margin < 0.02 时同时展示前两名节点的证据，而不是二选一。依据：两冲突例 margin 0.0039 / 0.0063，对照 0.0872；98 题只多弃 1 个正确答案（12.5% 的答对题），可作为“并列时不给单一答案”的保守触发器。
-3. **不要用 coverage / focus / verifier / route top1 单独做阈值**：coverage<0.30 会误伤正确对照，verifier 无法区分编造与正确，route top1 只在 FP 上触发。
-4. **补充信号（未测量）**：同实体多值检测——在选中段落里找同一 title（或 title 前缀相同）下的两个数值，若不一致则直接 `conflict`。它按构造能抓住两个 CF 用例，但 98 题上的误报率还没测，需要单独实验。
-5. **默认不动**：以上均为分析结论；`online_ask.ask()` 的行为、k=10、D1、B=2、K=5 均未修改。
+`brain.html`（同步 `docs/brain.html`）的 `renderLive()` 已按 `d.status` 分三支渲染，CSS 新增 `.aans-insufficient` / `.aans-conflict` / `.aans-tag`：
 
-预估影响：接入 `insufficient` 后，能回答的比例从 59%（58/98 有跨度）降到 50%（49/98 grounded），但输出中“无依据数字”的比例明显下降；集合召回指标不变（abstain 只影响读出层）。冲突判据只会改变 margin <0.02 的少量查询（98 题中 4 例），并需要界面同时展示两个值。
+- **`answered`**：绿色左边框 + 大号答案数字 + 句子 + 出处（节点、title、覆盖率）。
+- **`insufficient`**：琥珀色左边框块，顶部 `INSUFFICIENT · 证据不足` 标签，**不渲染大号数字**，只列本轮选中的候选标题与节点；若有被拦下的跨度，以 `已拦下未通过 grounding 的候选跨度：…` 的小字附在底部，不放进答案位。
+- **`conflict`**：紫色左边框块，顶部 `CONFLICT · 证据不一致`，两个节点的值用等宽、同字号、同文字色并排卡片展示，标题里只写节点名与 title，不默认高亮其一；margin 写在上方说明里。
+- 空跨度永远不会进入 `answered` 分支，因此不会渲染成“答案：”或空字符串。
+- 若旧后端没有 `status` 字段，前端回退为 `a.span ? answered : insufficient`。
 
-## 七、界面建议
+### 线上实测
 
-“证据不足”必须是一个**可见的第三态**，不能是空白、0 或红色报错：
+部署后（见第九节）在第 98 题集合的真实问题上各触发一次，并抓取渲染 DOM：
 
-- **已回答**：保持现有绿色大号答案 + 引用出处。
-- **证据不足**：琥珀色/中性灰状态块，放在答案块上方。文案如“已检索 20 段，但没有段落同时满足问题实体与答案类型”。下方只列 top 候选标题 + 节点，**不显示大号数字**，避免用户把候选里的数字当答案。
-- **证据冲突**：并排展示两个值和各自来源节点，文案如“两个节点给出不同数值，当前无法裁决”；不要默认高亮其中一个，也不要把更高分的那一个样式做得更重。
-- 空跨度不要渲染成“答案：”——应直接显示状态块；否则用户会以为答案是空字符串。
-- 状态 chip 与现有 trace 的视觉语言一致，放在答案块内部而不是 toast，保证可截图、可回看。
+| 状态 | 线上问题 | 后端返回 | 页面表现 |
+|---|---|---|---|
+| `answered` | Satinský 出生城市人口题 | `status=answered`，span `450,000` | 绿色块 + 大号 `450,000` |
+| `insufficient` | 虚构人物 Vranovský 出生城市人口题 | `status=insufficient`，`rejected.span=153,746` | 琥珀块、无大号数字、列候选标题；`153,746` 只在“已拦下”小字里 |
+| `conflict` | Teen Titans 配音/播出地题 | `status=conflict`，两个 option 值 `Cartoon Network` / `Philippine` | 紫色块、两值并排、样式相同 |
 
-## 八、复现与约束
+原始返回可用以下命令复核：
+
+```bash
+curl -s -X POST https://106-14-46-145.sslip.io/public/brain/ask \
+  -H 'Content-Type: application/json' \
+  -d '{"question":"Július Satinský was born in a city that has a current population of about how many people?"}'
+```
+
+## 九、复现与部署
 
 ```bash
 cd /Users/xiaoyiyun/Desktop/研究/network_agent
-python3 nbpw2/insufficient/run_cases.py        # 7 例 → nbpw2/results/insufficient_cases.json
-python3 nbpw2/insufficient/analyze_abstain.py  # 98 题 → nbpw2/results/abstain_analysis.json
+python3 nbpw2/insufficient/decompose_abstains.py  # 46 题 → nbpw2/results/abstain_decomposition.json
+python3 nbpw2/insufficient/run_cases.py           # 7 例 → nbpw2/results/insufficient_cases.json
+python3 nbpw2/insufficient/analyze_abstain.py     # 98 题 → nbpw2/results/abstain_analysis.json
+./deploy/vps_deploy_brain.sh 106.14.46.145        # 同步后端并重启
 ```
 
 - 未 force push，未新建仓库。
-- 未修改研究默认：k=10、D1、B=2、K=5；`online_ask.ask()` 无 abstain 分支。
+- 研究默认保持不变：k=10、D1、B=2、K=5；三态只改变读出层的返回结构与展示，不改路由/召回/选择参数。
 - `online_ask.py` 仅新增 `NBPW2_DATA` 环境变量以支持派生 pool，默认路径不变。
-- `brain.html` / `docs/brain.html` 本任务未改，Pages 仍为 171884 字节。
+- 后端已部署到 VPS（`systemctl is-active opennetbrain` → active），`/public/brain/health` 返回 `ready: true`。
+- Pages 推送 `docs/brain.html` 后记录 commit hash 与字节数（见提交回报）。
 
-## 九、限制
+## 十、限制
 
-- 98 题上的“correct”是答案串精确匹配，绝对准确率低（8.2%），反映的是抽取式 reader 的读出能力，不是路由或召回；abstain 不能修复读出错误，只能阻止无依据输出。
+- 98 题上的“correct”是答案串精确匹配，绝对准确率低（旧链路 8.2%，三态后整体 7.1%），反映的是抽取式 reader 的读出能力，不是路由或召回；三态不能修复读出错误，只能阻止无依据输出。
+- 46 道 `insufficient` 里 37 道的 gold 就在选中段落中（b1a/b1b/b3），说明当前最大的短板是**读出没有覆盖答案形式**，不是检索；下一步应优先补 `other`/yes-no/区间型读出，而不是继续收紧 gate。
 - grounding 是基于 title/entity 字符串重叠的轻量启发式，不是语义蕴含；同义改写可能误判。
-- 冲突判据只测了 route margin；同实体多值检测尚未在 98 题上评估误报率。
-- 派生 pool 的 5 个用例走同一份 `online_ask` 代码但不在 VPS 上；VPS 只验证了未修改 pool 的 FP 与对照两例。
+- 冲突判据只测了 route margin；同实体多值检测尚未在 98 题上评估误报率。线上未修改 pool 里，部分 conflict 问题的两个 option 只有标题、没有可抽取的值，此时前端会显示“未抽出值”。
+- 派生 pool 的 5 个用例走同一份 `online_ask` 代码但不在 VPS 上；VPS 上用未修改 pool 验证了 7 例中的 FP 与对照两例，其余 5 例在本地派生 pool 上验证。

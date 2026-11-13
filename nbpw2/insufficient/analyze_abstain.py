@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Estimate the cost of candidate abstain gates on the 100 dmqa_dev test questions.
+"""Measure the shipped three-state chain on the dmqa_dev test questions.
 
-This does NOT change any default.  It runs the deployed D1 chain locally over the
-unmodified pool, records the same signals the service exposes, and reports what
-each candidate gate would abstain on.  The point is to separate useful signals
-from signals that look plausible but do not separate the cases (coverage,
-verifier score, route cosine).
+Runs the deployed D1 chain locally over the unmodified pool and reports the
+numbers the three-state default actually produces:
+
+  * abstain rate (insufficient / total) and conflict rate
+  * accuracy on the answered subset
+  * accuracy over the whole test set
+  * how many questions that used to emit a span were downgraded to
+    insufficient
+
+The single-threshold gates (coverage / focus / verifier / route top1) are kept
+only as a rejected comparison: they throw away correct answers.
 """
 import argparse
 import json
@@ -20,7 +26,6 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from nbpw2.data import build_pool, load  # noqa: E402
-from nbpw2.insufficient.grounding import is_grounded  # noqa: E402
 from nbpw2.insufficient.run_cases import BASE_ASSET, BASE_DATA, _metrics  # noqa: E402
 
 
@@ -123,15 +128,20 @@ def main():
     for i, r in enumerate(test, 1):
         raw = online_ask.ask(r["question"])
         m = _metrics(raw, pool)
-        m["grounded"] = is_grounded(
-            r["question"], raw.get("selected") or [],
-            m["answer_source_title"], m["answer_source_snippet"])
+        ans = raw.get("answer") or {}
+        status = raw.get("status") or ans.get("status")
+        rej = ans.get("rejected") or {}
+        old_span = (rej.get("span") or "").strip() or m["answer_span"]
         records.append({
             "id": r["id"],
             "type": r.get("type"),
-            "has_span": bool(m["answer_span"]),
-            "grounded": m["grounded"],
-            "correct": _correct(m["answer_span"], r["answer"]),
+            "status": status,
+            "has_span": bool(old_span),
+            "old_span": old_span,
+            "old_correct": _correct(old_span, r["answer"]),
+            "grounded": bool(ans.get("grounded")),
+            "correct": status == "answered" and _correct(
+                m["answer_span"], r["answer"]),
             "gold": r["answer"],
             "span": m["answer_span"],
             "source": m["answer_source_title"],
@@ -148,16 +158,53 @@ def main():
                         "insufficient_cases.json").read_text(encoding="utf-8"))
     gates, case_rows = _gate_rows(records, cases["results"])
     n = len(records)
+
+    statuses = {}
+    for r in records:
+        statuses[r["status"]] = statuses.get(r["status"], 0) + 1
+
+    answered = [r for r in records if r["status"] == "answered"]
+    correct_answered = [r for r in answered if r["correct"]]
+    correct_all = [r for r in records if r["correct"]]
+
+    # Questions that used to produce a span but are no longer answered.
+    downgraded = [r for r in records
+                  if r["has_span"] and r["status"] != "answered"
+                  and r["status"] == "insufficient"]
+    downgraded_correct = [r for r in downgraded if r["old_correct"]]
+
     out = {
         "n_test": n,
         "skipped_long_questions": skipped_long,
-        "baseline": {
-            "has_span": sum(r["has_span"] for r in records),
-            "grounded": sum(r["grounded"] for r in records),
-            "correct": sum(r["correct"] for r in records),
-            "correct_rate": round(sum(r["correct"] for r in records) / n, 3),
+        "status_counts": statuses,
+        "three_state": {
+            "abstained": statuses.get("insufficient", 0),
+            "abstain_rate": round(statuses.get("insufficient", 0) / n, 3),
+            "conflict": statuses.get("conflict", 0),
+            "conflict_rate": round(statuses.get("conflict", 0) / n, 3),
+            "answered": len(answered),
+            "correct_on_answered": len(correct_answered),
+            "accuracy_on_answered": round(
+                len(correct_answered) / len(answered), 3) if answered else None,
+            "correct_overall": len(correct_all),
+            "accuracy_overall": round(len(correct_all) / n, 3),
         },
-        "gates": gates,
+        "old_chain": {
+            "has_span": sum(r["has_span"] for r in records),
+            "correct": sum(r["old_correct"] for r in records),
+            "correct_rate": round(
+                sum(r["old_correct"] for r in records) / n, 3),
+        },
+        "downgraded": {
+            "count": len(downgraded),
+            "of_span_questions": round(
+                len(downgraded) / sum(r["has_span"] for r in records), 3)
+            if sum(r["has_span"] for r in records) else None,
+            "was_correct": len(downgraded_correct),
+            "was_correct_ids": [r["id"] for r in downgraded_correct],
+            "ids": [r["id"] for r in downgraded],
+        },
+        "rejected_gates": gates,
         "case_gate_matrix": case_rows,
         "records": records,
     }
@@ -165,7 +212,11 @@ def main():
     Path(args.out).write_text(
         json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("wrote", args.out)
-    print(json.dumps({"baseline": out["baseline"], "gates": gates},
+    print(json.dumps({"status_counts": statuses,
+                      "three_state": out["three_state"],
+                      "old_chain": out["old_chain"],
+                      "downgraded": {k: v for k, v in out["downgraded"].items()
+                                     if k != "ids"}},
                      ensure_ascii=False, indent=2))
 
 

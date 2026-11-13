@@ -60,6 +60,22 @@ h2{font-size:clamp(38px,5.2vw,70px);line-height:1.02;letter-spacing:-.02em;margi
 .aans b{display:block;font:600 20px/1.2 var(--mono);color:var(--green);word-break:break-word}
 .aans p{margin:4px 0 0;font-size:11px;color:var(--text)}
 .aans small{display:block;margin-top:4px;font:8px/1.5 var(--mono);color:var(--muted)}
+.aans-tag{display:inline-block;font:8px/1 var(--mono);letter-spacing:.14em;padding:3px 6px;border:1px solid;margin-bottom:5px}
+.aans-insufficient{border-left:2px solid var(--amber);background:rgba(255,200,87,.05);padding:8px}
+.aans-insufficient .aans-tag{color:var(--amber);border-color:rgba(255,200,87,.45)}
+.aans-insufficient p{font-size:11px;color:var(--muted)}
+.aans-cands{display:flex;flex-direction:column;gap:2px;margin-top:6px}
+.aans-cand{font:9px/1.6 var(--mono);color:var(--text)}
+.aans-cand em{font-style:normal;color:var(--dim)}
+.aans-conflict{border-left:2px solid var(--violet);background:rgba(155,123,255,.06);padding:8px}
+.aans-conflict .aans-tag{color:var(--violet);border-color:rgba(155,123,255,.45)}
+.aans-conflict > p{font-size:10px;color:var(--muted)}
+.acopts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+.acopt{border:1px solid rgba(155,123,255,.25);padding:6px;background:rgba(3,9,15,.4)}
+.acopt h5{margin:0 0 3px;font:8px/1.5 var(--mono);color:var(--violet);word-break:break-word}
+.acopt b{display:block;font:600 14px/1.3 var(--mono);color:var(--text);word-break:break-word}
+.acopt p{margin:3px 0 0;font:9px/1.5 var(--mono);color:var(--muted)}
+@media(max-width:760px){.acopts{grid-template-columns:1fr}}
 .alat{margin-top:6px;font:8px/1.5 var(--mono);color:var(--dim)}
 @media(max-width:760px){.acols{grid-template-columns:1fr}}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;text-decoration:none;font:10px/1 var(--mono);letter-spacing:.15em;border:1px solid var(--cyan);color:#021016;background:linear-gradient(90deg,var(--green),var(--cyan));cursor:pointer}.btn.ghost{background:transparent;color:var(--text);border-color:var(--line)}.btn:hover{filter:brightness(1.08)}
@@ -1094,10 +1110,25 @@ function renderLive(d) {
   const rec = (d.recall || []).map(n => `<div class="acard"><h4>${esc(n.name)} · 召回 ${n.hits.length} 段</h4>${n.hits.slice(0, 4).map(h => `<div class="ahit"><b>#${h.rank + 1}</b> ${esc(h.title)} <em>${esc(h.score)}</em></div>`).join('')}</div>`).join('');
   const sel = (d.selected || []).map(s => `<tr><td>${s.n}</td><td>${esc(s.title)}</td><td>${esc(s.name)}</td><td>${esc(s.verifier)}</td></tr>`).join('');
   const a = d.answer || {};
+  const status = d.status || a.status || (a.span ? 'answered' : 'insufficient');
   const cite = (d.selected || [])[(a.cite || 1) - 1];
-  const ans = a.span
-    ? `<div class="aans"><b>${esc(a.span)}</b><p>${esc(a.sentence)}</p><small>出处：#${a.cite} · ${esc(cite ? cite.name : '')} · ${esc(cite ? cite.title : '')} · 段内覆盖率 ${esc(a.coverage)}</small></div>`
-    : `<div class="aans"><b>未抽出答案</b><p>选中的段落里没有出现符合问句类型的片段。可能池里没有这条事实，或两跳没有接上。</p></div>`;
+  let ans;
+  if (status === 'conflict') {
+    const opts = (a.options || []).filter(o => o && (o.value || o.title));
+    if (opts.length) {
+      const cards = opts.map(o => `<div class="acopt"><h5>${esc(o.name)} · ${esc(o.title)}</h5><b>${esc(o.value || '未抽出值')}</b><p>${esc(o.sentence || o.snippet || '')}</p></div>`).join('');
+      ans = `<div class="aans aans-conflict"><span class="aans-tag">CONFLICT · 证据不一致</span><p>两个节点的路由分数接近（margin ${esc(d.route_margin)}），以下两个值并列展示，系统不判断哪个正确。</p><div class="acopts">${cards}</div></div>`;
+    } else {
+      ans = `<div class="aans aans-insufficient"><span class="aans-tag">INSUFFICIENT · 证据不足</span><p>两个节点的路由分数接近，且都没有抽出可核对的答案值。</p></div>`;
+    }
+  } else if (status === 'answered' && a.span) {
+    ans = `<div class="aans aans-answered"><span class="aans-tag">ANSWERED</span><b>${esc(a.span)}</b><p>${esc(a.sentence)}</p><small>出处：#${a.cite} · ${esc(cite ? cite.name : '')} · ${esc(cite ? cite.title : '')} · 段内覆盖率 ${esc(a.coverage)}</small></div>`;
+  } else {
+    const cands = (d.selected || []).slice(0, 5).map(s => `<span class="aans-cand">#${esc(s.n)} ${esc(s.title)} <em>· ${esc(s.name)}</em></span>`).join('');
+    const rej = a.rejected && a.rejected.span
+      ? `<small>已拦下未通过 grounding 的候选跨度：${esc(a.rejected.span)}（${esc(a.rejected.source_title || '来源未知')}）</small>` : '';
+    ans = `<div class="aans aans-insufficient"><span class="aans-tag">INSUFFICIENT · 证据不足</span><p>选中的段落里没有抽到能被问题实体支撑的答案，因此不给出数字。下面是本轮选中的候选段落：</p><div class="aans-cands">${cands}</div>${rej}</div>`;
+  }
   const L = d.latency || {};
   $('liveRes').className = 'askres show';
   $('liveRes').innerHTML = `<div class="aroute">${route}</div><div class="acols">${rec}</div><table class="aselect">${sel}</table>${ans}<div class="alat">encode ${esc(L.query_encode_ms)}ms · route ${esc(L.route_ms)}ms · recall ${esc(L.recall_ms)}ms · select ${esc(L.select_ms)}ms · total ${esc(L.total_ms)}ms · 抽取式，无 LLM 改写</div>`;

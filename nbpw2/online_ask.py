@@ -226,6 +226,85 @@ def _extract(selected, question, idf):
             "qtype": qtp, "bridge_paragraph": bridge_idx}
 
 
+ENTITY_STOP = set("""a an the and or of to in on for with by from at as is are was were be been being
+this that these those it its their his her they he she we you i not no do does did
+what which who whom whose when where why how many much more most other into than then
+""".split())
+
+
+def _question_entities(q):
+    runs = re.findall(r"\b[A-Z][A-Za-z'.-]+(?:\s+[A-Z][A-Za-z'.-]+)*", q or "")
+    out = []
+    for r in runs:
+        r = r.strip()
+        if r and r.lower() not in ENTITY_STOP:
+            out.append(r)
+    return out
+
+
+def _is_grounded(question, selected, source_title, source_text):
+    """Is the answer paragraph connected to the question or another selected one?
+
+    A span can be a real corpus string and still be useless: the Biratnagar
+    population does not answer a question about Satinsky's birth city.  This
+    checks a cheap link (title in question, source title in another snippet,
+    another selected title in the source, question entity in the source).
+    """
+    ql = (question or "").lower()
+    st = (source_title or "").lower()
+    text = (source_text or "").lower()
+    if st and st in ql:
+        return True
+    for s in selected or []:
+        t = (s.get("title") or "").lower()
+        if not t or t == st:
+            continue
+        sn = (s.get("text") or s.get("snippet") or "").lower()
+        if st and st in sn:
+            return True
+        if t in text:
+            return True
+    for ent in _question_entities(question):
+        if ent.lower() in text:
+            return True
+    return False
+
+
+def _conflict_options(question, selected, hits, nodes, names, idf, answer):
+    """Best extracted value per top routed node, for the conflict view."""
+    from nbpw2.data import tokens
+    src = (selected[answer["cite"] - 1]
+           if 0 < int(answer.get("cite") or 0) <= len(selected) else None)
+    subj = set(tokens(src.get("title", ""))) if src else set()
+    if not subj:
+        for ent in _question_entities(question):
+            subj |= set(tokens(ent))
+    opts = []
+    for nid in nodes:
+        node_hits = sorted(
+            [h for h in hits if int(h.get("node", -1)) == int(nid)],
+            key=lambda h: int(h.get("rank", 99)))
+        pick = None
+        for h in node_hits:
+            if subj and (subj & set(tokens(h.get("title", "")))):
+                pick = h
+                break
+        if pick is None and node_hits:
+            pick = node_hits[0]
+        if pick is None:
+            continue
+        r = _extract([pick], question, idf)
+        opts.append({
+            "node": int(nid),
+            "name": names[int(nid)],
+            "title": pick.get("title", ""),
+            "value": r["span"],
+            "sentence": r["sentence"],
+            "snippet": (pick.get("text") or "")[:200],
+        })
+    return opts
+
+
 def ask(question):
     """Run the shipped D1 chain once.  No persistence, no logging of `question`."""
     q = (question or "").strip()
@@ -294,8 +373,65 @@ def ask(question):
         "snippet": c.get("text", "")[:240],
     } for i, c in enumerate(sel)]
 
+    # --- three-state answer -------------------------------------------------
+    # The extractive reader always has a best row, so "no answer" has to be an
+    # explicit decision: empty span, or a span that is not connected to the
+    # question entity / quoted paragraph.  A route tie (<0.02) is reported as
+    # a conflict with both node values instead of silently picking one.
+    margin = round(float(route[0]["scores"][0]["max_cos"])
+                   - float(route[0]["scores"][1]["max_cos"]), 4)
+    src = (sel[answer["cite"] - 1]
+           if 0 < int(answer.get("cite") or 0) <= len(sel) else None)
+    src_title = src.get("title", "") if src else ""
+    src_text = src.get("text", "") if src else ""
+    grounded = bool(src) and _is_grounded(q, sel, src_title, src_text)
+    rejected = {
+        "span": answer.get("span", ""),
+        "sentence": answer.get("sentence", ""),
+        "cite": answer.get("cite", 0),
+        "source_title": src_title,
+        "source_node": int(src.get("node", -1)) if src else None,
+        "coverage": answer.get("coverage"),
+        "focus_coverage": answer.get("focus_coverage"),
+        "grounded": grounded,
+    }
+    options = []
+    if margin < 0.02:
+        options = _conflict_options(q, sel, hits, ranked[:B], E.names, E.idf, answer)
+
+    if margin < 0.02 and options:
+        status = "conflict"
+        answer = {
+            "status": status, "span": "", "sentence": "", "cite": 0,
+            "coverage": answer.get("coverage"),
+            "focus_coverage": answer.get("focus_coverage"),
+            "qtype": answer.get("qtype"),
+            "bridge_paragraph": answer.get("bridge_paragraph"),
+            "grounded": grounded, "options": options, "rejected": rejected,
+        }
+    elif (not answer.get("span")) or (not grounded):
+        status = "insufficient"
+        answer = {
+            "status": status, "span": "", "sentence": "", "cite": 0,
+            "coverage": answer.get("coverage"),
+            "focus_coverage": answer.get("focus_coverage"),
+            "qtype": answer.get("qtype"),
+            "bridge_paragraph": answer.get("bridge_paragraph"),
+            "grounded": False, "options": [], "rejected": rejected,
+        }
+    else:
+        status = "answered"
+        answer = dict(answer)
+        answer.update({
+            "status": status, "grounded": True, "options": [],
+            "source_title": src_title,
+            "source_node": int(src.get("node", -1)) if src else None,
+        })
+
     return {
         "ok": True,
+        "status": status,
+        "route_margin": margin,
         "question": q,
         "route": route,
         "recall": recall,
