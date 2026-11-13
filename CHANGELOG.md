@@ -1,5 +1,20 @@
 # Changelog
 
+## Live ask entry + VPS backend (2026-11-13)
+
+- `brain.html`: first-screen question box wired to `POST /public/brain/ask`;
+  renders the same trace vocabulary as the frozen demo (route hops with max
+  cosine per node, per-node recall, selected set with verifier scores, answer
+  span + citation + latency). 180-char cap, 20s client abort, graceful
+  "backend offline" fallback that keeps the snapshot demo.
+- `nbpw2/online_ask.py`: the D1 chain as a callable service (route → dense
+  recall k=10 → verifier → pair head K=5 → extractive readout) over the shipped
+  `bge_pool_nodes.npz`; questions are never persisted or logged.
+- `coordinator_async.py`: `/public/brain/ask` (8 req/min per IP, 180 chars,
+  25s server timeout) and `/public/brain/health`.
+- Deploy: `deploy/` gains pinned server requirements, systemd unit, Caddyfile,
+  healthcheck and `vps_deploy_brain.sh`; `VPS_BRAIN.md` documents the box.
+
 ## NBPW-2 research pilot (2026-11-06)
 
 Network-brain reference implementation + experiments, under `nbpw2/`:

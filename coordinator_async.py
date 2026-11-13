@@ -33,6 +33,8 @@ NODE_TTL = 20
 HITS = defaultdict(list)
 PUBLIC_HITS = defaultdict(list)
 ASK_HITS = defaultdict(list)
+BRAIN_HITS = defaultdict(list)
+BRAIN_SEM = asyncio.Semaphore(1)
 ASK_JOBS = {}
 LEARN_HITS = defaultdict(list)
 FEEDBACK_HITS = defaultdict(list)
@@ -255,6 +257,41 @@ async def public_ask_result(req):
 async def public_ask(req):
     if ask_limited(req): return web.json_response({"error": "rate limit"}, status=429)
     return web.json_response(await _ask_core(await req.json()))
+
+
+def brain_limited(req):
+    ip = req.headers.get("X-Forwarded-For", req.remote or "?").split(",")[0].strip()
+    now = time.time(); BRAIN_HITS[ip] = [t for t in BRAIN_HITS[ip] if now - t < 60]
+    if len(BRAIN_HITS[ip]) >= 8: return True
+    BRAIN_HITS[ip].append(now); return False
+
+
+async def public_brain_ask(req):
+    """Live D1 question answering.  The question is never persisted or logged."""
+    if brain_limited(req): return web.json_response({"error": "rate limit (8/min)"}, status=429)
+    try: d = await req.json()
+    except Exception: d = {}
+    q = str(d.get("question", "")).strip()
+    if not q: return web.json_response({"error": "empty question"}, status=400)
+    if len(q) > 180: return web.json_response({"error": "question too long (max 180)"}, status=400)
+    try:
+        from nbpw2 import online_ask
+        async with BRAIN_SEM:
+            out = await asyncio.wait_for(asyncio.to_thread(online_ask.ask, q), timeout=25)
+        return web.json_response(out)
+    except asyncio.TimeoutError:
+        return web.json_response({"error": "timeout"}, status=504)
+    except Exception:
+        return web.json_response({"error": "brain ask unavailable"}, status=503)
+
+
+async def public_brain_health(req):
+    try:
+        from nbpw2 import online_ask
+        return web.json_response({"ok": True, "engine": online_ask.health()})
+    except Exception:
+        return web.json_response({"ok": False, "engine": None}, status=503)
+
 
 
 async def feedback(req):
@@ -501,6 +538,8 @@ def app():
     a.router.add_post("/public/ask", public_ask)
     a.router.add_post("/public/ask/start", public_ask_start)
     a.router.add_get("/public/ask/result", public_ask_result)
+    a.router.add_post("/public/brain/ask", public_brain_ask)
+    a.router.add_get("/public/brain/health", public_brain_health)
     a.router.add_post("/api/brain/learn", brain_learn)
     a.router.add_post("/api/brain/evolve", brain_evolve)
     a.router.add_post("/api/brain/auto_tick", brain_auto_tick)

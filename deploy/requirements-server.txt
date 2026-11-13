@@ -1,0 +1,18 @@
+# Runtime deps for the VPS box that serves /public/brain/ask.
+# Install (CPU-only torch; do NOT let pip pull the CUDA wheels):
+#   python3 -m pip install --break-system-packages -r deploy/requirements-server.txt \
+#       --extra-index-url https://download.pytorch.org/whl/cpu
+#
+# The encoder weights are not a pip package.  Fetch once into the HF cache:
+#   HF_ENDPOINT=https://hf-mirror.com python3 -m huggingface_hub.commands.huggingface_cli \
+#       download BAAI/bge-small-en-v1.5
+# (dense.py loads from ~/.cache/huggingface/hub/models--BAAI--bge-small-en-v1.5/snapshots/*)
+
+numpy==1.26.4
+scipy==1.11.4
+scikit-learn==1.4.2
+torch==2.2.2
+transformers==4.57.1
+tokenizers==0.22.1
+safetensors==0.6.2
+huggingface_hub==0.36.2

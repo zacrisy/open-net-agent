@@ -1,0 +1,18 @@
+[Unit]
+Description=OpenNetBrain (coordinator + web UI + /public/brain/ask)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/opennetbrain
+# TOKEN / PORT / BRAIN_ASK live here; never commit that file.
+EnvironmentFile=/opt/opennetbrain/.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/bin/python3 /opt/opennetbrain/run_online.py
+Restart=always
+RestartSec=3
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

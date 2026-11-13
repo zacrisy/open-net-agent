@@ -34,6 +34,34 @@ h2{font-size:clamp(38px,5.2vw,70px);line-height:1.02;letter-spacing:-.02em;margi
 .pipe span{border:1px solid var(--line);background:rgba(9,18,28,.6);padding:5px 7px;color:var(--text)}
 .pipe span.on{border-color:var(--green);color:var(--green)}
 .pipe i{font-style:normal;color:var(--dim)}
+.liveask{margin:14px 0 18px;border:1px solid rgba(77,255,184,.28);background:rgba(3,12,18,.72);padding:10px;max-width:640px}
+.liveask .askrow{display:flex;gap:6px}
+.liveask input{flex:1;background:rgba(3,9,15,.9);border:1px solid var(--line);color:var(--text);padding:9px;font:11px/1.4 var(--mono);outline:none;min-width:0}
+.liveask input:focus{border-color:var(--green)}
+.liveask .send{padding:0 14px;border:1px solid var(--green);background:rgba(77,255,184,.1);color:var(--green);font:9px/1 var(--mono);letter-spacing:.12em;cursor:pointer}
+.liveask .send:disabled{opacity:.5;cursor:wait}
+.askmeta{display:flex;justify-content:space-between;gap:8px;margin-top:6px;font:8px/1.5 var(--mono);color:var(--dim);flex-wrap:wrap}
+.askstate{margin-top:6px;font:9px/1.6 var(--mono);color:var(--amber);display:none}
+.askstate.show{display:block}
+.askres{margin-top:10px;display:none}
+.askres.show{display:block}
+.aroute{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font:9px/1.5 var(--mono);color:var(--muted);margin-bottom:8px}
+.aroute b{color:var(--green);font-weight:500}
+.aroute i{font-style:normal;color:var(--dim)}
+.acols{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.acard{border:1px solid rgba(94,242,255,.12);background:rgba(3,9,15,.4);padding:7px}
+.acard h4{margin:0 0 5px;font:8px/1.4 var(--mono);letter-spacing:.1em;color:var(--cyan)}
+.ahit{font:8px/1.45 var(--mono);color:var(--muted);border-top:1px dashed rgba(94,242,255,.08);padding:3px 0}
+.ahit b{color:var(--text);font-weight:500}.ahit em{font-style:normal;color:var(--dim)}
+.aselect{width:100%;border-collapse:collapse;font:8px/1.5 var(--mono);color:var(--muted);margin-top:6px}
+.aselect td{border-top:1px solid rgba(94,242,255,.08);padding:3px 4px;vertical-align:top}
+.aselect td:first-child{color:var(--dim);width:14px}
+.aans{margin-top:9px;border-left:2px solid var(--green);padding:6px 8px;background:rgba(77,255,184,.05)}
+.aans b{display:block;font:600 20px/1.2 var(--mono);color:var(--green);word-break:break-word}
+.aans p{margin:4px 0 0;font-size:11px;color:var(--text)}
+.aans small{display:block;margin-top:4px;font:8px/1.5 var(--mono);color:var(--muted)}
+.alat{margin-top:6px;font:8px/1.5 var(--mono);color:var(--dim)}
+@media(max-width:760px){.acols{grid-template-columns:1fr}}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;text-decoration:none;font:10px/1 var(--mono);letter-spacing:.15em;border:1px solid var(--cyan);color:#021016;background:linear-gradient(90deg,var(--green),var(--cyan));cursor:pointer}.btn.ghost{background:transparent;color:var(--text);border-color:var(--line)}.btn:hover{filter:brightness(1.08)}
 .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;border-top:1px solid var(--line);padding-top:14px;max-width:560px}
 .hero-stats b{display:block;font:600 22px/1.1 var(--mono);color:var(--text)}.hero-stats span{font:8px/1.3 var(--mono);letter-spacing:.14em;color:var(--muted)}
@@ -193,6 +221,15 @@ details.evidence[open]>summary{border-color:rgba(255,200,87,.55)}
       <h2>跨多个节点找证据，<br><em>再给出有出处的答案。</em></h2>
       <p class="lead">你问一个问题，它先决定<b>去哪些节点找</b>（每个节点只持有一部分资料），在各节点召回段落，挑出能互相接上的那几段，读出答案，并标出用了哪几段。<span class="dim">不是另一个聊天框，也不要求把所有资料塞进同一个上下文。</span></p>
       <div class="pipe"><span>问题</span><i>→</i><span class="on">节点路由（稠密 max-cos）</span><i>→</i><span>每节点稠密召回 k=10</span><i>→</i><span>readout</span><i>→</i><span>段落选择 K=5</span></div>
+      <div class="liveask" id="liveAsk">
+        <form class="askrow" id="liveForm" autocomplete="off">
+          <input id="liveQ" maxlength="180" placeholder="例：Where was Július Satinský born, and what is that city's population?">
+          <button type="submit" class="send" id="liveBtn">提问</button>
+        </form>
+        <div class="askmeta"><span id="liveCount">0/180</span><span>抽取式答案 · 无 LLM 改写 · 可能答不出 · 典型 0.2–1s（冷启动 ~4s）</span></div>
+        <div class="askstate" id="liveState"></div>
+        <div class="askres" id="liveRes"></div>
+      </div>
       <div class="cap-grid">
         <div class="cap"><b>跨节点取证</b><span>资料分散在不同节点/分片时，先路由、再分头召回。</span><em>场景：A 院有病历、B 院有检验报告，问“有没有用药禁忌”</em></div>
         <div class="cap"><b>多跳接链</b><span>第一段只给出桥梁实体，第二跳带着它去另一节点找属性。</span><em>场景：“这位作曲家的出生城市现在人口多少” → 作曲家 → 城市 → 人口</em></div>
@@ -1020,8 +1057,8 @@ details.evidence[open]>summary{border-color:rgba(255,200,87,.55)}
 
 <script>
 const $ = id => document.getElementById(id);
-const PRIMARY = 'https://kids-pcs-attacked-myth.trycloudflare.com';
-const STABLE = 'https://opennetagent2.serveousercontent.com';
+const PRIMARY = 'https://106-14-46-145.sslip.io';
+const STABLE = PRIMARY;
 const QS = new URLSearchParams(location.search);
 const REMOTE = PRIMARY;
 const BACKEND = QS.get('backend') || (location.hostname.endsWith('github.io') ? PRIMARY : location.origin);
@@ -1048,6 +1085,50 @@ async function api(path, opts = {}, timeoutMs = 40000) {
 }
 
 function modeText() { $('mode').textContent = token() ? 'ADMIN' : 'PUBLIC'; $('mode').style.color = token() ? 'var(--green)' : 'var(--muted)'; }
+
+function renderLive(d) {
+  const route = (d.route || []).map(h => {
+    const me = (h.scores || []).find(s => s.node === h.chosen) || {};
+    return `<span>hop ${h.hop}</span><b>${esc(me.name || ('节点 ' + h.chosen))}</b><em style="color:var(--dim)">max cos ${esc(me.max_cos)}</em>`;
+  }).join('<i>→</i>');
+  const rec = (d.recall || []).map(n => `<div class="acard"><h4>${esc(n.name)} · 召回 ${n.hits.length} 段</h4>${n.hits.slice(0, 4).map(h => `<div class="ahit"><b>#${h.rank + 1}</b> ${esc(h.title)} <em>${esc(h.score)}</em></div>`).join('')}</div>`).join('');
+  const sel = (d.selected || []).map(s => `<tr><td>${s.n}</td><td>${esc(s.title)}</td><td>${esc(s.name)}</td><td>${esc(s.verifier)}</td></tr>`).join('');
+  const a = d.answer || {};
+  const cite = (d.selected || [])[(a.cite || 1) - 1];
+  const ans = a.span
+    ? `<div class="aans"><b>${esc(a.span)}</b><p>${esc(a.sentence)}</p><small>出处：#${a.cite} · ${esc(cite ? cite.name : '')} · ${esc(cite ? cite.title : '')} · 段内覆盖率 ${esc(a.coverage)}</small></div>`
+    : `<div class="aans"><b>未抽出答案</b><p>选中的段落里没有出现符合问句类型的片段。可能池里没有这条事实，或两跳没有接上。</p></div>`;
+  const L = d.latency || {};
+  $('liveRes').className = 'askres show';
+  $('liveRes').innerHTML = `<div class="aroute">${route}</div><div class="acols">${rec}</div><table class="aselect">${sel}</table>${ans}<div class="alat">encode ${esc(L.query_encode_ms)}ms · route ${esc(L.route_ms)}ms · recall ${esc(L.recall_ms)}ms · select ${esc(L.select_ms)}ms · total ${esc(L.total_ms)}ms · 抽取式，无 LLM 改写</div>`;
+  $('liveState').className = 'askstate';
+}
+
+async function liveSubmit(e) {
+  e.preventDefault();
+  const q = $('liveQ').value.trim();
+  const btn = $('liveBtn'), st = $('liveState'), res = $('liveRes');
+  if (!q) { st.className = 'askstate show'; st.textContent = '先输入一个问题。'; return; }
+  btn.disabled = true; btn.textContent = '检索中';
+  st.className = 'askstate show'; st.textContent = '正在路由 → 召回 → 读出（单次上限 20s）…';
+  res.className = 'askres'; res.innerHTML = '';
+  const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 20000);
+  try {
+    const r = await fetch(BACKEND + '/public/brain/ask', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({question: q}), signal: ctrl.signal
+    });
+    const txt = await r.text();
+    let d = {}; try { d = JSON.parse(txt); } catch (_) {}
+    if (!r.ok || !d.ok) throw new Error(d.error || ('HTTP ' + r.status));
+    renderLive(d);
+  } catch (err) {
+    st.className = 'askstate show';
+    st.innerHTML = '实时问答需后端在线（或该端点尚未部署）。下面的快照演示不受影响。<span style="color:var(--dim)"> · ' + esc(err.name === 'AbortError' ? 'timeout' : String(err.message || err)) + '</span>';
+  } finally {
+    clearTimeout(timer); btn.disabled = false; btn.textContent = '提问';
+  }
+}
 
 function setStage(stage) {
   const order = ['retrieving','extracting','verifying','consolidating'];
@@ -1371,6 +1452,8 @@ async function vote(id,v){ if(!id)return; const r=await api('/feedback',{method:
 
 $('train').onclick=startLearn; $('evolve').onclick=evolve; $('agentRun').onclick=runAgent; $('agentNext').onclick=loadCurriculum;
 $('feedbackBtn').onclick=openFeedback; $('feedbackBtn2').onclick=openFeedback; $('closeFeedback').onclick=closeFeedback; $('feedbackModal').onclick=e=>{if(e.target.id==='feedbackModal')closeFeedback();}; $('fbSubmit').onclick=submitFeedback;
+$('liveForm').addEventListener('submit', liveSubmit);
+$('liveQ').addEventListener('input', () => { $('liveCount').textContent = $('liveQ').value.length + '/180'; });
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFeedback();});
 $('closeCard').onclick=closeCard; $('cardModal').onclick=e=>{if(e.target.id==='cardModal')closeCard();}; document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCard();});
 $('brainCanvas').onclick=ev=>{const c=$('brainCanvas'),r=c.getBoundingClientRect(),mx=ev.clientX-r.left,my=ev.clientY-r.top;let best=null,bd=1e9;(window.__brainNodes||[]).forEach(n=>{const p=(window.__brainPos||{})[n.id];if(!p)return;const d=Math.hypot(p.x-mx,p.y-my);if(d<bd){bd=d;best=n;}});if(best&&bd<18){$('nodeDetail').textContent=`${best.source_type} · ${best.status} · ${best.label}`;openCard(best);}};

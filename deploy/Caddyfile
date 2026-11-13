@@ -1,4 +1,7 @@
-coord.example.com {
-    reverse_proxy coordinator:8765
-    encode gzip
+# HTTPS in front of the local service.  sslip.io resolves <a-b-c-d>.sslip.io
+# to a.b.c.d, so the certificate is issued for a name that needs no DNS setup.
+# Caddy gets it over ACME HTTP-01 (ports 80+443 must be open).
+106-14-46-145.sslip.io {
+	encode gzip
+	reverse_proxy 127.0.0.1:8080
 }

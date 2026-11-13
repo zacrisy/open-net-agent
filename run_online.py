@@ -31,11 +31,20 @@ async def main():
              for nid, skill, i in NODES]
     import threading
     def warm():
+        # Serial on purpose: two threads importing transformers at once can see a
+        # half-initialised module, and on a 894MB box the models compete for RAM.
         try:
             SKILLS["nli"]("a || a", {})
             print("nli warm ok", flush=True)
         except Exception as e:
             print("nli warm failed:", e, flush=True)
+        if os.environ.get("BRAIN_ASK", "1") == "1":
+            try:
+                from nbpw2 import online_ask
+                online_ask.load()
+                print("brain ask warm ok", flush=True)
+            except Exception as e:
+                print("brain ask warm failed:", type(e).__name__, str(e)[:120], flush=True)
     threading.Thread(target=warm, daemon=True).start()
     brain.maybe_bootstrap()
     if os.environ.get("BRAIN_AUTO") == "1":
