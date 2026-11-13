@@ -229,11 +229,11 @@ qtype 分布：`other` 33、`date` 5、`entity` 4、`number` 3、`person` 1。`o
 
 部署后（见第九节）在第 98 题集合的真实问题上各触发一次，并抓取渲染 DOM：
 
-| 状态 | 线上问题 | 后端返回 | 页面表现 |
+| 状态 | 线上问题 | 后端返回 | 页面表现（抓 DOM） |
 |---|---|---|---|
-| `answered` | Satinský 出生城市人口题 | `status=answered`，span `450,000` | 绿色块 + 大号 `450,000` |
-| `insufficient` | 虚构人物 Vranovský 出生城市人口题 | `status=insufficient`，`rejected.span=153,746` | 琥珀块、无大号数字、列候选标题；`153,746` 只在“已拦下”小字里 |
-| `conflict` | Teen Titans 配音/播出地题 | `status=conflict`，两个 option 值 `Cartoon Network` / `Philippine` | 紫色块、两值并排、样式相同 |
+| `answered` | Satinský 出生城市人口题 | `status=answered`，span `450,000` | `.aans.aans-answered`；含 `ANSWERED`、大号 `450,000`、出处 `#2 · 节点 A · Bratislava` |
+| `insufficient` | 虚构人物 Vranovský 出生城市人口题 | `status=insufficient`，`rejected.span=153,746` | `.aans.aans-insufficient`；无 `<b>` 大号值；候选 `#1 Chernivtsi / #2 Criss Angel / #3 Bangor, Maine / #4 Bratislava / #5 Strasbourg`；小字“已拦下未通过 grounding 的候选跨度：153,746（Bangor, Maine）” |
+| `conflict` | Teen Titans 配音/播出地题 | `status=conflict`，两个 option | `.aans.aans-conflict`；两张卡并排：`节点 A · Teen Titans (season 4) / Cartoon Network`、`节点 C · The Voice Teens (Philippine TV series) / Philippine`；两值计算色均为 `#d9e8f4`，无高亮差异 |
 
 原始返回可用以下命令复核：
 
