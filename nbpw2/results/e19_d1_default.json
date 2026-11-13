@@ -1,0 +1,131 @@
+{
+ "config": {
+  "K": 3,
+  "B": 2,
+  "recall": "dense",
+  "recall_k": 10,
+  "node_policy": "D1 dense max-cosine, independent top-2 (default); bridge_hop kept as optional",
+  "selector": "shipped pair head, set-level greedy K=5",
+  "n_test": 100
+ },
+ "default": {
+  "d1": {
+   "ceiling": 0.88,
+   "ws": 0.73,
+   "ws_ci95": [
+    0.64,
+    0.82
+   ],
+   "set": 0.79,
+   "set_ci95": [
+    0.71,
+    0.87
+   ],
+   "n_cand": 20
+  },
+  "bridge_hop": {
+   "ceiling": 0.78,
+   "ws": 0.67,
+   "ws_ci95": [
+    0.57,
+    0.76
+   ],
+   "set": 0.72,
+   "set_ci95": [
+    0.63,
+    0.81
+   ],
+   "n_cand": 20
+  },
+  "d_set_vs_bridge_hop": 0.07,
+  "d_set_ci95": [
+   0.02,
+   0.13
+  ],
+  "d_ws_vs_bridge_hop": 0.06,
+  "d_ws_ci95": [
+   0.01,
+   0.12
+  ],
+  "node_recall_d1": 0.995,
+  "node_recall_bridge_hop": 0.94,
+  "route_agreement_wired_vs_cache": 1.0,
+  "cache_vs_raw_max_abs_diff": 1.4551915228366852e-07,
+  "d1_decomp": {
+   "hit": 0.88,
+   "node_not_queried": 0.01,
+   "depth": 0.11,
+   "n": 100
+  },
+  "bridge_hop_decomp": {
+   "hit": 0.78,
+   "node_not_queried": 0.11,
+   "depth": 0.11,
+   "n": 100
+  }
+ },
+ "interaction_B3": {
+  "d1": {
+   "ceiling": 0.89,
+   "ws": 0.73,
+   "ws_ci95": [
+    0.64,
+    0.82
+   ],
+   "set": 0.79,
+   "set_ci95": [
+    0.71,
+    0.87
+   ],
+   "n_cand": 30
+  },
+  "bridge_hop": {
+   "ceiling": 0.89,
+   "ws": 0.73,
+   "ws_ci95": [
+    0.64,
+    0.82
+   ],
+   "set": 0.79,
+   "set_ci95": [
+    0.71,
+    0.87
+   ],
+   "n_cand": 30
+  },
+  "identical_node_sequence_share": 0.5,
+  "note": "K=3 时 independent top-3 覆盖全部节点，与 bridge_hop B=3 的候选集合相同；不加 k，只改 B。"
+ },
+ "interaction_squash": {
+  "d1_on": {
+   "with_squash": {
+    "ws": 0.73,
+    "set": 0.79
+   },
+   "without_squash_retrained": {
+    "ws": 0.72,
+    "set": 0.79
+   },
+   "d_set": 0.0,
+   "d_set_ci95": [
+    0.0,
+    0.0
+   ]
+  },
+  "d1_off_bridge_hop": {
+   "with_squash": {
+    "ws": 0.67,
+    "set": 0.72
+   },
+   "without_squash_retrained": {
+    "ws": 0.67,
+    "set": 0.72
+   },
+   "d_set": 0.0,
+   "d_set_ci95": [
+    0.0,
+    0.0
+   ]
+  }
+ }
+}

@@ -92,6 +92,27 @@ def qtype(q):
     q = q.lower()
     return 1 if any(k in q for k in ("same", "both", "which", "more", "less")) else 0
 
+def _query_vec(env):
+    """Query embedding for dense node routing, computed once per environment."""
+    v = getattr(env, "_qvec", None)
+    if v is None:
+        from .dense import encode, QINSTR
+        v = encode([QINSTR + env.row["question"]])[0]
+        env._qvec = v
+    return v
+
+def _node_matrix(env, nid):
+    """Per-node paragraph matrix, built lazily and cached on the environment."""
+    cache = getattr(env, "_node_vec", None)
+    if cache is None:
+        cache = {}
+        env._node_vec = cache
+    if nid not in cache:
+        from .dense import encode, _doc_text
+        docs = env.nodes[nid]["docs"]
+        cache[nid] = encode([_doc_text(d) for d in docs]) if docs else None
+    return cache[nid]
+
 def choose(policy, env, rng, stats, ctx_stats, t):
     un = [i for i in range(env.n_nodes) if i not in env.queried]
     if not un:
@@ -179,6 +200,18 @@ def choose(policy, env, rng, stats, ctx_stats, t):
         X = [node_features(env, i) for i in un]
         p = env.scorer.predict(X)
         return un[int(max(range(len(un)), key=lambda k: p[k]))]
+    if policy == "dense_route":
+        """D1: dense max-cosine node routing, independent top-k nodes.
+
+        Each node is scored by the maximum cosine between the query vector and
+        its paragraphs; calling choose() repeatedly yields the independent
+        top-k order.  `bridge_hop` is kept as an alternative policy.
+        """
+        qv = _query_vec(env)
+        def sc(i):
+            m = _node_matrix(env, i)
+            return float((m @ qv).max()) if m is not None and len(m) else -1e9
+        return max(un, key=sc)
     if policy == "oracle":
         gold_nodes = [i for i in range(env.n_nodes) if any(d.get("is_gold") for d in env.nodes[i]["docs"])]
         for i in gold_nodes:
@@ -195,7 +228,7 @@ def update_stats(stats, ctx_stats, env, nid):
     ok, fail = ctx_stats.get((typ, nid), (1, 1))
     ctx_stats[(typ, nid)] = (ok + (1 if gold_hit else 0), fail + (0 if gold_hit else 1))
 
-def run_policy(rows, pool, verifier, policy, budget=2, seed=0, n_nodes=5, scorer=None, topic_split=False):
+def run_policy(rows, pool, verifier, policy="dense_route", budget=2, seed=0, n_nodes=5, scorer=None, topic_split=False):
     rng = random.Random(seed)
     stats, ctx_stats = {}, {}
     ms = []

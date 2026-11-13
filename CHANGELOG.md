@@ -87,11 +87,34 @@ transport reproducibility bug unresolved. The 50-node WAN stage remains gated.
   - D2 dense bridge from the hop-1 anchor paragraph: set .770, +.05 [0, .10].
   - D3 D2 + adaptive third hop when the hop-2 bridge is weak: set .760,
     +.04 [−.01, .10] at 2.19 node queries — adaptivity does not pay at K=3.
-- D1 is not wired as the default yet; it needs the query embedding passed into
-  `active.choose`, which is a separate change. Reported as the next candidate.
+- D1 is wired as the default in Round 5 below; `bridge_hop` remains available
+  as an optional routing policy.
 - Same 100 test questions, K=3, B=2; paired question-cluster bootstrap; ±.07
   half-width rule unchanged. Raw numbers: `nbpw2/results/e16_dense_default.json`,
   `e16b_k10_default.json`, `e17_node_route.json`.
+
+### Round 5 (E19): D1 dense node routing becomes the default
+
+- `active.choose` gains `dense_route`: the query vector is computed once per
+  environment (`_query_vec`), each node is scored by max cosine over its
+  paragraph matrix (`_node_matrix`), and repeated calls give the independent
+  top-k order. `run_policy` now defaults to `policy="dense_route"`;
+  `bridge_hop` is unchanged and remains opt-in.
+- End-to-end rerun through the wired path, default combo (dense k=10, B=2,
+  shipped verifier/pair head, set greedy K=5, 100 dmqa_dev test questions):
+  ceiling .880, node recall .995, ws .730, set **.790**. Bridge_hop baseline:
+  .780 / .940 / .670 / .720. Paired question-cluster bootstrap:
+  **set +.070 [.02, .13]**, ws +.060 [.01, .12]. Reproduces E17's .790.
+- Additive decomposition at the new default: hit .880 / node-not-queried .010 /
+  in-node depth .110. Routing is no longer the main structural gap; depth is.
+- Interaction, B=3 with per-node k=10 unchanged: D1 and bridge_hop return the
+  same 30-candidate union (set .790, ceiling .890). Route order differs on half
+  the questions, but dilution does not change. No gain.
+- Interaction, rank squash with retrained head: squash minus raw is 0.000
+  [0.00, 0.00] with D1 (.790) and without (.720). The earlier "no effect on
+  dense candidates" still holds; D1 introduced no interaction.
+- Raw numbers: `nbpw2/results/e19_d1_default.json`; the public demo trace is
+  regenerated with D1 in `e18_trace.json`.
 
 ## 0.7.0
 

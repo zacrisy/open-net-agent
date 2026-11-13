@@ -30,6 +30,10 @@ body::after{content:"";position:fixed;inset:0;z-index:-2;background-image:linear
 .eyebrow{font:9px/1.4 var(--mono);letter-spacing:.32em;color:var(--green);margin:0 0 14px}
 h2{font-size:clamp(38px,5.2vw,70px);line-height:1.02;letter-spacing:-.02em;margin:0 0 16px;font-weight:800}h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1px var(--green);text-shadow:0 0 34px rgba(77,255,184,.3)}
 .sub{color:var(--muted);max-width:540px;margin:0 0 22px;font-size:13.5px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.pipe{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0 0 16px;font:9px/1.4 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.pipe span{border:1px solid var(--line);background:rgba(9,18,28,.6);padding:5px 7px;color:var(--text)}
+.pipe span.on{border-color:var(--green);color:var(--green)}
+.pipe i{font-style:normal;color:var(--dim)}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 15px;text-decoration:none;font:10px/1 var(--mono);letter-spacing:.15em;border:1px solid var(--cyan);color:#021016;background:linear-gradient(90deg,var(--green),var(--cyan));cursor:pointer}.btn.ghost{background:transparent;color:var(--text);border-color:var(--line)}.btn:hover{filter:brightness(1.08)}
 .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;border-top:1px solid var(--line);padding-top:14px;max-width:560px}
 .hero-stats b{display:block;font:600 22px/1.1 var(--mono);color:var(--text)}.hero-stats span{font:8px/1.3 var(--mono);letter-spacing:.14em;color:var(--muted)}
@@ -188,6 +192,7 @@ details.evidence[open]>summary{border-color:rgba(255,200,87,.55)}
       <p class="eyebrow">OPEN-NET-AGENT // 多节点证据检索</p>
       <h2>跨多个节点找证据，<br><em>再给出有出处的答案。</em></h2>
       <p class="lead">你问一个问题，它先决定<b>去哪些节点找</b>（每个节点只持有一部分资料），在各节点召回段落，挑出能互相接上的那几段，读出答案，并标出用了哪几段。<span class="dim">不是另一个聊天框，也不要求把所有资料塞进同一个上下文。</span></p>
+      <div class="pipe"><span>问题</span><i>→</i><span class="on">节点路由（稠密 max-cos）</span><i>→</i><span>每节点稠密召回 k=10</span><i>→</i><span>readout</span><i>→</i><span>段落选择 K=5</span></div>
       <div class="cap-grid">
         <div class="cap"><b>跨节点取证</b><span>资料分散在不同节点/分片时，先路由、再分头召回。</span><em>场景：A 院有病历、B 院有检验报告，问“有没有用药禁忌”</em></div>
         <div class="cap"><b>多跳接链</b><span>第一段只给出桥梁实体，第二跳带着它去另一节点找属性。</span><em>场景：“这位作曲家的出生城市现在人口多少” → 作曲家 → 城市 → 人口</em></div>
@@ -202,15 +207,441 @@ details.evidence[open]>summary{border-color:rgba(255,200,87,.55)}
     </div>
     <div>
       <div class="cred">
-        <div><b>0.72</b><span>100 道多跳题里，两段标注证据都进了 top-5<small>set-level both@5 · 95% CI [.63,.81] · dmqa_dev test</small></span></div>
-        <div><b>0.78</b><span>候选池上限：池里没有的选不出来，当前离它 6 个点<small>pool ceiling · 剩下 22 点丢在“选错/读出”</small></span></div>
+        <div><b>0.79</b><span>100 道多跳题里，两段标注证据都进了 top-5<small>set-level both@5 · 95% CI [.71,.87] · dmqa_dev test</small></span></div>
+        <div><b>0.88</b><span>候选池上限：池里没有的选不出来，当前离它 9 个点<small>pool ceiling · 剩下 12 点丢在“选错/读出”</small></span></div>
         <div><b>0.14s</b><span>单题检索耗时（k=10，含查询编码）<small>本机中位数 · 不含后端网络与生成</small></span></div>
       </div>
       <div class="aside-note">这三个数不是营销数字：每个都能在页面底部「研究证据」里找到对应实验、置信区间和失败案例。演示用的是一道<b style="color:var(--green)">真跑过</b>的题，不是手写样例。</div>
     </div>
   </section>
 
-  <script id="traceData" type="application/json">{"meta":{"generated_at":"2026-11-12 15:43:46","harness":"dmqa_dev test split, frozen bridge_hop node choices B=2","config":{"n_nodes":3,"B":2,"recall":"dense","recall_k":10,"selector":"pair head, set-level greedy, K=5","encoder":"bge-small-en-v1.5"},"nodes":[{"id":0,"name":"节点 A","keywords":["film","battle","list","series","school","new","park","tv"]},{"id":1,"name":"节点 B","keywords":["football","song","team","album","cup","season","world","tech"]},{"id":2,"name":"节点 C","keywords":["united","john","states","election","james","earl","richard","st"]}],"selection_rule":"test 集中两段 gold 都被选进 top-5、且分属两个节点、问题较短的题；是展示样例，不是随机抽样","answer_method":"抽取式：优先桥接段落（锚点段落里的实体，正是另一段落的标题），段内按 idf 词面重合选句、按答案类型抽数字/日期/实体 span；未经 LLM 改写，也不是训练过的 QA 头","n_showcase_candidates":16},"trace":{"question":"Július Satinský was born in a city that has a current population of what?","id":"5a756fa15542996c70cfaefb","type":"bridge","level":"hard","gold_answer":"about 450,000","gold_titles":["Bratislava","Július Satinský"],"gold_nodes":[0,2],"route":[{"hop":1,"chosen":2,"anchor":null,"anchor_entities":[],"scores":[{"node":2,"name":"节点 C","title_gain":0.7143,"content_gain":1.0,"bm25":0.319,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.6824},{"node":0,"name":"节点 A","title_gain":0.5714,"content_gain":0.7143,"bm25":0.244,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.531},{"node":1,"name":"节点 B","title_gain":0.2857,"content_gain":0.5714,"bm25":0.227,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.3887}]},{"hop":2,"chosen":0,"anchor":"Július Satinský","anchor_entities":["august","bratislava","december","he","lasica","milan"],"scores":[{"node":0,"name":"节点 A","title_gain":0.1429,"content_gain":0.1429,"bm25":0.244,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.2382},{"node":1,"name":"节点 B","title_gain":0.0,"content_gain":0.1429,"bm25":0.227,"prior":0.5,"bridge":0.0,"bridge_entities":[],"total":0.1816}]}],"recall":[{"node":2,"name":"节点 C","hits":[{"rank":0,"score":0.7225,"title":"Július Satinský","gold":true,"snippet":"Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"},{"rank":1,"score":0.5055,"title":"Valentina Tereshkova","gold":false,"snippet":"Valentina Vladimirovna Tereshkova (Russian: Валенти́на Влади́мировна Терешко́ва ; ] ; born 6 March 1937) is a retired Russian cosmonaut, engineer, and politician.  She is the first woman to "},{"rank":2,"score":0.4918,"title":"Alexander Kerensky","gold":false,"snippet":"Alexander Fyodorovich Kerensky (Russian: Алекса́ндр Фёдорович Ке́ренский , ] ; 4 May 1881 – 11 June 1970) was a Russian lawyer and key political figure in the Russian Revolution of 1917.  Af"},{"rank":3,"score":0.4884,"title":"Mikhail Gorbachev","gold":false,"snippet":"Mikhail Sergeyevich Gorbachev, ( ; Russian: Михаи́л Серге́евич Горбачёв ; ] ; born 2 March 1931) is a former Soviet statesman.  He was the eighth and last leader of the Soviet Union, having "},{"rank":4,"score":0.4869,"title":"Orbis Pictus (film)","gold":false,"snippet":"Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"},{"rank":5,"score":0.4848,"title":"Columbia University","gold":false,"snippet":"Columbia University (Columbia; officially Columbia University in the City of New York), established in 1754, is a private Ivy League research university in Upper Manhattan, New York City, of"},{"rank":6,"score":0.4842,"title":"Andrei Kirilenko (politician)","gold":false,"snippet":"Andrei Pavlovich Kirilenko (Russian: Андре́й Па́влович Кириле́нко ; ] ; 8 September [O.S. 26 August] 1906 – 12 May 1990) was a Soviet statesman from the start to the end of the Cold War.  In"},{"rank":7,"score":0.481,"title":"Ralph Giannini","gold":false,"snippet":"Ralph \"Toddy\" Giannini (1917–1996), known to many as \"Hot Toddy,\" was a member of the 1940 All-American basketball team representing Santa Clara University.  He and his other teammates were "},{"rank":8,"score":0.4809,"title":"Dzvinia Orlowsky","gold":false,"snippet":"Dzvinia Orlowsky is a Ukrainian American poet, translator, editor, and professor.  She is author of five poetry collections including \"Convertible Night, Flurry of Stones\" (Carnegie Mellon U"},{"rank":9,"score":0.4796,"title":"Ferdi Taygan","gold":false,"snippet":"Ferdi Taygan (born December 5, 1956), is a former professional tennis player from the United States.  He is of Turkish descent."}],"gold_in_top10":true},{"node":0,"name":"节点 A","hits":[{"rank":0,"score":0.6353,"title":"Bratislava","gold":true,"snippet":"Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"},{"rank":1,"score":0.5891,"title":"Strasbourg","gold":false,"snippet":"Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"},{"rank":2,"score":0.5528,"title":"Addis Ababa","gold":false,"snippet":"Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"},{"rank":3,"score":0.5445,"title":"Chernivtsi","gold":false,"snippet":"Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"},{"rank":4,"score":0.5423,"title":"Worcester, Massachusetts","gold":false,"snippet":"Worcester ( , ] ) is a city and the county seat of Worcester County, Massachusetts, United States.  Named after Worcester, England, as of the 2010 Census the city's population was 181,045, m"},{"rank":5,"score":0.5408,"title":"Boston, Lincolnshire","gold":false,"snippet":"Boston ( ) is a town and small port in Lincolnshire, on the east coast of England.  It is the largest town of the wider Borough of Boston local government district.  The borough had a total "},{"rank":6,"score":0.5257,"title":"Pune district","gold":false,"snippet":"Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"},{"rank":7,"score":0.5256,"title":"Biratnagar","gold":false,"snippet":"Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."},{"rank":8,"score":0.5243,"title":"The Current War","gold":false,"snippet":"The Current War is a 2017 American biographical historical film directed by Alfonso Gomez-Rejon and written by Michael Mitnick.  The film stars Benedict Cumberbatch, Michael Shannon, Nichola"},{"rank":9,"score":0.5214,"title":"Parma Airport","gold":false,"snippet":"Parma Airport (Italian: \"Aeroporto di Parma\" , IATA: PMF, ICAO: LIMP ) is located 1.3 NM northwest of Parma, a city in the Emilia-Romagna region of Italy.  The airport was opened on 5 May 19"}],"gold_in_top10":true}],"recall_ms":15.6,"shortlist":[{"title":"Július Satinský","node":2,"name":"节点 C","rank":0,"verifier":0.9933,"gold":true,"snippet":"Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"},{"title":"Addis Ababa","node":0,"name":"节点 A","rank":2,"verifier":0.7111,"gold":false,"snippet":"Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"},{"title":"Chernivtsi","node":0,"name":"节点 A","rank":3,"verifier":0.6888,"gold":false,"snippet":"Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"},{"title":"Biratnagar","node":0,"name":"节点 A","rank":7,"verifier":0.6846,"gold":false,"snippet":"Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."},{"title":"Bratislava","node":0,"name":"节点 A","rank":0,"verifier":0.681,"gold":true,"snippet":"Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"},{"title":"Pune district","node":0,"name":"节点 A","rank":6,"verifier":0.6391,"gold":false,"snippet":"Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"},{"title":"Strasbourg","node":0,"name":"节点 A","rank":1,"verifier":0.5786,"gold":false,"snippet":"Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"},{"title":"Orbis Pictus (film)","node":2,"name":"节点 C","rank":4,"verifier":0.4979,"gold":false,"snippet":"Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"}],"selected":[{"n":1,"title":"Július Satinský","node":2,"name":"节点 C","rank":0,"verifier":0.9933,"gold":true,"text":"Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Satinský, however his scope of interest was wide."},{"n":2,"title":"Biratnagar","node":0,"name":"节点 A","rank":7,"verifier":0.6846,"gold":false,"text":"Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu.  Biratnagar is the industrial capital of Nepal and has a total area of 40.108 mi² (103.88 km²).  Its geographical location is 26°28'60\"N 87°16'60\"E.  The city is located in Morang District in the Kosi Zone of the eastern Terai region of Nepal.  It lies 399 km east of Nepal's capital, Kathmandu, and 6 km north of the border of the Indian state of Bihar.  It lies in the Province No. 1, as per the new Constitution of Nepal 2015.  It was declared as a Metropolitan city on 22nd of May, 2017 along with Birgunj"},{"n":3,"title":"Bratislava","node":0,"name":"节点 A","rank":0,"verifier":0.681,"gold":true,"text":"Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is in southwestern Slovakia, occupying both banks of the River Danube and the left bank of the River Morava.  Bordering Austria and Hungary, it is the only national capital that borders two sovereign states."},{"n":4,"title":"Pune district","node":0,"name":"节点 A","rank":6,"verifier":0.6391,"gold":false,"text":"Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India (out of 640).  Urban population comprises 58.08% of the total population.  The current population of Pune urban agglomerate is over 5 million."},{"n":5,"title":"Addis Ababa","node":0,"name":"节点 A","rank":2,"verifier":0.7111,"gold":false,"text":"Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is the capital and largest city of Ethiopia.  It has a population of 3,384,569 according to the 2007 population census, with annual growth rate of 3.8%.  This number has been increased from the originally published 2,738,248 figure and appears to be still largely underestimated."}],"answer":{"span":"450,000","sentence":"Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.","cite":3,"coverage":0.236,"focus_coverage":0.442,"qtype":"number","bridge_paragraph":2},"select_ms":472.1,"both_at_5":1.0},"latency":{"route_median_ms":1478.5,"recall_median_ms":30.3,"select_median_ms":559.8,"note":"本机 5 次中位数；路由含 3 个节点 BM25 预览建索引，读段含 verifier + 集合选择"}}</script>
+  <script id="traceData" type="application/json">{
+ "meta": {
+  "generated_at": "2026-11-13 11:52:48",
+  "harness": "dmqa_dev test split, D1 dense max-cosine node routing (default), B=2",
+  "config": {
+   "n_nodes": 3,
+   "B": 2,
+   "recall": "dense",
+   "recall_k": 10,
+   "node_route": "D1 dense max-cosine, independent top-2 (default)",
+   "selector": "pair head, set-level greedy, K=5",
+   "encoder": "bge-small-en-v1.5"
+  },
+  "nodes": [
+   {
+    "id": 0,
+    "name": "节点 A",
+    "keywords": [
+     "film",
+     "battle",
+     "list",
+     "series",
+     "school",
+     "new",
+     "park",
+     "tv"
+    ]
+   },
+   {
+    "id": 1,
+    "name": "节点 B",
+    "keywords": [
+     "football",
+     "song",
+     "team",
+     "album",
+     "cup",
+     "season",
+     "world",
+     "tech"
+    ]
+   },
+   {
+    "id": 2,
+    "name": "节点 C",
+    "keywords": [
+     "united",
+     "john",
+     "states",
+     "election",
+     "james",
+     "earl",
+     "richard",
+     "st"
+    ]
+   }
+  ],
+  "selection_rule": "test 集中两段 gold 都被选进 top-5、分属两个节点、抽取答案与标注一致、问题较短的题；是展示样例，不是随机抽样",
+  "answer_method": "抽取式：优先桥接段落（锚点段落里的实体，正是另一段落的标题），段内按 idf 词面重合选句、按答案类型抽数字/日期/实体 span；未经 LLM 改写，也不是训练过的 QA 头",
+  "n_showcase_candidates": 2
+ },
+ "trace": {
+  "question": "Július Satinský was born in a city that has a current population of what?",
+  "id": "5a756fa15542996c70cfaefb",
+  "type": "bridge",
+  "level": "hard",
+  "gold_answer": "about 450,000",
+  "gold_titles": [
+   "Bratislava",
+   "Július Satinský"
+  ],
+  "gold_nodes": [
+   0,
+   2
+  ],
+  "route": [
+   {
+    "hop": 1,
+    "chosen": 2,
+    "scores": [
+     {
+      "node": 2,
+      "name": "节点 C",
+      "max_cos": 0.7225,
+      "top3_mean": 0.5733,
+      "best_title": "Július Satinský"
+     },
+     {
+      "node": 0,
+      "name": "节点 A",
+      "max_cos": 0.6353,
+      "top3_mean": 0.5924,
+      "best_title": "Bratislava"
+     },
+     {
+      "node": 1,
+      "name": "节点 B",
+      "max_cos": 0.5165,
+      "top3_mean": 0.4969,
+      "best_title": "Summer Olympic Games"
+     }
+    ]
+   },
+   {
+    "hop": 2,
+    "chosen": 0,
+    "scores": [
+     {
+      "node": 0,
+      "name": "节点 A",
+      "max_cos": 0.6353,
+      "top3_mean": 0.5924,
+      "best_title": "Bratislava"
+     },
+     {
+      "node": 1,
+      "name": "节点 B",
+      "max_cos": 0.5165,
+      "top3_mean": 0.4969,
+      "best_title": "Summer Olympic Games"
+     }
+    ]
+   }
+  ],
+  "recall": [
+   {
+    "node": 2,
+    "name": "节点 C",
+    "hits": [
+     {
+      "rank": 0,
+      "score": 0.7225,
+      "title": "Július Satinský",
+      "gold": true,
+      "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"
+     },
+     {
+      "rank": 1,
+      "score": 0.5055,
+      "title": "Valentina Tereshkova",
+      "gold": false,
+      "snippet": "Valentina Vladimirovna Tereshkova (Russian: Валенти́на Влади́мировна Терешко́ва ; ] ; born 6 March 1937) is a retired Russian cosmonaut, engineer, and politician.  She is the first woman to "
+     },
+     {
+      "rank": 2,
+      "score": 0.4918,
+      "title": "Alexander Kerensky",
+      "gold": false,
+      "snippet": "Alexander Fyodorovich Kerensky (Russian: Алекса́ндр Фёдорович Ке́ренский , ] ; 4 May 1881 – 11 June 1970) was a Russian lawyer and key political figure in the Russian Revolution of 1917.  Af"
+     },
+     {
+      "rank": 3,
+      "score": 0.4884,
+      "title": "Mikhail Gorbachev",
+      "gold": false,
+      "snippet": "Mikhail Sergeyevich Gorbachev, ( ; Russian: Михаи́л Серге́евич Горбачёв ; ] ; born 2 March 1931) is a former Soviet statesman.  He was the eighth and last leader of the Soviet Union, having "
+     },
+     {
+      "rank": 4,
+      "score": 0.4869,
+      "title": "Orbis Pictus (film)",
+      "gold": false,
+      "snippet": "Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"
+     },
+     {
+      "rank": 5,
+      "score": 0.4848,
+      "title": "Columbia University",
+      "gold": false,
+      "snippet": "Columbia University (Columbia; officially Columbia University in the City of New York), established in 1754, is a private Ivy League research university in Upper Manhattan, New York City, of"
+     },
+     {
+      "rank": 6,
+      "score": 0.4842,
+      "title": "Andrei Kirilenko (politician)",
+      "gold": false,
+      "snippet": "Andrei Pavlovich Kirilenko (Russian: Андре́й Па́влович Кириле́нко ; ] ; 8 September [O.S. 26 August] 1906 – 12 May 1990) was a Soviet statesman from the start to the end of the Cold War.  In"
+     },
+     {
+      "rank": 7,
+      "score": 0.481,
+      "title": "Ralph Giannini",
+      "gold": false,
+      "snippet": "Ralph \"Toddy\" Giannini (1917–1996), known to many as \"Hot Toddy,\" was a member of the 1940 All-American basketball team representing Santa Clara University.  He and his other teammates were "
+     },
+     {
+      "rank": 8,
+      "score": 0.4809,
+      "title": "Dzvinia Orlowsky",
+      "gold": false,
+      "snippet": "Dzvinia Orlowsky is a Ukrainian American poet, translator, editor, and professor.  She is author of five poetry collections including \"Convertible Night, Flurry of Stones\" (Carnegie Mellon U"
+     },
+     {
+      "rank": 9,
+      "score": 0.4796,
+      "title": "Ferdi Taygan",
+      "gold": false,
+      "snippet": "Ferdi Taygan (born December 5, 1956), is a former professional tennis player from the United States.  He is of Turkish descent."
+     }
+    ],
+    "gold_in_top10": true
+   },
+   {
+    "node": 0,
+    "name": "节点 A",
+    "hits": [
+     {
+      "rank": 0,
+      "score": 0.6353,
+      "title": "Bratislava",
+      "gold": true,
+      "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"
+     },
+     {
+      "rank": 1,
+      "score": 0.5891,
+      "title": "Strasbourg",
+      "gold": false,
+      "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"
+     },
+     {
+      "rank": 2,
+      "score": 0.5528,
+      "title": "Addis Ababa",
+      "gold": false,
+      "snippet": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"
+     },
+     {
+      "rank": 3,
+      "score": 0.5445,
+      "title": "Chernivtsi",
+      "gold": false,
+      "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"
+     },
+     {
+      "rank": 4,
+      "score": 0.5423,
+      "title": "Worcester, Massachusetts",
+      "gold": false,
+      "snippet": "Worcester ( , ] ) is a city and the county seat of Worcester County, Massachusetts, United States.  Named after Worcester, England, as of the 2010 Census the city's population was 181,045, m"
+     },
+     {
+      "rank": 5,
+      "score": 0.5408,
+      "title": "Boston, Lincolnshire",
+      "gold": false,
+      "snippet": "Boston ( ) is a town and small port in Lincolnshire, on the east coast of England.  It is the largest town of the wider Borough of Boston local government district.  The borough had a total "
+     },
+     {
+      "rank": 6,
+      "score": 0.5257,
+      "title": "Pune district",
+      "gold": false,
+      "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"
+     },
+     {
+      "rank": 7,
+      "score": 0.5256,
+      "title": "Biratnagar",
+      "gold": false,
+      "snippet": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."
+     },
+     {
+      "rank": 8,
+      "score": 0.5243,
+      "title": "The Current War",
+      "gold": false,
+      "snippet": "The Current War is a 2017 American biographical historical film directed by Alfonso Gomez-Rejon and written by Michael Mitnick.  The film stars Benedict Cumberbatch, Michael Shannon, Nichola"
+     },
+     {
+      "rank": 9,
+      "score": 0.5214,
+      "title": "Parma Airport",
+      "gold": false,
+      "snippet": "Parma Airport (Italian: \"Aeroporto di Parma\" , IATA: PMF, ICAO: LIMP ) is located 1.3 NM northwest of Parma, a city in the Emilia-Romagna region of Italy.  The airport was opened on 5 May 19"
+     }
+    ],
+    "gold_in_top10": true
+   }
+  ],
+  "recall_ms": 0.5,
+  "shortlist": [
+   {
+    "title": "Július Satinský",
+    "node": 2,
+    "name": "节点 C",
+    "rank": 0,
+    "verifier": 0.9933,
+    "gold": true,
+    "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"
+   },
+   {
+    "title": "Addis Ababa",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 2,
+    "verifier": 0.7111,
+    "gold": false,
+    "snippet": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"
+   },
+   {
+    "title": "Chernivtsi",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 3,
+    "verifier": 0.6888,
+    "gold": false,
+    "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"
+   },
+   {
+    "title": "Biratnagar",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 7,
+    "verifier": 0.6846,
+    "gold": false,
+    "snippet": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."
+   },
+   {
+    "title": "Bratislava",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 0,
+    "verifier": 0.681,
+    "gold": true,
+    "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"
+   },
+   {
+    "title": "Pune district",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 6,
+    "verifier": 0.6391,
+    "gold": false,
+    "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"
+   },
+   {
+    "title": "Strasbourg",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 1,
+    "verifier": 0.5786,
+    "gold": false,
+    "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"
+   },
+   {
+    "title": "Orbis Pictus (film)",
+    "node": 2,
+    "name": "节点 C",
+    "rank": 4,
+    "verifier": 0.4979,
+    "gold": false,
+    "snippet": "Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"
+   }
+  ],
+  "selected": [
+   {
+    "n": 1,
+    "title": "Július Satinský",
+    "node": 2,
+    "name": "节点 C",
+    "rank": 0,
+    "verifier": 0.9933,
+    "gold": true,
+    "text": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Satinský, however his scope of interest was wide."
+   },
+   {
+    "n": 2,
+    "title": "Biratnagar",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 7,
+    "verifier": 0.6846,
+    "gold": false,
+    "text": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu.  Biratnagar is the industrial capital of Nepal and has a total area of 40.108 mi² (103.88 km²).  Its geographical location is 26°28'60\"N 87°16'60\"E.  The city is located in Morang District in the Kosi Zone of the eastern Terai region of Nepal.  It lies 399 km east of Nepal's capital, Kathmandu, and 6 km north of the border of the Indian state of Bihar.  It lies in the Province No. 1, as per the new Constitution of Nepal 2015.  It was declared as a Metropolitan city on 22nd of May, 2017 along with Birgunj"
+   },
+   {
+    "n": 3,
+    "title": "Bratislava",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 0,
+    "verifier": 0.681,
+    "gold": true,
+    "text": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is in southwestern Slovakia, occupying both banks of the River Danube and the left bank of the River Morava.  Bordering Austria and Hungary, it is the only national capital that borders two sovereign states."
+   },
+   {
+    "n": 4,
+    "title": "Pune district",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 6,
+    "verifier": 0.6391,
+    "gold": false,
+    "text": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India (out of 640).  Urban population comprises 58.08% of the total population.  The current population of Pune urban agglomerate is over 5 million."
+   },
+   {
+    "n": 5,
+    "title": "Addis Ababa",
+    "node": 0,
+    "name": "节点 A",
+    "rank": 2,
+    "verifier": 0.7111,
+    "gold": false,
+    "text": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is the capital and largest city of Ethiopia.  It has a population of 3,384,569 according to the 2007 population census, with annual growth rate of 3.8%.  This number has been increased from the originally published 2,738,248 figure and appears to be still largely underestimated."
+   }
+  ],
+  "answer": {
+   "span": "450,000",
+   "sentence": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.",
+   "cite": 3,
+   "coverage": 0.236,
+   "focus_coverage": 0.442,
+   "qtype": "number",
+   "bridge_paragraph": 2
+  },
+  "select_ms": 124.2,
+  "both_at_5": 1.0
+ },
+ "latency": {
+  "query_encode_median_ms": 98.5,
+  "route_median_ms": 17.4,
+  "recall_median_ms": 9.8,
+  "select_median_ms": 176.2,
+  "note": "本机 5 次中位数；路由 = 查询编码 + 3 个节点最大余弦点积；召回 = 每节点 k=10 稠密打分；读段含 verifier + 集合选择"
+ }
+}</script>
 
   <div class="section-title" id="demo"><h3>一道真实多跳题，从头跑到尾</h3><span>REAL TRACE · 浏览器内可展开 / 可跳步 · 非示意</span></div>
   <section class="demo">
@@ -231,7 +662,7 @@ details.evidence[open]>summary{border-color:rgba(255,200,87,.55)}
     <div class="bcard">
       <b>擅长 · WHAT IT IS GOOD AT</b>
       <p>需要跨节点/跨分片找证据、且有明确段落可引用的多跳问题。答案能指到“第几段、哪个节点”。</p>
-      <p><strong>已验证：</strong>dmqa_dev 100 道多跳题、3 个合成分片节点，both@5 = 0.72；PubMed 87 条 claim 的检索 Hit@1 = 1.00。</p>
+      <p><strong>已验证：</strong>dmqa_dev 100 道多跳题、3 个合成分片节点，both@5 = 0.79；PubMed 87 条 claim 的检索 Hit@1 = 1.00。</p>
     </div>
     <div class="bcard">
       <b>不适用 · NOT A FIT</b>
@@ -245,8 +676,8 @@ details.evidence[open]>summary{border-color:rgba(255,200,87,.55)}
     </div>
     <div class="bcard honest">
       <b>离 oracle 多远 · DISTANCE TO ORACLE</b>
-      <p>候选池上限 .78 → 实际选中 .72，差 6 个点卡在“选错/读出”。三项可加总分解：命中 .78 / 节点未查 .11 / 深度不足 .11。</p>
-      <p><strong>样本不足：</strong>跨节点只有 33 题，bootstrap CI 半宽约 ±.07，不能支持“节点更多更好”这类结论；多节点 33 题样本不足，D1 路由改进（.720→.790）仍只是实验结论、未改默认。</p>
+      <p>候选池上限 .88 → 实际选中 .79，差 9 个点卡在“选错/读出”。三项可加总分解：命中 .88 / 节点未查 .01 / 深度不足 .11——路由已不是主要缺口。</p>
+      <p><strong>样本不足：</strong>跨节点只有 33 题，bootstrap CI 半宽约 ±.07，不能支持“节点更多更好”这类结论。D1 稠密路由已设为默认（100 题上 .720→.790，+7pt，配对 CI [.02,.13]），但跨节点子集仍不足以单独下结论；B=3 不加预算时与旧路由同解，未见额外收益。</p>
     </div>
   </section>
 
@@ -973,10 +1404,10 @@ setMode('research'); refreshBrain(); drawBrain(); loadImprovements(); if(QS.get(
   let cur=0;
 
   elQ.textContent=T.question;
-  elM.innerHTML=`REAL TRACE · ${esc(T.id)} · ${esc(T.type||'')} / ${esc(T.level||'')} · 由 e18_trace.py 在 ${esc(M.generated_at||'')} 落盘 · 默认链路（dense k=${esc((M.config||{}).recall_k)} / B=${esc((M.config||{}).B)} / set K=5）`;
+  elM.innerHTML=`REAL TRACE · ${esc(T.id)} · ${esc(T.type||'')} / ${esc(T.level||'')} · 由 e18_trace.py 在 ${esc(M.generated_at||'')} 落盘 · 默认链路（节点路由 D1 稠密 top-2 / dense k=${esc((M.config||{}).recall_k)} / B=${esc((M.config||{}).B)} / set K=5）`;
   elS.innerHTML=STEPS.map((s,i)=>`<button data-i="${i}"><b>${s[0]}</b>${s[1]}</button>`).join('');
   elS.querySelectorAll('button').forEach(b=>b.onclick=()=>go(+b.dataset.i));
-  elF.innerHTML=`题面与段落来自 dmqa_dev test split，trace 落盘于 ${esc(M.generated_at||'')}。这是<b>展示样例</b>：挑选条件是“两段 gold 都被选进 top-5、分属两个节点、问题较短”，不是随机抽样。答案读法是抽取式（选句 + 抽 span），没有 LLM 改写；评测口径只看段落 both@5。`;
+  elF.innerHTML=`题面与段落来自 dmqa_dev test split，trace 落盘于 ${esc(M.generated_at||'')}。这是<b>展示样例</b>：挑选条件是“两段 gold 都被选进 top-5、分属两个节点、抽取答案与标注一致、问题较短”，不是随机抽样。答案读法是抽取式（选句 + 抽 span），没有 LLM 改写；评测口径只看段落 both@5。`;
 
   function go(i){
     cur=Math.max(0,Math.min(4,i));
@@ -1000,20 +1431,19 @@ setMode('research'); refreshBrain(); drawBrain(); loadImprovements(); if(QS.get(
   function stepRoute(){
     const hops=(T.route||[]).map(h=>{
       const cards=h.scores.map(s=>{
-        const pct=Math.min(100,Math.max(3,s.total/0.72*100));
+        const pct=Math.min(100,Math.max(3,s.max_cos/0.75*100));
         const chosen=s.node===h.chosen;
         return `<div class="node-card ${chosen?'hit':''}">
-          <div class="nhead"><b>${NAME(s.node)}${chosen?' ✓ 选中':''}</b><span>复合分 ${f3(s.total)}</span></div>
+          <div class="nhead"><b>${NAME(s.node)}${chosen?' ✓ 选中':''}</b><span>max cos ${f3(s.max_cos)}</span></div>
           <div class="bar"><i style="width:${pct}%"></i></div>
           <div class="snippet">${esc(KW(s.node))}</div>
-          <div class="snippet">标题增益 ${f3(s.title_gain)} · 内容增益 ${f3(s.content_gain)} · BM25 ${f3(s.bm25)} · 类型先验 ${f3(s.prior)} · 桥接 ${f3(s.bridge)}${s.bridge_entities.length?' ('+s.bridge_entities.map(esc).join(', ')+')':''}</div>
+          <div class="snippet">最相似段落：${esc(s.best_title)} · 前三段均值 ${f3(s.top3_mean)}</div>
         </div>`;
       }).join('');
-      const anchor=h.anchor?`<div class="snippet">上一跳锚点段落：${esc(h.anchor)}${h.anchor_entities.length?' · 可桥接实体：'+h.anchor_entities.map(esc).join(', '):''}</div>`:'';
-      const why=h.hop===1?'第一跳只用问题本身打分：标题/内容里有多少问题词、BM25 词面分、以及问题类型的历史可靠性。':'第二跳带着上一跳段落里的实体去比；本题没有触发桥接加分（bridge=0），是靠基础分选中的——这点如实保留。';
-      return `<div style="margin-bottom:10px"><div class="nhead" style="margin-bottom:4px"><b>第 ${h.hop} 跳</b><span>选中 ${NAME(h.chosen)}</span></div>${anchor}${cards}<div class="snippet" style="margin-top:4px">${why}</div></div>`;
+      const why=h.hop===1?'D1 用问题向量给每个节点打分：取该节点所有段落与问题的最大余弦，最高分的节点先查。':'第二跳不做条件化：在剩下的节点里直接取分数最高的那个（独立 top-2）。';
+      return `<div style="margin-bottom:10px"><div class="nhead" style="margin-bottom:4px"><b>第 ${h.hop} 名</b><span>选中 ${NAME(h.chosen)}</span></div>${cards}<div class="snippet" style="margin-top:4px">${why}</div></div>`;
     }).join('');
-    return `<div class="snippet" style="margin-bottom:8px">节点 = 只持有一部分资料的分片。B=2 表示预算两跳、最多查两个节点。BM25 = 词面匹配分；先验 = 该问题类型过去在这个节点上的命中率。</div>${hops}`;
+    return `<div class="snippet" style="margin-bottom:8px">节点 = 只持有一部分资料的分片。默认路由 D1：用 bge-small-en-v1.5 编码问题，对每个节点取“问题与该节点所有段落的最大余弦”，独立取前 2 个节点（K=3 时就是不做条件化的 top-2）——不是按标题词面或历史命中率。</div>${hops}`;
   }
 
   function stepRecall(){
@@ -1030,7 +1460,7 @@ setMode('research'); refreshBrain(); drawBrain(); loadImprovements(); if(QS.get(
     return `<div class="snippet" style="margin-bottom:6px">verifier = 一个小模型给“问题 × 候选段落”打相关性分；集合选择在候选里贪心挑 5 段，尽量覆盖两跳需要的信息。</div>
       <div class="node-card"><div class="nhead"><b>候选打分（前 8）</b><span>${(T.shortlist||[]).length} 条</span></div>${short}</div>
       <div class="nhead" style="margin:10px 0 4px"><b>最终选中 top-5</b><span>gold 命中 ${(T.selected||[]).filter(s=>s.gold).length} / 2</span></div>${sel}
-      <div class="snippet">注意：按 verifier 单分排序时 Bratislava 只排第 5，集合选择把它提到第 3 —— 这是“覆盖两跳”而不是“单段最相关”。本机读段中位数 ${esc(L.select_median_ms||'--')} ms。</div>`;
+      <div class="snippet">注意：单段最相关 ≠ 覆盖两跳。集合选择在 ${(T.shortlist||[]).length} 个候选里挑 5 段，既留下锚点段《${esc((T.selected||[{}])[0].title||'')}》，也把它正文里提到的《${esc(((T.selected||[]).find(s=>s.gold&&s.rank===0&&s.n!==1)||{}).title||'Bratislava')}》一起带上。本机读段中位数 ${esc(L.select_median_ms||'--')} ms。</div>`;
   }
 
   function stepAns(){

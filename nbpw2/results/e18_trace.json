@@ -1,12 +1,13 @@
 {
  "meta": {
-  "generated_at": "2026-11-12 15:43:46",
-  "harness": "dmqa_dev test split, frozen bridge_hop node choices B=2",
+  "generated_at": "2026-11-13 11:52:48",
+  "harness": "dmqa_dev test split, D1 dense max-cosine node routing (default), B=2",
   "config": {
    "n_nodes": 3,
    "B": 2,
    "recall": "dense",
    "recall_k": 10,
+   "node_route": "D1 dense max-cosine, independent top-2 (default)",
    "selector": "pair head, set-level greedy, K=5",
    "encoder": "bge-small-en-v1.5"
   },
@@ -54,9 +55,9 @@
     ]
    }
   ],
-  "selection_rule": "test 集中两段 gold 都被选进 top-5、且分属两个节点、问题较短的题；是展示样例，不是随机抽样",
+  "selection_rule": "test 集中两段 gold 都被选进 top-5、分属两个节点、抽取答案与标注一致、问题较短的题；是展示样例，不是随机抽样",
   "answer_method": "抽取式：优先桥接段落（锚点段落里的实体，正是另一段落的标题），段内按 idf 词面重合选句、按答案类型抽数字/日期/实体 span；未经 LLM 改写，也不是训练过的 QA 头",
-  "n_showcase_candidates": 16
+  "n_showcase_candidates": 2
  },
  "trace": {
   "question": "Július Satinský was born in a city that has a current population of what?",
@@ -76,78 +77,47 @@
    {
     "hop": 1,
     "chosen": 2,
-    "anchor": null,
-    "anchor_entities": [],
     "scores": [
      {
       "node": 2,
       "name": "节点 C",
-      "title_gain": 0.7143,
-      "content_gain": 1.0,
-      "bm25": 0.319,
-      "prior": 0.5,
-      "bridge": 0.0,
-      "bridge_entities": [],
-      "total": 0.6824
+      "max_cos": 0.7225,
+      "top3_mean": 0.5733,
+      "best_title": "Július Satinský"
      },
      {
       "node": 0,
       "name": "节点 A",
-      "title_gain": 0.5714,
-      "content_gain": 0.7143,
-      "bm25": 0.244,
-      "prior": 0.5,
-      "bridge": 0.0,
-      "bridge_entities": [],
-      "total": 0.531
+      "max_cos": 0.6353,
+      "top3_mean": 0.5924,
+      "best_title": "Bratislava"
      },
      {
       "node": 1,
       "name": "节点 B",
-      "title_gain": 0.2857,
-      "content_gain": 0.5714,
-      "bm25": 0.227,
-      "prior": 0.5,
-      "bridge": 0.0,
-      "bridge_entities": [],
-      "total": 0.3887
+      "max_cos": 0.5165,
+      "top3_mean": 0.4969,
+      "best_title": "Summer Olympic Games"
      }
     ]
    },
    {
     "hop": 2,
     "chosen": 0,
-    "anchor": "Július Satinský",
-    "anchor_entities": [
-     "august",
-     "bratislava",
-     "december",
-     "he",
-     "lasica",
-     "milan"
-    ],
     "scores": [
      {
       "node": 0,
       "name": "节点 A",
-      "title_gain": 0.1429,
-      "content_gain": 0.1429,
-      "bm25": 0.244,
-      "prior": 0.5,
-      "bridge": 0.0,
-      "bridge_entities": [],
-      "total": 0.2382
+      "max_cos": 0.6353,
+      "top3_mean": 0.5924,
+      "best_title": "Bratislava"
      },
      {
       "node": 1,
       "name": "节点 B",
-      "title_gain": 0.0,
-      "content_gain": 0.1429,
-      "bm25": 0.227,
-      "prior": 0.5,
-      "bridge": 0.0,
-      "bridge_entities": [],
-      "total": 0.1816
+      "max_cos": 0.5165,
+      "top3_mean": 0.4969,
+      "best_title": "Summer Olympic Games"
      }
     ]
    }
@@ -308,7 +278,7 @@
     "gold_in_top10": true
    }
   ],
-  "recall_ms": 15.6,
+  "recall_ms": 0.5,
   "shortlist": [
    {
     "title": "Július Satinský",
@@ -444,13 +414,14 @@
    "qtype": "number",
    "bridge_paragraph": 2
   },
-  "select_ms": 472.1,
+  "select_ms": 124.2,
   "both_at_5": 1.0
  },
  "latency": {
-  "route_median_ms": 1478.5,
-  "recall_median_ms": 30.3,
-  "select_median_ms": 559.8,
-  "note": "本机 5 次中位数；路由含 3 个节点 BM25 预览建索引，读段含 verifier + 集合选择"
+  "query_encode_median_ms": 98.5,
+  "route_median_ms": 17.4,
+  "recall_median_ms": 9.8,
+  "select_median_ms": 176.2,
+  "note": "本机 5 次中位数；路由 = 查询编码 + 3 个节点最大余弦点积；召回 = 每节点 k=10 稠密打分；读段含 verifier + 集合选择"
  }
 }
