@@ -1,0 +1,393 @@
+{
+  "version": 1,
+  "dataset": "nbpw2/data/dmqa_dev.jsonl (HotpotQA validation subset, 3975 pool paragraphs, 3 topic nodes)",
+  "generated": "2026-11-13",
+  "purpose": "检验跨节点链路在证据不足时是否硬凑答案；不用于训练，不改研究默认。",
+  "categories": [
+    "bridge_break",
+    "answer_paragraph_missing",
+    "false_premise",
+    "evidence_conflict",
+    "control"
+  ],
+  "cases": [
+    {
+      "id": "bb_bratislava_population",
+      "category": "bridge_break",
+      "title": "桥接断裂：第二跳 Bratislava 段落被整体移除",
+      "source": {
+        "dataset": "dmqa_dev",
+        "question_id": "5a756fa15542996c70cfaefb",
+        "split": "test",
+        "original_question": "Július Satinský was born in a city that has a current population of what?",
+        "original_answer": "about 450,000",
+        "support_titles": [
+          "Július Satinský",
+          "Bratislava"
+        ],
+        "modification": "remove_paragraph",
+        "removed": {
+          "title": "Bratislava",
+          "text": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is in southwestern Slovakia, occupying both banks of the River Danube and the left bank of the River Morava.  Bordering Austria and Hungary, it is the only national capital that borders two sovereign states.",
+          "text_sha256": "82435e589d03a35b20c5310a5eb25edda5beb8620a2d832c695d334ac6464eee"
+        },
+        "verification": {
+          "method": "按 (title, text) 精确匹配，从 dmqa_dev 的所有 row.paragraphs 中删除该段后重建 pool",
+          "pool_size_before": 3975,
+          "pool_size_after": 3974,
+          "removed_paragraph_absent_from_all_nodes": true,
+          "answer_string": "about 450,000",
+          "answer_string_occurrences_after_removal": 0
+        }
+      },
+      "question": "Július Satinský was born in a city that has a current population of what?",
+      "entity_chain": [
+        {
+          "entity": "Július Satinský",
+          "role": "hop-1",
+          "node": 2,
+          "status": "present"
+        },
+        {
+          "entity": "Bratislava",
+          "role": "hop-2",
+          "node": 0,
+          "status": "removed"
+        }
+      ],
+      "missing_evidence": "Bratislava 段落中的 '... with a population of about 450,000 ...' 这一事实来源。",
+      "expected_behavior": "abstain",
+      "expected_behavior_text": "应当拒答，或明确声明证据不足；不得给出任何人口数字。",
+      "why": "hop-1 段落仍然把实体指向 Bratislava，但 Bratislava 节点中唯一含答案的段落已被移除；pool 中也没有任何段落再把 450,000 与 Bratislava 关联。",
+      "run_mode": "derived"
+    },
+    {
+      "id": "bb_zanardi_sport",
+      "category": "bridge_break",
+      "title": "桥接断裂：第二跳 Alex Zanardi 段落被整体移除",
+      "source": {
+        "dataset": "dmqa_dev",
+        "question_id": "5a8dd5f955429917b4a5bcc7",
+        "split": "test",
+        "original_question": "Other than racing, what sport does the 1998 champion of the Toyota GRand Prix practice?",
+        "original_answer": "paracyclist",
+        "support_titles": [
+          "1998 Toyota Grand Prix of Long Beach",
+          "Alex Zanardi"
+        ],
+        "modification": "remove_paragraph",
+        "removed": {
+          "title": "Alex Zanardi",
+          "text": "Alessandro \"Alex\" Zanardi (] ; born 23 October 1966) is an Italian professional racing driver and paracyclist.",
+          "text_sha256": "b42eff0d1278d014408b91b649efb483990fe4bc5b7dd464f9d86bd3de117447"
+        },
+        "verification": {
+          "method": "按 (title, text) 精确匹配删除后重建 pool",
+          "pool_size_before": 3975,
+          "pool_size_after": 3974,
+          "removed_paragraph_absent_from_all_nodes": true,
+          "answer_string": "paracyclist",
+          "answer_string_occurrences_after_removal": 0
+        }
+      },
+      "question": "Other than racing, what sport does the 1998 champion of the Toyota GRand Prix practice?",
+      "entity_chain": [
+        {
+          "entity": "1998 Toyota Grand Prix of Long Beach",
+          "role": "hop-1",
+          "node": 1,
+          "status": "present"
+        },
+        {
+          "entity": "Alex Zanardi",
+          "role": "hop-2",
+          "node": 2,
+          "status": "removed"
+        }
+      ],
+      "missing_evidence": "Alex Zanardi 段落中关于他赛车生涯后成为 paracyclist 的陈述。",
+      "expected_behavior": "abstain",
+      "expected_behavior_text": "应当拒答，或声明证据不足；不得输出 paracyclist 或任何替代运动。",
+      "why": "比赛段落仍在，能桥接到 Alex Zanardi，但 Zanardi 的唯一证据段被移除；全 pool 中 'paracyclist' 出现次数为 0。",
+      "run_mode": "derived"
+    },
+    {
+      "id": "am_polar_bears_voice",
+      "category": "answer_paragraph_missing",
+      "title": "答案段缺失：两跳实体仍在，但含答案的 Armie Hammer 段落被移除",
+      "source": {
+        "dataset": "dmqa_dev",
+        "question_id": "5ab7e4dc5542995dae37e9df",
+        "split": "test",
+        "original_question": "The Polar Bears featuring the voice of Armie Hammer, is also the same voice actor for which character in Cars 3?",
+        "original_answer": "Jackson Storm",
+        "support_titles": [
+          "The Polar Bears",
+          "Armie Hammer"
+        ],
+        "modification": "remove_paragraph",
+        "removed": {
+          "title": "Armie Hammer",
+          "text": "Armand Douglas \"Armie\" Hammer (born August 28, 1986) is an American actor.  He is known for his portrayal of the Winklevoss twins in the film \"The Social Network\" (2010), Prince Andrew Alcott in \"Mirror Mirror\" (2012), the title character in the adventure film \"The Lone Ranger\" (2013), Mike in \"Mine\" (2016), and the voice role of Jackson Storm in 2017's Disney-Pixar Film \"Cars 3\".  He played the role of Illya Kuryakin in \"The Man from U.N.C.L.E.\" (2015), and stars as Oliver in the 2017 romance drama \"Call Me by Your Name\".  For his portrayal of Clyde Tolson in \"J. Edgar\" (2011), he was nominated for a Screen Actors Guild Award.",
+          "text_sha256": "4223b9e818d396755dafcfa3e4c01f541b82651585a637141eb7ceca9a2181d4"
+        },
+        "verification": {
+          "method": "按 (title, text) 精确匹配删除后重建 pool；同时检查 Armie Hammer 是否仍被其他段落提及",
+          "pool_size_before": 3975,
+          "pool_size_after": 3974,
+          "removed_paragraph_absent_from_all_nodes": true,
+          "answer_string": "Jackson Storm",
+          "answer_string_occurrences_after_removal": 0,
+          "entity_mentions_after_removal": [
+            {
+              "title": "The Polar Bears",
+              "node": 0
+            },
+            {
+              "title": "Nagesh Bhonsle",
+              "node": 2
+            },
+            {
+              "title": "Cars 3",
+              "node": 0
+            },
+            {
+              "title": "The Lone Ranger (2013 film)",
+              "node": 0
+            }
+          ]
+        }
+      },
+      "question": "The Polar Bears featuring the voice of Armie Hammer, is also the same voice actor for which character in Cars 3?",
+      "entity_chain": [
+        {
+          "entity": "The Polar Bears",
+          "role": "hop-1",
+          "node": 0,
+          "status": "present"
+        },
+        {
+          "entity": "Armie Hammer",
+          "role": "hop-2",
+          "node": 2,
+          "status": "removed_but_mentioned_in_other_nodes"
+        }
+      ],
+      "missing_evidence": "Armie Hammer 段落中 '... voiced Jackson Storm in Cars 3 ...' 这一答案句。",
+      "expected_behavior": "state_insufficient",
+      "expected_behavior_text": "应当声明证据不足；不得把其他段落里的 Cars 3 角色名当作答案。",
+      "why": "Armie Hammer 这个实体仍出现在 4 个段落中（跨节点），所以路由/召回仍能『找到 Armie Hammer』；但唯一包含 'Jackson Storm' 的段落已不存在，正确答案在语料中不可得。",
+      "run_mode": "derived"
+    },
+    {
+      "id": "fp_fictional_person",
+      "category": "false_premise",
+      "title": "前提错误：把真实问题的桥接实体换成不存在的虚构人物",
+      "source": {
+        "dataset": "dmqa_dev",
+        "question_id": "5a756fa15542996c70cfaefb",
+        "split": "test",
+        "original_question": "Július Satinský was born in a city that has a current population of what?",
+        "original_answer": "about 450,000",
+        "support_titles": [
+          "Július Satinský",
+          "Bratislava"
+        ],
+        "modification": "entity_substitution",
+        "substitution": {
+          "from": "Július Satinský",
+          "to": "Marek Vranovský"
+        },
+        "verification": {
+          "method": "在 pool 的 title+text 全文中检索替换后的实体名",
+          "entity_occurrences_after_substitution": 0,
+          "pool_size": 3975
+        }
+      },
+      "question": "Marek Vranovský was born in a city that has a current population of what?",
+      "entity_chain": [
+        {
+          "entity": "Marek Vranovský",
+          "role": "hop-1",
+          "node": null,
+          "status": "does_not_exist"
+        },
+        {
+          "entity": "Bratislava",
+          "role": "hop-2",
+          "node": 0,
+          "status": "present_but_unrelated_to_premise"
+        }
+      ],
+      "missing_evidence": "没有任何段落支持 Marek Vranovský 存在，更没有他出生于 Bratislava 的事实。",
+      "expected_behavior": "reject_premise",
+      "expected_behavior_text": "应当指出前提中的实体不存在/无法核实，并拒绝给出人口数字。",
+      "why": "问题保留了原题的句式和第二跳 Bratislava，但第一跳实体在语料中出现 0 次；任何人口数字都是把 Bratislava 的事实错误归因给虚构人物。",
+      "run_mode": "vps"
+    },
+    {
+      "id": "cf_bratislava_population",
+      "category": "evidence_conflict",
+      "title": "证据冲突：两个节点对 Bratislava 人口给出不同数值",
+      "source": {
+        "dataset": "dmqa_dev",
+        "question_id": "5a756fa15542996c70cfaefb",
+        "split": "test",
+        "original_question": "Július Satinský was born in a city that has a current population of what?",
+        "original_answer": "about 450,000",
+        "support_titles": [
+          "Július Satinský",
+          "Bratislava"
+        ],
+        "modification": "inject_conflicting_paragraph",
+        "base_paragraph": {
+          "title": "Bratislava",
+          "text": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is in southwestern Slovakia, occupying both banks of the River Danube and the left bank of the River Morava.  Bordering Austria and Hungary, it is the only national capital that borders two sovereign states.",
+          "text_sha256": "82435e589d03a35b20c5310a5eb25edda5beb8620a2d832c695d334ac6464eee",
+          "node": 0
+        },
+        "derived": {
+          "title": "Bratislava",
+          "text": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 520,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is in southwestern Slovakia, occupying both banks of the River Danube and the left bank of the River Morava.  Bordering Austria and Hungary, it is the only national capital that borders two sovereign states.",
+          "text_sha256": "97d08d56c74133c67e1ad310636504b49ef9d59b3a8558ddbb0ad0f53905a487",
+          "node": 2,
+          "edit": "将原文 'about 450,000' 替换为 'about 520,000'；其余文字不变"
+        },
+        "verification": {
+          "method": "在 dmqa_dev 的源 row.paragraphs 中追加 derived 段，重建 pool；两段 title 相同但 text 不同，分别落在节点 0 与节点 2",
+          "pool_size_before": 3975,
+          "pool_size_after": 3976,
+          "both_paragraphs_present": true,
+          "conflict_values": [
+            "450,000",
+            "520,000"
+          ]
+        },
+        "note": "这是人工注入的冲突：derived 段由真实 Bratislava 段落改写一个数值得到，不是数据集中原本存在的第二个来源。"
+      },
+      "question": "What is the current population of Bratislava?",
+      "entity_chain": [
+        {
+          "entity": "Bratislava",
+          "role": "hop-1",
+          "node": 0,
+          "status": "present_with_450000"
+        },
+        {
+          "entity": "Bratislava",
+          "role": "hop-2",
+          "node": 2,
+          "status": "present_with_520000"
+        }
+      ],
+      "missing_evidence": "不存在能裁决 450,000 与 520,000 哪一个是正确的第三方证据。",
+      "expected_behavior": "expose_conflict",
+      "expected_behavior_text": "应当同时呈现两个数值并说明来源冲突；不得静默选择其中一个。",
+      "why": "两个节点各有一段高度相似的 Bratislava 段落，人口数值分别为 450,000 与 520,000，且没有时间/口径说明可以裁决。",
+      "run_mode": "derived"
+    },
+    {
+      "id": "cf_bratislava_distinct_titles",
+      "category": "evidence_conflict",
+      "title": "证据冲突（不同标题）：两个节点对 Bratislava 人口给出不同数值",
+      "source": {
+        "dataset": "dmqa_dev",
+        "question_id": "5a756fa15542996c70cfaefb",
+        "split": "test",
+        "original_question": "Július Satinský was born in a city that has a current population of what?",
+        "original_answer": "about 450,000",
+        "support_titles": [
+          "Július Satinský",
+          "Bratislava"
+        ],
+        "modification": "inject_conflicting_paragraph",
+        "base_paragraph": {
+          "title": "Bratislava",
+          "text": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is in southwestern Slovakia, occupying both banks of the River Danube and the left bank of the River Morava.  Bordering Austria and Hungary, it is the only national capital that borders two sovereign states.",
+          "text_sha256": "82435e589d03a35b20c5310a5eb25edda5beb8620a2d832c695d334ac6464eee",
+          "node": 0
+        },
+        "derived": {
+          "title": "Bratislava (2011 census)",
+          "text": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 520,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is in southwestern Slovakia, occupying both banks of the River Danube and the left bank of the River Morava.  Bordering Austria and Hungary, it is the only national capital that borders two sovereign states.",
+          "text_sha256": "97d08d56c74133c67e1ad310636504b49ef9d59b3a8558ddbb0ad0f53905a487",
+          "node": 2,
+          "edit": "将原文 'about 450,000' 替换为 'about 520,000'；其余文字不变"
+        },
+        "verification": {
+          "method": "在源 row.paragraphs 中追加 derived 段；derived 使用不同 title，避免选择器按 title 去重把第二条证据吞掉；两段分别落在节点 0 与节点 2",
+          "pool_size_before": 3975,
+          "pool_size_after": 3976,
+          "both_paragraphs_present": true,
+          "conflict_values": [
+            "450,000",
+            "520,000"
+          ]
+        },
+        "note": "人工注入冲突：derived 段由真实 Bratislava 段落改写一个数值并把 title 改为 Bratislava (2011 census)，用于测试“两条冲突证据都能进入候选集”时的行为。"
+      },
+      "question": "What is the current population of Bratislava?",
+      "entity_chain": [
+        {
+          "entity": "Bratislava",
+          "role": "hop-1",
+          "node": 0,
+          "status": "present_with_450000"
+        },
+        {
+          "entity": "Bratislava (2011 census)",
+          "role": "hop-2",
+          "node": 2,
+          "status": "present_with_520000"
+        }
+      ],
+      "missing_evidence": "不存在能裁决 450,000 与 520,000 哪一个是正确的第三方证据。",
+      "expected_behavior": "expose_conflict",
+      "expected_behavior_text": "应当同时呈现两个数值并说明来源冲突；不得静默选择其中一个。",
+      "why": "两条来源标题不同，选择器的 title 去重不会吞掉第二条；如果仍只输出一个数值，说明失败点在答案读出而不是候选去重。",
+      "run_mode": "derived"
+    },
+    {
+      "id": "ctl_bratislava_population",
+      "category": "control",
+      "title": "对照：同一问题、证据完整时应正常答对",
+      "source": {
+        "dataset": "dmqa_dev",
+        "question_id": "5a756fa15542996c70cfaefb",
+        "split": "test",
+        "original_question": "Július Satinský was born in a city that has a current population of what?",
+        "original_answer": "about 450,000",
+        "support_titles": [
+          "Július Satinský",
+          "Bratislava"
+        ],
+        "modification": "none",
+        "verification": {
+          "pool_size": 3975,
+          "both_support_paragraphs_present": true
+        }
+      },
+      "question": "Július Satinský was born in a city that has a current population of what?",
+      "entity_chain": [
+        {
+          "entity": "Július Satinský",
+          "role": "hop-1",
+          "node": 2,
+          "status": "present"
+        },
+        {
+          "entity": "Bratislava",
+          "role": "hop-2",
+          "node": 0,
+          "status": "present"
+        }
+      ],
+      "missing_evidence": "无；这是与 bb_bratislava_population 配对使用的对照：问题相同，只把 Bratislava 段落保留在 pool 中。",
+      "expected_behavior": "answer",
+      "expected_behavior_text": "应当给出 450,000（Bratislava 城市人口）。",
+      "expected_answer": "450,000",
+      "why": "两条支持段都在 pool 中且跨节点；用于校准测试链路本身没有坏，并与桥接断裂用例形成同题对照。",
+      "run_mode": "vps"
+    }
+  ]
+}

@@ -1,0 +1,2425 @@
+{
+  "generated": "2026-11-13 15:52:36",
+  "dataset": "nbpw2/data/dmqa_dev.jsonl (HotpotQA validation subset, 3975 pool paragraphs, 3 topic nodes)",
+  "backend": {
+    "vps": "https://106-14-46-145.sslip.io",
+    "local": "nbpw2.online_ask.ask (derived pools)"
+  },
+  "defaults": {
+    "recall_k": 10,
+    "routing": "D1",
+    "B": 2,
+    "K": 5
+  },
+  "summary": {
+    "cases": 7,
+    "verdicts": {
+      "fabricated": 2,
+      "vague_no_answer": 2,
+      "missed_conflict": 2,
+      "correct": 1
+    },
+    "fabricated": [
+      "bb_bratislava_population",
+      "fp_fictional_person"
+    ],
+    "honest_refusals": [],
+    "conflict_failures": [
+      "cf_bratislava_population",
+      "cf_bratislava_distinct_titles"
+    ]
+  },
+  "results": [
+    {
+      "id": "bb_bratislava_population",
+      "category": "bridge_break",
+      "title": "桥接断裂：第二跳 Bratislava 段落被整体移除",
+      "expected_behavior": "abstain",
+      "expected_behavior_text": "应当拒答，或明确声明证据不足；不得给出任何人口数字。",
+      "question": "Július Satinský was born in a city that has a current population of what?",
+      "run_mode": "derived",
+      "verdict": "fabricated",
+      "metrics": {
+        "route_nodes": [
+          2,
+          0
+        ],
+        "route_hop1_scores": [
+          {
+            "node": 2,
+            "max_cos": 0.7225,
+            "best_title": "Július Satinský"
+          },
+          {
+            "node": 0,
+            "max_cos": 0.5891,
+            "best_title": "Strasbourg"
+          },
+          {
+            "node": 1,
+            "max_cos": 0.5165,
+            "best_title": "Summer Olympic Games"
+          }
+        ],
+        "route_hop1_top1_cos": 0.7225,
+        "route_hop1_margin": 0.1334,
+        "candidate_count": 20,
+        "selected_count": 5,
+        "selected_titles": [
+          "Július Satinský",
+          "Biratnagar",
+          "Pune district",
+          "Addis Ababa",
+          "Chernivtsi"
+        ],
+        "selected_nodes": [
+          0,
+          2
+        ],
+        "selected_verifier_max": 0.9933,
+        "selected_verifier_mean": 0.7586,
+        "answer_span": "240,000",
+        "answer_sentence": "The city is upgraded to metropolis by adding Tankisinuwari and Jahada-3 making the total population to reach 240,000 from current population of 214,000.",
+        "answer_cite": 2,
+        "answer_qtype": "number",
+        "answer_coverage": 0.374,
+        "answer_focus_coverage": 0.701,
+        "answer_bridge_paragraph": null,
+        "answer_in_corpus": true,
+        "answer_source_title": "Biratnagar",
+        "answer_source_node": 0,
+        "answer_source_snippet": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu.  Biratnagar is the industrial capital of Nepal an",
+        "selected_text": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Sat Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu.  Biratnagar is the industrial capital of Nepal an Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is the capital and largest city of Ethiopia.  It has a Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Chernivtsi Oblast (province) – the northern, Ukrainian p",
+        "latency_ms": 101.5,
+        "latency": {
+          "query_encode_ms": 11.3,
+          "route_ms": 0.8,
+          "recall_ms": 0.3,
+          "select_ms": 89.0,
+          "total_ms": 101.5
+        },
+        "selected_text_has_values": {},
+        "grounded": false
+      },
+      "fabrication": {
+        "answer_span": "240,000",
+        "source_title": "Biratnagar",
+        "source_node": 0,
+        "why": "答案跨度来自《Biratnagar》（节点 0）；该段并没有回答题目所问的关系。",
+        "answer_in_corpus": true
+      },
+      "raw": {
+        "ok": true,
+        "question": "Július Satinský was born in a city that has a current population of what?",
+        "route": [
+          {
+            "hop": 1,
+            "chosen": 2,
+            "scores": [
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.7225,
+                "top3_mean": 0.5733,
+                "best_title": "Július Satinský"
+              },
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.5891,
+                "top3_mean": 0.5621,
+                "best_title": "Strasbourg"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5165,
+                "top3_mean": 0.4969,
+                "best_title": "Summer Olympic Games"
+              }
+            ]
+          },
+          {
+            "hop": 2,
+            "chosen": 0,
+            "scores": [
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.7225,
+                "top3_mean": 0.5733,
+                "best_title": "Július Satinský"
+              },
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.5891,
+                "top3_mean": 0.5621,
+                "best_title": "Strasbourg"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5165,
+                "top3_mean": 0.4969,
+                "best_title": "Summer Olympic Games"
+              }
+            ]
+          }
+        ],
+        "recall": [
+          {
+            "node": 2,
+            "name": "节点 C",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.7225,
+                "title": "Július Satinský",
+                "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"
+              },
+              {
+                "rank": 1,
+                "score": 0.5055,
+                "title": "Valentina Tereshkova",
+                "snippet": "Valentina Vladimirovna Tereshkova (Russian: Валенти́на Влади́мировна Терешко́ва ; ] ; born 6 March 1937) is a retired Russian cosmonaut, engineer, and politician.  She is the first woman to "
+              },
+              {
+                "rank": 2,
+                "score": 0.4918,
+                "title": "Alexander Kerensky",
+                "snippet": "Alexander Fyodorovich Kerensky (Russian: Алекса́ндр Фёдорович Ке́ренский , ] ; 4 May 1881 – 11 June 1970) was a Russian lawyer and key political figure in the Russian Revolution of 1917.  Af"
+              },
+              {
+                "rank": 3,
+                "score": 0.4884,
+                "title": "Mikhail Gorbachev",
+                "snippet": "Mikhail Sergeyevich Gorbachev, ( ; Russian: Михаи́л Серге́евич Горбачёв ; ] ; born 2 March 1931) is a former Soviet statesman.  He was the eighth and last leader of the Soviet Union, having "
+              },
+              {
+                "rank": 4,
+                "score": 0.4869,
+                "title": "Orbis Pictus (film)",
+                "snippet": "Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"
+              },
+              {
+                "rank": 5,
+                "score": 0.4848,
+                "title": "Columbia University",
+                "snippet": "Columbia University (Columbia; officially Columbia University in the City of New York), established in 1754, is a private Ivy League research university in Upper Manhattan, New York City, of"
+              },
+              {
+                "rank": 6,
+                "score": 0.4842,
+                "title": "Andrei Kirilenko (politician)",
+                "snippet": "Andrei Pavlovich Kirilenko (Russian: Андре́й Па́влович Кириле́нко ; ] ; 8 September [O.S. 26 August] 1906 – 12 May 1990) was a Soviet statesman from the start to the end of the Cold War.  In"
+              },
+              {
+                "rank": 7,
+                "score": 0.481,
+                "title": "Ralph Giannini",
+                "snippet": "Ralph \"Toddy\" Giannini (1917–1996), known to many as \"Hot Toddy,\" was a member of the 1940 All-American basketball team representing Santa Clara University.  He and his other teammates were "
+              },
+              {
+                "rank": 8,
+                "score": 0.4809,
+                "title": "Dzvinia Orlowsky",
+                "snippet": "Dzvinia Orlowsky is a Ukrainian American poet, translator, editor, and professor.  She is author of five poetry collections including \"Convertible Night, Flurry of Stones\" (Carnegie Mellon U"
+              },
+              {
+                "rank": 9,
+                "score": 0.4796,
+                "title": "Ferdi Taygan",
+                "snippet": "Ferdi Taygan (born December 5, 1956), is a former professional tennis player from the United States.  He is of Turkish descent."
+              }
+            ]
+          },
+          {
+            "node": 0,
+            "name": "节点 A",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.5891,
+                "title": "Strasbourg",
+                "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"
+              },
+              {
+                "rank": 1,
+                "score": 0.5528,
+                "title": "Addis Ababa",
+                "snippet": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"
+              },
+              {
+                "rank": 2,
+                "score": 0.5445,
+                "title": "Chernivtsi",
+                "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"
+              },
+              {
+                "rank": 3,
+                "score": 0.5423,
+                "title": "Worcester, Massachusetts",
+                "snippet": "Worcester ( , ] ) is a city and the county seat of Worcester County, Massachusetts, United States.  Named after Worcester, England, as of the 2010 Census the city's population was 181,045, m"
+              },
+              {
+                "rank": 4,
+                "score": 0.5408,
+                "title": "Boston, Lincolnshire",
+                "snippet": "Boston ( ) is a town and small port in Lincolnshire, on the east coast of England.  It is the largest town of the wider Borough of Boston local government district.  The borough had a total "
+              },
+              {
+                "rank": 5,
+                "score": 0.5257,
+                "title": "Pune district",
+                "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"
+              },
+              {
+                "rank": 6,
+                "score": 0.5256,
+                "title": "Biratnagar",
+                "snippet": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."
+              },
+              {
+                "rank": 7,
+                "score": 0.5243,
+                "title": "The Current War",
+                "snippet": "The Current War is a 2017 American biographical historical film directed by Alfonso Gomez-Rejon and written by Michael Mitnick.  The film stars Benedict Cumberbatch, Michael Shannon, Nichola"
+              },
+              {
+                "rank": 8,
+                "score": 0.5214,
+                "title": "Parma Airport",
+                "snippet": "Parma Airport (Italian: \"Aeroporto di Parma\" , IATA: PMF, ICAO: LIMP ) is located 1.3 NM northwest of Parma, a city in the Emilia-Romagna region of Italy.  The airport was opened on 5 May 19"
+              },
+              {
+                "rank": 9,
+                "score": 0.5204,
+                "title": "Kunming",
+                "snippet": "Kunming ( ; ) is the capital of and largest city in Yunnan Province, Southwest China.  Known as Yunnan-Fu (云南府 , \"Yúnnánfǔ\") until the 1920s, today it is a prefecture-level city and the poli"
+              }
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "n": 1,
+            "rank": 0,
+            "title": "Július Satinský",
+            "node": 2,
+            "name": "节点 C",
+            "verifier": 0.9933,
+            "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Sat"
+          },
+          {
+            "n": 2,
+            "rank": 6,
+            "title": "Biratnagar",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.6938,
+            "snippet": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu.  Biratnagar is the industrial capital of Nepal an"
+          },
+          {
+            "n": 3,
+            "rank": 5,
+            "title": "Pune district",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.6512,
+            "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India"
+          },
+          {
+            "n": 4,
+            "rank": 1,
+            "title": "Addis Ababa",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.7423,
+            "snippet": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is the capital and largest city of Ethiopia.  It has a"
+          },
+          {
+            "n": 5,
+            "rank": 2,
+            "title": "Chernivtsi",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.7124,
+            "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Chernivtsi Oblast (province) – the northern, Ukrainian p"
+          }
+        ],
+        "answer": {
+          "span": "240,000",
+          "sentence": "The city is upgraded to metropolis by adding Tankisinuwari and Jahada-3 making the total population to reach 240,000 from current population of 214,000.",
+          "cite": 2,
+          "coverage": 0.374,
+          "focus_coverage": 0.701,
+          "qtype": "number",
+          "bridge_paragraph": null
+        },
+        "latency": {
+          "query_encode_ms": 11.3,
+          "route_ms": 0.8,
+          "recall_ms": 0.3,
+          "select_ms": 89.0,
+          "total_ms": 101.5
+        },
+        "meta": {
+          "route": "D1 dense max-cosine, independent top-2",
+          "recall_k": 10,
+          "budget": 2,
+          "set_k": 5,
+          "answer": "extractive span from selected paragraphs; no LLM rewrite",
+          "pool": "dmqa_dev pool (3975 paragraphs, 3 synthetic nodes)"
+        }
+      },
+      "wall_ms": 14401.8
+    },
+    {
+      "id": "bb_zanardi_sport",
+      "category": "bridge_break",
+      "title": "桥接断裂：第二跳 Alex Zanardi 段落被整体移除",
+      "expected_behavior": "abstain",
+      "expected_behavior_text": "应当拒答，或声明证据不足；不得输出 paracyclist 或任何替代运动。",
+      "question": "Other than racing, what sport does the 1998 champion of the Toyota GRand Prix practice?",
+      "run_mode": "derived",
+      "verdict": "vague_no_answer",
+      "metrics": {
+        "route_nodes": [
+          1,
+          2
+        ],
+        "route_hop1_scores": [
+          {
+            "node": 1,
+            "max_cos": 0.6779,
+            "best_title": "1998 Toyota Grand Prix of Long Beach"
+          },
+          {
+            "node": 2,
+            "max_cos": 0.5939,
+            "best_title": "Ryan Hunter-Reay"
+          },
+          {
+            "node": 0,
+            "max_cos": 0.5217,
+            "best_title": "The Prince of Tennis"
+          }
+        ],
+        "route_hop1_top1_cos": 0.6779,
+        "route_hop1_margin": 0.084,
+        "candidate_count": 20,
+        "selected_count": 5,
+        "selected_titles": [
+          "Ryan Hunter-Reay",
+          "2006 Toyota Grand Prix of Long Beach",
+          "1998 Toyota Grand Prix of Long Beach",
+          "Toyota Pro/Celebrity Race",
+          "Johnny Rutherford"
+        ],
+        "selected_nodes": [
+          1,
+          2
+        ],
+        "selected_verifier_max": 0.8959,
+        "selected_verifier_mean": 0.6753,
+        "answer_span": "",
+        "answer_sentence": "In addition to his experience in Indy car racing Hunter-Reay has competed in the Race of Champions, A1 Grand Prix and various forms of sports car racing (the American Le Mans Series, the Rolex Grand-Am Sports Car Series and the IMSA Tudor United SportsCar Championship).",
+        "answer_cite": 1,
+        "answer_qtype": "other",
+        "answer_coverage": 0.412,
+        "answer_focus_coverage": 0.253,
+        "answer_bridge_paragraph": null,
+        "answer_in_corpus": false,
+        "answer_source_title": null,
+        "answer_source_node": null,
+        "answer_source_snippet": "",
+        "selected_text": "Ryan Christopher Hunter-Reay Azambuja (born December 17, 1980) is a professional American racing driver best known as a winner of both the Indianapolis 500 (2014) and the IndyCar Series championship 2012.  In each accomplishment Hunter-Reay The 2006 Toyota Grand Prix of Long Beach was the first round of the 2006 Bridgestone Presents the Champ Car World Series Powered by Ford season, held on April 9, 2006 on the streets of Long Beach, California.  The pole and race win were bot The 1998 Toyota Grand Prix of Long Beach was the third round of the 1998 CART FedEx Champ Car World Series season, held on April 5, 1998, on the streets of Long Beach, California.  Alex Zanardi won the race, even though he was a lap down at The Toyota Pro/Celebrity Race was an annual 10-lap auto race held each April since 1977 until 2016 as part of the United States Grand Prix West, and later the Toyota Grand Prix of Long Beach weekend at Long Beach, California.  Beginning in  John Sherman \"Johnny\" Rutherford III (born March 12, 1938), also known as \"Lone Star JR\", is an American former automobile racing driver.  He is one of ten drivers to win the prestigious Indianapolis 500 mile race at least three times, winn",
+        "latency_ms": 225.0,
+        "latency": {
+          "query_encode_ms": 84.1,
+          "route_ms": 22.4,
+          "recall_ms": 0.3,
+          "select_ms": 118.2,
+          "total_ms": 225.0
+        },
+        "selected_text_has_values": {},
+        "grounded": false
+      },
+      "fabrication": null,
+      "raw": {
+        "ok": true,
+        "question": "Other than racing, what sport does the 1998 champion of the Toyota GRand Prix practice?",
+        "route": [
+          {
+            "hop": 1,
+            "chosen": 1,
+            "scores": [
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.6779,
+                "top3_mean": 0.6415,
+                "best_title": "1998 Toyota Grand Prix of Long Beach"
+              },
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.5939,
+                "top3_mean": 0.5564,
+                "best_title": "Ryan Hunter-Reay"
+              },
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.5217,
+                "top3_mean": 0.5182,
+                "best_title": "The Prince of Tennis"
+              }
+            ]
+          },
+          {
+            "hop": 2,
+            "chosen": 2,
+            "scores": [
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.6779,
+                "top3_mean": 0.6415,
+                "best_title": "1998 Toyota Grand Prix of Long Beach"
+              },
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.5939,
+                "top3_mean": 0.5564,
+                "best_title": "Ryan Hunter-Reay"
+              },
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.5217,
+                "top3_mean": 0.5182,
+                "best_title": "The Prince of Tennis"
+              }
+            ]
+          }
+        ],
+        "recall": [
+          {
+            "node": 1,
+            "name": "节点 B",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.6779,
+                "title": "1998 Toyota Grand Prix of Long Beach",
+                "snippet": "The 1998 Toyota Grand Prix of Long Beach was the third round of the 1998 CART FedEx Champ Car World Series season, held on April 5, 1998, on the streets of Long Beach, California.  Alex Zana"
+              },
+              {
+                "rank": 1,
+                "score": 0.6244,
+                "title": "2017 Toyota Grand Prix of Long Beach",
+                "snippet": "The 2017 Toyota Grand Prix of Long Beach was the second round of the 2017 IndyCar Series and the 43rd annual running of the Toyota Grand Prix of Long Beach.  The race was contested over 85 l"
+              },
+              {
+                "rank": 2,
+                "score": 0.6223,
+                "title": "2006 Toyota Grand Prix of Long Beach",
+                "snippet": "The 2006 Toyota Grand Prix of Long Beach was the first round of the 2006 Bridgestone Presents the Champ Car World Series Powered by Ford season, held on April 9, 2006 on the streets of Long "
+              },
+              {
+                "rank": 3,
+                "score": 0.617,
+                "title": "1998 Molson Indy Vancouver",
+                "snippet": "The 1998 Molson Indy Vancouver was the fifteenth round of the 1998 CART FedEx Champ Car World Series season, held on September 6, 1998, at Concord Pacific Place in Vancouver, British Columbi"
+              },
+              {
+                "rank": 4,
+                "score": 0.608,
+                "title": "Jerry Glanville",
+                "snippet": "Jerry Michael Glanville (born October 14, 1941) is a former American football player and coach, former NASCAR driver and owner, and sportscaster.  He served as head coach of the Houston Oile"
+              },
+              {
+                "rank": 5,
+                "score": 0.6072,
+                "title": "2015 Toyota Grand Prix of Long Beach",
+                "snippet": "The 2015 Toyota Grand Prix of Long Beach was the 41st annual running of the Toyota Grand Prix of Long Beach and the third race of the 2015 IndyCar Series season.  It took place on April 19, "
+              },
+              {
+                "rank": 6,
+                "score": 0.6054,
+                "title": "2014 Toyota Grand Prix of Long Beach",
+                "snippet": "The 2014 Toyota Grand Prix of Long Beach was the 40th annual running of the Toyota Grand Prix of Long Beach and the second race of the 2014 IndyCar Series season.  It took place on April 13,"
+              },
+              {
+                "rank": 7,
+                "score": 0.6034,
+                "title": "Toyota Pro/Celebrity Race",
+                "snippet": "The Toyota Pro/Celebrity Race was an annual 10-lap auto race held each April since 1977 until 2016 as part of the United States Grand Prix West, and later the Toyota Grand Prix of Long Beach"
+              },
+              {
+                "rank": 8,
+                "score": 0.5921,
+                "title": "2013 Toyota Grand Prix of Long Beach",
+                "snippet": "The 2013 Toyota Grand Prix of Long Beach was the 39th annual running of the Toyota Grand Prix of Long Beach, and is also the third race of the 2013 IndyCar Series season, taking place on Apr"
+              },
+              {
+                "rank": 9,
+                "score": 0.5905,
+                "title": "2016 Toyota Grand Prix of Long Beach",
+                "snippet": "The 2016 Toyota Grand Prix of Long Beach was the third round of the 2016 IndyCar Series and the 42nd annual running of the Toyota Grand Prix of Long Beach.  The race was contested over 80 la"
+              }
+            ]
+          },
+          {
+            "node": 2,
+            "name": "节点 C",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.5939,
+                "title": "Ryan Hunter-Reay",
+                "snippet": "Ryan Christopher Hunter-Reay Azambuja (born December 17, 1980) is a professional American racing driver best known as a winner of both the Indianapolis 500 (2014) and the IndyCar Series cham"
+              },
+              {
+                "rank": 1,
+                "score": 0.541,
+                "title": "Johnny Rutherford",
+                "snippet": "John Sherman \"Johnny\" Rutherford III (born March 12, 1938), also known as \"Lone Star JR\", is an American former automobile racing driver.  He is one of ten drivers to win the prestigious Ind"
+              },
+              {
+                "rank": 2,
+                "score": 0.5343,
+                "title": "Mikhail Gorbachev",
+                "snippet": "Mikhail Sergeyevich Gorbachev, ( ; Russian: Михаи́л Серге́евич Горбачёв ; ] ; born 2 March 1931) is a former Soviet statesman.  He was the eighth and last leader of the Soviet Union, having "
+              },
+              {
+                "rank": 3,
+                "score": 0.5188,
+                "title": "Charissa Thompson",
+                "snippet": "Charissa Jean Thompson (born May 4, 1982) is an American television host and sportscaster with Fox Sports 1 and NBC.  Previously, Thompson worked for ESPN, Versus, as well as for GSN and the"
+              },
+              {
+                "rank": 4,
+                "score": 0.5146,
+                "title": "Wahab Riaz",
+                "snippet": "Wahab Riaz (Punjabi, Urdu: ‎ ; born 28 June 1985) is a Pakistani cricketer.  He is a left-arm fast bowler and a right-hand batsman.  He frequently bowls at speeds of around 90 mph and has re"
+              },
+              {
+                "rank": 5,
+                "score": 0.5142,
+                "title": "Sachin Bansal",
+                "snippet": "Sachin Bansal (born 5 August 1981) is an Indian Software engineer and Internet entrepreneur known for co-founding India's e-commerce platform Flipkart.  Sachin is from Chandigarh and is an e"
+              },
+              {
+                "rank": 6,
+                "score": 0.5123,
+                "title": "Ferdi Taygan",
+                "snippet": "Ferdi Taygan (born December 5, 1956), is a former professional tennis player from the United States.  He is of Turkish descent."
+              },
+              {
+                "rank": 7,
+                "score": 0.5114,
+                "title": "Ala Kart (custom car)",
+                "snippet": "Ala Kart is a custom car, a customized 1929 Ford Model A roadster pickup, built by George Barris, Richard Peters, and Mike \"Blackie\" Gejeian in 1957.  Originally owned by Peters, it is a two"
+              },
+              {
+                "rank": 8,
+                "score": 0.5045,
+                "title": "Marino Franchitti",
+                "snippet": "Marino Alessandro Cesare Franchitti (born 7 July 1978) is a British racing driver, and the younger brother of Dario Franchitti.  He has spent the majority of his career racing in sports cars"
+              },
+              {
+                "rank": 9,
+                "score": 0.5002,
+                "title": "Hot Rod (magazine)",
+                "snippet": "Hot Rod is a monthly American car magazine devoted to hot rodding, drag racing, and muscle cars — modifying automobiles for performance and appearance."
+              }
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "n": 1,
+            "rank": 0,
+            "title": "Ryan Hunter-Reay",
+            "node": 2,
+            "name": "节点 C",
+            "verifier": 0.8959,
+            "snippet": "Ryan Christopher Hunter-Reay Azambuja (born December 17, 1980) is a professional American racing driver best known as a winner of both the Indianapolis 500 (2014) and the IndyCar Series championship 2012.  In each accomplishment Hunter-Reay"
+          },
+          {
+            "n": 2,
+            "rank": 2,
+            "title": "2006 Toyota Grand Prix of Long Beach",
+            "node": 1,
+            "name": "节点 B",
+            "verifier": 0.608,
+            "snippet": "The 2006 Toyota Grand Prix of Long Beach was the first round of the 2006 Bridgestone Presents the Champ Car World Series Powered by Ford season, held on April 9, 2006 on the streets of Long Beach, California.  The pole and race win were bot"
+          },
+          {
+            "n": 3,
+            "rank": 0,
+            "title": "1998 Toyota Grand Prix of Long Beach",
+            "node": 1,
+            "name": "节点 B",
+            "verifier": 0.6352,
+            "snippet": "The 1998 Toyota Grand Prix of Long Beach was the third round of the 1998 CART FedEx Champ Car World Series season, held on April 5, 1998, on the streets of Long Beach, California.  Alex Zanardi won the race, even though he was a lap down at"
+          },
+          {
+            "n": 4,
+            "rank": 7,
+            "title": "Toyota Pro/Celebrity Race",
+            "node": 1,
+            "name": "节点 B",
+            "verifier": 0.7583,
+            "snippet": "The Toyota Pro/Celebrity Race was an annual 10-lap auto race held each April since 1977 until 2016 as part of the United States Grand Prix West, and later the Toyota Grand Prix of Long Beach weekend at Long Beach, California.  Beginning in "
+          },
+          {
+            "n": 5,
+            "rank": 1,
+            "title": "Johnny Rutherford",
+            "node": 2,
+            "name": "节点 C",
+            "verifier": 0.479,
+            "snippet": "John Sherman \"Johnny\" Rutherford III (born March 12, 1938), also known as \"Lone Star JR\", is an American former automobile racing driver.  He is one of ten drivers to win the prestigious Indianapolis 500 mile race at least three times, winn"
+          }
+        ],
+        "answer": {
+          "span": "",
+          "sentence": "In addition to his experience in Indy car racing Hunter-Reay has competed in the Race of Champions, A1 Grand Prix and various forms of sports car racing (the American Le Mans Series, the Rolex Grand-Am Sports Car Series and the IMSA Tudor United SportsCar Championship).",
+          "cite": 1,
+          "coverage": 0.412,
+          "focus_coverage": 0.253,
+          "qtype": "other",
+          "bridge_paragraph": null
+        },
+        "latency": {
+          "query_encode_ms": 84.1,
+          "route_ms": 22.4,
+          "recall_ms": 0.3,
+          "select_ms": 118.2,
+          "total_ms": 225.0
+        },
+        "meta": {
+          "route": "D1 dense max-cosine, independent top-2",
+          "recall_k": 10,
+          "budget": 2,
+          "set_k": 5,
+          "answer": "extractive span from selected paragraphs; no LLM rewrite",
+          "pool": "dmqa_dev pool (3975 paragraphs, 3 synthetic nodes)"
+        }
+      },
+      "wall_ms": 11438.8
+    },
+    {
+      "id": "am_polar_bears_voice",
+      "category": "answer_paragraph_missing",
+      "title": "答案段缺失：两跳实体仍在，但含答案的 Armie Hammer 段落被移除",
+      "expected_behavior": "state_insufficient",
+      "expected_behavior_text": "应当声明证据不足；不得把其他段落里的 Cars 3 角色名当作答案。",
+      "question": "The Polar Bears featuring the voice of Armie Hammer, is also the same voice actor for which character in Cars 3?",
+      "run_mode": "derived",
+      "verdict": "vague_no_answer",
+      "metrics": {
+        "route_nodes": [
+          0,
+          2
+        ],
+        "route_hop1_scores": [
+          {
+            "node": 0,
+            "max_cos": 0.746,
+            "best_title": "Cars 3"
+          },
+          {
+            "node": 2,
+            "max_cos": 0.6582,
+            "best_title": "Jim Cummings"
+          },
+          {
+            "node": 1,
+            "max_cos": 0.5795,
+            "best_title": "Beatitude (album)"
+          }
+        ],
+        "route_hop1_top1_cos": 0.746,
+        "route_hop1_margin": 0.0878,
+        "candidate_count": 20,
+        "selected_count": 5,
+        "selected_titles": [
+          "The Polar Bears",
+          "Jim Cummings",
+          "Cars 3",
+          "The Lone Ranger (2013 film)",
+          "Jeff Bennett"
+        ],
+        "selected_nodes": [
+          0,
+          2
+        ],
+        "selected_verifier_max": 0.9953,
+        "selected_verifier_mean": 0.8281,
+        "answer_span": "",
+        "answer_sentence": "Based on the radio series of the same name, the film stars Johnny Depp as Tonto, the narrator of the events, and Armie Hammer as John Reid, the Lone Ranger.",
+        "answer_cite": 4,
+        "answer_qtype": "other",
+        "answer_coverage": 0.315,
+        "answer_focus_coverage": 0.465,
+        "answer_bridge_paragraph": null,
+        "answer_in_corpus": false,
+        "answer_source_title": null,
+        "answer_source_node": null,
+        "answer_source_snippet": "",
+        "selected_text": "The Polar Bears is a 2012 3D computer animated short film presented by The Coca-Cola Company, produced by Ridley Scott, written by David Reynolds, and directed by John Stevenson.  The film features the voices of Lin-Manuel Miranda, Armie Ha James Jonah Cummings (born November 3, 1952) is an American voice actor and singer, who has appeared in almost 400 roles.  He is known for voicing the title character from \"Darkwing Duck\", Dr. Robotnik from \"Sonic the Hedgehog\", and Pete.   Cars 3 is a 2017 American 3D computer-animated auto racing sports comedy adventure film produced by Pixar and released by Walt Disney Pictures.  Directed by Brian Fee, the screenplay was written by Kiel Murray, Bob Peterson and Mike Rich.   The Lone Ranger is a 2013 American western action film directed by Gore Verbinski from a screenplay written by Justin Haythe, Ted Elliott and Terry Rossio.  Based on the radio series of the same name, the film stars Johnny Depp as Tonto, th Jeff Bennett (born October 2, 1962) is an American voice actor and singer.  His voice roles include Johnny Bravo in the television series of the same name, Petrie in the \"Land Before Time\" films and television series, Mr. Smee and Bones in ",
+        "latency_ms": 264.3,
+        "latency": {
+          "query_encode_ms": 137.4,
+          "route_ms": 4.3,
+          "recall_ms": 1.7,
+          "select_ms": 120.9,
+          "total_ms": 264.3
+        },
+        "selected_text_has_values": {},
+        "grounded": false
+      },
+      "fabrication": null,
+      "raw": {
+        "ok": true,
+        "question": "The Polar Bears featuring the voice of Armie Hammer, is also the same voice actor for which character in Cars 3?",
+        "route": [
+          {
+            "hop": 1,
+            "chosen": 0,
+            "scores": [
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.746,
+                "top3_mean": 0.7012,
+                "best_title": "Cars 3"
+              },
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.6582,
+                "top3_mean": 0.6271,
+                "best_title": "Jim Cummings"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5795,
+                "top3_mean": 0.5557,
+                "best_title": "Beatitude (album)"
+              }
+            ]
+          },
+          {
+            "hop": 2,
+            "chosen": 2,
+            "scores": [
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.746,
+                "top3_mean": 0.7012,
+                "best_title": "Cars 3"
+              },
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.6582,
+                "top3_mean": 0.6271,
+                "best_title": "Jim Cummings"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5795,
+                "top3_mean": 0.5557,
+                "best_title": "Beatitude (album)"
+              }
+            ]
+          }
+        ],
+        "recall": [
+          {
+            "node": 0,
+            "name": "节点 A",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.746,
+                "title": "Cars 3",
+                "snippet": "Cars 3 is a 2017 American 3D computer-animated auto racing sports comedy adventure film produced by Pixar and released by Walt Disney Pictures.  Directed by Brian Fee, the screenplay was wri"
+              },
+              {
+                "rank": 1,
+                "score": 0.7285,
+                "title": "The Polar Bears",
+                "snippet": "The Polar Bears is a 2012 3D computer animated short film presented by The Coca-Cola Company, produced by Ridley Scott, written by David Reynolds, and directed by John Stevenson.  The film f"
+              },
+              {
+                "rank": 2,
+                "score": 0.6291,
+                "title": "The Lone Ranger (2013 film)",
+                "snippet": "The Lone Ranger is a 2013 American western action film directed by Gore Verbinski from a screenplay written by Justin Haythe, Ted Elliott and Terry Rossio.  Based on the radio series of the "
+              },
+              {
+                "rank": 3,
+                "score": 0.5986,
+                "title": "Brother Bear",
+                "snippet": "Brother Bear is a 2003 American animated comedy-drama film produced by Walt Disney Feature Animation and released by Walt Disney Pictures.  It is the 44th Disney animated feature film.  In t"
+              },
+              {
+                "rank": 4,
+                "score": 0.5892,
+                "title": "Burt Gummer",
+                "snippet": "Burt Gummer is a fictional character, played by actor Michael Gross, from the \"Tremors\" film series and the short lived SciFi Channel TV program of the same name.  Appearing in \"Tremors\", \"\""
+              },
+              {
+                "rank": 5,
+                "score": 0.57,
+                "title": "Web Weirdos",
+                "snippet": "\"Web Weirdos\" is the third episode of the fourth season of the American animated television series \"Adventure Time\".  The episode was written and storyboarded by Ako Castuera and Jesse Moyni"
+              },
+              {
+                "rank": 6,
+                "score": 0.5576,
+                "title": "The Lego Batman Movie",
+                "snippet": "The Lego Batman Movie is a 2017 3D computer-animated superhero comedy film, produced by Warner Animation Group, directed by Chris McKay, and written by Seth Grahame-Smith, Chris McKenna, Eri"
+              },
+              {
+                "rank": 7,
+                "score": 0.5451,
+                "title": "Robin Hood (2018 film)",
+                "snippet": "Robin Hood is an upcoming American action-adventure film directed by Otto Bathurst and written by Joby Harold, Peter Craig, and David James Kelly based on the tale of Robin Hood.  The film s"
+              },
+              {
+                "rank": 8,
+                "score": 0.5421,
+                "title": "The Good Dinosaur",
+                "snippet": "The Good Dinosaur is a 2015 American 3D computer-animated comedy-drama adventure film produced by Pixar Animation Studios and released by Walt Disney Pictures.  The film is directed by Peter"
+              },
+              {
+                "rank": 9,
+                "score": 0.5368,
+                "title": "Sam Fisher (Splinter Cell)",
+                "snippet": "Samuel \"Sam\" Fisher is a fictional character and the protagonist of the \"Tom Clancy's Splinter Cell\" series of video games developed by Ubisoft as well as a series of tie-in novels endorsed "
+              }
+            ]
+          },
+          {
+            "node": 2,
+            "name": "节点 C",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.6582,
+                "title": "Jim Cummings",
+                "snippet": "James Jonah Cummings (born November 3, 1952) is an American voice actor and singer, who has appeared in almost 400 roles.  He is known for voicing the title character from \"Darkwing Duck\", D"
+              },
+              {
+                "rank": 1,
+                "score": 0.616,
+                "title": "Cheech Marin",
+                "snippet": "Richard Anthony \"Cheech\" Marin (born July 13, 1946) is an American stand-up comedian, actor, voice actor, writer and activist who gained recognition as part of the comedy act Cheech & Chong "
+              },
+              {
+                "rank": 2,
+                "score": 0.607,
+                "title": "Jeff Bennett",
+                "snippet": "Jeff Bennett (born October 2, 1962) is an American voice actor and singer.  His voice roles include Johnny Bravo in the television series of the same name, Petrie in the \"Land Before Time\" f"
+              },
+              {
+                "rank": 3,
+                "score": 0.5967,
+                "title": "Bruno Kirby",
+                "snippet": "Bruno Kirby (born Giovanni Quidaciolu, Jr.; April 28, 1949 – August 14, 2006) was an American actor, singer, voice artist, chef, and comedian.  He was known for his roles in \"City Slickers\","
+              },
+              {
+                "rank": 4,
+                "score": 0.5946,
+                "title": "Gary Anthony Williams",
+                "snippet": "Gary Anthony Williams (born March 14, 1966) is an American actor and comedian who provided the voice of Uncle Ruckus on \"The Boondocks\", Yancy Westridge in the video game \"Alpha Protocol\", a"
+              },
+              {
+                "rank": 5,
+                "score": 0.5734,
+                "title": "Robby Benson",
+                "snippet": "Robin David Segal (born January 21, 1956), better known by the stage name Robby Benson, is an American actor, director, singer and educator.  He is known as the voice of The Beast in the Dis"
+              },
+              {
+                "rank": 6,
+                "score": 0.5666,
+                "title": "Raymond Ochoa",
+                "snippet": "Raymond Ochoa (born October 12, 2001) is an American child actor and voice actor.  He has appeared in various commercials, television shows and movies including roles in \"10 Items or Less\", "
+              },
+              {
+                "rank": 7,
+                "score": 0.5666,
+                "title": "Eddie Izzard",
+                "snippet": "Edward John \"Eddie\" Izzard ( ; born 7 February 1962) is an English stand-up comedian, actor, writer and political activist.  His comedic style takes the form of rambling, whimsical monologue"
+              },
+              {
+                "rank": 8,
+                "score": 0.563,
+                "title": "Dan Castellaneta",
+                "snippet": "Daniel Louis Castellaneta ( ; born October 29, 1957) is an American actor, voice actor, comedian and screenwriter.  Noted for his long-running role as Homer Simpson on the animated televisio"
+              },
+              {
+                "rank": 9,
+                "score": 0.5568,
+                "title": "James Franco",
+                "snippet": "James Edward Franco (born April 19, 1978) is an American actor, director, screenwriter, and producer.  For his role in \"127 Hours\" (2010), Franco was nominated for an Academy Award for Best "
+              }
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "n": 1,
+            "rank": 1,
+            "title": "The Polar Bears",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.9953,
+            "snippet": "The Polar Bears is a 2012 3D computer animated short film presented by The Coca-Cola Company, produced by Ridley Scott, written by David Reynolds, and directed by John Stevenson.  The film features the voices of Lin-Manuel Miranda, Armie Ha"
+          },
+          {
+            "n": 2,
+            "rank": 0,
+            "title": "Jim Cummings",
+            "node": 2,
+            "name": "节点 C",
+            "verifier": 0.7675,
+            "snippet": "James Jonah Cummings (born November 3, 1952) is an American voice actor and singer, who has appeared in almost 400 roles.  He is known for voicing the title character from \"Darkwing Duck\", Dr. Robotnik from \"Sonic the Hedgehog\", and Pete.  "
+          },
+          {
+            "n": 3,
+            "rank": 0,
+            "title": "Cars 3",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.9938,
+            "snippet": "Cars 3 is a 2017 American 3D computer-animated auto racing sports comedy adventure film produced by Pixar and released by Walt Disney Pictures.  Directed by Brian Fee, the screenplay was written by Kiel Murray, Bob Peterson and Mike Rich.  "
+          },
+          {
+            "n": 4,
+            "rank": 2,
+            "title": "The Lone Ranger (2013 film)",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.7747,
+            "snippet": "The Lone Ranger is a 2013 American western action film directed by Gore Verbinski from a screenplay written by Justin Haythe, Ted Elliott and Terry Rossio.  Based on the radio series of the same name, the film stars Johnny Depp as Tonto, th"
+          },
+          {
+            "n": 5,
+            "rank": 2,
+            "title": "Jeff Bennett",
+            "node": 2,
+            "name": "节点 C",
+            "verifier": 0.6094,
+            "snippet": "Jeff Bennett (born October 2, 1962) is an American voice actor and singer.  His voice roles include Johnny Bravo in the television series of the same name, Petrie in the \"Land Before Time\" films and television series, Mr. Smee and Bones in "
+          }
+        ],
+        "answer": {
+          "span": "",
+          "sentence": "Based on the radio series of the same name, the film stars Johnny Depp as Tonto, the narrator of the events, and Armie Hammer as John Reid, the Lone Ranger.",
+          "cite": 4,
+          "coverage": 0.315,
+          "focus_coverage": 0.465,
+          "qtype": "other",
+          "bridge_paragraph": null
+        },
+        "latency": {
+          "query_encode_ms": 137.4,
+          "route_ms": 4.3,
+          "recall_ms": 1.7,
+          "select_ms": 120.9,
+          "total_ms": 264.3
+        },
+        "meta": {
+          "route": "D1 dense max-cosine, independent top-2",
+          "recall_k": 10,
+          "budget": 2,
+          "set_k": 5,
+          "answer": "extractive span from selected paragraphs; no LLM rewrite",
+          "pool": "dmqa_dev pool (3975 paragraphs, 3 synthetic nodes)"
+        }
+      },
+      "wall_ms": 10727.3
+    },
+    {
+      "id": "fp_fictional_person",
+      "category": "false_premise",
+      "title": "前提错误：把真实问题的桥接实体换成不存在的虚构人物",
+      "expected_behavior": "reject_premise",
+      "expected_behavior_text": "应当指出前提中的实体不存在/无法核实，并拒绝给出人口数字。",
+      "question": "Marek Vranovský was born in a city that has a current population of what?",
+      "run_mode": "vps",
+      "verdict": "fabricated",
+      "metrics": {
+        "route_nodes": [
+          0,
+          2
+        ],
+        "route_hop1_scores": [
+          {
+            "node": 0,
+            "max_cos": 0.6474,
+            "best_title": "Bratislava"
+          },
+          {
+            "node": 2,
+            "max_cos": 0.5359,
+            "best_title": "Mikhail Gorbachev"
+          },
+          {
+            "node": 1,
+            "max_cos": 0.5107,
+            "best_title": "Festival of New Songs"
+          }
+        ],
+        "route_hop1_top1_cos": 0.6474,
+        "route_hop1_margin": 0.1115,
+        "candidate_count": 20,
+        "selected_count": 5,
+        "selected_titles": [
+          "Chernivtsi",
+          "Criss Angel",
+          "Bangor, Maine",
+          "Bratislava",
+          "Strasbourg"
+        ],
+        "selected_nodes": [
+          0,
+          2
+        ],
+        "selected_verifier_max": 0.7681,
+        "selected_verifier_mean": 0.6815,
+        "answer_span": "153,746",
+        "answer_sentence": "The city proper has a population of 33,039, while the Bangor metropolitan area has a population of 153,746.",
+        "answer_cite": 3,
+        "answer_qtype": "number",
+        "answer_coverage": 0.533,
+        "answer_focus_coverage": 0.533,
+        "answer_bridge_paragraph": null,
+        "answer_in_corpus": true,
+        "answer_source_title": "Bangor, Maine",
+        "answer_source_node": 0,
+        "answer_source_snippet": "Bangor ( ) is a city along the Penobscot River in the U.S. state of Maine.  The city proper has a population of 33,039, while the Bangor metropolitan area has a population of 153,746.  Bangor is known as the \"Queen City\" of Maine.",
+        "selected_text": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Chernivtsi Oblast (province) – the northern, Ukrainian p Christopher Nicholas Sarantakos (born December 19, 1967), known by the stage name Criss Angel, is an American magician, illusionist and musician.  Angel began his career in New York City, before moving his base of operations to the Las Vega Bangor ( ) is a city along the Penobscot River in the U.S. state of Maine.  The city proper has a population of 33,039, while the Bangor metropolitan area has a population of 153,746.  Bangor is known as the \"Queen City\" of Maine. Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is  Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Located close to the border with Germany in the histo",
+        "latency_ms": 143.3,
+        "latency": {
+          "query_encode_ms": 0.1,
+          "route_ms": 4.1,
+          "recall_ms": 3.2,
+          "select_ms": 135.9,
+          "total_ms": 143.3
+        },
+        "selected_text_has_values": {},
+        "grounded": false
+      },
+      "fabrication": {
+        "answer_span": "153,746",
+        "source_title": "Bangor, Maine",
+        "source_node": 0,
+        "why": "答案跨度来自《Bangor, Maine》（节点 0）；该段并没有回答题目所问的关系。",
+        "answer_in_corpus": true
+      },
+      "raw": {
+        "ok": true,
+        "question": "Marek Vranovský was born in a city that has a current population of what?",
+        "route": [
+          {
+            "hop": 1,
+            "chosen": 0,
+            "scores": [
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.6474,
+                "top3_mean": 0.6071,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.5359,
+                "top3_mean": 0.521,
+                "best_title": "Mikhail Gorbachev"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5107,
+                "top3_mean": 0.5082,
+                "best_title": "Festival of New Songs"
+              }
+            ]
+          },
+          {
+            "hop": 2,
+            "chosen": 2,
+            "scores": [
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.6474,
+                "top3_mean": 0.6071,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.5359,
+                "top3_mean": 0.521,
+                "best_title": "Mikhail Gorbachev"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5107,
+                "top3_mean": 0.5082,
+                "best_title": "Festival of New Songs"
+              }
+            ]
+          }
+        ],
+        "recall": [
+          {
+            "node": 0,
+            "name": "节点 A",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.6474,
+                "title": "Bratislava",
+                "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"
+              },
+              {
+                "rank": 1,
+                "score": 0.5928,
+                "title": "Strasbourg",
+                "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"
+              },
+              {
+                "rank": 2,
+                "score": 0.581,
+                "title": "Chernivtsi",
+                "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"
+              },
+              {
+                "rank": 3,
+                "score": 0.5794,
+                "title": "Worcester, Massachusetts",
+                "snippet": "Worcester ( , ] ) is a city and the county seat of Worcester County, Massachusetts, United States.  Named after Worcester, England, as of the 2010 Census the city's population was 181,045, m"
+              },
+              {
+                "rank": 4,
+                "score": 0.5663,
+                "title": "Višegrad",
+                "snippet": "Višegrad (, ] ) is a town in eastern Bosnia and Herzegovina resting at the confluence of the Drina and the Rzav river, in the synonymous municipality in Republika Srpska entity.  The town in"
+              },
+              {
+                "rank": 5,
+                "score": 0.5662,
+                "title": "Bangor, Maine",
+                "snippet": "Bangor ( ) is a city along the Penobscot River in the U.S. state of Maine.  The city proper has a population of 33,039, while the Bangor metropolitan area has a population of 153,746.  Bango"
+              },
+              {
+                "rank": 6,
+                "score": 0.5624,
+                "title": "Addis Ababa",
+                "snippet": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"
+              },
+              {
+                "rank": 7,
+                "score": 0.5531,
+                "title": "Kunming",
+                "snippet": "Kunming ( ; ) is the capital of and largest city in Yunnan Province, Southwest China.  Known as Yunnan-Fu (云南府 , \"Yúnnánfǔ\") until the 1920s, today it is a prefecture-level city and the poli"
+              },
+              {
+                "rank": 8,
+                "score": 0.5507,
+                "title": "Clinton, Minnesota",
+                "snippet": "Clinton is a city in Big Stone County, Minnesota, United States.  The city was named for New York Governor DeWitt Clinton.  The population was 449 at the 2010 census."
+              },
+              {
+                "rank": 9,
+                "score": 0.5412,
+                "title": "Boston, Lincolnshire",
+                "snippet": "Boston ( ) is a town and small port in Lincolnshire, on the east coast of England.  It is the largest town of the wider Borough of Boston local government district.  The borough had a total "
+              }
+            ]
+          },
+          {
+            "node": 2,
+            "name": "节点 C",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.5359,
+                "title": "Mikhail Gorbachev",
+                "snippet": "Mikhail Sergeyevich Gorbachev, ( ; Russian: Михаи́л Серге́евич Горбачёв ; ] ; born 2 March 1931) is a former Soviet statesman.  He was the eighth and last leader of the Soviet Union, having "
+              },
+              {
+                "rank": 1,
+                "score": 0.5146,
+                "title": "Alexander Kerensky",
+                "snippet": "Alexander Fyodorovich Kerensky (Russian: Алекса́ндр Фёдорович Ке́ренский , ] ; 4 May 1881 – 11 June 1970) was a Russian lawyer and key political figure in the Russian Revolution of 1917.  Af"
+              },
+              {
+                "rank": 2,
+                "score": 0.5125,
+                "title": "Ferdi Taygan",
+                "snippet": "Ferdi Taygan (born December 5, 1956), is a former professional tennis player from the United States.  He is of Turkish descent."
+              },
+              {
+                "rank": 3,
+                "score": 0.5085,
+                "title": "Leo Varadkar",
+                "snippet": "Leo Eric Varadkar ( ; Irish: \"Leo de Varad\" ;born 18 January 1979) is an Irish Fine Gael politician who has served as Taoiseach, Minister for Defence and Leader of Fine Gael since June 2017."
+              },
+              {
+                "rank": 4,
+                "score": 0.5034,
+                "title": "Július Satinský",
+                "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"
+              },
+              {
+                "rank": 5,
+                "score": 0.5027,
+                "title": "Alex Zanardi",
+                "snippet": "Alessandro \"Alex\" Zanardi (] ; born 23 October 1966) is an Italian professional racing driver and paracyclist."
+              },
+              {
+                "rank": 6,
+                "score": 0.4988,
+                "title": "Valentina Tereshkova",
+                "snippet": "Valentina Vladimirovna Tereshkova (Russian: Валенти́на Влади́мировна Терешко́ва ; ] ; born 6 March 1937) is a retired Russian cosmonaut, engineer, and politician.  She is the first woman to "
+              },
+              {
+                "rank": 7,
+                "score": 0.4919,
+                "title": "Criss Angel",
+                "snippet": "Christopher Nicholas Sarantakos (born December 19, 1967), known by the stage name Criss Angel, is an American magician, illusionist and musician.  Angel began his career in New York City, be"
+              },
+              {
+                "rank": 8,
+                "score": 0.4893,
+                "title": "Mauritz Stiller",
+                "snippet": "Mauritz Stiller (17 July 1883 – 18 November 1928) was a Finnish-Swedish film director, best known for discovering Greta Garbo and bringing her to America."
+              },
+              {
+                "rank": 9,
+                "score": 0.4889,
+                "title": "Andrei Kirilenko (politician)",
+                "snippet": "Andrei Pavlovich Kirilenko (Russian: Андре́й Па́влович Кириле́нко ; ] ; 8 September [O.S. 26 August] 1906 – 12 May 1990) was a Soviet statesman from the start to the end of the Cold War.  In"
+              }
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "n": 1,
+            "rank": 2,
+            "title": "Chernivtsi",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.7681,
+            "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Chernivtsi Oblast (province) – the northern, Ukrainian p"
+          },
+          {
+            "n": 2,
+            "rank": 7,
+            "title": "Criss Angel",
+            "node": 2,
+            "name": "节点 C",
+            "verifier": 0.5836,
+            "snippet": "Christopher Nicholas Sarantakos (born December 19, 1967), known by the stage name Criss Angel, is an American magician, illusionist and musician.  Angel began his career in New York City, before moving his base of operations to the Las Vega"
+          },
+          {
+            "n": 3,
+            "rank": 5,
+            "title": "Bangor, Maine",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.7211,
+            "snippet": "Bangor ( ) is a city along the Penobscot River in the U.S. state of Maine.  The city proper has a population of 33,039, while the Bangor metropolitan area has a population of 153,746.  Bangor is known as the \"Queen City\" of Maine."
+          },
+          {
+            "n": 4,
+            "rank": 0,
+            "title": "Bratislava",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.7195,
+            "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is "
+          },
+          {
+            "n": 5,
+            "rank": 1,
+            "title": "Strasbourg",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.6153,
+            "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Located close to the border with Germany in the histo"
+          }
+        ],
+        "answer": {
+          "span": "153,746",
+          "sentence": "The city proper has a population of 33,039, while the Bangor metropolitan area has a population of 153,746.",
+          "cite": 3,
+          "coverage": 0.533,
+          "focus_coverage": 0.533,
+          "qtype": "number",
+          "bridge_paragraph": null
+        },
+        "latency": {
+          "query_encode_ms": 0.1,
+          "route_ms": 4.1,
+          "recall_ms": 3.2,
+          "select_ms": 135.9,
+          "total_ms": 143.3
+        },
+        "meta": {
+          "route": "D1 dense max-cosine, independent top-2",
+          "recall_k": 10,
+          "budget": 2,
+          "set_k": 5,
+          "answer": "extractive span from selected paragraphs; no LLM rewrite",
+          "pool": "dmqa_dev pool (3975 paragraphs, 3 synthetic nodes)"
+        }
+      },
+      "wall_ms": 890.6
+    },
+    {
+      "id": "cf_bratislava_population",
+      "category": "evidence_conflict",
+      "title": "证据冲突：两个节点对 Bratislava 人口给出不同数值",
+      "expected_behavior": "expose_conflict",
+      "expected_behavior_text": "应当同时呈现两个数值并说明来源冲突；不得静默选择其中一个。",
+      "question": "What is the current population of Bratislava?",
+      "run_mode": "derived",
+      "verdict": "missed_conflict",
+      "metrics": {
+        "route_nodes": [
+          0,
+          2
+        ],
+        "route_hop1_scores": [
+          {
+            "node": 0,
+            "max_cos": 0.7982,
+            "best_title": "Bratislava"
+          },
+          {
+            "node": 2,
+            "max_cos": 0.7943,
+            "best_title": "Bratislava"
+          },
+          {
+            "node": 1,
+            "max_cos": 0.5097,
+            "best_title": "Festival of New Songs"
+          }
+        ],
+        "route_hop1_top1_cos": 0.7982,
+        "route_hop1_margin": 0.0039,
+        "candidate_count": 20,
+        "selected_count": 5,
+        "selected_titles": [
+          "Bratislava",
+          "Pune district",
+          "Chernivtsi",
+          "Július Satinský",
+          "Strasbourg"
+        ],
+        "selected_nodes": [
+          0,
+          2
+        ],
+        "selected_verifier_max": 0.9893,
+        "selected_verifier_mean": 0.7888,
+        "answer_span": "450,000",
+        "answer_sentence": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.",
+        "answer_cite": 1,
+        "answer_qtype": "number",
+        "answer_coverage": 0.724,
+        "answer_focus_coverage": 0.498,
+        "answer_bridge_paragraph": 0,
+        "answer_in_corpus": true,
+        "answer_source_title": "Bratislava",
+        "answer_source_node": 0,
+        "answer_source_snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is ",
+        "selected_text": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is  Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Chernivtsi Oblast (province) – the northern, Ukrainian p Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Sat Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Located close to the border with Germany in the histo",
+        "latency_ms": 141.2,
+        "latency": {
+          "query_encode_ms": 31.2,
+          "route_ms": 14.1,
+          "recall_ms": 0.4,
+          "select_ms": 95.5,
+          "total_ms": 141.2
+        },
+        "selected_text_has_values": {
+          "450,000": true,
+          "520,000": false
+        },
+        "grounded": true
+      },
+      "fabrication": null,
+      "raw": {
+        "ok": true,
+        "question": "What is the current population of Bratislava?",
+        "route": [
+          {
+            "hop": 1,
+            "chosen": 0,
+            "scores": [
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.7982,
+                "top3_mean": 0.6649,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.7943,
+                "top3_mean": 0.6164,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5097,
+                "top3_mean": 0.4967,
+                "best_title": "Festival of New Songs"
+              }
+            ]
+          },
+          {
+            "hop": 2,
+            "chosen": 2,
+            "scores": [
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.7982,
+                "top3_mean": 0.6649,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.7943,
+                "top3_mean": 0.6164,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5097,
+                "top3_mean": 0.4967,
+                "best_title": "Festival of New Songs"
+              }
+            ]
+          }
+        ],
+        "recall": [
+          {
+            "node": 0,
+            "name": "节点 A",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.7982,
+                "title": "Bratislava",
+                "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"
+              },
+              {
+                "rank": 1,
+                "score": 0.6015,
+                "title": "Open-air museums in Slovakia",
+                "snippet": "Slovakia has around 14 open-air museums, or skanzens, showcasing the country's folk traditions, architecture, and economic history.  The museums include examples of traditional buildings and"
+              },
+              {
+                "rank": 2,
+                "score": 0.5951,
+                "title": "Drug policy of Slovakia",
+                "snippet": "Drug policy of Slovakia is the legislative framework that governs all aspects of legal drugs and illegal drugs on the territory of Slovakia.  It was established with the country's creation o"
+              },
+              {
+                "rank": 3,
+                "score": 0.5881,
+                "title": "Strasbourg",
+                "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"
+              },
+              {
+                "rank": 4,
+                "score": 0.5862,
+                "title": "Pune district",
+                "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"
+              },
+              {
+                "rank": 5,
+                "score": 0.5408,
+                "title": "Chernivtsi",
+                "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"
+              },
+              {
+                "rank": 6,
+                "score": 0.539,
+                "title": "Gaboš",
+                "snippet": "Gaboš (Serbian Cyrillic: ) is a village in Vukovar-Srijem County, Croatia.  There are 613 inhabitants, the majority of the population which are Serbs, who make up 95% of the population accor"
+              },
+              {
+                "rank": 7,
+                "score": 0.5286,
+                "title": "Boston, Lincolnshire",
+                "snippet": "Boston ( ) is a town and small port in Lincolnshire, on the east coast of England.  It is the largest town of the wider Borough of Boston local government district.  The borough had a total "
+              },
+              {
+                "rank": 8,
+                "score": 0.5262,
+                "title": "Kirton, Nottinghamshire",
+                "snippet": "Kirton is a village in Nottinghamshire, England.  It is located 3 mi east of Ollerton.  According to the United Kingdom Census 2001 it had a population of 273, reducing to 261 at the 2011 ce"
+              },
+              {
+                "rank": 9,
+                "score": 0.523,
+                "title": "Ljubljana Botanical Garden",
+                "snippet": "The Ljubljana Botanical Garden (Slovene: \"Ljubljanski botanični vrt\" ), officially the University of Ljubljana Botanical Garden (\"Botanični vrt Univerze v Ljubljani\" ), is the central Sloven"
+              }
+            ]
+          },
+          {
+            "node": 2,
+            "name": "节点 C",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.7943,
+                "title": "Bratislava",
+                "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 520,000, the country's largest city.  The greater metropolitan area is"
+              },
+              {
+                "rank": 1,
+                "score": 0.5603,
+                "title": "Július Satinský",
+                "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"
+              },
+              {
+                "rank": 2,
+                "score": 0.4946,
+                "title": "Aleksandar Bošković",
+                "snippet": "Aleksandar Bošković is a social anthropologist from former Yugoslavia, who published twelve books and several hundred articles and book reviews on history and theory of anthropology, from a "
+              },
+              {
+                "rank": 3,
+                "score": 0.4909,
+                "title": "Jaroslav Hašek",
+                "snippet": "Jaroslav Hašek (] ; April 30, 1883 – January 3, 1923) was a Czech writer, humorist, satirist, journalist, bohemian and anarchist.  He is best known for his novel \"The Good Soldier Švejk\", an"
+              },
+              {
+                "rank": 4,
+                "score": 0.4701,
+                "title": "AD 43",
+                "snippet": "AD 43 (XLIII) was a common year starting on Tuesday (link will display the full calendar) of the Julian calendar.  At the time, it was known as the Year of the Consulship of Caesar and Vitel"
+              },
+              {
+                "rank": 5,
+                "score": 0.4651,
+                "title": "Socialist Revolutionary Party",
+                "snippet": "The Socialist Revolutionary Party, or Party of Socialists-Revolutionaries (the SRs; Russian: Партия социалистов-революционеров (ПСР), эсеры , \"esery\") was a major political party in early 20"
+              },
+              {
+                "rank": 6,
+                "score": 0.4631,
+                "title": "Enrique Carreras",
+                "snippet": "Enrique Carreras (January 6, 1925 - 29 August 1995) was a Peruvian-born Argentine film director, screenwriter and film producer, and was one of the most prolific film directors in the histor"
+              },
+              {
+                "rank": 7,
+                "score": 0.462,
+                "title": "Karel Dežman",
+                "snippet": "Karel Dežman, also known as Dragotin Dežman and Karl Deschmann (3 January 1821 – 11 March 1889), was a Carniolan liberal politician and natural scientist.  He was one of the most prominent p"
+              },
+              {
+                "rank": 8,
+                "score": 0.4618,
+                "title": "Alexander Kerensky",
+                "snippet": "Alexander Fyodorovich Kerensky (Russian: Алекса́ндр Фёдорович Ке́ренский , ] ; 4 May 1881 – 11 June 1970) was a Russian lawyer and key political figure in the Russian Revolution of 1917.  Af"
+              },
+              {
+                "rank": 9,
+                "score": 0.4601,
+                "title": "Paul Sauvage (aviator)",
+                "snippet": "Sergent Paul Joannes Sauvage was a French World War I flying ace credited with eight confirmed and six unconfirmed aerial victories.  He was originally posted to fly a Nieuport for Escadrill"
+              }
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "n": 1,
+            "rank": 0,
+            "title": "Bratislava",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.9893,
+            "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is "
+          },
+          {
+            "n": 2,
+            "rank": 4,
+            "title": "Pune district",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.8481,
+            "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India"
+          },
+          {
+            "n": 3,
+            "rank": 5,
+            "title": "Chernivtsi",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.8183,
+            "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Chernivtsi Oblast (province) – the northern, Ukrainian p"
+          },
+          {
+            "n": 4,
+            "rank": 1,
+            "title": "Július Satinský",
+            "node": 2,
+            "name": "节点 C",
+            "verifier": 0.7579,
+            "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Sat"
+          },
+          {
+            "n": 5,
+            "rank": 3,
+            "title": "Strasbourg",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.5302,
+            "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Located close to the border with Germany in the histo"
+          }
+        ],
+        "answer": {
+          "span": "450,000",
+          "sentence": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.",
+          "cite": 1,
+          "coverage": 0.724,
+          "focus_coverage": 0.498,
+          "qtype": "number",
+          "bridge_paragraph": 0
+        },
+        "latency": {
+          "query_encode_ms": 31.2,
+          "route_ms": 14.1,
+          "recall_ms": 0.4,
+          "select_ms": 95.5,
+          "total_ms": 141.2
+        },
+        "meta": {
+          "route": "D1 dense max-cosine, independent top-2",
+          "recall_k": 10,
+          "budget": 2,
+          "set_k": 5,
+          "answer": "extractive span from selected paragraphs; no LLM rewrite",
+          "pool": "dmqa_dev pool (3975 paragraphs, 3 synthetic nodes)"
+        }
+      },
+      "wall_ms": 11335.6
+    },
+    {
+      "id": "cf_bratislava_distinct_titles",
+      "category": "evidence_conflict",
+      "title": "证据冲突（不同标题）：两个节点对 Bratislava 人口给出不同数值",
+      "expected_behavior": "expose_conflict",
+      "expected_behavior_text": "应当同时呈现两个数值并说明来源冲突；不得静默选择其中一个。",
+      "question": "What is the current population of Bratislava?",
+      "run_mode": "derived",
+      "verdict": "missed_conflict",
+      "metrics": {
+        "route_nodes": [
+          2,
+          0
+        ],
+        "route_hop1_scores": [
+          {
+            "node": 2,
+            "max_cos": 0.8045,
+            "best_title": "Bratislava (2011 census)"
+          },
+          {
+            "node": 0,
+            "max_cos": 0.7982,
+            "best_title": "Bratislava"
+          },
+          {
+            "node": 1,
+            "max_cos": 0.5097,
+            "best_title": "Festival of New Songs"
+          }
+        ],
+        "route_hop1_top1_cos": 0.8045,
+        "route_hop1_margin": 0.0063,
+        "candidate_count": 20,
+        "selected_count": 5,
+        "selected_titles": [
+          "Bratislava",
+          "Pune district",
+          "Chernivtsi",
+          "Július Satinský",
+          "Strasbourg"
+        ],
+        "selected_nodes": [
+          0,
+          2
+        ],
+        "selected_verifier_max": 0.9892,
+        "selected_verifier_mean": 0.7875,
+        "answer_span": "450,000",
+        "answer_sentence": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.",
+        "answer_cite": 1,
+        "answer_qtype": "number",
+        "answer_coverage": 0.724,
+        "answer_focus_coverage": 0.498,
+        "answer_bridge_paragraph": 0,
+        "answer_in_corpus": true,
+        "answer_source_title": "Bratislava",
+        "answer_source_node": 0,
+        "answer_source_snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is ",
+        "selected_text": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is  Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Chernivtsi Oblast (province) – the northern, Ukrainian p Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Sat Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Located close to the border with Germany in the histo",
+        "latency_ms": 131.7,
+        "latency": {
+          "query_encode_ms": 0.1,
+          "route_ms": 6.2,
+          "recall_ms": 0.4,
+          "select_ms": 125.0,
+          "total_ms": 131.7
+        },
+        "selected_text_has_values": {
+          "450,000": true,
+          "520,000": false
+        },
+        "grounded": true
+      },
+      "fabrication": null,
+      "raw": {
+        "ok": true,
+        "question": "What is the current population of Bratislava?",
+        "route": [
+          {
+            "hop": 1,
+            "chosen": 2,
+            "scores": [
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.8045,
+                "top3_mean": 0.6198,
+                "best_title": "Bratislava (2011 census)"
+              },
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.7982,
+                "top3_mean": 0.6649,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5097,
+                "top3_mean": 0.4967,
+                "best_title": "Festival of New Songs"
+              }
+            ]
+          },
+          {
+            "hop": 2,
+            "chosen": 0,
+            "scores": [
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.8045,
+                "top3_mean": 0.6198,
+                "best_title": "Bratislava (2011 census)"
+              },
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.7982,
+                "top3_mean": 0.6649,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5097,
+                "top3_mean": 0.4967,
+                "best_title": "Festival of New Songs"
+              }
+            ]
+          }
+        ],
+        "recall": [
+          {
+            "node": 2,
+            "name": "节点 C",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.8045,
+                "title": "Bratislava (2011 census)",
+                "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 520,000, the country's largest city.  The greater metropolitan area is"
+              },
+              {
+                "rank": 1,
+                "score": 0.5603,
+                "title": "Július Satinský",
+                "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"
+              },
+              {
+                "rank": 2,
+                "score": 0.4946,
+                "title": "Aleksandar Bošković",
+                "snippet": "Aleksandar Bošković is a social anthropologist from former Yugoslavia, who published twelve books and several hundred articles and book reviews on history and theory of anthropology, from a "
+              },
+              {
+                "rank": 3,
+                "score": 0.4909,
+                "title": "Jaroslav Hašek",
+                "snippet": "Jaroslav Hašek (] ; April 30, 1883 – January 3, 1923) was a Czech writer, humorist, satirist, journalist, bohemian and anarchist.  He is best known for his novel \"The Good Soldier Švejk\", an"
+              },
+              {
+                "rank": 4,
+                "score": 0.4701,
+                "title": "AD 43",
+                "snippet": "AD 43 (XLIII) was a common year starting on Tuesday (link will display the full calendar) of the Julian calendar.  At the time, it was known as the Year of the Consulship of Caesar and Vitel"
+              },
+              {
+                "rank": 5,
+                "score": 0.4651,
+                "title": "Socialist Revolutionary Party",
+                "snippet": "The Socialist Revolutionary Party, or Party of Socialists-Revolutionaries (the SRs; Russian: Партия социалистов-революционеров (ПСР), эсеры , \"esery\") was a major political party in early 20"
+              },
+              {
+                "rank": 6,
+                "score": 0.4631,
+                "title": "Enrique Carreras",
+                "snippet": "Enrique Carreras (January 6, 1925 - 29 August 1995) was a Peruvian-born Argentine film director, screenwriter and film producer, and was one of the most prolific film directors in the histor"
+              },
+              {
+                "rank": 7,
+                "score": 0.462,
+                "title": "Karel Dežman",
+                "snippet": "Karel Dežman, also known as Dragotin Dežman and Karl Deschmann (3 January 1821 – 11 March 1889), was a Carniolan liberal politician and natural scientist.  He was one of the most prominent p"
+              },
+              {
+                "rank": 8,
+                "score": 0.4618,
+                "title": "Alexander Kerensky",
+                "snippet": "Alexander Fyodorovich Kerensky (Russian: Алекса́ндр Фёдорович Ке́ренский , ] ; 4 May 1881 – 11 June 1970) was a Russian lawyer and key political figure in the Russian Revolution of 1917.  Af"
+              },
+              {
+                "rank": 9,
+                "score": 0.4601,
+                "title": "Paul Sauvage (aviator)",
+                "snippet": "Sergent Paul Joannes Sauvage was a French World War I flying ace credited with eight confirmed and six unconfirmed aerial victories.  He was originally posted to fly a Nieuport for Escadrill"
+              }
+            ]
+          },
+          {
+            "node": 0,
+            "name": "节点 A",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.7982,
+                "title": "Bratislava",
+                "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"
+              },
+              {
+                "rank": 1,
+                "score": 0.6015,
+                "title": "Open-air museums in Slovakia",
+                "snippet": "Slovakia has around 14 open-air museums, or skanzens, showcasing the country's folk traditions, architecture, and economic history.  The museums include examples of traditional buildings and"
+              },
+              {
+                "rank": 2,
+                "score": 0.5951,
+                "title": "Drug policy of Slovakia",
+                "snippet": "Drug policy of Slovakia is the legislative framework that governs all aspects of legal drugs and illegal drugs on the territory of Slovakia.  It was established with the country's creation o"
+              },
+              {
+                "rank": 3,
+                "score": 0.5881,
+                "title": "Strasbourg",
+                "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"
+              },
+              {
+                "rank": 4,
+                "score": 0.5862,
+                "title": "Pune district",
+                "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"
+              },
+              {
+                "rank": 5,
+                "score": 0.5408,
+                "title": "Chernivtsi",
+                "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"
+              },
+              {
+                "rank": 6,
+                "score": 0.539,
+                "title": "Gaboš",
+                "snippet": "Gaboš (Serbian Cyrillic: ) is a village in Vukovar-Srijem County, Croatia.  There are 613 inhabitants, the majority of the population which are Serbs, who make up 95% of the population accor"
+              },
+              {
+                "rank": 7,
+                "score": 0.5286,
+                "title": "Boston, Lincolnshire",
+                "snippet": "Boston ( ) is a town and small port in Lincolnshire, on the east coast of England.  It is the largest town of the wider Borough of Boston local government district.  The borough had a total "
+              },
+              {
+                "rank": 8,
+                "score": 0.5262,
+                "title": "Kirton, Nottinghamshire",
+                "snippet": "Kirton is a village in Nottinghamshire, England.  It is located 3 mi east of Ollerton.  According to the United Kingdom Census 2001 it had a population of 273, reducing to 261 at the 2011 ce"
+              },
+              {
+                "rank": 9,
+                "score": 0.523,
+                "title": "Ljubljana Botanical Garden",
+                "snippet": "The Ljubljana Botanical Garden (Slovene: \"Ljubljanski botanični vrt\" ), officially the University of Ljubljana Botanical Garden (\"Botanični vrt Univerze v Ljubljani\" ), is the central Sloven"
+              }
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "n": 1,
+            "rank": 0,
+            "title": "Bratislava",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.9892,
+            "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is "
+          },
+          {
+            "n": 2,
+            "rank": 4,
+            "title": "Pune district",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.8469,
+            "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India"
+          },
+          {
+            "n": 3,
+            "rank": 5,
+            "title": "Chernivtsi",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.817,
+            "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Chernivtsi Oblast (province) – the northern, Ukrainian p"
+          },
+          {
+            "n": 4,
+            "rank": 1,
+            "title": "Július Satinský",
+            "node": 2,
+            "name": "节点 C",
+            "verifier": 0.7563,
+            "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Sat"
+          },
+          {
+            "n": 5,
+            "rank": 3,
+            "title": "Strasbourg",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.5281,
+            "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Located close to the border with Germany in the histo"
+          }
+        ],
+        "answer": {
+          "span": "450,000",
+          "sentence": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.",
+          "cite": 1,
+          "coverage": 0.724,
+          "focus_coverage": 0.498,
+          "qtype": "number",
+          "bridge_paragraph": 0
+        },
+        "latency": {
+          "query_encode_ms": 0.1,
+          "route_ms": 6.2,
+          "recall_ms": 0.4,
+          "select_ms": 125.0,
+          "total_ms": 131.7
+        },
+        "meta": {
+          "route": "D1 dense max-cosine, independent top-2",
+          "recall_k": 10,
+          "budget": 2,
+          "set_k": 5,
+          "answer": "extractive span from selected paragraphs; no LLM rewrite",
+          "pool": "dmqa_dev pool (3975 paragraphs, 3 synthetic nodes)"
+        }
+      },
+      "wall_ms": 12882.3
+    },
+    {
+      "id": "ctl_bratislava_population",
+      "category": "control",
+      "title": "对照：同一问题、证据完整时应正常答对",
+      "expected_behavior": "answer",
+      "expected_behavior_text": "应当给出 450,000（Bratislava 城市人口）。",
+      "question": "Július Satinský was born in a city that has a current population of what?",
+      "run_mode": "vps",
+      "verdict": "correct",
+      "metrics": {
+        "route_nodes": [
+          2,
+          0
+        ],
+        "route_hop1_scores": [
+          {
+            "node": 2,
+            "max_cos": 0.7225,
+            "best_title": "Július Satinský"
+          },
+          {
+            "node": 0,
+            "max_cos": 0.6353,
+            "best_title": "Bratislava"
+          },
+          {
+            "node": 1,
+            "max_cos": 0.5165,
+            "best_title": "Summer Olympic Games"
+          }
+        ],
+        "route_hop1_top1_cos": 0.7225,
+        "route_hop1_margin": 0.0872,
+        "candidate_count": 20,
+        "selected_count": 5,
+        "selected_titles": [
+          "Július Satinský",
+          "Biratnagar",
+          "Bratislava",
+          "Pune district",
+          "Addis Ababa"
+        ],
+        "selected_nodes": [
+          0,
+          2
+        ],
+        "selected_verifier_max": 0.9933,
+        "selected_verifier_mean": 0.7418,
+        "answer_span": "450,000",
+        "answer_sentence": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.",
+        "answer_cite": 3,
+        "answer_qtype": "number",
+        "answer_coverage": 0.236,
+        "answer_focus_coverage": 0.442,
+        "answer_bridge_paragraph": 2,
+        "answer_in_corpus": true,
+        "answer_source_title": "Bratislava",
+        "answer_source_node": 0,
+        "answer_source_snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is ",
+        "selected_text": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Sat Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu.  Biratnagar is the industrial capital of Nepal an Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is  Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is the capital and largest city of Ethiopia.  It has a",
+        "latency_ms": 143.1,
+        "latency": {
+          "query_encode_ms": 0.0,
+          "route_ms": 4.0,
+          "recall_ms": 3.1,
+          "select_ms": 136.0,
+          "total_ms": 143.1
+        },
+        "selected_text_has_values": {},
+        "grounded": true
+      },
+      "fabrication": null,
+      "raw": {
+        "ok": true,
+        "question": "Július Satinský was born in a city that has a current population of what?",
+        "route": [
+          {
+            "hop": 1,
+            "chosen": 2,
+            "scores": [
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.7225,
+                "top3_mean": 0.5733,
+                "best_title": "Július Satinský"
+              },
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.6353,
+                "top3_mean": 0.5924,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5165,
+                "top3_mean": 0.4969,
+                "best_title": "Summer Olympic Games"
+              }
+            ]
+          },
+          {
+            "hop": 2,
+            "chosen": 0,
+            "scores": [
+              {
+                "node": 2,
+                "name": "节点 C",
+                "max_cos": 0.7225,
+                "top3_mean": 0.5733,
+                "best_title": "Július Satinský"
+              },
+              {
+                "node": 0,
+                "name": "节点 A",
+                "max_cos": 0.6353,
+                "top3_mean": 0.5924,
+                "best_title": "Bratislava"
+              },
+              {
+                "node": 1,
+                "name": "节点 B",
+                "max_cos": 0.5165,
+                "top3_mean": 0.4969,
+                "best_title": "Summer Olympic Games"
+              }
+            ]
+          }
+        ],
+        "recall": [
+          {
+            "node": 2,
+            "name": "节点 C",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.7225,
+                "title": "Július Satinský",
+                "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of th"
+              },
+              {
+                "rank": 1,
+                "score": 0.5055,
+                "title": "Valentina Tereshkova",
+                "snippet": "Valentina Vladimirovna Tereshkova (Russian: Валенти́на Влади́мировна Терешко́ва ; ] ; born 6 March 1937) is a retired Russian cosmonaut, engineer, and politician.  She is the first woman to "
+              },
+              {
+                "rank": 2,
+                "score": 0.4918,
+                "title": "Alexander Kerensky",
+                "snippet": "Alexander Fyodorovich Kerensky (Russian: Алекса́ндр Фёдорович Ке́ренский , ] ; 4 May 1881 – 11 June 1970) was a Russian lawyer and key political figure in the Russian Revolution of 1917.  Af"
+              },
+              {
+                "rank": 3,
+                "score": 0.4884,
+                "title": "Mikhail Gorbachev",
+                "snippet": "Mikhail Sergeyevich Gorbachev, ( ; Russian: Михаи́л Серге́евич Горбачёв ; ] ; born 2 March 1931) is a former Soviet statesman.  He was the eighth and last leader of the Soviet Union, having "
+              },
+              {
+                "rank": 4,
+                "score": 0.4869,
+                "title": "Orbis Pictus (film)",
+                "snippet": "Orbis Pictus is a 1997 Slovak film, starring Dorota Nvotová, Marián Labuda, Božidara Turzonovová, Július Satinský, Emília Vášáryová and František Kovár .  The film, directed by Martin Šulík,"
+              },
+              {
+                "rank": 5,
+                "score": 0.4848,
+                "title": "Columbia University",
+                "snippet": "Columbia University (Columbia; officially Columbia University in the City of New York), established in 1754, is a private Ivy League research university in Upper Manhattan, New York City, of"
+              },
+              {
+                "rank": 6,
+                "score": 0.4842,
+                "title": "Andrei Kirilenko (politician)",
+                "snippet": "Andrei Pavlovich Kirilenko (Russian: Андре́й Па́влович Кириле́нко ; ] ; 8 September [O.S. 26 August] 1906 – 12 May 1990) was a Soviet statesman from the start to the end of the Cold War.  In"
+              },
+              {
+                "rank": 7,
+                "score": 0.481,
+                "title": "Ralph Giannini",
+                "snippet": "Ralph \"Toddy\" Giannini (1917–1996), known to many as \"Hot Toddy,\" was a member of the 1940 All-American basketball team representing Santa Clara University.  He and his other teammates were "
+              },
+              {
+                "rank": 8,
+                "score": 0.4809,
+                "title": "Dzvinia Orlowsky",
+                "snippet": "Dzvinia Orlowsky is a Ukrainian American poet, translator, editor, and professor.  She is author of five poetry collections including \"Convertible Night, Flurry of Stones\" (Carnegie Mellon U"
+              },
+              {
+                "rank": 9,
+                "score": 0.4796,
+                "title": "Ferdi Taygan",
+                "snippet": "Ferdi Taygan (born December 5, 1956), is a former professional tennis player from the United States.  He is of Turkish descent."
+              }
+            ]
+          },
+          {
+            "node": 0,
+            "name": "节点 A",
+            "hits": [
+              {
+                "rank": 0,
+                "score": 0.6353,
+                "title": "Bratislava",
+                "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is"
+              },
+              {
+                "rank": 1,
+                "score": 0.5891,
+                "title": "Strasbourg",
+                "snippet": "Strasbourg ( , ] ; Alsatian: \"Strossburi\"; German: \"Straßburg\" ] ) is the capital and largest city of the Grand Est region of France and is the official seat of the European Parliament.  Loc"
+              },
+              {
+                "rank": 2,
+                "score": 0.5528,
+                "title": "Addis Ababa",
+                "snippet": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is t"
+              },
+              {
+                "rank": 3,
+                "score": 0.5445,
+                "title": "Chernivtsi",
+                "snippet": "Chernivtsi (Ukrainian: Чернівці́ , \"Černivci \" ] ; see also ) is a city in western Ukraine, situated on the upper course of the River Prut.  Chernivtsi is the administrative center of Cherni"
+              },
+              {
+                "rank": 4,
+                "score": 0.5423,
+                "title": "Worcester, Massachusetts",
+                "snippet": "Worcester ( , ] ) is a city and the county seat of Worcester County, Massachusetts, United States.  Named after Worcester, England, as of the 2010 Census the city's population was 181,045, m"
+              },
+              {
+                "rank": 5,
+                "score": 0.5408,
+                "title": "Boston, Lincolnshire",
+                "snippet": "Boston ( ) is a town and small port in Lincolnshire, on the east coast of England.  It is the largest town of the wider Borough of Boston local government district.  The borough had a total "
+              },
+              {
+                "rank": 6,
+                "score": 0.5257,
+                "title": "Pune district",
+                "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, ma"
+              },
+              {
+                "rank": 7,
+                "score": 0.5256,
+                "title": "Biratnagar",
+                "snippet": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu."
+              },
+              {
+                "rank": 8,
+                "score": 0.5243,
+                "title": "The Current War",
+                "snippet": "The Current War is a 2017 American biographical historical film directed by Alfonso Gomez-Rejon and written by Michael Mitnick.  The film stars Benedict Cumberbatch, Michael Shannon, Nichola"
+              },
+              {
+                "rank": 9,
+                "score": 0.5214,
+                "title": "Parma Airport",
+                "snippet": "Parma Airport (Italian: \"Aeroporto di Parma\" , IATA: PMF, ICAO: LIMP ) is located 1.3 NM northwest of Parma, a city in the Emilia-Romagna region of Italy.  The airport was opened on 5 May 19"
+              }
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "n": 1,
+            "rank": 0,
+            "title": "Július Satinský",
+            "node": 2,
+            "name": "节点 C",
+            "verifier": 0.9933,
+            "snippet": "Július Satinský (20 August 1941 in Bratislava – 29 December 2002 in Bratislava) was a Slovak actor, comedian, singer, showman and writer.  He is mostly remembered in Slovakia as member of the legendary comedian duo Milan Lasica - Július Sat"
+          },
+          {
+            "n": 2,
+            "rank": 7,
+            "title": "Biratnagar",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.6846,
+            "snippet": "Biratnagar (Devanāgarī: विराटनगर) is a metropolitan city of Nepal.  According to the 2011 census, the city ranks fourth in population.  It ranks second in population density after Kathmandu.  Biratnagar is the industrial capital of Nepal an"
+          },
+          {
+            "n": 3,
+            "rank": 0,
+            "title": "Bratislava",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.681,
+            "snippet": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.  The greater metropolitan area is home to more than 650,000 people.  Bratislava is "
+          },
+          {
+            "n": 4,
+            "rank": 6,
+            "title": "Pune district",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.6391,
+            "snippet": "Pune (District) is situated in Maharashtra state of India.  Pune city is the district headquarters.  In the most recent census on 2011, the total population of the district was 9,426,959, making it the fourth most populous district in India"
+          },
+          {
+            "n": 5,
+            "rank": 2,
+            "title": "Addis Ababa",
+            "node": 0,
+            "name": "节点 A",
+            "verifier": 0.7111,
+            "snippet": "Addis Ababa (Amharic: አዲስ አበባ \"Addis Abäba \" ] , \"new flower\"; Oromo: \"Finfinne\" , ] \"Natural Spring(s)\") or Addis Abeba (the spelling used by the official Ethiopian Mapping Authority), is the capital and largest city of Ethiopia.  It has a"
+          }
+        ],
+        "answer": {
+          "span": "450,000",
+          "sentence": "Bratislava ( or ; ] , German: \"Preßburg\" or \"Pressburg \" ] ) is the capital of Slovakia, and with a population of about 450,000, the country's largest city.",
+          "cite": 3,
+          "coverage": 0.236,
+          "focus_coverage": 0.442,
+          "qtype": "number",
+          "bridge_paragraph": 2
+        },
+        "latency": {
+          "query_encode_ms": 0.0,
+          "route_ms": 4.0,
+          "recall_ms": 3.1,
+          "select_ms": 136.0,
+          "total_ms": 143.1
+        },
+        "meta": {
+          "route": "D1 dense max-cosine, independent top-2",
+          "recall_k": 10,
+          "budget": 2,
+          "set_k": 5,
+          "answer": "extractive span from selected paragraphs; no LLM rewrite",
+          "pool": "dmqa_dev pool (3975 paragraphs, 3 synthetic nodes)"
+        }
+      },
+      "wall_ms": 1017.0
+    }
+  ]
+}

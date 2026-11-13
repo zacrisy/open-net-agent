@@ -103,7 +103,9 @@ def _build():
     from nbpw2 import selector_lib as selector_mod
     from nbpw2 import dense as D
 
-    rows = load(os.path.join(NB, "nbpw2", "data", "dmqa_dev.jsonl"))
+    data_path = os.environ.get(
+        "NBPW2_DATA", os.path.join(NB, "nbpw2", "data", "dmqa_dev.jsonl"))
+    rows = load(data_path)
     pool = build_pool(rows)
     z = np.load(ASSET)
     E, assign = z["e"], z["assign"].tolist()
