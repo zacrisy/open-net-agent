@@ -152,7 +152,7 @@
 - 下一步优先级按“能吃到多少”排序：P0 `other` 分支（19 题）、P1 yes/no（8 题）、P2 span 选择（10 题）、P3 支撑段选择（9 题）、P4 冲突（4 题）；fusion/rerank/k=20/50 节点不建议。
 
 **当日 commit**
-- 待提交：`docs(research): add consolidated research archive, metrics table, and timeline`。
+- `dd83ac4` `docs(research): add consolidated research archive, metrics table, and timeline`（rebase 前为 `4e05006`）。
 
 ---
 
