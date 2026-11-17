@@ -1,23 +1,23 @@
 {
  "learning": {
-  "cycle_id": "b2b39db6be50",
+  "cycle_id": "b0bce59b1268",
   "topic": "EVOLUTION",
   "stage": "complete",
-  "started": 1794886870.472425,
+  "started": 1794918738.771374,
   "elapsed": 0.2
  },
  "auto": {
   "enabled": false,
   "interval": 20,
   "next": null,
-  "last": 1794886870.6258419,
+  "last": 1794918738.9291606,
   "last_kind": "evolve"
  },
  "metrics": {
   "cards": 167,
   "active": 165,
   "disputed": 2,
-  "cycles": 765,
+  "cycles": 780,
   "topics": [
    {
     "topic": "LLM agent reliability evaluation",
@@ -75,7 +75,7 @@
   "feedback": 1,
   "feedback_open": 0,
   "improvements": 1,
-  "quiz": 1500,
+  "quiz": 1530,
   "retention": 1.0,
   "tiers": {
    "hot": 167
@@ -83,10 +83,10 @@
  },
  "cycles": [
   {
-   "id": "b2b39db6be50",
+   "id": "b0bce59b1268",
    "topic": "EVOLUTION",
-   "started": 1794886870.4725516,
-   "finished": 1794886870.6259565,
+   "started": 1794918738.7714412,
+   "finished": 1794918738.9292514,
    "stage": "complete",
    "sources": 0,
    "cards": 167,
@@ -95,10 +95,46 @@
    "status": "complete"
   },
   {
-   "id": "0edcadcca900",
-   "topic": "semaglutide cardiovascular outcomes",
-   "started": 1794886864.4560657,
-   "finished": 1794886868.5118542,
+   "id": "423f3981e9f9",
+   "topic": "continual learning catastrophic forgetting",
+   "started": 1794918732.7571247,
+   "finished": 1794918737.347784,
+   "stage": "complete",
+   "sources": 13,
+   "cards": 0,
+   "new_cards": 0,
+   "conflicts": 0,
+   "status": "complete"
+  },
+  {
+   "id": "96f2f801b466",
+   "topic": "graph neural network advances",
+   "started": 1794918728.7445722,
+   "finished": 1794918730.8986952,
+   "stage": "complete",
+   "sources": 12,
+   "cards": 0,
+   "new_cards": 0,
+   "conflicts": 0,
+   "status": "complete"
+  },
+  {
+   "id": "c3db4ea36fd8",
+   "topic": "EVOLUTION",
+   "started": 1794918728.585706,
+   "finished": 1794918728.7415116,
+   "stage": "complete",
+   "sources": 0,
+   "cards": 167,
+   "new_cards": 0,
+   "conflicts": 2,
+   "status": "complete"
+  },
+  {
+   "id": "c2ad8d9679cc",
+   "topic": "Python asyncio event loop",
+   "started": 1794918724.5757606,
+   "finished": 1794918727.3379195,
    "stage": "complete",
    "sources": 9,
    "cards": 0,
@@ -107,51 +143,15 @@
    "status": "complete"
   },
   {
-   "id": "2889fcead8e5",
-   "topic": "LLM agent reliability evaluation",
-   "started": 1794886860.4424095,
-   "finished": 1794886862.4693503,
+   "id": "a4a63cf6e514",
+   "topic": "semaglutide cardiovascular outcomes",
+   "started": 1794918722.5607853,
+   "finished": 1794918724.1965806,
    "stage": "complete",
-   "sources": 3,
+   "sources": 9,
    "cards": 0,
    "new_cards": 0,
    "conflicts": 0,
-   "status": "complete"
-  },
-  {
-   "id": "f9cf3bf24277",
-   "topic": "EVOLUTION",
-   "started": 1794886860.2837374,
-   "finished": 1794886860.438598,
-   "stage": "complete",
-   "sources": 0,
-   "cards": 167,
-   "new_cards": 0,
-   "conflicts": 2,
-   "status": "complete"
-  },
-  {
-   "id": "6154e1be5274",
-   "topic": "federated learning privacy",
-   "started": 1794886854.268626,
-   "finished": 1794886858.6098356,
-   "stage": "complete",
-   "sources": 16,
-   "cards": 0,
-   "new_cards": 0,
-   "conflicts": 0,
-   "status": "complete"
-  },
-  {
-   "id": "34da35023720",
-   "topic": "knowledge graph construction",
-   "started": 1794886852.2580626,
-   "finished": 1794886854.1816041,
-   "stage": "complete",
-   "sources": 13,
-   "cards": 1,
-   "new_cards": 0,
-   "conflicts": 1,
    "status": "complete"
   }
  ],
@@ -265,7 +265,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.18653/v1/2022.emnlp-main.1",
     "source_title": "Generative Knowledge Graph Construction: A Review",
-    "x": 131.0,
+    "x": 142.0,
     "y": 0.0
    },
    {
@@ -278,8 +278,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=48981136",
     "source_title": "Launch HN: Bloomy (YC S26) – AI-powered mastery learning for K-12",
-    "x": 126.1421646425617,
-    "y": 35.34337702157018
+    "x": 136.7342548033875,
+    "y": 38.311141504297446
    },
    {
     "id": "kc-f4d900056a",
@@ -291,8 +291,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=48981136",
     "source_title": "Launch HN: Bloomy (YC S26) – AI-powered mastery learning for K-12",
-    "x": 111.92894199559001,
-    "y": 68.0654974546418
+    "x": 121.32755544560138,
+    "y": 73.78092090503156
    },
    {
     "id": "kc-7d3921bef7",
@@ -304,8 +304,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.59350/1a4tv-e9903",
     "source_title": "Automated Knowledge Graph Construction with Large Language Models",
-    "x": 89.4144617616437,
-    "y": 95.73951132043425
+    "x": 96.92254633704889,
+    "y": 103.77870692749362
    },
    {
     "id": "kc-6858de8ca2",
@@ -317,8 +317,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.59350/1a4tv-e9903",
     "source_title": "Automated Knowledge Graph Construction with Large Language Models",
-    "x": 60.26851994278094,
-    "y": 116.31296361071115
+    "x": 65.3292353578236,
+    "y": 126.07970101313728
    },
    {
     "id": "kc-67084aa71f",
@@ -330,8 +330,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.5220/0010055301530160",
     "source_title": "Cold Start of Enterprise Knowledge Graph Construction",
-    "x": 26.65273770989502,
-    "y": 128.2600154863843
+    "x": 28.890753853473992,
+    "y": 139.02994045088985
    },
    {
     "id": "kc-4f7d540e73",
@@ -343,8 +343,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.7717/peerj-cs.2768/fig-2",
     "source_title": "Figure 2: Knowledge graph construction process.",
-    "x": -8.939756150771885,
-    "y": 130.69460876396062
+    "x": -9.690422697783264,
+    "y": 141.66896522505655
    },
    {
     "id": "kc-4299879fe8",
@@ -356,8 +356,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1162/qss_a_00226/v1/review1",
     "source_title": "Review for \"Wikinformetrics: Construction and description of an open Wikipedia knowledge graph dataset for informetric purposes\"",
-    "x": -43.86922919439919,
-    "y": 123.43618079756548
+    "x": -47.552904928280036,
+    "y": 133.8010509408725
    },
    {
     "id": "kc-f44787f5f5",
@@ -369,8 +369,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-2589475/v2",
     "source_title": "WITHDRAWN: Document-Level Relation Extraction based Knowledge Graph Construction for Industrial Domain",
-    "x": -75.54512219704759,
-    "y": 107.02305598436791
+    "x": -81.88860574031112,
+    "y": 116.00972480748278
    },
    {
     "id": "kc-760b6ab19f",
@@ -382,8 +382,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-2589475/v2",
     "source_title": "WITHDRAWN: Document-Level Relation Extraction based Knowledge Graph Construction for Industrial Domain",
-    "x": -101.61817908227898,
-    "y": 82.67252070671294
+    "x": -110.1510032800276,
+    "y": 89.61448809429952
    },
    {
     "id": "kc-f18f1dfb61",
@@ -395,8 +395,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/cse-euc.2017.181",
     "source_title": "Review of Development and Construction of Uyghur Knowledge Graph",
-    "x": -120.15468049721434,
-    "y": 52.19054276985762
+    "x": -130.24400481377432,
+    "y": 56.572954758166276
    },
    {
     "id": "kc-fba2939df1",
@@ -408,8 +408,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/cse-euc.2017.181",
     "source_title": "Review of Development and Construction of Uyghur Knowledge Graph",
-    "x": -129.7798589307593,
-    "y": 17.83783103160837
+    "x": -140.67740433715895,
+    "y": 19.335664171667087
    },
    {
     "id": "kc-b8446b1466",
@@ -421,8 +421,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.heliyon.2024.e25383",
     "source_title": "A systematic literature review of knowledge graph construction and application in education",
-    "x": -129.77985893075933,
-    "y": -17.837831031608278
+    "x": -140.67740433715898,
+    "y": -19.335664171666988
    },
    {
     "id": "kc-bcc8ffd5b5",
@@ -434,8 +434,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.heliyon.2024.e25383",
     "source_title": "A systematic literature review of knowledge graph construction and application in education",
-    "x": -120.15468049721433,
-    "y": -52.19054276985764
+    "x": -130.24400481377432,
+    "y": -56.572954758166304
    },
    {
     "id": "kc-2b80e6da65",
@@ -447,8 +447,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.cageo.2022.105082",
     "source_title": "Knowledge graph construction and application in geosciences: A review",
-    "x": -101.618179082279,
-    "y": -82.67252070671292
+    "x": -110.15100328002761,
+    "y": -89.61448809429949
    },
    {
     "id": "kc-06705d6a5f",
@@ -460,8 +460,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.cageo.2022.105082",
     "source_title": "Knowledge graph construction and application in geosciences: A review",
-    "x": -75.5451221970476,
-    "y": -107.0230559843679
+    "x": -81.88860574031114,
+    "y": -116.00972480748275
    },
    {
     "id": "kc-af49e0fb23",
@@ -473,8 +473,8 @@
     "source_type": "Hacker News",
     "source_url": "https://research.fb.com/publications/using-local-knowledge-graph-construction-to-scale-seq2seq-models-to-multi-document-inputs/",
     "source_title": "Local Knowledge Graph Construction to Scale Seq2Seq Models",
-    "x": -43.86922919439922,
-    "y": -123.43618079756547
+    "x": -47.552904928280064,
+    "y": -133.8010509408725
    },
    {
     "id": "kc-a6ed9cd933",
@@ -486,8 +486,8 @@
     "source_type": "arXiv",
     "source_url": "https://arxiv.org/abs/1906.05317",
     "source_title": "Comet: Commonsense Transformers for Automatic Knowledge Graph Construction",
-    "x": -8.93975615077183,
-    "y": -130.69460876396064
+    "x": -9.690422697783205,
+    "y": -141.66896522505658
    },
    {
     "id": "kc-7793a9b79a",
@@ -499,8 +499,8 @@
     "source_type": "Hacker News",
     "source_url": "https://www.mdpi.com/2227-7390/11/23/4852",
     "source_title": "Event-Centric Temporal Knowledge Graph Construction: A Survey",
-    "x": 26.652737709894964,
-    "y": -128.2600154863843
+    "x": 28.890753853473928,
+    "y": -139.02994045088988
    },
    {
     "id": "kc-60f59605ae",
@@ -512,8 +512,8 @@
     "source_type": "arXiv",
     "source_url": "https://arxiv.org/abs/2510.20345",
     "source_title": "LLM-empowered knowledge graph construction: A survey",
-    "x": 60.268519942780856,
-    "y": -116.3129636107112
+    "x": 65.32923535782352,
+    "y": -126.07970101313732
    },
    {
     "id": "kc-2105554487",
@@ -525,8 +525,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/978-3-030-12375-8",
     "source_title": "Domain-Specific Knowledge Graph Construction",
-    "x": 89.41446176164371,
-    "y": -95.73951132043425
+    "x": 96.9225463370489,
+    "y": -103.77870692749362
    },
    {
     "id": "kc-3133e591e9",
@@ -538,8 +538,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1145/3618295",
     "source_title": "A Comprehensive Survey on Automatic Knowledge Graph Construction",
-    "x": 111.92894199559001,
-    "y": -68.0654974546418
+    "x": 121.32755544560138,
+    "y": -73.78092090503156
    },
    {
     "id": "kc-1db40929de",
@@ -551,8 +551,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1145/3618295",
     "source_title": "A Comprehensive Survey on Automatic Knowledge Graph Construction",
-    "x": 126.14216464256167,
-    "y": -35.343377021570305
+    "x": 136.73425480338747,
+    "y": -38.31114150429758
    },
    {
     "id": "kc-c54063a605",
@@ -564,7 +564,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.18653/v1/2025.findings-naacl.157",
     "source_title": "MIRAGE: A Metric-Intensive Benchmark for Retrieval-Augmented Generation Evaluation",
-    "x": 100.0,
+    "x": 140.0,
     "y": 0.0
    },
    {
@@ -577,8 +577,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.2196/98495",
     "source_title": "Applications, Technical Characteristics, and Evaluation Approaches of Retrieval-Augmented Generation in Nursing: Scoping Review",
-    "x": 97.81476007338057,
-    "y": 20.79116908177593
+    "x": 136.9406641027328,
+    "y": 29.107636714486304
    },
    {
     "id": "kc-53f6519e49",
@@ -590,8 +590,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.2196/98495",
     "source_title": "Applications, Technical Characteristics, and Evaluation Approaches of Retrieval-Augmented Generation in Nursing: Scoping Review",
-    "x": 91.35454576426008,
-    "y": 40.67366430758001
+    "x": 127.89636406996412,
+    "y": 56.943130030612025
    },
    {
     "id": "kc-822f488f2a",
@@ -603,8 +603,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=41583460",
     "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
-    "x": 80.90169943749474,
-    "y": 58.778525229247315
+    "x": 113.26237921249265,
+    "y": 82.28993532094624
    },
    {
     "id": "kc-be8e4b0212",
@@ -616,8 +616,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=41583460",
     "source_title": "Show HN: Cortex Click – LLM-Driven Developer Marketing Platform",
-    "x": 66.91306063588583,
-    "y": 74.31448254773942
+    "x": 93.67828489024015,
+    "y": 104.04027556683518
    },
    {
     "id": "kc-a8214ca652",
@@ -629,8 +629,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=42299349",
     "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
-    "x": 50.000000000000014,
-    "y": 86.60254037844386
+    "x": 70.00000000000001,
+    "y": 121.2435565298214
    },
    {
     "id": "kc-a2c6d35353",
@@ -642,8 +642,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=42299349",
     "source_title": "I looked at 1000s of RAG queries to figure out the problem with semantic search",
-    "x": 30.901699437494745,
-    "y": 95.10565162951535
+    "x": 43.26237921249265,
+    "y": 133.14791228132148
    },
    {
     "id": "kc-8d4f9f9e03",
@@ -655,8 +655,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.48448/xra9-a775",
     "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
-    "x": 10.452846326765346,
-    "y": 99.45218953682733
+    "x": 14.633984857471484,
+    "y": 139.23306535155825
    },
    {
     "id": "kc-f7b38c74d7",
@@ -668,8 +668,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.48448/xra9-a775",
     "source_title": "A Pipeline to Bootstrap the Evaluation of Retrieval-Augmented Generation for the Automation of Systematic Reviews in Computer Science",
-    "x": -10.452846326765334,
-    "y": 99.45218953682733
+    "x": -14.633984857471466,
+    "y": 139.23306535155828
    },
    {
     "id": "kc-c886dba568",
@@ -681,8 +681,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
     "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
-    "x": -30.901699437494734,
-    "y": 95.10565162951536
+    "x": -43.262379212492625,
+    "y": 133.1479122813215
    },
    {
     "id": "kc-b9a0b6002a",
@@ -694,8 +694,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.34808/tq2025/29.3/a",
     "source_title": "An Analysis of Retrieval-Augmented Generation: A Systematic Review Addressing Architectures, Components, and Evaluation",
-    "x": -49.99999999999998,
-    "y": 86.60254037844388
+    "x": -69.99999999999997,
+    "y": 121.24355652982142
    },
    {
     "id": "kc-597b6482b3",
@@ -707,8 +707,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
     "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
-    "x": -66.91306063588578,
-    "y": 74.31448254773944
+    "x": -93.6782848902401,
+    "y": 104.04027556683522
    },
    {
     "id": "kc-59bd20092f",
@@ -720,8 +720,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/sami68106.2026.11420463",
     "source_title": "Evaluation of Large Language Models Enhanced with Retrieval-Augmented Generation: A literature review",
-    "x": -80.90169943749473,
-    "y": 58.77852522924732
+    "x": -113.26237921249263,
+    "y": 82.28993532094626
    },
    {
     "id": "kc-9087a32610",
@@ -733,8 +733,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
     "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
-    "x": -91.3545457642601,
-    "y": 40.673664307580005
+    "x": -127.89636406996414,
+    "y": 56.943130030612004
    },
    {
     "id": "kc-f89f4982e3",
@@ -746,8 +746,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/s42979-026-05134-x",
     "source_title": "Evaluating Retrieval Augmented Generation: A Comprehensive Review of Evaluation Dimensions, Question Types, and Application",
-    "x": -97.81476007338057,
-    "y": 20.79116908177593
+    "x": -136.9406641027328,
+    "y": 29.107636714486304
    },
    {
     "id": "kc-2f9d983a58",
@@ -759,8 +759,8 @@
     "source_type": "Hacker News",
     "source_url": "https://openevaluation.ai/",
     "source_title": "Show HN: Open Evaluation",
-    "x": -100.0,
-    "y": 5.6655388976479795e-14
+    "x": -140.0,
+    "y": 7.931754456707171e-14
    },
    {
     "id": "kc-771a8eda61",
@@ -772,8 +772,8 @@
     "source_type": "Hacker News",
     "source_url": "https://openevaluation.ai/",
     "source_title": "Show HN: Open Evaluation",
-    "x": -97.81476007338057,
-    "y": -20.791169081775905
+    "x": -136.9406641027328,
+    "y": -29.10763671448627
    },
    {
     "id": "kc-dc8d51599c",
@@ -785,8 +785,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/TonicAI/tvalmetrics",
     "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
-    "x": -91.35454576426008,
-    "y": -40.67366430758002
+    "x": -127.89636406996412,
+    "y": -56.94313003061203
    },
    {
     "id": "kc-e3c79148cd",
@@ -798,8 +798,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/TonicAI/tvalmetrics",
     "source_title": "Show HN: Tonic Validate Metrics – an open-source RAG evaluation metrics package",
-    "x": -80.90169943749476,
-    "y": -58.7785252292473
+    "x": -113.26237921249266,
+    "y": -82.28993532094623
    },
    {
     "id": "kc-1db45eb38d",
@@ -811,8 +811,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=45595999",
     "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
-    "x": -66.91306063588584,
-    "y": -74.3144825477394
+    "x": -93.67828489024018,
+    "y": -104.04027556683516
    },
    {
     "id": "kc-54950ddb54",
@@ -824,8 +824,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=45595999",
     "source_title": "Show HN: Local RAG Eval Harness – reproducible benchmarksfor retrieval pipelines",
-    "x": -50.00000000000004,
-    "y": -86.60254037844383
+    "x": -70.00000000000006,
+    "y": -121.24355652982138
    },
    {
     "id": "kc-d621210711",
@@ -837,8 +837,8 @@
     "source_type": "arXiv",
     "source_url": "https://arxiv.org/abs/2309.15217",
     "source_title": "Ragas: Automated Evaluation of Retrieval Augmented Generation",
-    "x": -30.901699437494756,
-    "y": -95.10565162951535
+    "x": -43.26237921249266,
+    "y": -133.14791228132148
    },
    {
     "id": "kc-299c0b5375",
@@ -850,8 +850,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
     "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
-    "x": -10.452846326765423,
-    "y": -99.45218953682733
+    "x": -14.633984857471592,
+    "y": -139.23306535155825
    },
    {
     "id": "kc-e4b8366796",
@@ -863,8 +863,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2504.01840",
     "source_title": "LRAGE: Legal Retrieval Augmented Generation Evaluation Tool",
-    "x": 10.452846326765298,
-    "y": -99.45218953682733
+    "x": 14.633984857471418,
+    "y": -139.23306535155828
    },
    {
     "id": "kc-57f17750d1",
@@ -876,8 +876,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
     "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
-    "x": 30.901699437494724,
-    "y": -95.10565162951536
+    "x": 43.26237921249261,
+    "y": -133.1479122813215
    },
    {
     "id": "kc-eff7db7b8d",
@@ -889,8 +889,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/vtc2024-spring62846.2024.10683437",
     "source_title": "Multimodal Retrieval Augmented Generation Evaluation Benchmark",
-    "x": 50.000000000000014,
-    "y": -86.60254037844386
+    "x": 70.00000000000001,
+    "y": -121.2435565298214
    },
    {
     "id": "kc-66c269b6c4",
@@ -902,8 +902,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
     "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
-    "x": 66.91306063588584,
-    "y": -74.3144825477394
+    "x": 93.67828489024018,
+    "y": -104.04027556683516
    },
    {
     "id": "kc-fc34399e20",
@@ -915,8 +915,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2605.27445",
     "source_title": "RAGe: A Retrieval-Augmented Generation Evaluation Framework",
-    "x": 80.90169943749473,
-    "y": -58.778525229247336
+    "x": 113.26237921249263,
+    "y": -82.28993532094627
    },
    {
     "id": "kc-2890aea1c6",
@@ -928,8 +928,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
     "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
-    "x": 91.3545457642601,
-    "y": -40.67366430758001
+    "x": 127.89636406996414,
+    "y": -56.943130030612025
    },
    {
     "id": "kc-5f6a1c83e8",
@@ -941,8 +941,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2505.04680",
     "source_title": "Retrieval Augmented Generation Evaluation for Health Documents",
-    "x": 97.81476007338057,
-    "y": -20.791169081775898
+    "x": 136.9406641027328,
+    "y": -29.107636714486258
    },
    {
     "id": "kc-968f633535",
@@ -954,7 +954,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1145/3460427",
     "source_title": "A Comprehensive Survey of Privacy-preserving Federated Learning: A Taxonomy, Review, and Future Directions",
-    "x": 109.0,
+    "x": 125.0,
     "y": 0.0
    },
    {
@@ -967,8 +967,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1145/3460427",
     "source_title": "A Comprehensive Survey of Privacy-preserving Federated Learning: A Taxonomy, Review, and Future Directions",
-    "x": 105.57556456302079,
-    "y": 27.107197700969174
+    "x": 121.07289514107889,
+    "y": 31.086235895606848
    },
    {
     "id": "kc-d26826bbb1",
@@ -980,8 +980,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/978-3-030-63076-8",
     "source_title": "Federated Learning: Privacy and Incentive",
-    "x": 95.51742812478113,
-    "y": 52.51115047708697
+    "x": 109.53833500548295,
+    "y": 60.219209262714415
    },
    {
     "id": "kc-8189befcad",
@@ -993,8 +993,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=49901420",
     "source_title": "Ask HN: How do you maintain depth of understanding and velocity when using AI?",
-    "x": 79.45758038893386,
-    "y": 74.61563454622706
+    "x": 91.12107842767644,
+    "y": 85.56838824108608
    },
    {
     "id": "kc-228efdc52c",
@@ -1006,8 +1006,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=49901420",
     "source_title": "Ask HN: How do you maintain depth of understanding and velocity when using AI?",
-    "x": 58.40512065271062,
-    "y": 92.03174387971964
+    "x": 66.97834937237457,
+    "y": 105.54099068775189
    },
    {
     "id": "kc-7251119468",
@@ -1019,8 +1019,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-4846662/v1",
     "source_title": "SPM-FL: A Federated Learning Privacy Protection Mechanism Based on Local Differential Privacy",
-    "x": 33.68285238686927,
-    "y": 103.66516027617173
+    "x": 38.62712429686843,
+    "y": 118.88206453689419
    },
    {
     "id": "kc-70d197cbbf",
@@ -1032,8 +1032,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-4846662/v1",
     "source_title": "SPM-FL: A Federated Learning Privacy Protection Mechanism Based on Local Differential Privacy",
-    "x": 6.844166628695175,
-    "y": 108.7849133986816
+    "x": 7.848814941164191,
+    "y": 124.75334105353394
    },
    {
     "id": "kc-728f7b88a1",
@@ -1045,8 +1045,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1002/itl2.499/v1/review1",
     "source_title": "Review for \"Protecting health monitoring privacy in fitness training: A federated learning framework based on personalized differential privacy\"",
-    "x": -20.42456328984398,
-    "y": 107.06931032942707
+    "x": -23.422664323215574,
+    "y": 122.78590634108609
    },
    {
     "id": "kc-2313ab1977",
@@ -1058,8 +1058,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-3525508/v1",
     "source_title": "Privacy-Friendly IoT: Does federated learning guarantee privacy?",
-    "x": -46.40994278059293,
-    "y": 98.62614871879612
+    "x": -53.22241144563409,
+    "y": 113.10338155825244
    },
    {
     "id": "kc-300348fa02",
@@ -1071,8 +1071,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.21203/rs.3.rs-3525508/v1",
     "source_title": "Privacy-Friendly IoT: Does federated learning guarantee privacy?",
-    "x": -69.47921488260718,
-    "y": 83.98594346256102
+    "x": -79.67799871858622,
+    "y": 96.31415534697366
    },
    {
     "id": "kc-84d0aa9125",
@@ -1084,8 +1084,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/nerv-bit/nerv",
     "source_title": "Show HN: A private, PQ-secure, infinitely scalable blockchain[fully open-source]",
-    "x": -88.18285238686926,
-    "y": 64.06859249987959
+    "x": -101.12712429686842,
+    "y": 73.47315653655916
    },
    {
     "id": "kc-a70993930a",
@@ -1097,8 +1097,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/nerv-bit/nerv",
     "source_title": "Show HN: A private, PQ-secure, infinitely scalable blockchain[fully open-source]",
-    "x": -101.3456369618194,
-    "y": 40.12557624262992
+    "x": -116.22206073603142,
+    "y": 46.015569085584765
    },
    {
     "id": "kc-95fe2281b4",
@@ -1110,8 +1110,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.55248/gengpi.5.1224.3512",
     "source_title": "Federated Learning and Data Privacy: A Review of Challenges and Opportunities",
-    "x": -108.14050244327808,
-    "y": 13.661322458509195
+    "x": -124.01433766430972,
+    "y": 15.666654195538067
    },
    {
     "id": "kc-cc3ffcdcd9",
@@ -1123,8 +1123,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3390/ijerph20156539",
     "source_title": "A Review of Privacy Enhancement Methods for Federated Learning in Healthcare Systems",
-    "x": -108.1405024432781,
-    "y": -13.661322458509167
+    "x": -124.01433766430974,
+    "y": -15.666654195538035
    },
    {
     "id": "kc-228bc3c9ad",
@@ -1136,8 +1136,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3390/ijerph20156539",
     "source_title": "A Review of Privacy Enhancement Methods for Federated Learning in Healthcare Systems",
-    "x": -101.34563696181941,
-    "y": -40.12557624262989
+    "x": -116.22206073603144,
+    "y": -46.01556908558474
    },
    {
     "id": "kc-76df6489fb",
@@ -1149,8 +1149,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.compag.2025.110048",
     "source_title": "Agricultural data privacy and federated learning: A review of challenges and opportunities",
-    "x": -88.18285238686931,
-    "y": -64.06859249987953
+    "x": -101.12712429686847,
+    "y": -73.47315653655909
    },
    {
     "id": "kc-fb8a0ac8fc",
@@ -1162,8 +1162,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.compag.2025.110048",
     "source_title": "Agricultural data privacy and federated learning: A review of challenges and opportunities",
-    "x": -69.47921488260715,
-    "y": -83.98594346256104
+    "x": -79.6779987185862,
+    "y": -96.31415534697366
    },
    {
     "id": "kc-c4c7116d74",
@@ -1175,8 +1175,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/978-3-030-70604-3_2",
     "source_title": "A Review of Privacy-Preserving Federated Learning for the Internet-of-Things",
-    "x": -46.409942780592864,
-    "y": -98.62614871879616
+    "x": -53.22241144563402,
+    "y": -113.10338155825248
    },
    {
     "id": "kc-f30842db71",
@@ -1188,8 +1188,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/978-981-19-8692-5_5",
     "source_title": "Differential Privacy in Federated Learning",
-    "x": -20.424563289843984,
-    "y": -107.06931032942707
+    "x": -23.422664323215578,
+    "y": -122.78590634108609
    },
    {
     "id": "kc-bed8d40d59",
@@ -1201,8 +1201,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/poga/awesome-federated-learning",
     "source_title": "Resources list for federated learning and privacy in machine learning",
-    "x": 6.844166628695099,
-    "y": -108.7849133986816
+    "x": 7.848814941164104,
+    "y": -124.75334105353394
    },
    {
     "id": "kc-edd1a9ec45",
@@ -1214,8 +1214,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/b978-0-443-36322-1.00029-8",
     "source_title": "Federated learning, privacy and accuracy",
-    "x": 33.68285238686925,
-    "y": -103.66516027617175
+    "x": 38.6271242968684,
+    "y": -118.8820645368942
    },
    {
     "id": "kc-41e3ee5c61",
@@ -1227,8 +1227,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2511.02785",
     "source_title": "Enhancing Federated Learning Privacy with QUBO",
-    "x": 58.40512065271065,
-    "y": -92.03174387971963
+    "x": 66.9783493723746,
+    "y": -105.54099068775187
    },
    {
     "id": "kc-5d861a1414",
@@ -1240,8 +1240,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2511.02785",
     "source_title": "Enhancing Federated Learning Privacy with QUBO",
-    "x": 79.45758038893382,
-    "y": -74.6156345462271
+    "x": 91.12107842767641,
+    "y": -85.56838824108611
    },
    {
     "id": "kc-db18afb75c",
@@ -1253,8 +1253,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.cose.2024.103715",
     "source_title": "Efficient federated learning privacy preservation method with heterogeneous differential privacy",
-    "x": 95.51742812478108,
-    "y": -52.51115047708706
+    "x": 109.53833500548289,
+    "y": -60.219209262714514
    },
    {
     "id": "kc-f1c59b59fd",
@@ -1266,8 +1266,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1007/s10115-024-02285-2",
     "source_title": "Trustworthy federated learning: privacy, security, and beyond",
-    "x": 105.57556456302078,
-    "y": -27.107197700969234
+    "x": 121.07289514107887,
+    "y": -31.08623589560692
    },
    {
     "id": "kc-654abd1633",
@@ -1279,7 +1279,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1038/s44325-026-00146-1",
     "source_title": "Semaglutide cardiovascular outcomes align more closely with attained dose than achieved weight loss",
-    "x": 128.0,
+    "x": 104.0,
     "y": 0.0
    },
    {
@@ -1292,8 +1292,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1038/s44325-026-00146-1",
     "source_title": "Semaglutide cardiovascular outcomes align more closely with attained dose than achieved weight loss",
-    "x": 121.06460693768123,
-    "y": 41.56153205819948
+    "x": 98.364993136866,
+    "y": 33.76874479728708
    },
    {
     "id": "kc-e21ae66411",
@@ -1305,8 +1305,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1056/nejmoa1607141",
     "source_title": "Semaglutide and Cardiovascular Outcomes in Patients with Type 2 Diabetes",
-    "x": 101.00998520273838,
-    "y": 78.61922722427748
+    "x": 82.07061297722493,
+    "y": 63.878122119725454
    },
    {
     "id": "kc-93230ec515",
@@ -1318,8 +1318,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1056/nejmoa1607141",
     "source_title": "Semaglutide and Cardiovascular Outcomes in Patients with Type 2 Diabetes",
-    "x": 70.00936423967065,
-    "y": 107.15730921760365
+    "x": 56.8826084447324,
+    "y": 87.06531373930297
    },
    {
     "id": "kc-5f6e6aebc3",
@@ -1331,8 +1331,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.ijcard.2025.133683",
     "source_title": "Effects of oral semaglutide on cardiovascular outcomes: A systematic review and meta-analysis",
-    "x": 31.422142354022302,
-    "y": 124.08323404023429
+    "x": 25.53049066264312,
+    "y": 100.81762765769037
    },
    {
     "id": "kc-63274234f3",
@@ -1344,8 +1344,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.ijcard.2025.133683",
     "source_title": "Effects of oral semaglutide on cardiovascular outcomes: A systematic review and meta-analysis",
-    "x": -10.57015622045853,
-    "y": 127.56281510485374
+    "x": -8.588251929122556,
+    "y": 103.64478727269366
    },
    {
     "id": "kc-c76b16142b",
@@ -1357,8 +1357,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1038/s41366-024-01646-9",
     "source_title": "Semaglutide effects on safety and cardiovascular outcomes in patients with overweight or obesity: a systematic review and meta-analysis",
-    "x": -51.417014355580086,
-    "y": 117.21898581184735
+    "x": -41.77632416390882,
+    "y": 95.24042597212596
    },
    {
     "id": "kc-ef573eb779",
@@ -1370,8 +1370,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3389/fmed.2026.1764664",
     "source_title": "Tirzepatide vs. semaglutide for obesity, glycemic control, and cardiovascular outcomes: a narrative review of clinical trials",
-    "x": -86.69204116809483,
-    "y": 94.17266056616087
+    "x": -70.43728344907706,
+    "y": 76.51528671000571
    },
    {
     "id": "kc-54ee3cf62b",
@@ -1383,8 +1383,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3389/fmed.2026.1764664",
     "source_title": "Tirzepatide vs. semaglutide for obesity, glycemic control, and cardiovascular outcomes: a narrative review of clinical trials",
-    "x": -112.57264015443059,
-    "y": 60.92126630874543
+    "x": -91.46527012547486,
+    "y": 49.49852887585566
    },
    {
     "id": "kc-9920f75156",
@@ -1396,8 +1396,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.54448/ijn25207",
     "source_title": "Investigation of clinical outcomes on the oral or injectable use of semaglutide and cardiovascular risks: a systematic review",
-    "x": -126.25424683554846,
-    "y": 21.068107555933956
+    "x": -102.58157555388313,
+    "y": 17.11783738919634
    },
    {
     "id": "kc-5d5dc8cda3",
@@ -1409,8 +1409,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.54448/ijn25207",
     "source_title": "Investigation of clinical outcomes on the oral or injectable use of semaglutide and cardiovascular risks: a systematic review",
-    "x": -126.25424683554847,
-    "y": -21.068107555933924
+    "x": -102.58157555388313,
+    "y": -17.117837389196314
    },
    {
     "id": "kc-a6dd8a3bb3",
@@ -1422,8 +1422,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1111/dom.70145/v1/review2",
     "source_title": "Review for \"The impact of semaglutide on peri‐operative cardiovascular outcomes in diabetes\"",
-    "x": -112.57264015443063,
-    "y": -60.92126630874536
+    "x": -91.46527012547489,
+    "y": -49.498528875855605
    },
    {
     "id": "kc-11865523ca",
@@ -1435,8 +1435,8 @@
     "source_type": "Hacker News",
     "source_url": "https://diabetesjournals.org/care/article/47/8/1360/156810/Semaglutide-and-Cardiovascular-Outcomes-by",
     "source_title": "Semaglutide and Cardiovascular Outcomes in Obese but Non-Diabetic People",
-    "x": -86.69204116809486,
-    "y": -94.17266056616084
+    "x": -70.43728344907707,
+    "y": -76.51528671000568
    },
    {
     "id": "kc-0b01e6fa6f",
@@ -1448,8 +1448,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1056/nejmoa2307563",
     "source_title": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
-    "x": -51.41701435558004,
-    "y": -117.21898581184738
+    "x": -41.77632416390878,
+    "y": -95.24042597212599
    },
    {
     "id": "kc-023676a56e",
@@ -1461,8 +1461,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1056/nejmoa2307563",
     "source_title": "Semaglutide and Cardiovascular Outcomes in Obesity without Diabetes",
-    "x": -10.57015622045859,
-    "y": -127.56281510485374
+    "x": -8.588251929122604,
+    "y": -103.64478727269366
    },
    {
     "id": "kc-1f096743d8",
@@ -1474,8 +1474,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.64898/2026.04.02.26350077",
     "source_title": "Semaglutide cardiovascular outcomes align more closely with attained dose than achieved weight loss",
-    "x": 31.422142354022245,
-    "y": -124.0832340402343
+    "x": 25.530490662643075,
+    "y": -100.81762765769037
    },
    {
     "id": "kc-1a0c073c27",
@@ -1487,8 +1487,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.64898/2026.04.02.26350077",
     "source_title": "Semaglutide cardiovascular outcomes align more closely with attained dose than achieved weight loss",
-    "x": 70.0093642396706,
-    "y": -107.15730921760368
+    "x": 56.88260844473236,
+    "y": -87.065313739303
    },
    {
     "id": "kc-df61ada8a4",
@@ -1500,8 +1500,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.25934/pr00012016",
     "source_title": "Semaglutide Cardiovascular Outcomes Trial in Patients With Type 2 Diabetes",
-    "x": 101.00998520273842,
-    "y": -78.61922722427742
+    "x": 82.07061297722497,
+    "y": -63.878122119725404
    },
    {
     "id": "kc-8093870e28",
@@ -1513,8 +1513,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.25934/pr00012016",
     "source_title": "Semaglutide Cardiovascular Outcomes Trial in Patients With Type 2 Diabetes",
-    "x": 121.06460693768123,
-    "y": -41.56153205819952
+    "x": 98.364993136866,
+    "y": -33.768744797287106
    },
    {
     "id": "kc-77196a8a40",
@@ -1526,7 +1526,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.17605/osf.io/r6cnq",
     "source_title": "Reliability and Risk-of-Bias in the Evaluation of LLM-based Agents: A Systematic Literature Review",
-    "x": 134.0,
+    "x": 142.0,
     "y": 0.0
    },
    {
@@ -1539,8 +1539,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.17605/osf.io/r6cnq",
     "source_title": "Reliability and Risk-of-Bias in the Evaluation of LLM-based Agents: A Systematic Literature Review",
-    "x": 120.72982829892416,
-    "y": 58.14042104175279
+    "x": 127.93757924214351,
+    "y": 61.61149095469325
    },
    {
     "id": "kc-51e9ee9008",
@@ -1552,8 +1552,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2602.19843",
     "source_title": "MAS-FIRE: Fault Injection and Reliability Evaluation for LLM-Based Multi-Agent Systems",
-    "x": 83.5476334490703,
-    "y": 104.765418650716
+    "x": 88.53555186394017,
+    "y": 111.02007051046023
    },
    {
     "id": "kc-167019cb8a",
@@ -1565,8 +1565,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2602.19843",
     "source_title": "MAS-FIRE: Fault Injection and Reliability Evaluation for LLM-Based Multi-Agent Systems",
-    "x": 29.817805150146135,
-    "y": 130.64034023236437
+    "x": 31.59797262179665,
+    "y": 138.43976352981895
    },
    {
     "id": "kc-59e9f2a942",
@@ -1578,8 +1578,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2601.06112",
     "source_title": "ReliabilityBench: Evaluating LLM Agent Reliability Under Production-Like Stress Conditions",
-    "x": -29.81780515014612,
-    "y": 130.64034023236437
+    "x": -31.597972621796636,
+    "y": 138.43976352981895
    },
    {
     "id": "kc-63b34d8ffc",
@@ -1591,8 +1591,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.2601.06112",
     "source_title": "ReliabilityBench: Evaluating LLM Agent Reliability Under Production-Like Stress Conditions",
-    "x": -83.54763344907029,
-    "y": 104.76541865071601
+    "x": -88.53555186394016,
+    "y": 111.02007051046024
    },
    {
     "id": "kc-fbc4804534",
@@ -1604,8 +1604,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.5281/zenodo.23283517",
     "source_title": "Evaluating Reliability of LLM-Based Agentic AI Systems: A Failure Taxonomy and the Agent Reliability Assurance Framework",
-    "x": -120.72982829892415,
-    "y": 58.1404210417528
+    "x": -127.9375792421435,
+    "y": 61.61149095469327
    },
    {
     "id": "kc-4472afd11a",
@@ -1617,8 +1617,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.5281/zenodo.23283517",
     "source_title": "Evaluating Reliability of LLM-Based Agentic AI Systems: A Failure Taxonomy and the Agent Reliability Assurance Framework",
-    "x": -134.0,
-    "y": 1.6410267108574532e-14
+    "x": -142.0,
+    "y": 1.7389984547892416e-14
    },
    {
     "id": "kc-cb51e9552c",
@@ -1630,8 +1630,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2609.21267v1",
     "source_title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
-    "x": -120.72982829892416,
-    "y": -58.140421041752774
+    "x": -127.93757924214351,
+    "y": -61.61149095469324
    },
    {
     "id": "kc-da1c5343ff",
@@ -1643,8 +1643,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2609.21267v1",
     "source_title": "Efficient Benchmarking in Production: A Study of an Evolving LLM Agent",
-    "x": -83.54763344907032,
-    "y": -104.76541865071597
+    "x": -88.53555186394019,
+    "y": -111.02007051046022
    },
    {
     "id": "kc-177bd76775",
@@ -1656,8 +1656,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2608.24314v2",
     "source_title": "Benchmarking LLM Judges for Voice-Agent Evaluation: Reliability, Calibration, and Human Oversight",
-    "x": -29.817805150146153,
-    "y": -130.64034023236437
+    "x": -31.59797262179667,
+    "y": -138.43976352981895
    },
    {
     "id": "kc-6cf9180e84",
@@ -1669,8 +1669,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2608.24314v2",
     "source_title": "Benchmarking LLM Judges for Voice-Agent Evaluation: Reliability, Calibration, and Human Oversight",
-    "x": 29.817805150145986,
-    "y": -130.6403402323644
+    "x": 31.597972621796494,
+    "y": -138.43976352981898
    },
    {
     "id": "kc-d088138d8d",
@@ -1682,8 +1682,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2605.11209v1",
     "source_title": "Measuring Five-Nines Reliability: Sample-Efficient LLM Evaluation in Saturated Benchmarks",
-    "x": 83.54763344907028,
-    "y": -104.76541865071601
+    "x": 88.53555186394014,
+    "y": -111.02007051046024
    },
    {
     "id": "kc-2a986f3602",
@@ -1695,8 +1695,8 @@
     "source_type": "arXiv",
     "source_url": "http://arxiv.org/abs/2605.11209v1",
     "source_title": "Measuring Five-Nines Reliability: Sample-Efficient LLM Evaluation in Saturated Benchmarks",
-    "x": 120.72982829892419,
-    "y": -58.14042104175271
+    "x": 127.93757924214356,
+    "y": -61.61149095469317
    },
    {
     "id": "kc-0db0ece73e",
@@ -1708,7 +1708,7 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.1908.01091",
     "source_title": "Toward Understanding Catastrophic Forgetting in Continual Learning",
-    "x": 125.0,
+    "x": 128.0,
     "y": 0.0
    },
    {
@@ -1721,8 +1721,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.1908.01091",
     "source_title": "Toward Understanding Catastrophic Forgetting in Continual Learning",
-    "x": 120.36466091847491,
-    "y": 33.72459639462804
+    "x": 123.2534127805183,
+    "y": 34.53398670809911
    },
    {
     "id": "kc-94c6c34b80",
@@ -1734,8 +1734,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.17918/00011156",
     "source_title": "Memory that lasts",
-    "x": 106.80242556831107,
-    "y": 64.94799375442919
+    "x": 109.36568378195054,
+    "y": 66.5067456045355
    },
    {
     "id": "kc-9a86f26ee5",
@@ -1747,8 +1747,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.17918/00011156",
     "source_title": "Memory that lasts",
-    "x": 85.31914290233176,
-    "y": 91.3544955347655
+    "x": 87.36680233198773,
+    "y": 93.54700342759988
    },
    {
     "id": "kc-5f2b708f6f",
@@ -1760,8 +1760,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
     "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
-    "x": 57.50812971639402,
-    "y": 110.9856523002969
+    "x": 58.88832482958748,
+    "y": 113.64930795550403
    },
    {
     "id": "kc-e65cebd138",
@@ -1773,8 +1773,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.36227/techrxiv.173886426.63028528/v1",
     "source_title": "Continual Learning: Overcoming Catastrophic Forgetting for Adaptive AI Systems",
-    "x": 25.43200163157922,
-    "y": 122.38551096029036
+    "x": 26.04236967073712,
+    "y": 125.32276322333733
    },
    {
     "id": "kc-7cfd4be640",
@@ -1786,8 +1786,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.33612/diss.625549871",
     "source_title": "Continual lifelong learning in neural systems",
-    "x": -8.53030167058386,
-    "y": 124.70859614881739
+    "x": -8.735028910677872,
+    "y": 127.70160245638901
    },
    {
     "id": "kc-aa780fc43f",
@@ -1799,8 +1799,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
     "source_title": "Continual lifelong learning with neural networks: A review",
-    "x": -41.85995152137327,
-    "y": 117.78261526485257
+    "x": -42.86459035788623,
+    "y": 120.60939803120903
    },
    {
     "id": "kc-d08c3713b2",
@@ -1812,8 +1812,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/j.neunet.2019.01.012",
     "source_title": "Continual lifelong learning with neural networks: A review",
-    "x": -72.08504026435838,
-    "y": 102.12123662630526
+    "x": -73.81508123070299,
+    "y": 104.57214630533659
    },
    {
     "id": "kc-3af64b1f05",
@@ -1825,8 +1825,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
     "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
-    "x": -96.96391133805245,
-    "y": 78.88599304075662
+    "x": -99.29104521016572,
+    "y": 80.77925687373478
    },
    {
     "id": "kc-8736732c7d",
@@ -1838,8 +1838,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.14569/ijacsa.2025.0160414",
     "source_title": "Mitigating Catastrophic Forgetting in Continual Learning Using the Gradient-Based Approach: A Literature Review",
-    "x": -114.65141268818164,
-    "y": 49.800136230780176
+    "x": -117.40304659269799,
+    "y": 50.9953395003189
    },
    {
     "id": "kc-456575c107",
@@ -1851,8 +1851,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=47552974",
     "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
-    "x": -123.83574325454133,
-    "y": 17.020831137030886
+    "x": -126.80780109265032,
+    "y": 17.429331084319628
    },
    {
     "id": "kc-a774b7c48c",
@@ -1864,8 +1864,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=47552974",
     "source_title": "Using Catastrophic Forgetting as a Knowledge Topology Probe",
-    "x": -123.83574325454134,
-    "y": -17.0208311370308
+    "x": -126.80780109265034,
+    "y": -17.42933108431954
    },
    {
     "id": "kc-7f2cf8b5b7",
@@ -1877,8 +1877,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=50219762",
     "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
-    "x": -114.65141268818162,
-    "y": -49.8001362307802
+    "x": -117.40304659269798,
+    "y": -50.99533950031892
    },
    {
     "id": "kc-7ca3ec5314",
@@ -1890,8 +1890,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=50219762",
     "source_title": "Show HN: Benchmarks of continual learning model trained for a month on a laptop",
-    "x": -96.96391133805247,
-    "y": -78.88599304075659
+    "x": -99.29104521016573,
+    "y": -80.77925687373475
    },
    {
     "id": "kc-04d83d7bb3",
@@ -1903,8 +1903,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=47259384",
     "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
-    "x": -72.0850402643584,
-    "y": -102.12123662630525
+    "x": -73.815081230703,
+    "y": -104.57214630533657
    },
    {
     "id": "kc-1b3a360fa1",
@@ -1916,8 +1916,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=47259384",
     "source_title": "We don't need continual learning for AGI. What top labs are currently doing",
-    "x": -41.8599515213733,
-    "y": -117.78261526485255
+    "x": -42.86459035788626,
+    "y": -120.60939803120901
    },
    {
     "id": "kc-f03c909328",
@@ -1929,8 +1929,8 @@
     "source_type": "arXiv",
     "source_url": "https://arxiv.org/abs/2509.10518",
     "source_title": "A Pipeline for Continual Learning Without Catastrophic Forgetting in LLMs",
-    "x": -8.530301670583809,
-    "y": -124.7085961488174
+    "x": -8.73502891067782,
+    "y": -127.70160245638903
    },
    {
     "id": "kc-2192758123",
@@ -1942,8 +1942,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
     "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
-    "x": 25.432001631579162,
-    "y": -122.38551096029038
+    "x": 26.042369670737063,
+    "y": -125.32276322333735
    },
    {
     "id": "kc-fe79cc687a",
@@ -1955,8 +1955,8 @@
     "source_type": "arXiv",
     "source_url": "https://doi.org/10.48550/arxiv.1904.00310",
     "source_title": "Learn to Grow: A Continual Structure Learning Framework for Overcoming Catastrophic Forgetting",
-    "x": 57.50812971639395,
-    "y": -110.98565230029695
+    "x": 58.888324829587404,
+    "y": -113.64930795550407
    },
    {
     "id": "kc-5587a179f6",
@@ -1968,8 +1968,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1016/b978-0-443-15754-7.00073-0",
     "source_title": "Continual learning and catastrophic forgetting",
-    "x": 85.31914290233178,
-    "y": -91.3544955347655
+    "x": 87.36680233198774,
+    "y": -93.54700342759988
    },
    {
     "id": "kc-a18e455b10",
@@ -1981,8 +1981,8 @@
     "source_type": "arXiv",
     "source_url": "https://openalex.org/W3123422770",
     "source_title": "Does Continual Learning = Catastrophic Forgetting?",
-    "x": 106.80242556831107,
-    "y": -64.94799375442919
+    "x": 109.36568378195054,
+    "y": -66.5067456045355
    },
    {
     "id": "kc-515fe243a5",
@@ -1994,8 +1994,8 @@
     "source_type": "arXiv",
     "source_url": "https://openalex.org/W3123422770",
     "source_title": "Does Continual Learning = Catastrophic Forgetting?",
-    "x": 120.36466091847488,
-    "y": -33.72459639462815
+    "x": 123.25341278051827,
+    "y": -34.53398670809923
    },
    {
     "id": "kc-90a600bf18",
@@ -2007,7 +2007,7 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1002/eng2.12854/v2/review1",
     "source_title": "Review for \"Preserving node similarity adversarial learning graph representation with graph neural network\"",
-    "x": 118.0,
+    "x": 105.0,
     "y": 0.0
    },
    {
@@ -2020,8 +2020,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.68159/e795301159",
     "source_title": "Graph Neural Networks for Materials Property Prediction: A Decadal Review of Advances and Limits",
-    "x": 106.31432641248546,
-    "y": 51.19828121587186
+    "x": 94.60173112975401,
+    "y": 45.5577926073436
    },
    {
     "id": "kc-cfb830afc0",
@@ -2033,8 +2033,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.20517/jmi.2025.42",
     "source_title": "Advances in graph neural networks for alloy design and properties predictions: a review",
-    "x": 73.57179661933057,
-    "y": 92.25611493122751
+    "x": 65.46642919516702,
+    "y": 82.09230565914314
    },
    {
     "id": "kc-54e3070b92",
@@ -2046,8 +2046,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.20517/jmi.2025.42",
     "source_title": "Advances in graph neural networks for alloy design and properties predictions: a review",
-    "x": 26.257470206845106,
-    "y": 115.04149363745519
+    "x": 23.364698065413016,
+    "y": 102.36743077909148
    },
    {
     "id": "kc-774b24955f",
@@ -2059,8 +2059,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/access.2024.3354809",
     "source_title": "A Systematic Review of Graph Neural Network in Healthcare-Based Applications: Recent Advances, Trends, and Future Directions",
-    "x": -26.257470206845092,
-    "y": 115.04149363745519
+    "x": -23.364698065413005,
+    "y": 102.36743077909148
    },
    {
     "id": "kc-f8917c215a",
@@ -2072,8 +2072,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.1109/access.2024.3354809",
     "source_title": "A Systematic Review of Graph Neural Network in Healthcare-Based Applications: Recent Advances, Trends, and Future Directions",
-    "x": -73.57179661933056,
-    "y": 92.25611493122753
+    "x": -65.46642919516701,
+    "y": 82.09230565914314
    },
    {
     "id": "kc-00fc58d407",
@@ -2085,8 +2085,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3389/fnins.2025.1623141",
     "source_title": "Graph neural networks in Alzheimer's disease diagnosis: a review of unimodal and multimodal advances",
-    "x": -106.31432641248544,
-    "y": 51.19828121587187
+    "x": -94.601731129754,
+    "y": 45.557792607343615
    },
    {
     "id": "kc-609ef7f963",
@@ -2098,8 +2098,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.3389/fnins.2025.1623141",
     "source_title": "Graph neural networks in Alzheimer's disease diagnosis: a review of unimodal and multimodal advances",
-    "x": -118.0,
-    "y": 1.4450832229938766e-14
+    "x": -105.0,
+    "y": 1.2858791391047208e-14
    },
    {
     "id": "kc-3bf9581371",
@@ -2111,8 +2111,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.52202/075280-0138",
     "source_title": "GraphMP: Graph Neural Network-based Motion Planning with Efficient Graph Search",
-    "x": -106.31432641248546,
-    "y": -51.198281215871845
+    "x": -94.60173112975401,
+    "y": -45.55779260734359
    },
    {
     "id": "kc-8ad7f1d7f4",
@@ -2124,8 +2124,8 @@
     "source_type": "Crossref",
     "source_url": "https://doi.org/10.52202/068431-0427",
     "source_title": "Geodesic Graph Neural Network for Efficient Graph Representation Learning",
-    "x": -73.57179661933058,
-    "y": -92.2561149312275
+    "x": -65.46642919516704,
+    "y": -82.09230565914312
    },
    {
     "id": "kc-0a4e13ce9a",
@@ -2137,8 +2137,8 @@
     "source_type": "Hacker News",
     "source_url": "https://deepmind.com/blog/article/traffic-prediction-with-advanced-graph-neural-networks",
     "source_title": "Deepmind improves the accuracy of ETAs in Google Maps",
-    "x": -26.25747020684512,
-    "y": -115.04149363745519
+    "x": -23.36469806541303,
+    "y": -102.36743077909148
    },
    {
     "id": "kc-52e64794c9",
@@ -2150,8 +2150,8 @@
     "source_type": "Hacker News",
     "source_url": "https://deepmind.com/blog/article/traffic-prediction-with-advanced-graph-neural-networks",
     "source_title": "Traffic Prediction with Advanced Graph Neural Networks",
-    "x": 26.257470206844975,
-    "y": -115.04149363745522
+    "x": 23.3646980654129,
+    "y": -102.3674307790915
    },
    {
     "id": "kc-3a861aa129",
@@ -2163,8 +2163,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=30643520",
     "source_title": "Launch HN: Tensil (YC S19) – Open-Source ML Accelerators",
-    "x": 73.57179661933054,
-    "y": -92.25611493122753
+    "x": 65.46642919516701,
+    "y": -82.09230565914314
    },
    {
     "id": "kc-c90cf66db0",
@@ -2176,8 +2176,8 @@
     "source_type": "Hacker News",
     "source_url": "https://news.ycombinator.com/item?id=30643520",
     "source_title": "Launch HN: Tensil (YC S19) – Open-Source ML Accelerators",
-    "x": 106.31432641248549,
-    "y": -51.19828121587179
+    "x": 94.60173112975403,
+    "y": -45.557792607343536
    },
    {
     "id": "kc-8a0e82af5f",
@@ -2189,7 +2189,7 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/suleymanibis0/dracula",
     "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
-    "x": 118.0,
+    "x": 141.0,
     "y": 0.0
    },
    {
@@ -2202,8 +2202,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/suleymanibis0/dracula",
     "source_title": "Show HN: Dracula-AI – A lightweight, async SQLite-backed Gemini wrapper",
-    "x": 102.19099764656377,
-    "y": 58.99999999999999
+    "x": 122.10958193360585,
+    "y": 70.49999999999999
    },
    {
     "id": "kc-7745efe221",
@@ -2215,8 +2215,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
     "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
-    "x": 59.000000000000014,
-    "y": 102.19099764656376
+    "x": 70.50000000000001,
+    "y": 122.10958193360584
    },
    {
     "id": "kc-ce52db2358",
@@ -2228,8 +2228,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/72587182/how-to-run-an-asyncio-websockets-server-in-a-separate-thread-error-there-is#answer-72587323",
     "source_title": "How to run an asyncio/websockets server in a separate thread: ERROR: -> There is no current event loop in thread",
-    "x": 7.225416114969383e-15,
-    "y": 118.0
+    "x": 8.63375993398884e-15,
+    "y": 141.0
    },
    {
     "id": "kc-5fa4663d51",
@@ -2241,8 +2241,8 @@
     "source_type": "Hacker News",
     "source_url": "https://temporal.io/blog/durable-distributed-asyncio-event-loop",
     "source_title": "Temporal Python – A durable, distributed asyncio event loop (2023)",
-    "x": -58.99999999999997,
-    "y": 102.19099764656377
+    "x": -70.49999999999997,
+    "y": 122.10958193360585
    },
    {
     "id": "kc-a9b5005224",
@@ -2254,8 +2254,8 @@
     "source_type": "Hacker News",
     "source_url": "https://github.com/Feverup/aiocop",
     "source_title": "Aiocop: Non-intrusive monitoring for Python asyncio event loop blocks",
-    "x": -102.19099764656377,
-    "y": 58.99999999999999
+    "x": -122.10958193360585,
+    "y": 70.49999999999999
    },
    {
     "id": "kc-63d6e3473d",
@@ -2267,8 +2267,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
     "source_title": "Implementing REST API in Python with existing asyncio event loop",
-    "x": -118.0,
-    "y": 1.4450832229938766e-14
+    "x": -141.0,
+    "y": 1.726751986797768e-14
    },
    {
     "id": "kc-275c1daaea",
@@ -2280,8 +2280,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/40612638/implementing-rest-api-in-python-with-existing-asyncio-event-loop#answer-40614791",
     "source_title": "Implementing REST API in Python with existing asyncio event loop",
-    "x": -102.19099764656379,
-    "y": -58.999999999999964
+    "x": -122.10958193360587,
+    "y": -70.49999999999996
    },
    {
     "id": "kc-42931f927d",
@@ -2293,8 +2293,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
     "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
-    "x": -59.00000000000005,
-    "y": -102.19099764656373
+    "x": -70.50000000000006,
+    "y": -122.10958193360581
    },
    {
     "id": "kc-cc73604a11",
@@ -2306,8 +2306,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/46093238/python-asyncio-event-loop-does-not-seem-to-stop-when-stop-method-is-called#answer-46097639",
     "source_title": "Python asyncio: event loop does not seem to stop when stop method is called",
-    "x": -2.167624834490815e-14,
-    "y": -118.0
+    "x": -2.590127980196652e-14,
+    "y": -141.0
    },
    {
     "id": "kc-b49c2f806d",
@@ -2319,8 +2319,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
     "source_title": "how to measure python asyncio event loop metrics?",
-    "x": 59.000000000000014,
-    "y": -102.19099764656376
+    "x": 70.50000000000001,
+    "y": -122.10958193360584
    },
    {
     "id": "kc-e4a0ef852a",
@@ -2332,8 +2332,8 @@
     "source_type": "Stack Overflow",
     "source_url": "https://stackoverflow.com/questions/54100516/how-to-measure-python-asyncio-event-loop-metrics#answer-54104723",
     "source_title": "how to measure python asyncio event loop metrics?",
-    "x": 102.19099764656373,
-    "y": -59.00000000000005
+    "x": 122.10958193360581,
+    "y": -70.50000000000006
    }
   ],
   "edges": [
@@ -4690,8 +4690,8 @@
   }
  ],
  "cloud": {
-  "updated": 1794886870.6465058,
-  "runner": "44011841622",
+  "updated": 1794918738.9496171,
+  "runner": "44083900636",
   "repo": "zacrisy/open-net-agent"
  }
 }
